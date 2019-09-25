@@ -1,0 +1,354 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>Bootstrap 101 Template</title>
+
+
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+
+
+<style>
+#board {
+  width: 100%;
+  /*height: 100%;*/
+  height:100vh;
+  position: relative;
+  overflow: hidden;
+  background-color: rgb(245,247,250);
+}
+.card {
+  width: 320px;
+  height: 320px;
+  width:65vw;
+  height: 70vh;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  border-radius: 1%;
+  box-shadow: 0px 4px 4px 0px rgba(0,0,0,0.1);
+  background-color: white;
+  transform: translateX(-50%) translateY(-50%);
+  background: no-repeat;
+  background: center;
+}
+@media only screen and (max-width: 600px) {
+  .card {
+    width: 90%;
+	
+  }
+}
+.card div{
+    top: 60%;
+    position: relative;
+    display: block;
+    text-align: center;
+}
+.card span{
+    
+    background: red;
+	line-height: 28px;
+	padding: 10px;
+}
+</style>
+  </head>
+  <body>
+    <div id="board">
+    <div class="card"></div>
+  </div>
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha384-nvAa0+6Qg9clwYCGGPpDQLVpLNn0fRaROjHqs13t4Ggj3Ez50XnGQqc/r8MhnRDZ" crossorigin="anonymous"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>
+      <script src="https://hammerjs.github.io/dist/hammer.min.js"></script>
+<script>
+
+var glb_list =[];
+var glb_int_tag =0;
+
+class Carousel {
+    
+    constructor(element) {
+        
+        this.board = element
+        
+        // add first two cards programmatically
+        this.push()
+        this.push()
+        
+        // handle gestures
+        this.handle()
+        
+    }
+    
+    handle() {
+        
+        // list all cards
+        this.cards = this.board.querySelectorAll('.card')
+        
+        // get top card
+        this.topCard = this.cards[this.cards.length-1]
+        
+        // get next card
+        this.nextCard = this.cards[this.cards.length-2]
+        
+        // if at least one card is present
+        if (this.cards.length > 0) {
+            
+            // set default top card position and scale
+            this.topCard.style.transform = 'translateX(-50%) translateY(-50%) rotate(0deg) rotateY(0deg) scale(1)'
+            
+            // destroy previous Hammer instance, if present
+            if (this.hammer) this.hammer.destroy()
+            
+            // listen for tap and pan gestures on top card
+            this.hammer = new Hammer(this.topCard)
+            this.hammer.add(new Hammer.Tap())
+            this.hammer.add(new Hammer.Pan({ position: Hammer.position_ALL, threshold: 0 }))
+            
+            // pass events data to custom callbacks
+            this.hammer.on('tap', (e) => { this.onTap(e) })
+            this.hammer.on('pan', (e) => { this.onPan(e) })
+            
+        }
+        
+    }
+    
+    onTap(e) {
+        
+        // get finger position on top card
+        let propX = (e.center.x - e.target.getBoundingClientRect().left) / e.target.clientWidth
+        
+        // get degree of Y rotation (+/-15 degrees)
+        let rotateY = 15 * (propX < 0.05 ? -1 : 1)
+        
+        // change the transition property
+        this.topCard.style.transition = 'transform 100ms ease-out'
+        
+        // rotate
+        this.topCard.style.transform = 'translateX(-50%) translateY(-50%) rotate(0deg) rotateY(' + rotateY + 'deg) scale(1)'
+        
+        // wait transition end
+        setTimeout(() => {
+            // reset transform properties
+            this.topCard.style.transform = 'translateX(-50%) translateY(-50%) rotate(0deg) rotateY(0deg) scale(1)'
+        }, 100)
+        
+    }
+    
+    onPan(e) {
+        
+        if (!this.isPanning) {
+            
+            this.isPanning = true
+            
+            // remove transition properties
+            this.topCard.style.transition = null
+            if (this.nextCard) this.nextCard.style.transition = null
+            
+            // get top card coordinates in pixels
+            let style = window.getComputedStyle(this.topCard)
+            let mx = style.transform.match(/^matrix\((.+)\)$/)
+            this.startPosX = mx ? parseFloat(mx[1].split(', ')[4]) : 0
+            this.startPosY = mx ? parseFloat(mx[1].split(', ')[5]) : 0
+            
+            // get top card bounds
+            let bounds = this.topCard.getBoundingClientRect()
+            
+            // get finger position on top card, top (1) or bottom (-1)
+            this.isDraggingFrom = (e.center.y - bounds.top) > this.topCard.clientHeight / 2 ? -1 : 1
+            
+        }
+        
+        // calculate new coordinates
+        let posX = e.deltaX + this.startPosX
+        let posY = e.deltaY + this.startPosY
+        
+        // get ratio between swiped pixels and the axes
+        let propX = e.deltaX / this.board.clientWidth
+        let propY = e.deltaY / this.board.clientHeight
+        
+        // get swipe direction, left (-1) or right (1)
+        let dirX = e.deltaX < 0 ? -1 : 1
+        
+        // calculate rotation, between 0 and +/- 45 deg
+        let deg = this.isDraggingFrom * dirX * Math.abs(propX) * 45
+        
+        // calculate scale ratio, between 95 and 100 %
+        let scale = (95 + (5 * Math.abs(propX))) / 100
+        
+        // move top card
+        this.topCard.style.transform = 'translateX(' + posX + 'px) translateY(' + posY + 'px) rotate(' + deg + 'deg) rotateY(0deg) scale(1)'
+        
+        // scale next card
+        if (this.nextCard) this.nextCard.style.transform = 'translateX(-50%) translateY(-50%) rotate(0deg) rotateY(0deg) scale(' + scale + ')'
+        
+        if (e.isFinal) {
+            
+            this.isPanning = false
+            
+            let successful = false
+            
+            // set back transition properties
+            this.topCard.style.transition = 'transform 200ms ease-out'
+            if (this.nextCard) this.nextCard.style.transition = 'transform 100ms linear'
+            
+            // check threshold
+            if (propX > 0.25 && e.direction == Hammer.DIRECTION_RIGHT) {
+      
+                successful = true
+                // get right border position
+                posX = this.board.clientWidth
+       
+            } else if (propX < -0.25 && e.direction == Hammer.DIRECTION_LEFT) {
+      
+                successful = true
+                // get left border position
+                posX = - (this.board.clientWidth + this.topCard.clientWidth)
+       
+            } else if (propY < -0.25 && e.direction == Hammer.DIRECTION_UP) {
+      
+                successful = true
+                // get top border position
+                posY = - (this.board.clientHeight + this.topCard.clientHeight)
+      
+            }
+            
+            if (successful) {
+    
+                // throw card in the chosen direction
+                this.topCard.style.transform = 'translateX(' + posX + 'px) translateY(' + posY + 'px) rotate(' + deg + 'deg)'
+            
+                // wait transition end
+                setTimeout(() => {
+                    // remove swiped card
+                    this.board.removeChild(this.topCard)
+                    // add new card
+                    this.push()
+                    // handle gestures on new top card
+                    this.handle()
+                }, 200)
+            
+            } else {
+      
+                // reset cards position
+                this.topCard.style.transform = 'translateX(-50%) translateY(-50%) rotate(0deg) rotateY(0deg) scale(1)'
+                if (this.nextCard) this.nextCard.style.transform = 'translateX(-50%) translateY(-50%) rotate(0deg) rotateY(0deg) scale(0.95)'
+      
+            }
+    
+        }
+        
+    }
+    
+    push() {
+        
+        let card = document.createElement('div')
+        card.classList.add('card')
+        
+        card.style.backgroundImage = "url('https://picsum.photos/520/650/?random=" + Math.round(Math.random()*1000000) + "')"
+		var strtext = '';
+		strtext = Math.round(Math.random()*1000000);
+		strtext = glb_list[glb_int_tag]
+		if(strtext ==undefined) strtext =''
+		glb_int_tag++
+		if(glb_int_tag == glb_list.length)
+			glb_int_tag =0
+		card.innerHTML  ="<div><span>Hi ze "+ strtext +"</span></div>" 
+        
+        if (this.board.firstChild) {
+            this.board.insertBefore(card, this.board.firstChild)
+        } else {
+            this.board.append(card)
+        }
+        
+    }
+    
+}
+
+get_data();
+function get_data(){
+/*
+	$.ajax(
+    {
+      method: 'GET',
+      //contentType: 'application/json',
+	  dataType:'Json',
+      url: 'http://jsonpublic.com/view/jgnhqY1569391046',
+      data:null,
+      beforeSend: function (xhr) {
+        //xhr.setRequestHeader ('Authorization', 'Basic xxxx');
+      },
+    })
+    .done(function( data, textStatus, jqXHR ) {
+      // do something here...
+	  console.log(jqXHR)
+    })
+    .fail(function( jqXHR, textStatus, errMsg ){
+      // do something here...
+    });
+	*/
+	/*
+	$.ajax({url: "http://jsonpublic.com/view/jgnhqY1569391046", success: function(result){
+      //$("#div1").html(result);
+	  console.log(result)
+    }});
+	*/
+	
+	
+	$.ajax({
+    url: 'data.json',
+    headers: {
+        'Content-Type': 'application/x-www-form-urlencoded'
+    },
+    type: "GET",  //or type:"GET" or type:"PUT"
+    dataType: "json",
+    data: {
+    },
+    success: function (result) {
+        console.log(result);   
+		glb_list =result
+    },
+    error: function () {
+        console.log("error");
+    }
+});
+
+/*
+$.ajax({
+     url:"https://jsonblob.com/ca5971f4-df5e-11e9-93db-b9452bf97211",
+     dataType: 'jsonp', // Notice! JSONP <-- P (lowercase)
+     success:function(json){
+         // do stuff with json (in this case an array)
+         alert("Success");
+     },
+     error:function(r){
+         alert("Error");
+		 console.log(r)
+     }      
+});
+*/
+
+}
+
+var board = document.querySelector('#board')
+
+var carousel = new Carousel(board)
+</script>
+  
+</body>
+</html>
