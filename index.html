@@ -1,67 +1,141 @@
-
 <!DOCTYPE html>
 <html>
+
 <head>
-<title>Real-time HTML Editor</title>
-<script type="text/javascript">
+  <title>Real-time HTML Editor</title>
+  <script src="jquery.min.js"></script>
+  <script type="text/javascript">
 
-var editboxHTML = 
-'<html class="expand close">' +
-'<head>' +
-'<style type="text/css">' +
-'.expand { width: 100%; height: 100%; }' +
-'.close { border: none; margin: 0px; padding: 0px; }' +
-'html,body { overflow: hidden; }' +
-'<\/style>' +
-'<\/head>' +
-'<body class="expand close" onload="document.f.ta.focus(); document.f.ta.select();">' +
-'<form class="expand close" name="f">' +
-'<textarea class="expand close" style="background: #def;" name="ta" wrap="hard" spellcheck="false">' +
-'<\/textarea>' +
-'<\/form>' +
-'<\/body>' +
-'<\/html>';
+    var editboxHTML =
+      '<html class="expand close">' +
+      '<head>' +
+      '<style type="text/css">' +
+      '.expand { width: 100%; height: 100%; }' +
+      '.close { border: none; margin: 0px; padding: 0px; }' +
+      '.c-save { position: absolute; background: #3F51B5; color: white; padding: 3px; right: 0; top: 0; }' +
+      '.overlay{position:fixed;top:0;bottom:0;left:0;right:0;background:rgba(0,0,0,.7);transition:opacity .5s;visibility:hidden;opacity:0}.overlay:target{visibility:visible;opacity:1}.overlay .popup{margin:70px auto;padding:20px;background:#fff;border-radius:5px;width:30%;position:relative;transition:all 5s ease-in-out}.overlay .popup h2{margin-top:0;color:#333;font-family:Tahoma,Arial,sans-serif}.overlay .popup .close{position:absolute;top:20px;right:30px;transition:all .2s;font-size:30px;font-weight:700;text-decoration:none;color:#333}.overlay .popup .close:hover{color:#06d85f}.overlay .popup .content{max-height:30%;overflow:auto}@media screen and (max-width:700px){.overlay .popup{width:70%}}' +
+      '#gorun{margin-top: 20px; font-weight: bold; font-style: italic;}'+
+      '.c-save:hover,a:hover{cursor: pointer;}'+
+      'html,body { overflow: hidden; }' +
+      '<\/style>' +
+      '<\/head>' +
+      '<body class="expand close" onload="document.f.ta.focus(); document.f.ta.select();">' +
+      '<form class="expand close" name="f">' +
+      '<textarea class="expand close" style="background: #def;" name="ta" wrap="hard" spellcheck="false">' +
+      '<\/textarea><div class="c-save" id="runsave">save</div>' +
+      '<\/form>' +
 
-var defaultStuff = '<h3>Welcome to the real-time HTML editor!<\/h3>\n' +
-'<p>Type HTML in the textarea above, and it will magically appear in the frame below.<\/p>';
+      '<div id="popup1" class="overlay">' +
+      '<div class="popup">' +
+      '		<h2>Here i am<\/h2>' +
+      '		<a class="close" href="#">&times;<\/a>' +
+      '	   <div class="content">' +
+      '			Thank to use click here to see' +
+      '   <div id="gorun"><\/div>'
+      '		<\/div>' +
+      '	<\/div>' +
+      '<\/div>' +
+      
+      '<\/body>' +
+      '<\/html>';
 
-// I don't want this stuff to appear in the box at the top because I feel it's likely to be distracting.
-var extraStuff = '';
+    var defaultStuff = '<h3>Welcome to the real-time HTML editor!<\/h3>\n' +
+      '<p>Type HTML in the textarea above, and it will magically appear in the frame below.<\/p>';
 
-var old = '';
-         
-function init()
-{
-  window.editbox.document.write(editboxHTML);
-  window.editbox.document.close();
-  window.editbox.document.f.ta.value = defaultStuff;
-  update();
-}
+    // I don't want this stuff to appear in the box at the top because I feel it's likely to be distracting.
+    var extraStuff = '';
 
-function update()
-{
-  var textarea = window.editbox.document.f.ta;
-  var d = dynamicframe.document; 
+    var old = '';
 
-  if (old != textarea.value) {
-    old = textarea.value;
-    d.open();
-    d.write(old);
-    if (old.replace(/[\r\n]/g,'') == defaultStuff.replace(/[\r\n]/g,''))
-      d.write(extraStuff);
-    d.close();
-  }
+    function init() {
+      window.editbox.document.write(editboxHTML);
+      window.editbox.document.close();
+      window.editbox.document.f.ta.value = defaultStuff;
+      window.editbox.document.f.ta.value = defaultStuff;
 
-  window.setTimeout(update, 150);
-}
+      update();
 
-</script>
+      var select_click = window.editbox.document.getElementById("runsave")
+      var current_window =window.editbox.document
+      select_click.onclick = function () {
+        // console.log(old)
+        send_data(old, current_window)
+      }
+    }
+    var is_load = false
+    function send_data(datasend,current_window) {
+      var select_click =current_window.getElementById("runsave")
+      //alert('123')
+      if (is_load) return
+      var data_in = {};
+      data_in.content = datasend;
+      is_load = true
+      $.ajax(
+        {
+          method: 'POST',
+          //contentType: 'application/json',
+          dataType: 'Json',
+          url: 'https://public.03way.com/sendedata',
+          data: data_in,
+          beforeSend: function (xhr) {
+            select_click.innerHTML = 'loading...'
+            //xhr.setRequestHeader ('Authorization', 'Basic xxxx');
+          },
+        })
+        .done(function (data, textStatus, jqXHR) {
+          // do something here...
+          //console.log(jqXHR.responseJSON.id)
+          select_click.innerHTML = 'done'
+          window.setTimeout(function(){select_click.innerHTML = 'save';}, 150);
+          is_load = false
+          //window.editbox.document.getElementById('popup1').scrollIntoView();
+          //var el = current_window.getElementById('popup1');
+          //el.onclick();
+          
+          var lik = 'view.html?id='+jqXHR.responseJSON.id;
+          var al = current_window.getElementById('link_go'); //or grab it by tagname etc
+          var gorun = current_window.getElementById('gorun'); //or grab it by tagname etc
+         // al.href = lik
+         contenvt = '<a onclick=" window.open(&#39;'+lik+'&#39;)">Link view<a/>';
+          gorun.innerHTML = contenvt;
+          //window.open(lik);
+
+
+          current_window.location.href = "#popup1";//open
+
+        })
+        .fail(function (jqXHR, textStatus, errMsg) {
+          is_load = false
+          // do something here...
+          select_click.innerHTML = 'false...'
+        });
+    }
+
+    function update() {
+      var textarea = window.editbox.document.f.ta;
+      var d = dynamicframe.document;
+
+      if (old != textarea.value) {
+        old = textarea.value;
+        d.open();
+        d.write(old);
+        if (old.replace(/[\r\n]/g, '') == defaultStuff.replace(/[\r\n]/g, ''))
+          d.write(extraStuff);
+        d.close();
+        //console.log('run1')
+      }
+      //console.log('run')
+      window.setTimeout(update, 150);
+    }
+
+  </script>
 </head>
 
 <frameset resizable="yes" rows="50%,*" onload="init();">
   <!-- about:blank confuses opera, so use javascript: URLs instead -->
   <frame name="editbox" src="javascript:'';">
-  <frame name="dynamicframe" src="javascript:'';">
+
+    <frame name="dynamicframe" src="javascript:'';">
 </frameset>
 
 </html>
