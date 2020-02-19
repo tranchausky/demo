@@ -67,13 +67,18 @@
         send_data(old, current_window)
       }
     }
+    function removespace(str){
+	//return str
+	  return str.replace(/>\s+</g, "><");
+		}
     var is_load = false
     function send_data(datasend,current_window) {
       var select_click =current_window.getElementById("runsave")
       //alert('123')
       if (is_load) return
       var data_in = {};
-      data_in.content = datasend;
+      //data_in.content = datasend;
+      data_in.content = removespace(datasend);
       is_load = true
       $.ajax(
         {
