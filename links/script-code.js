@@ -1,5 +1,6 @@
 $(document).ready(function() {
-    $('#start-content').css('margin-top', 120);
+    var height = $('.navbar-header').height();
+    $('#start-content').css('margin-top', height);
 
 });
 

@@ -4,7 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+
+    <title>Link DashBoard</title>
     <link rel="stylesheet" href="bootstrap.min.css">
     <link rel="stylesheet" href="style.css">
 </head>
@@ -12,21 +13,31 @@
 <body>
     <div id="start-content"></div>
     <div class="container">
+
+
+
         <nav class="navbar navbar-inverse navbar-fixed-top">
             <div class="container">
                 <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                      </button>
                     <a class="navbar-brand" href="#">Save Link DashBoard</a>
                 </div>
-                <ul class="nav navbar-nav">
-                    <li class="active"><a href="#">Home</a></li>
+                <div class="collapse navbar-collapse" id="myNavbar">
+                    <ul class="nav navbar-nav">
+                        <li class="active"><a href="#">Home</a></li>
 
-                </ul>
-                <ul class="nav navbar-nav navbar-right">
-                    <li class="show-signout">
-                        <a id="email_login"></a>
-                    </li>
-                    <li class="show-signout"><a class="signout" href="#">Logout</a></li>
-                </ul>
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li class="show-signout">
+                            <a id="email_login"></a>
+                        </li>
+                        <li class="show-signout"><a class="signout" href="#">Logout</a></li>
+                    </ul>
+                </div>
 
             </div>
         </nav>
