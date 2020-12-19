@@ -1,0 +1,16 @@
+.list-group {
+    height: 100vh;
+    overflow: auto;
+}
+
+.list-group-item .lead {
+    margin-bottom: 0;
+}
+
+.list-group-item * {
+    font-size: 12px;
+}
+
+.show-signout {
+    display: none;
+}
