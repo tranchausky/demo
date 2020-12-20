@@ -101,7 +101,13 @@
                                 <h3>Category</h3>
                                 <div class="form-group">
                                     <label for="city">Category</label>
-                                    <input type="text" class="form-control" id="city" placeholder="Enter Category">
+                                    <select name="city" id="city" class="form-control list-select-option">
+                                        <optgroup label="Working">
+                                        <option value="1">Working</option>
+                                        <option value="saab">Saab</option>
+                                      </optgroup>
+                                    </select>
+                                    <!-- <input type="text" class="form-control" id="city1" placeholder="Enter Category"> -->
                                 </div>
                                 <div class="form-group">
                                     <label for="state">Tag</label>
@@ -116,6 +122,8 @@
 
                         </div>
                         <div class="col-sm-6">
+                            <p>List Length <span id="size-list"></span></p>
+                            <p id="nextPage" onclick="getNextPage()">last</p>
                             <ul id="contacts" class="list-group">
                                 <!-- Contact Object li.list-group-item.contact will be added here by js -->
                             </ul>

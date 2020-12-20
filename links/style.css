@@ -1,5 +1,5 @@
 .list-group {
-    height: 100vh;
+    height: 80vh;
     overflow: auto;
 }
 
@@ -13,4 +13,13 @@
 
 .nav .show-signout {
     display: none;
+}
+
+.list-group-item a {
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    width: 100%;
+    overflow: hidden;
 }

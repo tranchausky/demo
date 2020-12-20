@@ -253,7 +253,7 @@ function loadData() {
             $('#contacts').append(contactHtmlFromObject(snap.val()));
         });
         */
-    contactsRef.orderBy('time').limit(pageLength).on("child_added", function(snap) {
+    contactsRef.orderByChild('userId').equalTo(user_ID).limitToFirst(pageLength).on("child_added", function(snap) {
             console.log("added", snap.key, snap.val());
             // //console.log(snap.val())
             // lengthSize++
