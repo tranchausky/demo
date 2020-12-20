@@ -243,16 +243,17 @@ function loadData() {
     //load older conatcts as well as any newly added one...
 
     var previousLastKey = ''
-        /*
-        contactsRef.orderByChild('userId').equalTo(user_ID).limitToFirst(pageLength).startAt(snap.key, previousLastKey).on("child_added", function(snap) {
-            console.log("added", snap.key, snap.val());
-            //console.log(snap.val())
-            lengthSize++
-            console.log(lengthSize)
-            $('#size-list').html(lengthSize)
-            $('#contacts').append(contactHtmlFromObject(snap.val()));
-        });
-        */
+
+    contactsRef.orderByChild('userId').equalTo(user_ID).on("child_added", function(snap) {
+        console.log("added", snap.key, snap.val());
+        //console.log(snap.val())
+        lengthSize++
+        console.log(lengthSize)
+        $('#size-list').html(lengthSize)
+        $('#contacts').append(contactHtmlFromObject(snap.val()));
+    });
+
+    /*
     contactsRef.orderBy('time').limit(pageLength).on("child_added", function(snap) {
             console.log("added", snap.key, snap.val());
             // //console.log(snap.val())
@@ -268,6 +269,7 @@ function loadData() {
         })
         // console.log(data)
         // showContent(data)
+        */
 }
 
 function showContent(data) {
