@@ -473,11 +473,12 @@ function getAllCalendar() {
     calendarsRef.orderByChild('date').startAt(first).endAt(end).on("value", function(snapshot) {
         console.log(snapshot.val());
         allCalendar = snapshot.val()
-            // console.log(typeof allCalendar)
-            // var output =  allCalendar.filter(employee => employee.date == "12/12/2012"); 
-            // console.log(output)
-            // var startDate = 1;
-            // var atday = $('#date-at').val()
+
+        // console.log(typeof allCalendar)
+        // var output =  allCalendar.filter(employee => employee.date == "12/12/2012"); 
+        // console.log(output)
+        // var startDate = 1;
+        // var atday = $('#date-at').val()
         for (var key in allCalendar) {
             // console.log(allCalendar[key])
             var dataAt = allCalendar[key]
@@ -527,6 +528,11 @@ function getAllCalendar() {
 }
 
 function buildListCalendar(dataIn) {
+
+    if (dataIn != undefined) {
+        $('#monthyear').append('<sup>(' + Object.keys(dataIn).length + ')</sup>')
+    }
+
     dataIn = sortobjkey(dataIn, 'date')
 
     var str = '';
