@@ -42,3 +42,7 @@
     font-family: initial;
     white-space: pre-wrap;
 }
+
+.forms-in button {
+    margin-top: 5px;
+}
