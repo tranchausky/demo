@@ -1,0 +1,57 @@
+.calendar * {
+  margin: 0;
+  padding: 0;
+}
+
+.calendar>div>div{
+    padding: 10px;
+}
+
+.calendar .row {
+  margin-top: 10px;
+}
+
+.calendar .prev-month,
+.calendar .next-month
+{
+	padding: 8px;
+    border: 1px solid;
+}
+.calendar .prev-month:hover,
+.calendar .next-month:hover{
+	cursor: pointer;
+}
+
+
+.calendar th {
+  height: 30px;
+  text-align: center;
+  font-weight: 700;
+}
+
+.calendar td {
+  height: 100px;
+}
+
+.calendar .today {
+  background-color: gray;
+}
+
+.calendar th:nth-of-type(7),
+.calendar td:nth-of-type(7) {
+  font-weight: bold;
+}
+
+.calendar th:nth-of-type(1),
+.calendar td:nth-of-type(1) {
+  font-weight: bold;
+}
+.tb-calendar tr td.at{
+    background-color: #d890bb;
+}
+.tb-calendar tr td.had{
+    border-color: red;
+}
+.none{
+    display: ;
+}
