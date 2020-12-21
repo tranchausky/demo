@@ -23,6 +23,22 @@
     width: 100%;
     overflow: hidden;
 }
-.list-calendar{
+
+.list-calendar {
     margin-left: 30px;
+}
+
+.none {
+    display: none;
+}
+
+.right {
+    float: right;
+}
+
+.list-calendar pre {
+    word-break: break-word;
+    display: contents;
+    font-family: initial;
+    white-space: pre-wrap;
 }

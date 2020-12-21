@@ -1,7 +1,7 @@
-$(document).ready(function () {
+$(document).ready(function() {
     var height = $('.navbar-header').height();
     $('#start-content').css('margin-top', height);
-    $('#myNavbar a').click(function () {
+    $('#myNavbar a').click(function() {
 
         if (user_ID == '') {
             alert('Need Login First')
@@ -30,33 +30,41 @@ $(document).ready(function () {
     })
 
     //calendar reload 
-    $('.prev-month,.next-month').click(function(){
+    $('.prev-month,.next-month').click(function() {
         getAllCalendar()
     })
 });
 
-function checkDetailCalendar(at){
+function checkDetailCalendar(at) {
     var attrDate = $(at).attr('data-day')
-        if (attrDate == undefined) return
-        $('#tb-calendar tr td').removeClass('at')
-        $(at).addClass('at')
+    if (attrDate == undefined) return
 
-        // console.log($(this).attr('data-day'))
-        // alert(attrDate)
-        $('#date-at').val(attrDate)
-        getCalendarDate(attrDate)
-        if ($(at).hasClass('had')) {
-            $('#btnAddCalen').hide()
-            $('#btnUpdateCalen').show()
-            var temp = returnDateDatainALl(attrDate)
-            keyCalendar = temp[1]
-            $('#date-content').val(temp[0].content)
+    $('.calendar-event').show()
 
-        } else {
-            $('#btnAddCalen').show()
-            $('#btnUpdateCalen').hide()
-            $('#date-content').val('')
-        }
+    $('#tb-calendar tr td').removeClass('at')
+    $(at).addClass('at')
+
+    // console.log($(this).attr('data-day'))
+    // alert(attrDate)
+    $('#date-at').val(attrDate)
+    getCalendarDate(attrDate)
+    if ($(at).hasClass('had')) {
+        $('#btnAddCalen').hide()
+        $('#btnUpdateCalen').show()
+
+        var listDate = attrDate.split('/')
+        var dateInt = new Date(listDate[2], listDate[1] - 1, listDate[0]).getTime();
+        console.log('dateInt')
+        console.log(dateInt)
+        var temp = returnDateDatainALl(dateInt)
+        keyCalendar = temp[1]
+        $('#date-content').val(temp[0].content)
+
+    } else {
+        $('#btnAddCalen').show()
+        $('#btnUpdateCalen').hide()
+        $('#date-content').val('')
+    }
 }
 
 
@@ -150,7 +158,7 @@ const register = () => {
     } else {
         auth
             .createUserWithEmailAndPassword(email, password)
-            .catch(function (error) {
+            .catch(function(error) {
                 // Handle Errors here.
                 var errorCode = error.code;
                 var errorMessage = error.message;
@@ -209,7 +217,7 @@ const authenticate = (email, password) => {
     firebase
         .auth()
         .signInWithEmailAndPassword(email, password)
-        .catch(function (error) {
+        .catch(function(error) {
             // Handle Errors here.
             var errorCode = error.code;
             var errorMessage = error.message;
@@ -229,10 +237,10 @@ const signOut = () => {
     firebase
         .auth()
         .signOut()
-        .then(function () {
+        .then(function() {
             location.reload();
         })
-        .catch(function (error) {
+        .catch(function(error) {
             alert("error signing out, check network connection");
         });
 };
@@ -262,10 +270,10 @@ document
 const forgotPassword = (email) => {
     auth
         .sendPasswordResetEmail(email)
-        .then(function () {
+        .then(function() {
             alert("email sent");
         })
-        .catch(function (error) {
+        .catch(function(error) {
             alert("invalid email or bad network connection");
         });
 };
@@ -302,7 +310,7 @@ function loadData() {
 
     var previousLastKey = ''
 
-    contactsRef.orderByChild('userId').equalTo(user_ID).on("child_added", function (snap) {
+    contactsRef.orderByChild('userId').equalTo(user_ID).on("child_added", function(snap) {
         console.log("added", snap.key, snap.val());
         //console.log(snap.val())
         lengthSize++
@@ -342,7 +350,7 @@ function showContent(data) {
 function getNextPage() {
     return
     console.log(user_ID + '---' + last_Key)
-    contactsRef.orderByChild('userId').startAt(user_ID, last_Key).limitToFirst(pageLength).on("child_added", function (snap) {
+    contactsRef.orderByChild('userId').startAt(user_ID, last_Key).limitToFirst(pageLength).on("child_added", function(snap) {
         // console.log("added", snap.key, snap.val());
         // //console.log(snap.val())
         // lengthSize++
@@ -353,7 +361,7 @@ function getNextPage() {
         last = data
         var data = snap.val()
         showContent(data)
-        //return snap.val()
+            //return snap.val()
     })
 }
 
@@ -372,7 +380,7 @@ function prevPage(first) {
 }
 
 //save contact
-$('.addValue').on("click", function (event) {
+$('.addValue').on("click", function(event) {
     event.preventDefault();
     if ($('#name').val() != '' || $('#email').val() != '') {
         contactsRef.push({
@@ -397,25 +405,41 @@ function addCalendar() {
     var date = $('#date-at').val()
     var content = $('#date-content').val()
     calendarsRef = dbRef.ref('calendars/' + 'user_' + user_ID)
+
+    // time: new Date().getTime(),
+    // var monthYear = $('#monthyear').attr("month-year")
+    var listDate = date.split('/')
+    var dateInt = new Date(listDate[2], listDate[1] - 1, listDate[0]).getTime();
+
     calendarsRef.push({
-        date: date,
+        date: dateInt,
         content: content,
         time: new Date().getTime(),
         userId: user_ID
     })
+    $('.calendar-event').hide()
 }
 
 function updateCalendar() {
     var date = $('#date-at').val()
     var content = $('#date-content').val()
     var key = keyCalendar;
-    calendarsRef = dbRef.ref('calendars/' + 'user_' + user_ID + "/"+key)
+
+    var listDate = date.split('/')
+    var dateInt = new Date(listDate[2], listDate[1] - 1, listDate[0]).getTime();
+
+    calendarsRef = dbRef.ref('calendars/' + 'user_' + user_ID + "/" + key)
     calendarsRef.update({
-        date: date,
+        date: dateInt,
         content: content,
         time: new Date().getTime(),
         userId: user_ID
     })
+    $('.calendar-event').hide()
+}
+
+function hideEventCalendar() {
+    $('.calendar-event').hide()
 }
 
 function getAllCalendar() {
@@ -428,37 +452,52 @@ function getAllCalendar() {
     var first = new Date(listDate[1], listDate[0], 1).getTime();
     var end = new Date(listDate[1], listDate[0], lastDate).getTime();
 
-    console.log(first, end)
-    console.log('reaload')
-    alert('reaload')
+
+    console.log(listDate[1], listDate[0], 1)
+    console.log(listDate[1], listDate[0], lastDate)
+
+    console.log('first, end')
+        // console.log('reaload')
+        // alert('reaload')
 
     //calendarsRef.orderByChild('time').startAt(1608531964751).endAt(1608531997520).on("value", function (snapshot) {
-    calendarsRef.orderByChild('time').startAt(first).endAt(end).on("value", function (snapshot) {
+    calendarsRef.orderByChild('date').startAt(first).endAt(end).on("value", function(snapshot) {
         console.log(snapshot.val());
         allCalendar = snapshot.val()
-        // console.log(typeof allCalendar)
-        // var output =  allCalendar.filter(employee => employee.date == "12/12/2012"); 
-        // console.log(output)
-        // var startDate = 1;
-        // var atday = $('#date-at').val()
+            // console.log(typeof allCalendar)
+            // var output =  allCalendar.filter(employee => employee.date == "12/12/2012"); 
+            // console.log(output)
+            // var startDate = 1;
+            // var atday = $('#date-at').val()
         for (var key in allCalendar) {
             // console.log(allCalendar[key])
             var dataAt = allCalendar[key]
             var day = dataAt.date
-            $('#tb-calendar').find('td[data-day="' + day + '"]').addClass('had')
-            // console.log(day)
-            // console.log($('#tb-calendar').find('td[data-day="' + day + '"]'))
+
+            var d = new Date(day);
+            var temp = d.toLocaleDateString();
+
+            var listDate = temp.split('/')
+                //var dateInt = new Date(listDate[2], listDate[1] - 1, listDate[0]).getTime();
+            var dmy = listDate[1] + '/' + listDate[0] + '/' + listDate[2]
+                // console.log(temp)
+                //var listDate = date.split('/')
+                //var dateInt = new Date(listDate[2], listDate[1], listDate[0]).getTime();
+
+            $('#tb-calendar').find('td[data-day="' + dmy + '"]').addClass('had')
+                // console.log(day)
+                // console.log($('#tb-calendar').find('td[data-day="' + day + '"]'))
         }
         // allCalendar.for
         buildListCalendar(allCalendar)
 
         // alert(lastDate)
 
-    }, function (errorObject) {
+    }, function(errorObject) {
         console.log("The read failed: " + errorObject.code);
     });
     return
-    calendarsRef.on("child_added", function (snap) {
+    calendarsRef.on("child_added", function(snap) {
 
 
         //alert(1)
@@ -473,42 +512,68 @@ function getAllCalendar() {
         var data = snap.val()
         allCalendar[snap.key] = {}
         allCalendar[snap.key] = data
-        // allCalendar.push(data)
-        //$('#date-content').text(data.content)
+            // allCalendar.push(data)
+            //$('#date-content').text(data.content)
     })
 }
 
 function buildListCalendar(dataIn) {
-    dataIn = sortobjkey(dataIn,'time')
+    dataIn = sortobjkey(dataIn, 'date')
 
     var str = '';
     for (var key in dataIn) {
         str += '<li>'
-        // console.log(allCalendar[key])
+            // console.log(allCalendar[key])
         var dataAt = dataIn[key]
         var day = dataAt.date
-        // $('#tb-calendar').find('td[data-day="'+day+'"]').addClass('had')
-        // console.log(day)
-        // console.log($('#tb-calendar').find('td[data-day="'+day+'"]'))
-        str += '<p>' + day + '</p>'
-        str += '<p>' + dataAt.content + '</p>'
+            // $('#tb-calendar').find('td[data-day="'+day+'"]').addClass('had')
+            // console.log(day)
+            // console.log($('#tb-calendar').find('td[data-day="'+day+'"]'))
+        var d = new Date(day);
+        var temp = d.toLocaleDateString();
+        var listD = temp.split('/')
+
+        str += '<p>' + listD[1] + '/' + listD[0] + '/' + listD[2] + '</p>'
+        str += '<pre>' + escape(dataAt.content) + '</pre>'
         str += '</li>'
     }
     $('#list-calendar').html(str);
 }
 
+function escape(str) {
+
+    return $('<div>').text(str).html();
+    c = {
+        '<': '&lt;',
+        '>': '&gt;',
+        '&': '&amp;',
+        '"': '&quot;',
+        "'": '&#039;',
+        '#': '&#035;'
+    };
+    return str.replace(/[<&>'"#]/g, function(s) { return c[s]; });
+
+
+    return text.replace(/[<>\&\"\']/g, function(c) {
+        return '&#' + c.charCodeAt(0) + ';';
+    });
+}
+
+
 function sortobjkey(obj, key) {
-    if(obj=={} || obj==undefined || obj=='')return {}
+    if (obj == {} || obj == undefined || obj == '') return {}
     var keys = Object.keys(obj);
-    var kva = keys.map(function (k, i) {
+    var kva = keys.map(function(k, i) {
         return [k, obj[k]];
     });
-    kva.sort(function (a, b) {
-        k = key; if (a[1][k] > b[1][k]) return -1; if (a[1][k] < b[1][k]) return 1;
+    kva.sort(function(a, b) {
+        k = key;
+        if (a[1][k] < b[1][k]) return -1;
+        if (a[1][k] > b[1][k]) return 1;
         return 0
     });
     var o = {}
-    kva.forEach(function (a) { o[a[0]] = a[1] })
+    kva.forEach(function(a) { o[a[0]] = a[1] })
     return o;
 }
 
@@ -519,7 +584,7 @@ function returnDateDatainALl(inDay) {
         var dataAt = allCalendar[key]
         var day = dataAt.date
         if (day == inDay) {
-            return [dataAt,key]
+            return [dataAt, key]
         }
     }
 }
@@ -532,23 +597,23 @@ function getCalendarDate(date) {
     calendarsRef = dbRef.ref('calendars/' + 'user_' + user_ID)
 
     //calendarsRef.orderByChild('date').equalTo(date).limitToFirst(1).on("child_added", function (snap) {
-    calendarsRef.on("child_added", function (snap) {
-        alert(1)
-        console.log("added", snap.key, snap.val());
-        console.log(snap.val())
-        // lengthSize++
-        // console.log(lengthSize)
-        // $('#size-list').html(lengthSize)
-        // $('#contacts').append(contactHtmlFromObject(snap.val()));
-        // last_Key = snap.key
-        // last = data
-        var data = snap.val()
-        $('#date-content').text(data.content)
+    calendarsRef.on("child_added", function(snap) {
+            alert(1)
+            console.log("added", snap.key, snap.val());
+            console.log(snap.val())
+                // lengthSize++
+                // console.log(lengthSize)
+                // $('#size-list').html(lengthSize)
+                // $('#contacts').append(contactHtmlFromObject(snap.val()));
+                // last_Key = snap.key
+                // last = data
+            var data = snap.val()
+            $('#date-content').text(data.content)
 
-    })
-    // calendarsRef.off('value', function () {
-    //     alert('2')
-    // });
+        })
+        // calendarsRef.off('value', function () {
+        //     alert('2')
+        // });
 }
 
 //prepare conatct object's HTML
@@ -583,7 +648,7 @@ function buildSelect() {
     var str = '';
     for (const prop in listOption) {
         str += '<optgroup label="' + prop + '">'
-        //console.log(listOption[prop])
+            //console.log(listOption[prop])
         for (const prop1 in listOption[prop]) {
             // console.log(listOption[prop][prop1])
             str += '<option value="' + prop1 + '">' + listOption[prop][prop1] + '</option>'
@@ -608,5 +673,6 @@ function filterSelect(atId, oBject) {
 }
 
 function getDaysInMonth(m, y) {
+    m++
     return m === 2 ? y & 3 || !(y % 25) && y & 15 ? 28 : 29 : 30 + (m + (m >> 3) & 1);
 }

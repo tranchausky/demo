@@ -133,58 +133,63 @@
                         </div>
                     </div>
                 </div>
-				<div id="calendar" class="hide v-m-content calendar">
-					<div class="row">
+                <div id="calendar" class="hide v-m-content calendar">
+                    <div class="row">
                         <div class="col-sm-12">
                             <h3>Calendar </h3>
                         </div>
-						
+
                     </div>
                     <div class="row">
                         <div class="col-sm-6">
-							<div class="row">
-							  <i class="prev-month fa fa-chevron-left fa-3x"><</i> 
-							  <i class="next-month fa fa-chevron-right fa-3x">></i>
-							  <br>
-							  <!-- <button onclick="addCalendar()">add data</button> -->
-							  <button onclick="updateCalendar()">update data</button>
-							  <br>
-							  <div class="month-year text-center">
-								<h3></h3></div>
-							  <table class="table table-bordered tb-calendar" id="tb-calendar">
-								<tr>
-								  <th>S</th>
-								  <th>M</th>
-								  <th>T</th>
-								  <th>W</th>
-								  <th>T</th>
-								  <th>F</th>
-								  <th>S</th>
-								</tr>
-							  </table>
-							</div>
+                            <div class="row">
+                                <div class="right">
+                                    <i class="prev-month fa fa-chevron-left fa-3x"><</i>
+                                    <i class="next-month fa fa-chevron-right fa-3x">></i>
+                                </div>
+                                <!-- <br> -->
+                                <!-- <button onclick="addCalendar()">add data</button> -->
+                                <!-- <button onclick="updateCalendar()">update data</button> -->
+                                <!-- <br> -->
+                                <div class="month-year text-center">
+                                    <h3></h3>
+                                </div>
+                                <table class="table table-bordered tb-calendar" id="tb-calendar">
+                                    <tr>
+                                        <th>S</th>
+                                        <th>M</th>
+                                        <th>T</th>
+                                        <th>W</th>
+                                        <th>T</th>
+                                        <th>F</th>
+                                        <th>S</th>
+                                    </tr>
+                                </table>
+                            </div>
 
-							
+
                         </div>
                         <div class="col-sm-6">
-                            <div class="row">
-                                <div class="form-group">
-                                    <label for="date-at">Date</label>
-                                    <input type="text" id="date-at" class="form-control">
-                                </div>
-                                <div class="form-group">
-                                    <label for="email">Text</label>
-                                    <textarea type="text" class="form-control" id="date-content" required="" placeholder="Enter Content"></textarea>
-                                </div>
-                                <button id="btnAddCalen" class="none" onclick="addCalendar()">add data</button>
-                                <button id="btnUpdateCalen" class="none" onclick="updateCalendar()">update data</button>
-                                
-                            </div>
                             <div class="row">
                                 <ul class="list-calendar" id="list-calendar">
                                     <li></li>
                                 </ul>
                             </div>
+                            <div class="row calendar-event none">
+                                <div class="form-group">
+                                    <label for="date-at">Date</label>
+                                    <input type="text" id="date-at" class="form-control" readonly>
+                                </div>
+                                <div class="form-group">
+                                    <label for="email">Text</label>
+                                    <textarea type="text" class="form-control" id="date-content" required="" placeholder="Enter Content"></textarea>
+                                </div>
+                                <button id="btnAddCalen" class="none" onclick="addCalendar()">Add data</button>
+                                <button id="btnUpdateCalen" class="none" onclick="updateCalendar()">Update data</button>
+                                <button id="btnCancelCalen" onclick="hideEventCalendar()">Cancel</button>
+
+                            </div>
+
                         </div>
                     </div>
                 </div>
