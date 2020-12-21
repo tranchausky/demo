@@ -31,6 +31,7 @@ $(document).ready(function() {
 
     //calendar reload 
     $('.prev-month,.next-month').click(function() {
+        hideEventCalendar()
         getAllCalendar()
     })
 });
