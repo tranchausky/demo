@@ -40,7 +40,7 @@ function checkDetailCalendar(at) {
     var attrDate = $(at).attr('data-day')
     if (attrDate == undefined) return
 
-    $('.calendar-event').show()
+    showEventCalendar()
 
     $('#tb-calendar tr td').removeClass('at')
     $(at).addClass('at')
@@ -296,7 +296,7 @@ const forgotPassword = (email) => {
 
 //create firebase database reference
 var dbRef = firebase.database();
-var contactsRef = dbRef.ref('contacts');
+var contactsRef = null;
 //var calendarsRef = dbRef.ref('calendars/useriD');
 var calendarsRef = null;
 var lengthSize = 0
@@ -310,6 +310,7 @@ function loadData() {
     //load older conatcts as well as any newly added one...
 
     var previousLastKey = ''
+    contactsRef = dbRef.ref('contacts/' + 'user_' + user_ID)
 
     contactsRef.orderByChild('userId').equalTo(user_ID).on("child_added", function(snap) {
         console.log("added", snap.key, snap.val());
@@ -418,7 +419,7 @@ function addCalendar() {
         time: new Date().getTime(),
         userId: user_ID
     })
-    $('.calendar-event').hide()
+    hideEventCalendar()
 }
 
 function updateCalendar() {
@@ -436,11 +437,18 @@ function updateCalendar() {
         time: new Date().getTime(),
         userId: user_ID
     })
-    $('.calendar-event').hide()
+    hideEventCalendar()
 }
 
 function hideEventCalendar() {
     $('.calendar-event').hide()
+    $('.list-calendar').removeClass('limit')
+}
+
+function showEventCalendar() {
+
+    $('.calendar-event').show()
+    $('.list-calendar').addClass('limit')
 }
 
 function getAllCalendar() {

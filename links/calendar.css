@@ -53,3 +53,14 @@
 .tb-calendar tr td.had {
     border-color: red;
 }
+
+.list-calendar.limit {
+    max-height: 500px;
+    overflow: auto;
+    margin-left: 0;
+    padding-left: 16px;
+}
+
+.calendar-event button {
+    margin-top: 10px;
+}
