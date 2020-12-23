@@ -31,6 +31,7 @@
                     <ul class="nav navbar-nav">
                         <li class="active"><a href="#homepage">Home</a></li>
                         <li class=""><a href="#calendar">Calendar</a></li>
+                        <li class=""><a href="#todo">Todo</a></li>
 
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
@@ -126,7 +127,7 @@
                         <div class="col-sm-6">
                             <p>List Length <span id="size-list"></span></p>
                             <p id="nextPage" onclick="getNextPage()">last</p>
-                            <ul id="contacts" class="list-group">
+                            <ul id="contacts" class="contact list-group">
                                 <!-- Contact Object li.list-group-item.contact will be added here by js -->
                             </ul>
 
@@ -191,6 +192,114 @@
                             </div>
 
                         </div>
+                    </div>
+                </div>
+                <div id="todo" class="hide v-m-content todo">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <h3>Todo </h3>
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-3"></div>
+                        <div class="col-sm-6">
+                            <div class="row">
+                                <h3>Add Item</h3>
+                                <hr>
+                            </div>
+                            <div class="row">
+                                <div class="form-group">
+                                    <div class="col-sm-10">
+                                        <input type="text" id="add-todo" class="form-control">
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <button class="btn btn-default">Add</button>
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                            <div class="row">
+                                <h3>TODO</h3>
+                                <hr>
+                            </div>
+                            <div class="row list-todo">
+                                <div class="form-group">
+                                    <div class="list-group">
+                                        <div>
+                                            <div class="col-sm-9">
+                                                <label><input type="checkbox" name="remember"> asdf asdf asdf asdfas fasd asdf asdf</label>
+                                            </div>
+                                            <div class="col-sm-3">
+                                                <button class="btn btn-default">Edit</button>
+                                            </div>
+                                        </div>
+                                        <div class="form-event">
+                                            <div class="col-sm-9 text">
+                                                <input type="text" class="form-control">
+                                            </div>
+                                            <div class="col-sm-3">
+                                                <button class="btn btn-default">Save</button>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <div class="col-sm-9">
+                                                <label><input type="checkbox" name="remember"> asdf asdf asdf asdfas fasd asdf asdf</label>
+                                            </div>
+                                            <div class="col-sm-3">
+                                                <button class="btn btn-default">Edit</button>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <div class="col-sm-9">
+                                                <label><input type="checkbox" name="remember"> asdf asdf asdf asdfas fasd asdf asdf</label>
+                                            </div>
+                                            <div class="col-sm-3">
+                                                <button class="btn btn-default">Edit</button>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <div class="col-sm-9">
+                                                <label><input type="checkbox" name="remember"> asdf asdf asdf asdfas fasd asdf asdf</label>
+                                            </div>
+                                            <div class="col-sm-3">
+                                                <button class="btn btn-default">Edit</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <h3>COMPLETED</h3>
+                                <hr>
+                            </div>
+                            <div class="row list-todo-completed">
+                                <div class="form-group">
+                                    <div class="list-group">
+                                        <div>
+                                            <div class="col-sm-9">
+                                                <label><input type="checkbox" name="remember"> asdf asdf asdf asdfas fasd asdf asdf</label>
+                                            </div>
+                                            <div class="col-sm-3 enent">
+                                                <button class="btn btn-default">Edit</button>
+                                                <button class="btn btn-default">Delete</button>
+                                            </div>
+                                        </div>
+                                        <div class="form-event">
+                                            <div class="col-sm-9 text">
+                                                <input type="text" class="form-control">
+                                            </div>
+                                            <div class="col-sm-3">
+                                                <button class="btn btn-default">Save</button>
+                                            </div>
+                                        </div>
+                                        
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-3"></div>
                     </div>
                 </div>
             </div>

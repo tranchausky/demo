@@ -1,9 +1,9 @@
-.list-group {
+.contact.list-group {
     height: 80vh;
     overflow: auto;
 }
 
-.list-group-item .lead {
+.contact.list-group-item .lead {
     margin-bottom: 0;
 }
 
@@ -45,4 +45,16 @@
 
 .forms-in button {
     margin-top: 5px;
+}
+
+.list-todo-completed .list-group{
+    max-height: 300px;
+    overflow: auto;
+}
+.list-todo-completed .list-group .enent{
+    padding: 0;
+}
+
+.form-event .text{
+    padding-left: 31px;
 }
