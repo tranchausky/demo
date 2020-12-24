@@ -58,3 +58,12 @@
 .form-event .text{
     padding-left: 31px;
 }
+.list-image div{
+    padding-top: 4px;
+    padding-bottom: 4px;
+}
+.img-thumbnail.hiden{
+    width: 100%;
+    height: 50px;
+    background: #e8e0e0;
+}
