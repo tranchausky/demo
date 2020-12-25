@@ -70,3 +70,7 @@
 .at-task label input{
     margin-right: 7px;
 }
+.photo .list-image{
+    max-height: 500px;
+    overflow: auto;
+}
