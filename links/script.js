@@ -329,7 +329,7 @@ function loadData() {
     //load older conatcts as well as any newly added one...
 
     var previousLastKey = ''
-    contactsRef = dbRef.ref('contacts/' + 'user_' + user_ID)
+    contactsRef = dbRef.ref('contacts/' + user_ID)
 
     contactsRef.orderByChild('userId').equalTo(user_ID).on("child_added", function (snap) {
         console.log("added", snap.key, snap.val());
@@ -425,7 +425,7 @@ function addCalendar() {
 
     var date = $('#date-at').val()
     var content = $('#date-content').val()
-    calendarsRef = dbRef.ref('calendars/' + 'user_' + user_ID)
+    calendarsRef = dbRef.ref('calendars/' + user_ID)
 
     // time: new Date().getTime(),
     // var monthYear = $('#monthyear').attr("month-year")
@@ -449,7 +449,7 @@ function updateCalendar() {
     var listDate = date.split('/')
     var dateInt = new Date(listDate[2], listDate[1] - 1, listDate[0]).getTime();
 
-    calendarsRef = dbRef.ref('calendars/' + 'user_' + user_ID + "/" + key)
+    calendarsRef = dbRef.ref('calendars/' + user_ID + "/" + key)
     calendarsRef.update({
         date: dateInt,
         content: content,
@@ -471,7 +471,7 @@ function showEventCalendar() {
 }
 
 function getAllCalendar() {
-    calendarsRef = dbRef.ref('calendars/' + 'user_' + user_ID)
+    calendarsRef = dbRef.ref('calendars/'  + user_ID)
 
     var monthYear = $('#monthyear').attr("month-year")
     var listDate = monthYear.split('/')
@@ -628,7 +628,7 @@ function getCalendarDate(date) {
     return
     if (date == undefined) return
     $('#date-content').val()
-    calendarsRef = dbRef.ref('calendars/' + 'user_' + user_ID)
+    calendarsRef = dbRef.ref('calendars/' + user_ID)
 
     //calendarsRef.orderByChild('date').equalTo(date).limitToFirst(1).on("child_added", function (snap) {
     calendarsRef.on("child_added", function (snap) {
@@ -714,7 +714,7 @@ function getDaysInMonth(m, y) {
 function pushPhoto(image) {
     var is_show = $('#img_is_show').is(':checked');
     var image = image
-    photoRef = dbRef.ref('photo/' + 'user_' + user_ID)
+    photoRef = dbRef.ref('photos/' + user_ID)
 
     photoRef.push({
         is_show: is_show,
@@ -724,7 +724,7 @@ function pushPhoto(image) {
     })
 }
 function getListPhoto() {
-    photoRef = dbRef.ref('photo/' + 'user_' + user_ID)
+    photoRef = dbRef.ref('photos/' + user_ID)
     //calendarsRef.orderByChild('time').startAt(1608531964751).endAt(1608531997520).on("value", function (snapshot) {
     photoRef.orderByChild('time').on("value", function (snapshot) {
         console.log(snapshot.val());
