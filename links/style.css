@@ -67,3 +67,6 @@
     height: 50px;
     background: #e8e0e0;
 }
+.at-task label input{
+    margin-right: 7px;
+}

@@ -21,6 +21,10 @@ $(document).ready(function () {
         if (atrHref == '#photo') {
             getListPhoto()
         }
+        if (atrHref == '#todo') {
+            getListTodoCompleted()
+            getListTodoNew()
+        }
 
     })
 
@@ -38,12 +42,67 @@ $(document).ready(function () {
         getAllCalendar()
     })
     jQuery(document.body).on('click', '#photo .list-image img', function (event) {
+        return
         // $('#photo .list-image img').click(function() {
         var src = $(this).attr('str-big')
         // alert(src)
         $('#image-img-photo').attr('src', src)
     })
+
+    $('#add-task').click(function () {
+        pushTodo()
+    })
+
+    $(document.body).on('click', '.list-todo-new .edit', function (event) {
+        var text = $(this).closest('.at-task').find('label').eq(0).text()
+        var key = $(this).closest('.at-task').attr('data-key')
+        $(this).closest('.at-task').after(addEventTodo(text, key))
+    })
+    $(document.body).on('click', '.list-todo-new .save', function (event) {
+        var key = $(this).closest('.form-event').attr('data-key')
+        var text = $(this).closest('.form-event').find('input').eq(0).val()
+        updateTodo(text, 'new', key);
+    })
+    $(document.body).on('click', '.list-todo-new input[type="checkbox"]', function (event) {
+        var isCheck = $(this).is(":checked");
+        if (isCheck == true) {
+            var key = $(this).closest('.at-task').attr('data-key')
+            updateTodo(allTaskNew[key]['task'], 'completed', key)
+        }
+    })
+    $(document.body).on('click', '.list-todo-completed input[type="checkbox"]', function (event) {
+        var isCheck = $(this).is(":checked");
+        if (isCheck == true) {
+            var key = $(this).closest('.at-task').attr('data-key')
+            updateTodo(allTaskComplete[key]['task'], 'new', key)
+        }
+    })
+
+    $(document.body).on('click', '.list-todo-completed .delete', function (event) {
+        var text = $(this).closest('.at-task').find('label').eq(0).text()
+        var key = $(this).closest('.at-task').attr('data-key')
+        updateTodo(allTaskComplete[key]['task'], 'delete', key)
+    })
+
+
 });
+
+function addEventTodo(text, key) {
+    var str = '<div class="form-event" data-key="' + key + '">' +
+        '<div class="col-sm-9 text">' +
+        '<input type="text" class="form-control" value="' + text + '">' +
+        '</div>' +
+        '<div class="col-sm-3">' +
+        '<button class="btn btn-default save">Save</button>' +
+        '</div>' +
+        '</div>'
+    return str
+}
+
+function changeLinkImage(link) {
+    // var src = $(this).attr('str-big')
+    $('#image-img-photo').attr('src', link)
+}
 
 function checkDetailCalendar(at) {
     var attrDate = $(at).attr('data-day')
@@ -324,6 +383,8 @@ var pageLength = 5
 var allCalendar = {}
 var allPhoto = {}
 var keyCalendar = '';
+var allTaskNew = {}
+var allTaskComplete = {}
 
 function loadData() {
     //load older conatcts as well as any newly added one...
@@ -471,7 +532,7 @@ function showEventCalendar() {
 }
 
 function getAllCalendar() {
-    calendarsRef = dbRef.ref('calendars/'  + user_ID)
+    calendarsRef = dbRef.ref('calendars/' + user_ID)
 
     var monthYear = $('#monthyear').attr("month-year")
     var listDate = monthYear.split('/')
@@ -725,7 +786,6 @@ function pushPhoto(image) {
 }
 function getListPhoto() {
     photoRef = dbRef.ref('photos/' + user_ID)
-    //calendarsRef.orderByChild('time').startAt(1608531964751).endAt(1608531997520).on("value", function (snapshot) {
     photoRef.orderByChild('time').on("value", function (snapshot) {
         console.log(snapshot.val());
         allPhoto = snapshot.val()
@@ -735,20 +795,12 @@ function getListPhoto() {
 function buildListPhoto(dataIn) {
     var str = '';
     for (var key in dataIn) {
-        // str += '<li>'
-        // console.log(allCalendar[key])
         var dataAt = dataIn[key]
-        // var day = dataAt.date
-        // $('#tb-calendar').find('td[data-day="'+day+'"]').addClass('had')
-        // console.log(day)
-        // console.log($('#tb-calendar').find('td[data-day="'+day+'"]'))
-        // var d = new Date(day);
         if (dataAt.is_show == false) {
-            str += '<div class="col-sm-3 col-xs-4"><img class="img-thumbnail" str-big="' + dataAt.pic + '" src="' + getThump(dataAt.pic) + '" alt=""></div>'
+            str += '<div class="col-sm-3 col-xs-4"><img class="img-thumbnail" onclick="changeLinkImage(&apos;' + dataAt.pic + '&apos;)" str-big="' + dataAt.pic + '" src="' + getThump(dataAt.pic) + '" alt=""></div>'
         } else {
-            str += '<div class="col-sm-3 col-xs-4"><img class="img-thumbnail hiden" str-big="' + dataAt.pic + '" src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs%3D" alt=""></div>'
+            str += '<div class="col-sm-3 col-xs-4"><img class="img-thumbnail hiden" onclick="changeLinkImage(&apos;' + dataAt.pic + '&apos;)" str-big="' + dataAt.pic + '" src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs%3D" alt=""></div>'
         }
-        // str += '</li>'
     }
     $('#photo .list-image').html(str);
 }
@@ -761,16 +813,8 @@ function getThump(str) {
 
 var feedback = function (res) {
     if (res.success === true) {
-        // var status = document.querySelector('.status');
-        // var p = document.createElement('p');
-        // var t = document.createTextNode('Image url: ' + res.data.link);
         console.log(res.data.link)
         pushPhoto(res.data.link)
-        // p.appendChild(t);
-
-        // status.classList.add('bg-success');
-        /// status.appendChild(p);
-        // document.querySelector('.status').innerHTML = 'Image url: ' + res.data.link;
     }
 };
 
@@ -778,3 +822,77 @@ new Imgur({
     clientid: '8d5315fbe5fbbcd',
     callback: feedback
 });
+
+
+function pushTodo() {
+    var todo = $('#add-todo').val();
+    if (todo == '') {
+        return
+    }
+    todoRef = dbRef.ref('todos/' + user_ID)
+
+    todoRef.push({
+        task: todo,
+        status: 'new',
+        time: new Date().getTime(),
+        userId: user_ID
+    })
+    $('#add-todo').val('');
+}
+function updateTodo(todo, status, key) {
+    todoRef = dbRef.ref('todos/' + user_ID + '/' + key)
+    todoRef.update({
+        task: todo,
+        status: status,
+        time: new Date().getTime(),
+        userId: user_ID
+    })
+}
+function getListTodoNew() {
+    todoRef = dbRef.ref('todos/' + user_ID)
+    todoRef.orderByChild('status').equalTo('new').on("value", function (snapshot) {
+        console.log(snapshot.val());
+        allTaskNew = snapshot.val()
+        buildListTodoNew(allTaskNew)
+    })
+}
+function getListTodoCompleted() {
+    todoRef = dbRef.ref('todos/' + user_ID)
+    todoRef.orderByChild('status').equalTo('completed').on("value", function (snapshot) {
+        console.log(snapshot.val());
+        allTaskComplete = snapshot.val()
+        buildListTodoCompleted(allTaskComplete)
+    })
+}
+function buildListTodoNew(dataIn) {
+    var str = '';
+    for (var key in dataIn) {
+        var dataAt = dataIn[key]
+
+        str +=
+            '<div class="at-task" data-key="' + key + '">' +
+            '<div class="col-sm-9">' +
+            '<label><input type="checkbox" name="remember" />' + dataAt.task + '</label>' +
+            '</div>' +
+            '<div class="col-sm-3 event"><button class="btn btn-default edit">Edit</button></div>' +
+            '</div>';
+
+    }
+    $('.list-todo-new .list-group').html(str);
+}
+function buildListTodoCompleted(dataIn) {
+    var str = '';
+    for (var key in dataIn) {
+        var dataAt = dataIn[key]
+
+        str +=
+            '<div class="at-task" data-key="' + key + '">' +
+            '<div class="col-sm-9">' +
+            '<label><input type="checkbox" name="remember" /> ' + dataAt.task + '</label>' +
+            '</div>' +
+            '<div class="col-sm-3 event"><button class="btn btn-default delete">Delete</button></div>' +
+            '</div>';
+
+    }
+    $('.list-todo-completed .list-group').html(str);
+}
