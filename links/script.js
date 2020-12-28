@@ -750,7 +750,11 @@ function contactHtmlFromObject(contact) {
         html += '<p class="lead">' + contact.name + '</p>';
     }
     html += '<p><a href="' + contact.email + '" target="_blank" title="' + contact.email + '">' + contact.email + '</a></p>';
-    var textSelect = filterSelect(contact.location.city, listOption)
+    var textSelect = ''
+    if (contact.location.city != undefined) {
+        textSelect = filterSelect(contact.location.city, listOption)
+    }
+
     if (textSelect != '') {
 
 
