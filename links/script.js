@@ -93,6 +93,9 @@ $(document).ready(function() {
     $(document.body).on('change', '.list-cat-btn-edit', function(event) {
         updatePhoto()
     })
+    $(document.body).on('change', '#edit-private-photo', function(event) {
+        updatePhoto()
+    })
 
 
 });
@@ -113,6 +116,13 @@ function changeLinkImage(link, cat_id, key) {
     // var src = $(this).attr('str-big')
     $('#image-img-photo').attr('src', link)
     $('#image-img-photo').attr('key-id', key)
+    var d = new Date(allPhoto[key].time);
+
+    $('#edit-private-photo').prop('checked', false);
+    if (allPhoto[key].is_show == true) {
+        $('#edit-private-photo').prop('checked', true);
+    }
+    $('#photo-time').html(d.toLocaleString())
     $('.list-cat-btn-edit').html('<option value="">All</option>' + buildSelectPhotoCat(cat_id))
         // var select = filterSelect(key, listOptionPhoto)
 }
@@ -885,10 +895,11 @@ function getListPhotoNext() {
 
 function updatePhoto() {
     var id_cat_new = $(".list-cat-btn-edit option:selected").val();
+    var is_show_new = $('#edit-private-photo').is(':checked');
     var key = $("#image-img-photo").attr('key-id');
     photoRef = dbRef.ref('photos/' + user_ID + '/' + key)
     photoRef.update({
-        is_show: allPhoto[key]['is_show'],
+        is_show: is_show_new,
         pic: allPhoto[key]['pic'],
         id_cat: id_cat_new,
         time: new Date().getTime(),
@@ -911,7 +922,7 @@ function buildListPhoto(dataIn) {
 
 function getThump(str) {
     var res = str.split(".");
-    res[res.length - 2] = res[res.length - 2] + 't'
+    res[res.length - 2] = res[res.length - 2] + 's'
     var re = res.join('.')
     return re
 }
