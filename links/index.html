@@ -218,7 +218,7 @@
                                     <div class="col-sm-2">
                                         <button class="btn btn-default" id="add-task">Add</button>
                                     </div>
-                                    
+
                                 </div>
                             </div>
                             <div class="row">
@@ -295,9 +295,9 @@
                                                 <button class="btn btn-default">Save</button>
                                             </div>
                                         </div>
-                                        
+
                                     </div>
-                                    
+
                                 </div>
                             </div>
                         </div>
@@ -318,6 +318,11 @@
                             <div class="dropzone"></div>
                         </div>
                         <div class="form-group col-sm-2">
+                            <select name="option-photo" id="option-photo" class="form-control list-select-option-photo">
+                            </select>
+                        </div>
+
+                        <div class="form-group col-sm-2">
                             <input type="checkbox" id="img_is_show" name="img_is_show" value="true">
                             <label for="img_is_show"> is hide</label><br><br>
                         </div>
@@ -327,11 +332,23 @@
                     </div>
                     <hr/>
                     <div class="row">
-                        
+                        <div class="col-sm-3">
+                            <select name="list-cat-btn" class="form-control list-cat-btn" id="list-cat-btn"></select>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+
+
                         <div class="col-sm-6 list-image">
                         </div>
                         <div class="col-sm-6">
                             <img class="img-responsive" id="image-img-photo" src="https://i.imgur.com/mVJdgKk.png" alt="">
+                            <div class="col-sm-3">
+                                <label for="">Edit category</label>
+                                <select name="list-cat-btn-edit" class="form-control list-cat-btn-edit" id="list-cat-btn-edit"></select>
+                            </div>
+                            <br/><br><br><br>
                         </div>
                     </div>
                 </div>
