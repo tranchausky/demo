@@ -847,9 +847,8 @@ function getListPhoto() {
         allPhoto = snapshot.val()
         var str = buildListPhoto(allPhoto)
         $('#photo .list-image').html(str);
-        if (snapshot.val)
+        if (snapshot.val() != null)
             lastTimePhoto = allPhoto[Object.keys(allPhoto)[Object.keys(allPhoto).length - 1]].time
-        console.log(lastTimePhoto)
     })
 }
 
