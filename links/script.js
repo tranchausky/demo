@@ -831,10 +831,12 @@ function pushPhoto(image) {
     })
 }
 
+var lastTimePhoto = ''
+
 function getListPhoto() {
     photoRef = dbRef.ref('photos/' + user_ID)
     var id_cat_show = $(".list-cat-btn option:selected").val();
-    var query = photoRef.limitToLast(20);
+    var query = photoRef.limitToLast(50);
 
     if (id_cat_show != '') {
         query = photoRef.orderByChild("id_cat").equalTo(id_cat_show)
@@ -843,7 +845,37 @@ function getListPhoto() {
         //photoRef.on("value", function(snapshot) {
         console.log(snapshot.val());
         allPhoto = snapshot.val()
-        buildListPhoto(allPhoto)
+        var str = buildListPhoto(allPhoto)
+        $('#photo .list-image').html(str);
+        lastTimePhoto = allPhoto[Object.keys(allPhoto)[Object.keys(allPhoto).length - 1]].time
+        console.log(lastTimePhoto)
+    })
+}
+
+function getListPhotoNext() {
+    return
+    photoRef = dbRef.ref('photos/' + user_ID)
+    var id_cat_show = $(".list-cat-btn option:selected").val();
+    // var query = photoRef.limitToLast(10);
+
+    var query = photoRef.orderByChild('time').limitToFirst(11).startAt(lastTimePhoto)
+
+    // if (id_cat_show != '') {
+    //     query = photoRef.orderByChild("id_cat").equalTo(id_cat_show)
+    // }
+    query.on("value", function(snapshot) {
+        //photoRef.on("value", function(snapshot) {
+        // console.log(snapshot.val());
+        // allPhoto = {...allPhoto, ...snapshot.val() };
+        $.extend(allPhoto, snapshot.val())
+        console.log('allPhoto update')
+        console.log(allPhoto)
+        var str = buildListPhoto(allPhoto)
+
+        $('#photo .list-image').append(str);
+        lastTimePhoto = allPhoto[Object.keys(allPhoto)[Object.keys(allPhoto).length - 1]].time
+        console.log(lastTimePhoto)
+
     })
 }
 
@@ -870,7 +902,7 @@ function buildListPhoto(dataIn) {
             str += '<div class="col-sm-3 col-xs-4"><img class="img-thumbnail hiden" onclick="changeLinkImage(&apos;' + dataAt.pic + '&apos;,&apos;' + id_cat + '&apos;,&apos;' + key + '&apos;)" str-big="' + dataAt.pic + '" src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs%3D" alt=""></div>'
         }
     }
-    $('#photo .list-image').html(str);
+    return str;
 }
 
 function getThump(str) {
