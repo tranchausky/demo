@@ -416,6 +416,7 @@ var lengthSize = 0
 var last = {}
 var last_Key = ''
 var pageLength = 5
+var allContacts = {}
 var allCalendar = {}
 var allPhoto = {}
 var keyCalendar = '';
@@ -429,13 +430,25 @@ function loadData() {
     contactsRef = dbRef.ref('contacts/' + user_ID)
         // ".indexOn": ["time"],
         // contactsRef.orderByChild('time').limitToFirst(6).startAt(1609037750431).on("child_added", function(snap) {
-    contactsRef.orderByChild('time').on("child_added", function(snap) {
-        console.log("added", snap.key, snap.val());
+    contactsRef.orderByChild('time').on("value", function(snapshot) {
+
+        allContacts = snapshot.val()
+
+        // var sortedButtons = Object.entries(allContacts).sort( function(ob1, ob2) {
+        //     return ob1.time < ob2.time;
+        //   }); // returns ['confirm', 'delete', 'cancel']
+
+        //   console.log(sortedButtons)
+        // console.log(allContacts)
+        //console.log("added", snap.key, snap.val());
         //console.log(snap.val())
-        lengthSize++
-        console.log(lengthSize)
-        $('#size-list').html(lengthSize)
-        $('#contacts').append(contactHtmlFromObject(snap.val()));
+        //lengthSize++
+        // lengthSize = allContacts.length()
+        // lengthSize = Object.keys(allContacts).length
+        //console.log(lengthSize)
+        // $('#size-list').html(lengthSize)
+        // $('#contacts').append(contactHtmlFromObject(allContacts));
+        showContentContact(allContacts)
     }, function(errorObject) {
         console.log("The read failed: " + errorObject.code);
     });
@@ -459,13 +472,18 @@ function loadData() {
         */
 }
 
-function showContent(data) {
+function showContentContact(data) {
+
+    // data.sort((a, b) => (a.time > b.time) ? 1 : -1)
 
     // $('#size-list').html(lengthSize)
     // $('#contacts').append(contactHtmlFromObject(snap.val()));
-    lengthSize++
+    // lengthSize++
+    lengthSize = Object.keys(data).length
     $('#size-list').html(lengthSize)
-    $('#contacts').append(contactHtmlFromObject(data));
+    for (var key in data) {
+        $('#contacts').append(contactHtmlFromObject(data[key]));
+    }
 }
 
 function getNextPage() {
