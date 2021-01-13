@@ -423,6 +423,19 @@ var keyCalendar = '';
 var allTaskNew = {}
 var allTaskComplete = {}
 
+function sortDescObj(list, key) {
+    var sortedKeys = Object.keys(list).sort(function(a,b) {
+        return list[a][key] > list[b][key] ? -1:1
+      });
+    var newObjectSort = []
+    var tem=[]
+    for (let index = 0; index < sortedKeys.length; index++) {
+        tem=[]
+        newObjectSort.push(list[sortedKeys[index]])
+    }
+    return newObjectSort
+}
+
 function loadData() {
     //load older conatcts as well as any newly added one...
 
@@ -433,22 +446,8 @@ function loadData() {
     contactsRef.orderByChild('time').on("value", function(snapshot) {
 
         allContacts = snapshot.val()
-
-        // var sortedButtons = Object.entries(allContacts).sort( function(ob1, ob2) {
-        //     return ob1.time < ob2.time;
-        //   }); // returns ['confirm', 'delete', 'cancel']
-
-        //   console.log(sortedButtons)
-        // console.log(allContacts)
-        //console.log("added", snap.key, snap.val());
-        //console.log(snap.val())
-        //lengthSize++
-        // lengthSize = allContacts.length()
-        // lengthSize = Object.keys(allContacts).length
-        //console.log(lengthSize)
-        // $('#size-list').html(lengthSize)
-        // $('#contacts').append(contactHtmlFromObject(allContacts));
-        showContentContact(allContacts)
+        var newObjectSort = sortDescObj(allContacts,'time')
+        showContentContact(newObjectSort)
     }, function(errorObject) {
         console.log("The read failed: " + errorObject.code);
     });
@@ -770,7 +769,7 @@ function getCalendarDate(date) {
 
 //prepare conatct object's HTML
 function contactHtmlFromObject(contact) {
-    console.log(contact);
+    // console.log(contact);
     var html = '';
     html += '<li class="list-group-item contact">';
     html += '<div>';
@@ -877,10 +876,11 @@ function getListPhoto() {
         //photoRef.on("value", function(snapshot) {
         console.log(snapshot.val());
         allPhoto = snapshot.val()
-        var str = buildListPhoto(allPhoto)
+        var newObjectSort = sortDescObj(allPhoto,'time')
+        var str = buildListPhoto(newObjectSort)
         $('#photo .list-image').html(str);
         if (snapshot.val() != null)
-            lastTimePhoto = allPhoto[Object.keys(allPhoto)[Object.keys(allPhoto).length - 1]].time
+            lastTimePhoto = newObjectSort[Object.keys(newObjectSort)[Object.keys(newObjectSort).length - 1]].time
     })
 }
 
@@ -989,7 +989,8 @@ function getListTodoNew() {
     todoRef.orderByChild('status').equalTo('new').on("value", function(snapshot) {
         console.log(snapshot.val());
         allTaskNew = snapshot.val()
-        buildListTodoNew(allTaskNew)
+        var newObjectSort = sortDescObj(allTaskNew,'time')
+        buildListTodoNew(newObjectSort)
     })
 }
 
@@ -998,7 +999,8 @@ function getListTodoCompleted() {
     todoRef.orderByChild('status').equalTo('completed').on("value", function(snapshot) {
         console.log(snapshot.val());
         allTaskComplete = snapshot.val()
-        buildListTodoCompleted(allTaskComplete)
+        var newObjectSort = sortDescObj(allTaskComplete,'time')
+        buildListTodoCompleted(newObjectSort)
     })
 }
 
