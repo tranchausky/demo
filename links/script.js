@@ -424,14 +424,18 @@ var allTaskNew = {}
 var allTaskComplete = {}
 
 function sortDescObj(list, key) {
+    if(list ==null || list==[] || list=={}){
+        return null
+    }
     var sortedKeys = Object.keys(list).sort(function(a,b) {
         return list[a][key] > list[b][key] ? -1:1
       });
-    var newObjectSort = []
+    var newObjectSort = {}
     var tem=[]
     for (let index = 0; index < sortedKeys.length; index++) {
         tem=[]
-        newObjectSort.push(list[sortedKeys[index]])
+        //newObjectSort.push(list[sortedKeys[index]])
+        newObjectSort[sortedKeys[index]] = list[sortedKeys[index]]
     }
     return newObjectSort
 }
