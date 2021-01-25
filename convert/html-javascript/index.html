@@ -1,0 +1,47 @@
+<html>
+    <head>
+        <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+        <title>Convert HTML or Text to Javascript - Online</title>
+    </head>
+    <body style="margin-top: 40px; text-align: center;">
+        <h1>Convert HTML or Text to Javascript or Java variable - Online</h1>
+
+        <textarea id="edit" onchange="convert()" cols="50" rows="6"></textarea>
+        <textarea id="show" cols="50" rows="6"></textarea>
+        <input type="submit" onclick="convert()" />
+
+        <script>
+            var string = '<div id="body">' + "<h1>Con'tent</h1>" + "</div>";
+            document.getElementById("edit").value = string;
+
+            function convert() {
+                var input = document.getElementById("edit").value;
+                var out = convertVariable(input);
+                document.getElementById("show").value = out;
+            }
+
+            function convertVariable(intput) {
+                var output = "";
+                var lines = intput.split("\n");
+
+                var listSave = [];
+                for (var i = 0; i < lines.length; i++) {
+                    var save = lines[i];
+                    save = save.trim();
+                    if (save != "") {
+                        listSave.push(convertCharacter(save));
+                    }
+                }
+
+                output = listSave.join("'+'");
+                output = "var string = '" + output + "'";
+                return output;
+            }
+
+            function convertCharacter(str) {
+                str = str.split("'").join("\\'");
+                return str;
+            }
+        </script>
+    </body>
+</html>
