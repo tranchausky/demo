@@ -424,17 +424,17 @@ var allTaskNew = {}
 var allTaskComplete = {}
 
 function sortDescObj(list, key) {
-    if(list ==null || list==[] || list=={}){
+    if (list == null || list == [] || list == {}) {
         return null
     }
-    var sortedKeys = Object.keys(list).sort(function(a,b) {
-        return list[a][key] > list[b][key] ? -1:1
-      });
+    var sortedKeys = Object.keys(list).sort(function(a, b) {
+        return list[a][key] > list[b][key] ? -1 : 1
+    });
     var newObjectSort = {}
-    var tem=[]
+    var tem = []
     for (let index = 0; index < sortedKeys.length; index++) {
-        tem=[]
-        //newObjectSort.push(list[sortedKeys[index]])
+        tem = []
+            //newObjectSort.push(list[sortedKeys[index]])
         newObjectSort[sortedKeys[index]] = list[sortedKeys[index]]
     }
     return newObjectSort
@@ -450,7 +450,7 @@ function loadData() {
     contactsRef.orderByChild('time').on("value", function(snapshot) {
 
         allContacts = snapshot.val()
-        var newObjectSort = sortDescObj(allContacts,'time')
+        var newObjectSort = sortDescObj(allContacts, 'time')
         showContentContact(newObjectSort)
     }, function(errorObject) {
         console.log("The read failed: " + errorObject.code);
@@ -880,7 +880,7 @@ function getListPhoto() {
         //photoRef.on("value", function(snapshot) {
         console.log(snapshot.val());
         allPhoto = snapshot.val()
-        var newObjectSort = sortDescObj(allPhoto,'time')
+        var newObjectSort = sortDescObj(allPhoto, 'time')
         var str = buildListPhoto(newObjectSort)
         $('#photo .list-image').html(str);
         if (snapshot.val() != null)
@@ -993,7 +993,7 @@ function getListTodoNew() {
     todoRef.orderByChild('status').equalTo('new').on("value", function(snapshot) {
         console.log(snapshot.val());
         allTaskNew = snapshot.val()
-        var newObjectSort = sortDescObj(allTaskNew,'time')
+        var newObjectSort = sortDescObj(allTaskNew, 'time')
         buildListTodoNew(newObjectSort)
     })
 }
@@ -1003,7 +1003,7 @@ function getListTodoCompleted() {
     todoRef.orderByChild('status').equalTo('completed').on("value", function(snapshot) {
         console.log(snapshot.val());
         allTaskComplete = snapshot.val()
-        var newObjectSort = sortDescObj(allTaskComplete,'time')
+        var newObjectSort = sortDescObj(allTaskComplete, 'time')
         buildListTodoCompleted(newObjectSort)
     })
 }
@@ -1016,7 +1016,7 @@ function buildListTodoNew(dataIn) {
         str +=
             '<div class="at-task" data-key="' + key + '">' +
             '<div class="col-sm-9">' +
-            '<label><input type="checkbox" name="remember" />' + dataAt.task + '</label>' +
+            '<input type="checkbox" name="remember" />&nbsp;<label>' + dataAt.task + '</label>' +
             '</div>' +
             '<div class="col-sm-3 event"><button class="btn btn-default edit">Edit</button></div>' +
             '</div>';
@@ -1033,7 +1033,7 @@ function buildListTodoCompleted(dataIn) {
         str +=
             '<div class="at-task" data-key="' + key + '">' +
             '<div class="col-sm-9">' +
-            '<label><input type="checkbox" name="remember" /> ' + dataAt.task + '</label>' +
+            '<input type="checkbox" name="remember" />&nbsp;<label> ' + dataAt.task + '</label>' +
             '</div>' +
             '<div class="col-sm-3 event"><button class="btn btn-default delete">Delete</button></div>' +
             '</div>';
