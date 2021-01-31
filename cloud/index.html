@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://www.gstatic.com/firebasejs/8.2.5/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.2.5/firebase-firestore.js"></script>
+
+
+</head>
+
+<body>
+    <h3>Demo cloud firebase</h3>
+    <p><a href="https://firebase.google.com/docs/firestore/quickstart">Document</a></p>
+    <script>
+        // const firebase = require("firebase");
+        // Required for side-effects
+        // require("firebase/firestore");
+
+        firebase.initializeApp({
+            apiKey: 'AIzaSyAuPuaJCP08o5JKW09F1XUWAy5GIiJ_cf8',
+            authDomain: 'link-save-d79c8.firebaseapp.com',
+            projectId: 'link-save-d79c8'
+        });
+
+        var db = firebase.firestore();
+
+        function addBlog_1() {
+            db.collection("blog").add({
+                    username: "chau2",
+                    time: new Date().getTime(),
+                })
+                .then(function(docRef) {
+                    console.log("Document written with ID: ", docRef.id);
+                })
+                .catch(function(error) {
+                    console.error("Error adding document: ", error);
+                });
+        }
+
+        function addPost_1() {
+            var idUserBlog = 'kuoY2mntN0DkUFcfA0Zr'
+            db.collection("blog/" + idUserBlog + "/post").add({
+                    title: "title 03",
+                    alias: "title-post-03",
+                    content: "this is content for post 3",
+                    time: new Date().getTime(),
+                })
+                .then(function(docRef) {
+                    console.log("Document written with ID: ", docRef.id);
+                })
+                .catch(function(error) {
+                    console.error("Error adding document: ", error);
+                });
+        }
+
+        function adddata() {
+            db.collection("users/8dLBU7QNjlTLqa76ZyRI/blog").add({
+                    first: "Ada2",
+                    last: "Lovelace2",
+                    born: 18152
+                })
+                .then(function(docRef) {
+                    console.log("Document written with ID: ", docRef.id);
+                })
+                .catch(function(error) {
+                    console.error("Error adding document: ", error);
+                });
+        }
+        // addBlog_1()
+        //addPost_1()
+        // getPost_1()
+        searchUserId()
+            //adddata()
+
+        function readdata() {
+            db.collection("users").get().then((querySnapshot) => {
+                querySnapshot.forEach((doc) => {
+                    //console.log(`${doc.id} => ${doc.data()}`);
+                    // console.log(`${doc.id} => ${doc.data()}`);
+                    console.log(doc.id, doc.data())
+                });
+            });
+        }
+
+        function searchUserId() {
+            var username = 'chau1'
+            db.collection("blog").where("username", "==", username)
+                .get()
+                .then(function(querySnapshot) {
+                    querySnapshot.forEach(function(doc) {
+                        // doc.data() is never undefined for query doc snapshots
+                        console.log(doc.id, " => ", doc.data());
+                    });
+                })
+                .catch(function(error) {
+                    console.log("Error getting documents: ", error);
+                });
+        }
+
+        function getPost_1() {
+            var idUserBlog = 'kuoY2mntN0DkUFcfA0Zr'
+            db.collection("blog/" + idUserBlog + '/post').get().then((querySnapshot) => {
+                querySnapshot.forEach((doc) => {
+                    //console.log(`${doc.id} => ${doc.data()}`);
+                    // console.log(`${doc.id} => ${doc.data()}`);
+                    console.log(doc.id, doc.data())
+                });
+            });
+        }
+    </script>
+</body>
+
+</html>
