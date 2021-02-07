@@ -670,7 +670,12 @@ function getAllCalendar() {
 function buildListCalendar(dataIn) {
 
     if (dataIn != undefined) {
-        $('#monthyear').append('<sup>(' + Object.keys(dataIn).length + ')</sup>')
+        if($('#monthyear #number').length !=0){
+            $('#monthyear #number').html('('+Object.keys(dataIn).length+')')
+        }else{
+            $('#monthyear').append('<sup id="number">(' + Object.keys(dataIn).length + ')</sup>')    
+        }
+        
     }
 
     dataIn = sortobjkey(dataIn, 'date')
