@@ -1,0 +1,888 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Notepad - Online notepad. Create note online</title>
+<meta name="description" content="This free online notepad allows you to create notes in a web browser. No sign up required. AutoSave. Multi-Page. Characters & Words Counter." />
+<meta name="keywords" content="online notepad, create note online, notepad, write text, notepad online, notes, free notepad, online" />
+<meta name="robots" content="All,index,follow" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta property="og:title" content="JustNotepad.com - Online notepad. Create note online" />
+<meta property="og:site_name" content="JustNotepad.com" />
+<meta property="og:description" content="This free online notepad allows you to create notes in a web browser. No sign up required. AutoSave. Multi-Page. Characters & Words Counter." />
+<meta property="og:type" content="website" />
+<!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/json2/20150503/json2.min.js"></script>
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
+<script type="text/javascript">
+    if (!window.jQuery) {
+        document.write('<script type="text/javascript" src="js/json2.min.js"><\/script>\n');
+        document.write('<script type="text/javascript" src="js/jquery.min.js"><\/script>\n');
+        document.write('<script type="text/javascript" src="js/jstorage.min.js"><\/script>\n');
+    }
+    </script>
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jStorage/0.4.12/jstorage.min.js"></script>
+
+
+
+<link rel="shortcut icon" href="favicon.ico" />
+
+<link rel="apple-touch-icon" href="img/apple-touch-icon-60.png" />
+<link rel="apple-touch-icon" href="img/apple-touch-icon-76.png" sizes="76x76" />
+<link rel="apple-touch-icon" href="img/apple-touch-icon-120.png" sizes="120x120" />
+<link rel="apple-touch-icon" href="img/apple-touch-icon-152.png" sizes="152x152" />
+<link rel="apple-touch-icon" href="img/apple-touch-icon-180.png" sizes="180x180" />
+
+<link rel="icon" href="img/favicon_16.png" type="image/png" />
+<link rel="icon" href="img/favicon_32.png" type="image/png" sizes="32x32" />
+<link rel="icon" href="img/favicon_16.png" type="image/png" sizes="16x16" />
+
+<link rel="stylesheet" href="css/global.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="css/print.css" type="text/css" media="print" />
+<script type="text/javascript">
+    $(document).ready(function() {
+        //----------------------------------------------------------------------------------------------- 
+        // Height of the text box depending on the visible area: 
+        $('#editable_text_box #editable_text').height(($(window).height() / 100) * 48);
+        $(window).resize(function() {
+            $('#editable_text_box #editable_text').height(($(window).height() / 100) * 48);
+        });
+        //----------------------------------------------------------------------------------------------- 
+        // Shows Label (Instead of Placeholder) for IE<=9 and older browsers: 
+        function isPlaceholderSupported() {
+            var input = document.createElement("input");
+            return ('placeholder' in input);
+        }
+        var placeholdersupport = isPlaceholderSupported();
+        if (placeholdersupport == false) {
+            $("#temp_url_box #temp_url_password label").show();
+        } else {
+            $("#temp_url_box #temp_url_password label").hide();
+        }
+        //----------------------------------------------------------------------------------------------- 
+        // Day/Night mode: 
+        $('#style_mode span').click(function() {
+            $('#style_mode span').toggle();
+            if ($('#style_mode #night_mode').is(':visible')) {
+                // Check if logo (image file) is loaded via load() before changing CSS, 
+                // when the server (or internet connection) is not available... 
+                $('#logo img').load(function () {
+                    $('link[rel="stylesheet"][media="screen"]').attr('href', 'styles/global.css');
+                    $('#style_mode #day_mode').hide();
+                    $('#style_mode #night_mode').show();
+                }).attr('src', 'images/logo.png');
+            } else {
+                // Check if logo (image file) is loaded via load() before changing CSS, 
+                // when the server (or internet connection) is not available... 
+                $('#logo img').load(function () {
+                    $('link[rel="stylesheet"][media="screen"]').attr('href', 'styles/night_mode.css');
+                    $('#style_mode #night_mode').hide();
+                    $('#style_mode #day_mode').show();
+                }).attr('src', 'images/logo_w.png');
+            }
+        });
+    });
+    </script>
+
+
+<script type="text/javascript">
+  
+    $(document).ready(function() {
+        var drafts = $.jStorage.get("drafts");
+        var last_modified_id = $.jStorage.get('last_modified_id');
+        var draft_id;
+        var value;
+        var date;
+        var current_stored_value;
+        var month_name = new Array("Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec");
+        var save_the_world_message = '<h1>Save Paper. Save Trees. Save the World.</h1><h2>It seems that your text more than 2 sheets of paper...</h2><p>If you want to send your text to your friend or to another device, you can just create a “Temporary link” to sync your text.</p><p>Thanks ;-)</p>';
+        var default_page_title = 'JustNotepad.com - Online notepad. Create note online';
+        var status_value_from_url = '';
+
+
+        // If the value of the text from a "Temporary URL" exists: 
+        if (status_value_from_url == 'yes') {
+            $.jStorage.deleteKey('last_modified_id');
+        } else {
+            last_modified_id = $.jStorage.get('last_modified_id');
+        }
+
+
+        // If "last_modified_id" is false (For a new draft), 
+        // or (||) if a user is redirected via "Temporary URL": 
+		
+        if (last_modified_id===null || status_value_from_url == 'yes') {
+            draft_id = '36ef87029f78bcebd834677d22449db3';
+            last_modified_id = '36ef87029f78bcebd834677d22449db3';
+        } else {
+            draft_id = last_modified_id;
+        }
+		//alert(last_modified_id)
+
+
+        //----------------------------------------------------------------------------------------------- 
+        function count_value(value) {
+            $('#count #count_chars').text('Characters: ' + value.length + ' (with spaces)');
+            if (value.length === 0 || value.match(/^\s*$/)) {
+                $('#count #count_words').text('Words: 0');
+            } else {
+                $('#count #count_words').text('Words: ' + value.trim().replace(/\s+/gi, ' ').split(' ').length);
+            }
+        }
+
+
+        //----------------------------------------------------------------------------------------------- 
+        // Changing <title> of the page/tab/window for the current draft: 
+        function change_page_title(value) {
+            // The html entities (including special characters, line breaks and whitespace chars) inside <title> tag are converted automatically by browser... 
+            // .replace(/\s\s+/g, ' ') - this "regular expression" replaces multiple "whitespace characters" with 1 space. 
+            // Multiple "whitespace characters" - is visible only in the DOM inspector. 
+            // Also, cutting the string to 25 characters. 
+            //var short_page_title_value = value.trim().replace(/\s\s+/g, ' ').substr(0, 25).trim();
+            var short_page_title_value = value.trim().replace(/\s\s+/g, ' ').slice(0, 25).trim();
+            document.title = '“' + short_page_title_value + '...” – Draft – JustNotepad.com';
+        }
+
+
+        //----------------------------------------------------------------------------------------------- 
+        // Check if the main key "drafts" does not exist in the storage (for a new user): 
+        if (!drafts) {
+            // Check if the value of the text from a "Temporary URL" does not exists: 
+            //if (status_value_from_url != 'yes') {
+            //    $('#editable_text').text('Your text...');
+            //}
+            $('#buttons #delete_draft').hide();
+            $('#create_temp_url').hide();
+        } else {
+		
+            //----------------------------------------------------- 
+            // Getting value of "value" via loop... 
+            for (var a = 0; a < drafts.length; a++) {
+                if (drafts[a].id == draft_id) {
+                    value = drafts[a].value;
+                    // Converting date (from the 10-digit UNIX-timestamp) 
+                    date = new Date(drafts[a].timestamp * 1000);
+                    break;
+                }
+            }
+			
+            //----------------------------------------------------- 
+            // Check if "value" does not exist in the storage (for a new draft), 
+            // or (||) if a user is redirected via "Temporary URL": 
+            if (!value || status_value_from_url == 'yes') {
+                // If a "Temporary URL" does not exist - then removing text from the <textarea> for a new draft: 
+                if (status_value_from_url != 'yes') {
+                    $('#editable_text').text('');
+                }
+                $('#buttons #delete_draft').hide();
+                $('#create_temp_url').hide();
+            } else {
+			
+                // Removing - placeholder="Your text..." from the <textarea> tag to prevent unexpected incorrect deletion of text in the IE browsers :-\ 
+                //if (navigator.userAgent.match(/(MSIE|Trident\/|Edge\/|Windows Phone|Windows Mobile|IEMobile)/i)) {
+                    $('textarea').removeAttr('placeholder');
+                //}
+                //----------------------------------------------------- 
+                // Auto hiding a very large text in <textarea>: 
+                // - if the last modified text more than > 1 000 000 characters, 
+                // - if ID equals = "last_modified_id" 
+                // User can create very large text and then close the tab/window/browser. But later, the user can return to the site. 
+                // Therefore, to prevent browser freezes, it cleans the textarea (by deleting last_modified_id). 
+                // The user can switch to the last draft manually in the drafts list after refreshing the page later... 
+                // 1 000 000 characters - the optimum max length of the text to open the site in the browser tab without critical delay... 
+                // 1 000 000 - 2 500 000 characters - such length slows the opening of the site in the browser tab :-\ 
+                for (var b = 0; b < drafts.length; b++) {
+                    if ((drafts[b].id == last_modified_id) && (drafts[b].value.length > 1000000)) {
+                        $.jStorage.deleteKey('last_modified_id');
+                        // Auto refreshing the page to generate a new ID (draft_id) for a new empty draft (true - disables caching)... 
+                        location.reload(true);
+                        break;
+                    }
+                }
+                //----------------------------------------------------- 
+                // Replacing text in <textarea>: 
+                $('#editable_text').text(value);
+                // Copying text to <div id="printable_text">: 
+                // 10 000 chars > 2 sheets of paper... 
+                if (value.length < 10000) {
+                    $('#printable_text').text(value);
+                } else {
+                    $('#printable_text').html(save_the_world_message);
+                }
+                $('#buttons #delete_draft').show();
+                $('#create_temp_url').show();
+                // Start count_value() function to count characters and words... 
+                count_value(value);
+                $('#count').show();
+                // on Month d, yyyy, at hh:mm:ss 
+                $('#status_text').html('Saved in your browser storage as draft on ' + month_name[date.getMonth()] + '&nbsp;' + date.getDate() + ', ' + date.getFullYear() + ', at ' + ('0' + date.getHours()).slice(-2) + ':' + ('0' + date.getMinutes()).slice(-2) + ':' + ('0' + date.getSeconds()).slice(-2));
+                $('#status_text_by_default').hide();
+                $('#status_text').show();
+                //----------------------------------------------------- 
+                // Updating/Replacing "incorrect draft_id" with the --> "correct draft_id" in accordance with the text in <textarea>, which the browser has restored/saved (independently) "after restarting the browser" (even if a draft was only "selected from the drafts list", but not edited yet). 
+                // + Changing the <title> of the page/tab/window only in case when the text in <textarea> doesn't match the text of the current draft value. 
+                // This is necessary in the case when "several tabs" with "different drafts" have already "changed" <title> (after editing or selecting), and then "the browser has been restarted"... 
+                // In this case, some "desktop" browsers (For example - Chrome) automatically restore/save text in <textarea> "after restarting the browser". 
+                // So, it is better to keep the same <title> as it was "before restarting the browser" for convenience... 
+                // As a result, it allows to display the correct <title> for each tab (as it was "before the browser was restarted"), but except for the last draft (since the text of the last draft is equal = to the current value). 
+                // 
+                // "disabled" attribute - is a fix for "Firefox Android" to prevent replacing the <textarea> value "after restarting the browser", because "Firefox Android" calls the save() function and re-saves (restores) the wrong draft with the incorrect "draft ID" (loses the last modified draft) :-( 
+                // setTimeout() - is used to try to get the correct "draft ID" in the case of "Firefox Android" using a small "delay" after restarting the browser. 
+                $('#editable_text').attr("disabled", "disabled");
+                setTimeout(function() {
+                    if (value != $('#editable_text').val()) {
+                        var restored_text_by_browser = $('#editable_text').val();
+                        //----------------------------------------------------- 
+                        // Searching correct "draft_id" and "date" in the storage via loop... 
+                        for (var c = 0; c < drafts.length; c++) {
+                            if (drafts[c].value == restored_text_by_browser) {
+                                // Updating/Replacing "incorrect ID" with the "correct ID" 
+                                draft_id = drafts[c].id;
+                                // Updating/Replacing "incorrect date" with the "correct date" 
+                                // + Converting date (from the 10-digit UNIX-timestamp) 
+                                date = new Date(drafts[c].timestamp * 1000);
+                                break;
+                            }
+                        }
+                        //----------------------------------------------------- 
+                        // Copying correct text to <div id="printable_text">: 
+                        // 10 000 chars > 2 sheets of paper... 
+                        if (restored_text_by_browser.length < 10000) {
+                            $('#printable_text').text(restored_text_by_browser);
+                        } else {
+                            $('#printable_text').html(save_the_world_message);
+                        }
+                        // Start function to change <title> of the page/tab/window for the current text in the <textarea> 
+                        change_page_title(restored_text_by_browser);
+                        // Also, start count_value() function (again) to count characters and words for the current text in the <textarea>... 
+                        count_value(restored_text_by_browser);
+                        // on Month d, yyyy, at hh:mm:ss 
+                        $('#status_text').html('Saved in your browser storage as draft on ' + month_name[date.getMonth()] + '&nbsp;' + date.getDate() + ', ' + date.getFullYear() + ', at ' + ('0' + date.getHours()).slice(-2) + ':' + ('0' + date.getMinutes()).slice(-2) + ':' + ('0' + date.getSeconds()).slice(-2));
+                    }
+                    // Removing - "disabled" attribute from the <textarea> tag that was added temporarily for "Firefox Android" 
+                    $('#editable_text').removeAttr("disabled");
+                }, 2000);
+            }
+        }
+
+
+        //----------------------------------------------------------------------------------------------- 
+        // Auto-save when text is changed... 
+        // 
+        // "input" event - for all browsers except IE<9... 
+        // "propertychange" event - for IE<9... 
+        // "cut" event - for IE<=9... 
+        $('#editable_text').on('input propertychange cut', save);
+        // 
+        // Alternative saving for IE<=9 via "Backspace" or "Del" buttons: 
+        //$("#editable_text").keyup(function(event) {
+        // keydown() - allows to get the caret positions of the "selected" character(s) "before the actual deletion" for Undo/Redo feature. 
+        $("#editable_text").keydown(function(event) {
+            // 8 - "Backspace" button 
+            // 46 - "Del" button 
+            // "event.keyCode" - not recommended to use. This feature has been removed from the Web standards (https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/keyCode). 
+            // "event.which" property normalizes "event.keyCode" in jQuery 
+            if (event.which === 8 || event.which === 46) {
+                // Starts save() function... 
+                save();
+            }
+        });
+        // 
+        // Handling/catching "Tab(s)" button --->| and saving: 
+        // Because <textarea> does not support "tab(s)" space... 
+        $("#editable_text").keydown(function(event) {
+            // 9 - "Tab" button 
+            // "event.keyCode" - not recommended to use. This feature has been removed from the Web standards (https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/keyCode). 
+            // "event.which" property normalizes "event.keyCode" in jQuery 
+            if (event.which === 9) {
+                var value_with_tab = $('#editable_text').val();
+                // Caret(|) position/selection: 
+                var start = this.selectionStart;
+                var end = this.selectionEnd;
+                $('#editable_text').val(value_with_tab.slice(0, start) + '\t' + value_with_tab.slice(end, value_with_tab.length));
+                // Starts save() function... 
+                save();
+                // Puts caret at right position again --->|text... 
+                this.selectionStart = this.selectionEnd = start + 1;
+                // Prevent the focus lose 
+                return false;
+            }
+        });
+        // 
+        function save() {
+            var new_value = $('#editable_text').val();
+            // 10-digit UNIX-time (The number of seconds since January 1, 1970 at 00:00:00 GMT): 
+            var timestamp = Math.round(new Date().getTime() / 1000);
+            // Converting date (from the 10-digit UNIX-timestamp): 
+            var date = new Date(timestamp * 1000);
+            var current_stored_id;
+            // Local storage size (min ~2.5 MB - max 5 MB per domain...) 
+            // Because characters in Javascript use up 2 Bytes instead of 1 Byte (Strings in JavaScript are UTF-16), 
+            // 2500000 characters actually takes up 5 MB of space... 
+            // 5 MB = ~2500000 characters (without array...) 
+            // 2.5 MB = ~1250000 characters (without array...) 
+            // Actually, overflow html-textarea > ~100 000 characters - slows text editing, because the size of html-page is very large... 
+            // Max 2 500 000 Bytes (2.5 MB): 
+            // - 250 (~239) Bytes - the current size of the array with 1st object (with empty values of the keys)... 
+            // (It depends on the number of keys, names and values of object in array...) 
+            // 2500000 Bytes - 250 Bytes = 2499750 Bytes... 
+            var max_storage_size = 2500000 - 250;
+            // Size of the stored data (in Bytes): 
+            var storage_size = $.jStorage.storageSize();
+            var sum_of_lengths;
+            var new_sum_of_lengths = 0;
+            var error_message = 'You have reached the maximum space of your drafts.\r\nYou can delete unused drafts to free up space of drafts via “Delete” button.';
+            var error_message2 = 'Your text is very large. Or you have reached the maximum space of your drafts.\r\nYou can delete unused drafts to free up space of drafts via “Delete” button.';
+            drafts = $.jStorage.get("drafts");
+            current_stored_value = '';
+            last_modified_id = $.jStorage.get('last_modified_id');
+            //-------------------------------------------------- 
+            // Filter to prevent overflow of local storage: 
+            // If the main key "drafts" does not exist in the storage... 
+            if (!drafts) {
+                new_sum_of_lengths = 0;
+            } else {
+                //------------------------------------------------------------------------------------------ 
+                // The summation of the lengths (chars) of all the texts in all saved drafts via loop... 
+                // Also, searching and getting current stored value of "value" via loop... 
+                sum_of_lengths = 0;
+                for (var d = 0; d < drafts.length; d++) {
+                    // + 100 (~77) Bytes (Reserve for the new objects (drafts) that takes up to ~77 Bytes (per each draft)... 
+                    // (It depends on the number of keys, names and values of object in array...) 
+                    sum_of_lengths += drafts[d].value.length + 100;
+                    if (drafts[d].id == draft_id) {
+                        current_stored_value = drafts[d].value;
+                    }
+                }
+                // The new sum of the lengths of all the texts in all save drafts (with the new value of the text): 
+                new_sum_of_lengths = (sum_of_lengths - current_stored_value.length) + new_value.length;
+                //------------------------------------------------------------------------------------------ 
+            }
+            if ((new_value.length >= max_storage_size) || (new_sum_of_lengths >= max_storage_size)) {
+                // If a user uses the "Paste" (with more > than 1 character...) 
+                if (((new_value.length - max_storage_size) > 1) || ((new_sum_of_lengths - max_storage_size) > 1) || ((new_value.length - current_stored_value.length) > 1)) {
+                    // Replaces the "pasted" text to the last saved value (or null value)... 
+                    $('#editable_text').val(current_stored_value);
+                    new_value = current_stored_value;
+                    alert(error_message2);
+                } else {
+                    // Removes -1 character to the right of the text... 
+                    $('#editable_text').val(new_value.slice(0, -1));
+                    new_value = new_value.slice(0, -1);
+                    $('#limit_notice div').text(error_message);
+                    $('#limit_notice').show();
+                    alert(error_message);
+                }
+            } else {
+                $('#limit_notice').hide();
+            }
+            //------------------------------------------------------------------------------- 
+            // Check if the main key "drafts" does not exist in the storage for new user: 
+            if (!drafts) {
+                // Saving the 1st main key "drafts" and value [] with {the 1st object} inside the array [] 
+                $.jStorage.set("drafts", [{"id":draft_id,"timestamp":timestamp,"value":new_value}]);
+                // Also, copying text to <div id="printable_text">: 
+                // 10 000 chars > 2 sheets of paper... 
+                if (new_value.length < 10000) {
+                    $('#printable_text').text(new_value);
+                } else {
+                    $('#printable_text').html(save_the_world_message);
+                }
+                $('#buttons #delete_draft').show();
+                $('#create_temp_url').show();
+                $('#count').show();
+                $('#status_text_by_default').hide();
+                $('#status_text').show();
+            } else {
+                //-------------------------------------------------------------- 
+                // Searching current "draft_id" in the storage via loop... 
+                for (var e = 0; e < drafts.length; e++) {
+                    if (drafts[e].id == draft_id) {
+                        current_stored_id = drafts[e].id;
+                        break;
+                    }
+                }
+                //-------------------------------------------------------------- 
+                // If the current "draft_id" is not found in the storage: 
+                // In case if a user has pressed the "+ New" button, or if a user has deleted last draft via the "Delete" button... 
+                if (!current_stored_id) {
+                    // The 2nd filter to prevent overflow of local storage in a new tab/window: 
+                    // + 100 (~77) Bytes (Reserve for "last_modified_id" that is deleted before adding the new draft...) 
+                    // that takes up to ~77 Bytes (per each draft)... 
+                    // (It depends on the number of keys, names and values of object in array...) 
+                    if ((storage_size + 100) <= max_storage_size) {
+                        // Adding the new draft object inside the array [{...},{...},{new}] 
+                        drafts.push({"id":draft_id,"timestamp":timestamp,"value":new_value});
+                        $('#buttons #delete_draft').show();
+                        $('#create_temp_url').show();
+                        $('#count').show();
+                        $('#status_text_by_default').hide();
+                        $('#status_text').show();
+                    } else {
+                        $('#editable_text').val('');
+                        $('#limit_notice div').text(error_message);
+                        $('#limit_notice').show();
+                        $('#buttons #delete_draft').hide();
+                        $('#create_temp_url').hide();
+                        $('#count').hide();
+                        $('#status_text_by_default').hide();
+                        $('#status_text').hide();
+                    }
+                } else {
+                    // Searching ID and replacement values of "value" and "timestamp"... 
+                    for (var f = 0; f < drafts.length; f++) {
+                        if (drafts[f].id == draft_id) {
+                            drafts[f].value = new_value;
+                            drafts[f].timestamp = timestamp;
+                            break;
+                        }
+                        $('#buttons #delete_draft').show();
+                        $('#create_temp_url').show();
+                        $('#count').show();
+                        $('#status_text_by_default').hide();
+                        $('#status_text').show();
+                    }
+                }
+                $.jStorage.set("drafts", drafts);
+                // Also, copying text to <div id="printable_text">: 
+                // 10 000 chars > 2 sheets of paper... 
+                if (new_value.length < 10000) {
+                    $('#printable_text').text(new_value);
+                } else {
+                    $('#printable_text').html(save_the_world_message);
+                }
+            }
+            //------------------------------------------------------------------------------- 
+            $.jStorage.set('last_modified_id', draft_id);
+            // Start count_value() function to count characters and words... 
+            count_value(new_value);
+            // on Month d, yyyy, at hh:mm:ss 
+            $('#status_text').html('Saved in your browser storage as draft on ' + month_name[date.getMonth()] + '&nbsp;' + date.getDate() + ', ' + date.getFullYear() + ', at ' + ('0' + date.getHours()).slice(-2) + ':' + ('0' + date.getMinutes()).slice(-2) + ':' + ('0' + date.getSeconds()).slice(-2));
+            // Start function to change <title> of the page/tab/window for the edited draft 
+            change_page_title(new_value);
+        }
+
+
+        //----------------------------------------------------------------------------------------------- 
+        // Displays the list of drafts in all "tabs/windows" synchronously: 
+        // 
+        // Start function (without delay) when the 1-st request to the page... 
+        list_of_drafts();
+        // Auto-updating list of drafts (every 5 sec...) 
+        setInterval(list_of_drafts, 5000);
+        // 
+        function list_of_drafts() {
+            // Returns all the keys currently in use as an array 
+            //var index = $.jStorage.index();
+            var drafts = $.jStorage.get("drafts");
+            var date;
+            //-------------------------------------------------- 
+            // "Function Declaration" to compare timestamp: 
+            function compare(a, b) {
+                return b.timestamp - a.timestamp;
+            }
+            //-------------------------------------------------- 
+            // Removes the old list with tags... 
+            $('#drafts_list').empty();
+            // Check if the main key "drafts" does not exist in the storage for new user: 
+            // Also, for case if a user has deleted "all drafts" via the "Delete All Drafts" button... 
+            if (!drafts) {
+                //$('#editable_text').val('');
+                // Deleting text from <div id="printable_text"> in all "tabs/windows" synchronously... 
+                $('#printable_text').text('');
+                // Hiding the "list of drafts", "counter", "limit notice", "status" and "delete" button in all "tabs/windows" synchronously... 
+                $('#drafts').hide();
+                $('#count #count_chars, #count #count_words').text('');
+                $('#count').hide();
+                $('#limit_notice').hide();
+                $('#status_text').hide();
+                $('#status_text_by_default').show();
+                $('#buttons #delete_draft').hide();
+                $('#create_temp_url').hide();
+                // Restoring <title> of the page/tab/window to the original default title in all "tabs/windows" synchronously... 
+                document.title = default_page_title;
+            // Else, if (the main key "drafts" exists and more than > 0 object in "drafts" array): 
+            // Because a user can delete a last draft (object) via "Delete" button, but actually the "drafts" key still exists... 
+            } else if (drafts && drafts.length > 0) {
+                // Sorts drafts by timestamp via "sort" and function: 
+                drafts = drafts.sort(compare);
+                //--------------------------------------------- 
+                // Displays the new list... 
+                for (var g = 0; g < drafts.length; g++) {
+                    // Converting date (from the 10-digit UNIX-timestamp) to the human style: 
+                    date = new Date(drafts[g].timestamp * 1000);
+                    var formatted_date;
+                    //var formatted_date = date.toLocaleString();
+                    //var formatted_date = date.toLocaleDateString() + ', ' + date.toLocaleTimeString();
+                    if ((date.getMonth() + 1) == (new Date().getMonth() + 1)) {
+                        // Month d, hh:mm:ss 
+                        formatted_date = month_name[date.getMonth()] + ' ' + date.getDate() + ', ' + ('0' + date.getHours()).slice(-2) + ':' + ('0' + date.getMinutes()).slice(-2) + ':' + ('0' + date.getSeconds()).slice(-2);
+                    } else {
+                        // mm.dd.yy, hh:mm 
+                        formatted_date = ('0' + (date.getMonth() + 1)).slice(-2) + '.' + ('0' + date.getDate()).slice(-2) + '.' + ('0' + date.getFullYear()).slice(-2) + ', ' + ('0' + date.getHours()).slice(-2) + ':' + ('0' + date.getMinutes()).slice(-2);
+                    }
+                    // htmlspecialchars filter: 
+                    var safe_value = $('<span></span>').text(drafts[g].value).html();
+                    //var short_value = safe_value.substr(0, 50).trim();
+                    //var short_value = safe_value.slice(0, 50).trim();
+                    // .replace(/\s\s+/g, ' ') - this "regular expression" replaces multiple "whitespace characters" with 1 space. 
+                    var short_value = safe_value.trim().replace(/\s\s+/g, ' ').slice(0, 50).trim();
+                    $('#drafts_list').append('<p><a href="#" id="' + drafts[g].id + '" rel="nofollow">' + formatted_date + '<span> – ' + short_value + '...</span></a></p>');
+                }
+                //--------------------------------------------- 
+                // Selects the draft by click the link: 
+                $('#drafts_list a').click(function() {
+                    for (var h = 0; h < drafts.length; h++) {
+                        if (this.id == drafts[h].id) {
+                            draft_id = this.id;
+                            // Converting date (from the 10-digit UNIX-timestamp) 
+                            date = new Date(drafts[h].timestamp * 1000);
+                            $('#editable_text').val(drafts[h].value);
+                            // Also, replacing text in <div id="printable_text">: 
+                            // 10 000 chars > 2 sheets of paper... 
+                            if (drafts[h].value.length < 10000) {
+                                $('#printable_text').text(drafts[h].value);
+                            } else {
+                                $('#printable_text').html(save_the_world_message);
+                            }
+                            // Start count_value() function to count characters and words... 
+                            count_value(drafts[h].value);
+                            $('#count').show();
+                            // on Month d, yyyy, at hh:mm:ss 
+                            $('#status_text').html('Saved in your browser storage as draft on ' + month_name[date.getMonth()] + '&nbsp;' + date.getDate() + ', ' + date.getFullYear() + ', at ' + ('0' + date.getHours()).slice(-2) + ':' + ('0' + date.getMinutes()).slice(-2) + ':' + ('0' + date.getSeconds()).slice(-2));
+                            $('#status_text_by_default').hide();
+                            $('#status_text').show();
+                            $('#buttons #delete_draft').show();
+                            $('#create_temp_url').show();
+                            // Start function to change <title> of the page/tab/window for the selected draft 
+                            change_page_title(drafts[h].value);
+                            break;
+                        }
+                    }
+                });
+                //--------------------------------------------- 
+                $('#delete_all_drafts').text('Delete All Drafts');
+                $('#delete_all_drafts').show();
+                $('#drafts_header').text('Your drafts automatically saved in your browser storage earlier:');
+                $('#drafts').show();
+            } else {
+                //$('#editable_text').val('');
+                // Deleting text from <div id="printable_text"> in all "tabs/windows" synchronously... 
+                $('#printable_text').text('');
+                // Hiding the "list of drafts" in all "tabs/windows" synchronously: 
+                // Because a user can delete a last draft (object) via "Delete" button, but actually the "drafts" key still exists... 
+                $('#drafts').hide();
+                // And also hiding: "counter", "limit notice", "status" and "delete" button in all "tabs/windows" synchronously... 
+                $('#count #count_chars, #count #count_words').text('');
+                $('#count').hide();
+                $('#limit_notice').hide();
+                $('#status_text').hide();
+                $('#status_text_by_default').show();
+                $('#buttons #delete_draft').hide();
+                $('#create_temp_url').hide();
+            }
+        }
+
+
+        //----------------------------------------------------------------------------------------------- 
+        // Searching and auto-deleting draft(s) if a draft(s) "with empty value" or "without text" or contains "whitespace characters only"... 
+        // and also, if deleted ID not equal "last_modified_id" and if passed more > than 24 hours... 
+        // 
+        // Start function (without delay) when the 1-st request to the page or when the tab/window/browser has been restarted... 
+        delete_empty_drafts_24();
+        // Start function every ~1 hour (1 h = 3600 s = 3600000 ms...) 
+        setInterval(delete_empty_drafts_24, 3600000);
+        // 
+        function delete_empty_drafts_24() {
+            var drafts = $.jStorage.get("drafts");
+            var last_modified_id = $.jStorage.get('last_modified_id');
+            var today = new Date();
+            var date;
+            var diff;
+            if (drafts && drafts.length > 1) {
+                //-------------------------------------------------------------- 
+                for (var i = 0; i < drafts.length; i++) {
+                    // Converting date (from the 10-digit UNIX-timestamp) 
+                    date = new Date(drafts[i].timestamp * 1000);
+                    // The difference (in hours): 
+                    diff = Math.floor((((today - date) / 1000) / 60) / 60);
+                    // Regular expression - match(/^\s*$/) - checks if text == '' or == 'whitespace characters only' 
+                    // (space(s), tab(s), line feed, form feed, carriage return, no-break space(s), next line, and the variable-width spaces...) 
+                    if ((drafts[i].value === '' || drafts[i].value === ' ' || drafts[i].value.match(/^\s*$/)) && (drafts[i].id != last_modified_id) && diff >= 24) {
+                        // Deleting draft object from the array [{...},{removed object},{...}] 
+                        drafts.splice(i, 1);
+                        $.jStorage.set("drafts", drafts);
+                    }
+                }
+                //-------------------------------------------------------------- 
+            }
+        }
+
+
+        //----------------------------------------------------------------------------------------------- 
+        // Buttons: 
+        $('#buttons #new_draft').click(function() {
+            $.jStorage.deleteKey('last_modified_id');
+        });
+        $('#buttons #delete_draft').click(function() {
+            $("#confirm_lightbox").html('<div id="confirm_message">Are you sure you want to delete this draft?</div><div id="confirm_buttons"><div id="ok">Delete</div><div id="cancel">Cancel</div></div>');
+            $("#confirm_layer").show();
+            $("#confirm_lightbox").show();
+            $("#confirm_layer, #confirm_lightbox #confirm_buttons #cancel").click(function() {
+                $("#confirm_layer, #confirm_lightbox").hide();
+            });
+            $("#confirm_lightbox #confirm_buttons #ok").click(function() {
+                drafts = $.jStorage.get("drafts");
+                $('#editable_text').val('');
+                // Deleting text from <div id="printable_text">: 
+                $('#printable_text').text('');
+                //-------------------------------------------------------------- 
+                // Searching current "draft_id" in the storage via loop... 
+                // "draft_id" - can be "current id" or "id from the list of drafts"...
+                for (var j = 0; j < drafts.length; j++) {
+                    if (drafts[j].id == draft_id) {
+                        // Deletion the current draft object from the array [{...},{removed object},{...}] 
+                        drafts.splice(j, 1);
+                        break;
+                    }
+                }
+                //-------------------------------------------------------------- 
+                $.jStorage.set("drafts", drafts);
+                $.jStorage.deleteKey('last_modified_id');
+                $('#count').hide();
+                $('#count #count_chars, #count #count_words').text('');
+                $('#limit_notice').hide();
+                $('#status_text').hide();
+                $('#status_text').text('');
+                $('#status_text_by_default').show();
+                $('#buttons #delete_draft').hide();
+                $('#create_temp_url').hide();
+                $("#confirm_layer, #confirm_lightbox").hide();
+                // Start function to update list of drafts without delay... 
+                list_of_drafts();
+                // Restoring <title> of the page/tab/window to the original default title 
+                document.title = default_page_title;
+            });
+        });
+        $('#delete_all_drafts').click(function() {
+            $("#confirm_lightbox").html('<div id="confirm_message">Are you sure you want to delete all your drafts?</div><div id="confirm_buttons"><div id="ok">Delete</div><div id="cancel">Cancel</div></div>');
+            $("#confirm_layer").show();
+            $("#confirm_lightbox").show();
+            $("#confirm_layer, #confirm_lightbox #confirm_buttons #cancel").click(function() {
+                $("#confirm_layer, #confirm_lightbox").hide();
+            });
+            $("#confirm_lightbox #confirm_buttons #ok").click(function() {
+                // Clearing the cache... 
+                $.jStorage.flush();
+                //$('#editable_text').val('');
+                // Deleting text from <div id="printable_text">: 
+                $('#printable_text').text('');
+                // Removing tags from the drafts list... 
+                $('#drafts_list').empty();
+                // Hiding "list of drafts", "limit notice", "status", "delete" button and "lightbox" 
+                // in the current "tab/window" only... 
+                $('#drafts').hide();
+                $('#count').hide();
+                $('#count #count_chars, #count #count_words').text('');
+                $('#limit_notice').hide();
+                $('#status_text').hide();
+                $('#status_text').text('');
+                $('#status_text_by_default').show();
+                $('#buttons #delete_draft').hide();
+                $('#create_temp_url').hide();
+                $("#confirm_layer, #confirm_lightbox").hide();
+                // Restoring <title> of the page/tab/window (current only) to the original default title 
+                document.title = default_page_title;
+            });
+        });
+        $('#create_temp_url #temp_url_nav, #temp_url_box #temp_url_buttons #cancel_url').click(function() {
+            $('#temp_url_box').toggle('fast');
+            $('#temp_url_box #temp_url_result').hide();
+            $('#temp_url_box #temp_url_result').html('');
+            $("#temp_url_box #temp_url_password #password").val('');
+            $('#temp_url_box #temp_url_password').show();
+            $('#temp_url_box #another_temp_url').hide();
+            $('#temp_url_box #temp_url_buttons').show();
+        });
+        $('#temp_url_box #another_temp_url #create_another_url').click(function() {
+            $('#temp_url_box #temp_url_result').hide();
+            $('#temp_url_box #temp_url_result').html('');
+            $("#temp_url_box #temp_url_password #password").val('');
+            $('#temp_url_box #temp_url_password').show();
+            $('#temp_url_box #another_temp_url').hide();
+            $('#temp_url_box #temp_url_buttons').show();
+        });
+        $('#count span').click(function() {
+            $("#count span").toggle();
+        });
+
+
+        //----------------------------------------------------------------------------------------------- 
+        // Temporary URL request (Ajax): 
+        // https://api.jquery.com/submit/ 
+        $('#draft_form').submit(function(event) {
+            //var formData = $('#draft_form');
+            var formData = $(this);
+            // Validation: 
+            // If "password" value length is zero: 
+            if ($("#temp_url_box #temp_url_password #password").val().length === 0) {
+                //$('#temp_url_box #temp_url_result').html('<div class="error">Password cannot be blank.</div>');
+                //$('#temp_url_box #temp_url_result').show();
+                //return false;
+                // Stopping the form from submitting and refreshing the page... 
+                event.preventDefault();
+            } else {
+                // If OK ("password" matches the regex): 
+                if ($("#temp_url_box #temp_url_password #password").val().match(/^[A-Za-z0-9]{8,32}$/)) {
+                    // 1. Start the preloader (registration via "ajaxStart") - before the 1st Ajax request: 
+                    // ajaxStart - Global event (instead of local event - beforeSend) 
+                    // https://api.jquery.com/ajaxStart/  
+                    // https://api.jquery.com/Ajax_Events/ 
+                    $(document).ajaxStart(function() {
+                        $('#temp_url_box #temp_url_result').html('');
+                        $('#temp_url_box #temp_url_result').html('Wait...');
+                        $('#temp_url_box #temp_url_result').show();
+                        $('#temp_url_box #temp_url_buttons #create_url').addClass('preloader_button');
+                        $('#temp_url_box #temp_url_buttons #create_url').attr('disabled', 'disabled');
+                    });
+                    // 2. Sending a request via Ajax: 
+                    // https://api.jquery.com/jquery.ajax/ 
+                    // https://api.jquery.com/category/deferred-object/ 
+                    // https://api.jquery.com/Ajax_Events/ 
+                    var request = $.ajax({
+                        method: 'POST',
+                        //url: 'create_temp_url/',
+                        url: formData.attr('action'),
+                        // Turning form data into a query string 
+                        data: formData.serialize()
+                        //cache: false
+                    });
+                    // Error event: 
+                    // https://api.jquery.com/deferred.fail/ 
+                    request.fail(function(jqXHR, textStatus, errorThrown) {
+                        //$('#temp_url_result').html('<div class="error">error = ' + textStatus + '</div>');
+                        $('#temp_url_box #temp_url_result').html('<div class="error">Oops... Try again...</div>');
+                        $('#temp_url_box #temp_url_result').show();
+                        $('#temp_url_box #temp_url_buttons #create_url').removeClass('preloader_button');
+                        $('#temp_url_box #temp_url_buttons #create_url').removeAttr('disabled');
+                    });
+                    // Success event: 
+                    // https://api.jquery.com/deferred.done/ 
+                    request.done(function(result) {
+                        $('#temp_url_box #temp_url_result').html(result);
+                    });
+                    // Complete event: 
+                    // https://api.jquery.com/deferred.always/ 
+                    request.always(function() {
+                        $('#temp_url_box #temp_url_result').show();
+                        // Regular expression - match(/^\<input.+\>$/) - checks if <div id="temp_url_result"><input ... ></div> 
+                        if ($('#temp_url_box #temp_url_result').html().match(/^\<input.+\>$/)) {
+                            $("#temp_url_box #temp_url_password").hide();
+                            $("#temp_url_box #temp_url_password #password").val('');
+                            $('#temp_url_box #temp_url_buttons').hide();
+                            $('#temp_url_box #another_temp_url').show();
+                        }
+                        $('#temp_url_box #temp_url_buttons #create_url').removeClass('preloader_button');
+                        $('#temp_url_box #temp_url_buttons #create_url').removeAttr('disabled');
+                    });
+                } else if ($("#temp_url_box #temp_url_password #password").val().match(/^[A-Za-z0-9]{33,}$/)) {
+                    // "password" > 32 characters :-( 
+                    $('#temp_url_box #temp_url_result').html('<div class="error">Password must be at most 32&nbsp;characters.</div>');
+                    $('#temp_url_box #temp_url_result').show();
+                    //return false;
+                    // Stopping the form from submitting and refreshing the page... 
+                    event.preventDefault();
+                } else if ($("#temp_url_box #temp_url_password #password").val().match(/^[A-Za-z0-9]{0,7}$/)) {
+                    // "password" < 8 characters :-( 
+                    $('#temp_url_box #temp_url_result').html('<div class="error">Password must be at least 8&nbsp;characters.</div>');
+                    $('#temp_url_box #temp_url_result').show();
+                    //return false;
+                    // Stopping the form from submitting and refreshing the page... 
+                    event.preventDefault();
+                } else {
+                    // other cases :-( 
+                    $('#temp_url_box #temp_url_result').html('<div class="error">Password must be at least 8&nbsp;characters and contain a&nbsp;combination of letters&nbsp;(<nobr>A-Z</nobr>,&nbsp;<nobr>a-z</nobr>) and numbers&nbsp;(<nobr>0-9</nobr>).</div>');
+                    $('#temp_url_box #temp_url_result').show();
+                    //return false;
+                    // Stopping the form from submitting and refreshing the page... 
+                    event.preventDefault();
+                }
+            }
+            // Stopping the form from submitting and refreshing the page... 
+            event.preventDefault();
+        });
+    });
+    </script>
+
+</head>
+<body>
+<div id="header">
+<div id="logo">
+<a href="/notepad" title="online notepad"><img src="img/logo.png" border="0" alt="online notepad" /></a>
+</div>
+<div id="buttons">
+<div id="new_draft" onclick="window.open(window.location.href, '_blank');">+&nbsp;New</div>
+<div id="delete_draft" style="display:none;">Delete</div>
+</div>
+</div>
+<form method="post" action="create_temp_url/" id="draft_form">
+<div id="create_temp_url" style="display:none;">
+<span id="temp_url_nav">Create a Temporary Link for the&nbsp;current&nbsp;text</span>
+<div id="temp_url_box" style="display:none;">
+<div id="temp_url_result" style="display:none;"></div>
+<div id="temp_url_desc">Temporary link will be available for 2&nbsp;hours only. Then your link will be deleted automatically.</div>
+<div id="temp_url_password"><label style="display:none; margin:0 10px 10px 0;" for="password">Add Password</label><input type="password" name="password" maxlength="32" value="" id="password" autocomplete="off" placeholder="Add Password" required /><div id="password_tip">Use at least 8 characters (letters and numbers).</div></div>
+<div id="temp_url_buttons"><div class="temp_url_button"><button id="create_url" type="submit">Create Link</button></div><div class="temp_url_button"><button id="cancel_url" type="button">Cancel</button></div></div>
+<div id="another_temp_url" style="display:none;"><button id="create_another_url" type="button">Create Another Link</button></div>
+</div>
+</div>
+<div id="editable_text_box">
+<textarea rows="15" name="editable_text" id="editable_text" style="width:100%; max-width:100%; min-width:100%; height:340px; resize:vertical;" placeholder="Your text..." autofocus></textarea>
+</div>
+</form>
+<div id="printable_text" style="display:none;"></div>
+<div id="count_line">
+<div id="count" style="display:none;">
+<span id="count_chars"></span>
+<span id="count_words" style="display:none;"></span>
+</div>
+<div id="style_mode">
+<span id="night_mode"></span>
+<span id="day_mode" style="display:none;"></span>
+</div>
+</div>
+<div id="limit_notice" style="display:none;"><div></div></div>
+<div id="status_text_by_default">Your text will be saved in your browser storage as draft automatically.</div>
+<div id="status_text" style="display:none;"></div>
+<div id="drafts" style="display:none;">
+<div id="delete_all_drafts"></div>
+<div id="drafts_header"></div>
+<div id="drafts_list"></div>
+</div>
+<div id="footer">
+<div id="footer_menu"><a href="online-notepad.html">About</a> <a href="faq/">FAQ</a> <a href="terms/">Terms</a> <a href="feedback/">Feedback</a></div>
+<div id="footer_desc">
+<p>JustNotepad.com is a free <strong>online notepad</strong> in your web&nbsp;browser. With JustNotepad.com you can create notes (ideas, to-do list, links, or any other plain text) that you would like to write just in a web&nbsp;browser <strong>online</strong>. This simple <nobr><strong><a href="http://justnotepad.com/" title="online notepad">online notepad</a></strong></nobr> has AutoSave feature and allows you to restore your text “as&nbsp;a&nbsp;draft” even if you have closed your web&nbsp;browser/window or browser&nbsp;tab (if it is technologically possible and is supported by a&nbsp;web&nbsp;browser). Therefore, you can easily return to your text notes anytime.<br />
+Your text (draft) is stored in your web&nbsp;browser only (on your device only) and is not available to anyone. But if you want to send your text note to your friend or to another device, you can create a Temporary&nbsp;link to sync your text.</p>
+<p>In addition, this online notepad works like a “multi-page” notepad and allows you to manage drafts (notes). All created notes (drafts) are named “by&nbsp;date” and “time”, to easily identify your note.</p>
+</div>
+<div id="footer_bottom_line">
+<div id="footer_social_b">
+
+</div>
+<div id="footer_lang"></div>
+</div>
+<div id="footer_please_note">
+<p>Note: Notepad is not a replacement for your real paper notepad and can not be used as a service of backup of text.</p>
+</div>
+</div>
+<div id="confirm_layer" style="display:none;"></div>
+<div id="confirm_lightbox" style="display:none;"></div>
+
+
+</body>
+</html>
