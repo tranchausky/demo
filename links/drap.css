@@ -1,0 +1,28 @@
+.drag-list {
+        margin: 0 auto;
+      }
+
+      .drag-list > li {
+        list-style: none;
+        background: rgb(255, 255, 255);
+        border: 1px solid rgb(196, 196, 196);
+        margin: 5px 0;
+        font-size: 19px;
+      }
+
+      .drag-list .title {
+        display: inline-block;
+
+        padding: 6px 6px 6px 12px;
+        vertical-align: top;
+      }
+
+      .drag-list .drag-area {
+        display: inline-block;
+        background: rgb(158, 211, 179);
+        width: 60px;
+        height: 40px;
+        vertical-align: top;
+        float: right;
+        cursor: move;
+      }
