@@ -26,13 +26,13 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
-                      </button>
+                    </button>
                     <a class="navbar-brand" href="#">Save Link DashBoard</a>
                 </div>
                 <div class="collapse navbar-collapse" id="myNavbar">
                     <ul class="nav navbar-nav">
-						<li class="active"><a href="#homepage">Home</a></li>
-						<li><a href="#swot">swot</a></li>
+                        <li class="active"><a href="#homepage">Home</a></li>
+                        <li><a href="#swot">swot</a></li>
                         <li class=""><a href="#calendar">Calendar</a></li>
                         <li class=""><a href="#todo">Todo</a></li>
                         <li class=""><a href="#photo">Photo</a></li>
@@ -57,7 +57,8 @@
                     <h3>Sign Up</h3>
                     Email <br />
                     <input class="form-control" type="email" id="registration-email" /><br /> Confirm Email <br />
-                    <input class="form-control" type="email" id="registration-reemail" autocomplete="disable" /><br /> Password <br />
+                    <input class="form-control" type="email" id="registration-reemail" autocomplete="disable" /><br />
+                    Password <br />
                     <input class="form-control" type="password" id="registration-password" /><br />
 
 
@@ -88,8 +89,8 @@
                     </div>
                 </div>
 
-                
-				<div id="homepage" class="hide v-m-content">
+
+                <div id="homepage" class="hide v-m-content">
 
 
                     <div class="row">
@@ -104,16 +105,17 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="email">Link</label>
-                                    <input type="text" class="form-control" id="email" required placeholder="Enter Link">
+                                    <input type="text" class="form-control" id="email" required
+                                        placeholder="Enter Link">
                                 </div>
                                 <h3>Category</h3>
                                 <div class="form-group">
                                     <label for="city">Category</label>
                                     <select name="city" id="city" class="form-control list-select-option">
                                         <optgroup label="Working">
-                                        <option value="1">Working</option>
-                                        <option value="saab">Saab</option>
-                                      </optgroup>
+                                            <option value="1">Working</option>
+                                            <option value="saab">Saab</option>
+                                        </optgroup>
                                     </select>
                                     <!-- <input type="text" class="form-control" id="city1" placeholder="Enter Category"> -->
                                 </div>
@@ -139,101 +141,75 @@
                         </div>
                     </div>
                 </div>
-				
-				<div id="swot" class="hide v-m-content">
+
+                <div id="swot" class="hide v-m-content">
 
                     <div class="row">
                         <div class="col-sm-12">
                             <h3>Update data </h3>
                         </div>
-						<div class="row">
-							<div class="col-md-6">
-								<input type="text" class="form-control" id="name1" required="" placeholder="Enter name">
-								<button type="submit" class="btn btn-primary" onclick="addSWOT()">Add</button>
-								<button type="submit" class="btn btn-primary" onclick="editSwot()">Edit</button>
-								<button type="submit" class="btn btn-primary" onclick="deleteSwot()">Delete</button>
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-md-6">
-								<ul>
-									<li>at title: <span id="swot-title"></span></li>
-									<input type="hidden" id="keySwot"/>
-									<input type="hidden" id="keyAtId"/>
-									<li>at at: <span id="swot-at"></span></li>
-								</ul>
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-md-6 list-drap-drop drag-list">
-								<h3 data-key="s">Title S</h3>
-								
-								      <ul class="drag-list">
-										<li><span class="title">list 1</span><span class="drag-area"></span></li>
-										<li><span class="title">list 2</span><span class="drag-area"></span></li>
-										<li><span class="title">list 3</span><span class="drag-area"></span></li>
-										<li><span class="title">list 4</span><span class="drag-area"></span></li>
-										<li><span class="title">list 5</span><span class="drag-area"></span></li>
-										<li><span class="title">list 6</span><span class="drag-area"></span></li>
-										<li><span class="title">list 7</span><span class="drag-area"></span></li>
-									  </ul>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <input type="text" class="form-control" id="name1" required="" placeholder="Enter name">
+                                <button type="submit" class="btn btn-primary" onclick="addSWOT()">Add</button>
+                                <button type="submit" class="btn btn-primary" onclick="editSwot()">Edit</button>
+                                <button type="submit" class="btn btn-primary" onclick="deleteSwot()">Delete</button>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <ul>
+                                    <li>at title: <span id="swot-title"></span></li>
+                                    <input type="hidden" id="keySwot" />
+                                    <input type="hidden" id="keyAtId" />
+                                    <li>at at: <span id="swot-at"></span></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 list-drap-drop drag-list">
+                                <h3 data-key="s">Title S</h3>
+
+                                <ul class="drag-list">
+
+                                    <!-- <li><span class="title">list 7</span><span class="drag-area"></span></li> -->
+                                </ul>
 
 
-							
-							</div>
-							<div class="col-md-6 list-drap-drop drag-list">
-								<h3 data-key="w">Title W</h3>
-								      <ul class="drag-list">
-										<li><span class="title">list 1</span><span class="drag-area"></span></li>
-										<li><span class="title">list 2</span><span class="drag-area"></span></li>
-										<li><span class="title">list 3</span><span class="drag-area"></span></li>
-										<li><span class="title">list 4</span><span class="drag-area"></span></li>
-										<li><span class="title">list 5</span><span class="drag-area"></span></li>
-										<li><span class="title">list 6</span><span class="drag-area"></span></li>
-										<li><span class="title">list 7</span><span class="drag-area"></span></li>
-									  </ul>
+
+                            </div>
+                            <div class="col-md-6 list-drap-drop drag-list">
+                                <h3 data-key="w">Title W</h3>
+                                <ul class="drag-list">
+
+                                </ul>
 
 
-							
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-md-6 list-drap-drop drag-list">
-								<h3 data-key="o">Title O</h3>
-								      <ul class="drag-list">
-										<li><span class="title">list 1</span><span class="drag-area"></span></li>
-										<li><span class="title">list 2</span><span class="drag-area"></span></li>
-										<li><span class="title">list 3</span><span class="drag-area"></span></li>
-										<li><span class="title">list 4</span><span class="drag-area"></span></li>
-										<li><span class="title">list 5</span><span class="drag-area"></span></li>
-										<li><span class="title">list 6</span><span class="drag-area"></span></li>
-										<li><span class="title">list 7</span><span class="drag-area"></span></li>
-									  </ul>
 
-							</div>
-							<div class="col-md-6 list-drap-drop drag-list">
-								<h3 data-key="t">Title T</h3>
-								      <ul class="drag-list">
-										<li><span class="title">list 1</span><span class="drag-area"></span></li>
-										<li><span class="title">list 2</span><span class="drag-area"></span></li>
-										<li><span class="title">list 3</span><span class="drag-area"></span></li>
-										<li><span class="title">list 4</span><span class="drag-area"></span></li>
-										<li><span class="title">list 5</span><span class="drag-area"></span></li>
-										<li><span class="title">list 6</span><span class="drag-area"></span></li>
-										<li><span class="title">list 7</span><span class="drag-area"></span></li>
-									  </ul>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 list-drap-drop drag-list">
+                                <h3 data-key="o">Title O</h3>
+                                <ul class="drag-list">
 
+                                </ul>
 
-							
-							</div>
-						</div>
+                            </div>
+                            <div class="col-md-6 list-drap-drop drag-list">
+                                <h3 data-key="t">Title T</h3>
+                                <ul class="drag-list">
+
+                                </ul>
+                            </div>
+                        </div>
                     </div>
-					<br/>
-					<br/>
-					<br/>
-					<br/>
+                    <br />
+                    <br />
+                    <br />
+                    <br />
                 </div>
-			
+
                 <div id="calendar" class="hide v-m-content calendar">
                     <div class="row">
                         <div class="col-sm-12">
@@ -245,8 +221,9 @@
                         <div class="col-sm-6">
                             <div class="row">
                                 <div class="right">
-                                    <i class="prev-month fa fa-chevron-left fa-3x"><</i>
-                                    <i class="next-month fa fa-chevron-right fa-3x">></i>
+                                    <i class="prev-month fa fa-chevron-left fa-3x">
+                                        << /i>
+                                            <i class="next-month fa fa-chevron-right fa-3x">></i>
                                 </div>
                                 <!-- <br> -->
                                 <!-- <button onclick="addCalendar()">add data</button> -->
@@ -283,7 +260,8 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="email">Text</label>
-                                    <textarea type="text" class="form-control" id="date-content" required="" placeholder="Enter Content"></textarea>
+                                    <textarea type="text" class="form-control" id="date-content" required=""
+                                        placeholder="Enter Content"></textarea>
                                 </div>
                                 <button id="btnAddCalen" class="none" onclick="addCalendar()">Add data</button>
                                 <button id="btnUpdateCalen" class="none" onclick="updateCalendar()">Update data</button>
@@ -328,7 +306,8 @@
                                     <div class="list-group">
                                         <div>
                                             <div class="col-sm-9">
-                                                <label><input type="checkbox" name="remember"> asdf asdf asdf asdfas fasd asdf asdf</label>
+                                                <label><input type="checkbox" name="remember"> asdf asdf asdf asdfas
+                                                    fasd asdf asdf</label>
                                             </div>
                                             <div class="col-sm-3">
                                                 <button class="btn btn-default">Edit</button>
@@ -344,7 +323,8 @@
                                         </div>
                                         <div>
                                             <div class="col-sm-9">
-                                                <label><input type="checkbox" name="remember"> asdf asdf asdf asdfas fasd asdf asdf</label>
+                                                <label><input type="checkbox" name="remember"> asdf asdf asdf asdfas
+                                                    fasd asdf asdf</label>
                                             </div>
                                             <div class="col-sm-3">
                                                 <button class="btn btn-default">Edit</button>
@@ -352,7 +332,8 @@
                                         </div>
                                         <div>
                                             <div class="col-sm-9">
-                                                <label><input type="checkbox" name="remember"> asdf asdf asdf asdfas fasd asdf asdf</label>
+                                                <label><input type="checkbox" name="remember"> asdf asdf asdf asdfas
+                                                    fasd asdf asdf</label>
                                             </div>
                                             <div class="col-sm-3">
                                                 <button class="btn btn-default">Edit</button>
@@ -360,7 +341,8 @@
                                         </div>
                                         <div>
                                             <div class="col-sm-9">
-                                                <label><input type="checkbox" name="remember"> asdf asdf asdf asdfas fasd asdf asdf</label>
+                                                <label><input type="checkbox" name="remember"> asdf asdf asdf asdfas
+                                                    fasd asdf asdf</label>
                                             </div>
                                             <div class="col-sm-3">
                                                 <button class="btn btn-default">Edit</button>
@@ -378,7 +360,8 @@
                                     <div class="list-group">
                                         <div>
                                             <div class="col-sm-9">
-                                                <label><input type="checkbox" name="remember"> asdf asdf asdf asdfas fasd asdf asdf</label>
+                                                <label><input type="checkbox" name="remember"> asdf asdf asdf asdfas
+                                                    fasd asdf asdf</label>
                                             </div>
                                             <div class="col-sm-3 enent">
                                                 <button class="btn btn-default">Edit</button>
@@ -428,7 +411,7 @@
                             <button id="addImage" class="form-control">Add image</button>
                         </div> -->
                     </div>
-                    <hr/>
+                    <hr />
                     <div class="row">
                         <div class="col-sm-3">
                             <select name="list-cat-btn" class="form-control list-cat-btn" id="list-cat-btn"></select>
@@ -451,7 +434,8 @@
                             <div class="row">
                                 <div class="col-sm-3">
                                     <label for="">Edit category</label>
-                                    <select name="list-cat-btn-edit" class="form-control list-cat-btn-edit" id="list-cat-btn-edit"></select>
+                                    <select name="list-cat-btn-edit" class="form-control list-cat-btn-edit"
+                                        id="list-cat-btn-edit"></select>
                                 </div>
                                 <div class="col-sm-4"><span id="photo-time"></span>
                                     <input id="edit-private-photo" type="checkbox">
@@ -461,10 +445,11 @@
                             </div>
                             <br><br>
                             <div class="row">
-                                <img class="img-responsive" id="image-img-photo" src="https://i.imgur.com/mVJdgKk.png" alt="">
+                                <img class="img-responsive" id="image-img-photo" src="https://i.imgur.com/mVJdgKk.png"
+                                    alt="">
                             </div>
 
-                            <br/><br><br></span><br>
+                            <br /><br><br></span><br>
                         </div>
                     </div>
                 </div>
@@ -477,16 +462,16 @@
     <script src="bootstrap.min.js"></script>
     <script src="drag-arrange.min.js"></script>
     <script src="drap.js"></script>
-	
-	<script>
-//$(function() {
 
-  $('.navbar-nav>li>a').on('click', function(){
-    $('.navbar-collapse').collapse('hide');
-});
+    <script>
+        //$(function() {
+
+        $('.navbar-nav>li>a').on('click', function () {
+            $('.navbar-collapse').collapse('hide');
+        });
 
 //});
-</script>
+    </script>
 
 
 
