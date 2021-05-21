@@ -1018,44 +1018,142 @@ function getListTodoCompleted() {
 }
 
 function getListSWOT() {
-    var listKey = ['s','w','o','t'];
-    for (let index = 0; index < listKey.length; index++) {
-        var atId = listKey[index];
-        console.log(atId)
-        var swoftRef = dbRef.ref('swot/' + user_ID+'/'+atId)
-        //contactsRef.orderByChild('time').on("value", function (snapshot) {
-        //swoftRef.orderByChild('status').equalTo('new').on("value", function (snapshot) {
-        swoftRef.orderByChild('time').on("value", function (snapshot) {
-            console.log(snapshot.val());
-            //allSWOT[atId] = snapshot.val()
-            // if(allSWOT == null){
-            //     pushSWOTFirst();
-            // }
-           // console.log(allSWOT)
-            // var newObjectSort = sortDescObj(allTaskNew, 'time')
-            // buildListTodoNew(newObjectSort)
-        })
+    //var listKey = ['s','w','o','t'];
+    //for (let index = 0; index < listKey.length; index++) {
+    //var atId = listKey[index];
+    var atId = 's';
+    console.log(atId)
+    var swoftRef = dbRef.ref('swot/' + user_ID + '/' + atId)
+    //contactsRef.orderByChild('time').on("value", function (snapshot) {
+    //swoftRef.orderByChild('status').equalTo('new').on("value", function (snapshot) {
+    swoftRef.orderByChild('time').on("value", function (snapshot) {
+        console.log(snapshot.val());
+        allSWOT[atId] = snapshot.val()
+        // if(allSWOT == null){
+        //     pushSWOTFirst();
+        // }
+        // console.log(allSWOT)
+        var newObjectSort = sortDescObj(allSWOT[atId], 'number')
+        buildListSwot('s', newObjectSort)
+    })
+
+
+    atId = 'w';
+    //console.log(atId)
+    swoftRef = dbRef.ref('swot/' + user_ID + '/' + atId)
+    swoftRef.orderByChild('time').on("value", function (snapshot) {
+        console.log(snapshot.val());
+        allSWOT[atId] = snapshot.val()
+        // if(allSWOT == null){
+        //     pushSWOTFirst();
+        // }
+        // console.log(allSWOT)
+        // var newObjectSort = sortDescObj(allTaskNew, 'time')
+        // buildListTodoNew(newObjectSort)
+        var newObjectSort = sortDescObj(allSWOT[atId], 'number')
+        buildListSwot('w', newObjectSort)
+    })
+
+    atId = 'o';
+    //console.log(atId)
+    swoftRef = dbRef.ref('swot/' + user_ID + '/' + atId)
+    swoftRef.orderByChild('time').on("value", function (snapshot) {
+        console.log(snapshot.val());
+        allSWOT[atId] = snapshot.val()
+        // if(allSWOT == null){
+        //     pushSWOTFirst();
+        // }
+        // console.log(allSWOT)
+        var newObjectSort = sortDescObj(allSWOT[atId], 'number')
+        buildListSwot('o', newObjectSort)
+    })
+    atId = 't';
+    //console.log(atId)
+    swoftRef = dbRef.ref('swot/' + user_ID + '/' + atId)
+    swoftRef.orderByChild('time').on("value", function (snapshot) {
+        console.log(snapshot.val());
+        allSWOT[atId] = snapshot.val()
+        // if(allSWOT == null){
+        //     pushSWOTFirst();
+        // }
+        // console.log(allSWOT)
+        var newObjectSort = sortDescObj(allSWOT[atId], 'number')
+        buildListSwot('t', newObjectSort)
+    })
+    console.log(allSWOT);
+    //}
+}
+function editSwot(){
+    var idType = $('#keySwot').val();
+    if (idType == '' || idType == null) {
+        return;
     }
+    var text = $('#name1').val();
+    if(text ==''){
+        return
+    }
+    var idKey = $('#keyAtId').val();
+    if(idKey =='' || idKey ==null){
+        return
+    }
+    updateSwot(idType,idKey,text);
+    $('#name1').val('');
 }
-function updateSwot(text, status, key) {
-    swoftRef = dbRef.ref('swot/' + user_ID + '/' + key)
+function deleteSwot(){
+    var result = confirm("Want to delete?");
+    if (!result) {
+        return
+    }
+
+    var idType = $('#keySwot').val();
+    if (idType == '' || idType == null) {
+        return;
+    }
+    
+    var idKey = $('#keyAtId').val();
+    if(idKey =='' || idKey ==null){
+        return
+    }
+    swoftRef = dbRef.ref('swot/' + user_ID + '/' + idType + '/' + idKey)
+    swoftRef.remove();
+
+}
+function updateSwot(idType, idKey, text) {
+    swoftRef = dbRef.ref('swot/' + user_ID + '/' + idType + '/' + idKey)
     swoftRef.update({
-        task: text,
-        status: status,
-        time: new Date().getTime(),
-        userId: user_ID
+        status: 'edit',
+        text: text,
+        timeEdit: new Date().getTime(),
+        // userId: user_ID
     })
 }
-function addSWOT(){
-    var keyType = 's';
-    var text = 'addtest sw';
-    var swoftRef = dbRef.ref('swot/' + user_ID+'/'+keyType)
-    swoftRef.push({
-        task: text,
-        //type: 's',
-        time: new Date().getTime(),
-        userId: user_ID
+function updateSortSwot(idType, idKey, number) {
+    swoftRef = dbRef.ref('swot/' + user_ID + '/' + idType + '/' + idKey)
+    swoftRef.update({
+        status: 'edit',
+        number: number,
+        timeEdit: new Date().getTime(),
+        // userId: user_ID
     })
+}
+function addSWOT() {
+    var keyType = $('#keySwot').val();
+    if (keyType == '' || keyType == null) {
+        return;
+    }
+    var text = $('#name1').val();
+    if(text ==''){
+        return
+    }
+    var swoftRef = dbRef.ref('swot/' + user_ID + '/' + keyType)
+    swoftRef.push({
+        text: text,
+        number: 0,
+        status: 'new',
+        time: new Date().getTime(),
+        // userId: user_ID
+    })
+    $('#name1').val('');
 }
 // function pushSWOTFirst() {
 //     var text = '';
@@ -1102,6 +1200,32 @@ function buildListTodoNew(dataIn) {
 
     }
     $('.list-todo-new .list-group').html(str);
+}
+function buildListSwot(keySwot, dataIn) {
+    var str = '';
+    for (var key in dataIn) {
+        var dataAt = dataIn[key]
+
+        str += '<li keyid="' + key + '"><span class="title">' + dataAt['text'] + '</span><span class="drag-area"></span></li>';
+
+    }
+    $('h3[data-key="' + keySwot + '"]').closest('.list-drap-drop').find('ul.drag-list').html(str);
+
+    $('.list-drap-drop li').arrangeable({
+        dragSelector: '.drag-area',
+    //     dragEndEvent: function(){
+    //         alert('Drag End');
+    //    }
+    });
+}
+function updateKeySwot() {
+    var keyId = $('#keySwot').val();
+    var list = $('.title-select-swot').closest('.list-drap-drop').find('ul.drag-list li');
+    var listIndex = []
+    list.each(function (index, v) {
+        var idAt = $(v).attr('keyid');
+        updateSortSwot(keyId, idAt, index)
+    })
 }
 
 function buildListTodoCompleted(dataIn) {

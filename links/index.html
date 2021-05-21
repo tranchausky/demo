@@ -150,20 +150,23 @@
 							<div class="col-md-6">
 								<input type="text" class="form-control" id="name1" required="" placeholder="Enter name">
 								<button type="submit" class="btn btn-primary" onclick="addSWOT()">Add</button>
-								<button type="submit" class="btn btn-primary">Edit</button>
+								<button type="submit" class="btn btn-primary" onclick="editSwot()">Edit</button>
+								<button type="submit" class="btn btn-primary" onclick="deleteSwot()">Delete</button>
 							</div>
 						</div>
 						<div class="row">
 							<div class="col-md-6">
 								<ul>
 									<li>at title: <span id="swot-title"></span></li>
+									<input type="hidden" id="keySwot"/>
+									<input type="hidden" id="keyAtId"/>
 									<li>at at: <span id="swot-at"></span></li>
 								</ul>
 							</div>
 						</div>
 						<div class="row">
 							<div class="col-md-6 list-drap-drop drag-list">
-								<h3>Title 1</h3>
+								<h3 data-key="s">Title S</h3>
 								
 								      <ul class="drag-list">
 										<li><span class="title">list 1</span><span class="drag-area"></span></li>
@@ -179,7 +182,7 @@
 							
 							</div>
 							<div class="col-md-6 list-drap-drop drag-list">
-								<h3>Title 2</h3>
+								<h3 data-key="w">Title W</h3>
 								      <ul class="drag-list">
 										<li><span class="title">list 1</span><span class="drag-area"></span></li>
 										<li><span class="title">list 2</span><span class="drag-area"></span></li>
@@ -196,7 +199,7 @@
 						</div>
 						<div class="row">
 							<div class="col-md-6 list-drap-drop drag-list">
-								<h3>Title 3</h3>
+								<h3 data-key="o">Title O</h3>
 								      <ul class="drag-list">
 										<li><span class="title">list 1</span><span class="drag-area"></span></li>
 										<li><span class="title">list 2</span><span class="drag-area"></span></li>
@@ -209,7 +212,7 @@
 
 							</div>
 							<div class="col-md-6 list-drap-drop drag-list">
-								<h3>Title 4</h3>
+								<h3 data-key="t">Title T</h3>
 								      <ul class="drag-list">
 										<li><span class="title">list 1</span><span class="drag-area"></span></li>
 										<li><span class="title">list 2</span><span class="drag-area"></span></li>
