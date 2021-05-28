@@ -154,6 +154,7 @@ function checkDetailCalendar(at) {
         var temp = returnDateDatainALl(dateInt)
         keyCalendar = temp[1]
         $('#date-content').val(temp[0].content)
+        $('#date-at-type').val(temp[0].type)
 
     } else {
         $('#btnAddCalen').show()
@@ -549,6 +550,7 @@ $('.addValue').on("click", function (event) {
 function addCalendar() {
 
     var date = $('#date-at').val()
+    var type_date = $('#date-at-type').val()
     var content = $('#date-content').val()
     calendarsRef = dbRef.ref('calendars/' + user_ID)
 
@@ -559,6 +561,7 @@ function addCalendar() {
 
     calendarsRef.push({
         date: dateInt,
+        type: type_date,
         content: content,
         time: new Date().getTime(),
         userId: user_ID
@@ -568,6 +571,7 @@ function addCalendar() {
 
 function updateCalendar() {
     var date = $('#date-at').val()
+    var type = $('#date-at-type').val()
     var content = $('#date-content').val()
     var key = keyCalendar;
 
@@ -577,6 +581,7 @@ function updateCalendar() {
     calendarsRef = dbRef.ref('calendars/' + user_ID + "/" + key)
     calendarsRef.update({
         date: dateInt,
+        type: type,
         content: content,
         time: new Date().getTime(),
         userId: user_ID
@@ -697,7 +702,11 @@ function buildListCalendar(dataIn) {
         var temp = d.toLocaleDateString();
         var listD = temp.split('/')
 
-        str += '<p>' + listD[1] + '/' + listD[0] + '/' + listD[2] + '</p>'
+        var typeShow = ''
+        if(dataAt.type !== undefined){
+            typeShow = dataAt.type;
+        }
+        str += '<p>' + listD[1] + '/' + listD[0] + '/' + listD[2] +' --'+ typeShow +  '</p>'
         str += '<pre>' + escape(dataAt.content) + '</pre>'
         str += '</li>'
     }

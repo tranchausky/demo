@@ -259,9 +259,18 @@
                                     <input type="text" id="date-at" class="form-control" readonly>
                                 </div>
                                 <div class="form-group">
+                                    <label for="date-at-type">Type</label>
+                                    <select name="date-at-type" id="date-at-type" class="form-control">
+                                        <option value="Report">Report</option>
+                                        <option value="Plan">Plan</option>
+                                        <option value="Note">Note</option>
+                                        <option value="Important">Important</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
                                     <label for="email">Text</label>
                                     <textarea type="text" class="form-control" id="date-content" required=""
-                                        placeholder="Enter Content"></textarea>
+                                        placeholder="Enter Content" rows="5"></textarea>
                                 </div>
                                 <button id="btnAddCalen" class="none" onclick="addCalendar()">Add data</button>
                                 <button id="btnUpdateCalen" class="none" onclick="updateCalendar()">Update data</button>
