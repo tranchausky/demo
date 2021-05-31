@@ -48,7 +48,7 @@
             <button v-on:click="checkAnswerFalse()" v-if="is_show_answer" class="btn btn-primary">Back To Test</button>
         </div>
         <div v-if="!is_show_answer">
-            <h3>List câu hỏi hiện tại</h3>
+            <h3>List 30 câu hỏi hiện tại</h3>
             <nav class="mb-4">
                 <v-pagination v-model="pagegination02.currentPage" :page-count="pagegination02.totalPageCount" :classes="pagegination02.bootstrapPaginationClasses" :labels="pagegination02.customLabels"></v-pagination>
             </nav>
@@ -65,7 +65,7 @@
             <!-- <li>{{one['correct']}}</li> -->
         </ul>
         <div>
-            <h3>List bảng câu hỏi</h3>
+            <h3>List bảng 600 câu hỏi</h3>
         </div>
         <nav class="mb-4">
             <v-pagination v-model="pagegination01.currentPage" :page-count="pagegination01.totalPageCount" :classes="pagegination01.bootstrapPaginationClasses" :labels="pagegination01.customLabels"></v-pagination>
