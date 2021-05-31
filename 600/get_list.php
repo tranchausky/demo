@@ -55,8 +55,11 @@ foreach($allArray as $k=>$v){
 echo "<pre>";
 //print_r($allArray);die;
 //print_r($listQuest);die;
-$data_save = json_encode($allArray,JSON_UNESCAPED_UNICODE);
+$data_save = json_encode($listQuest,JSON_UNESCAPED_UNICODE);
 $file_save = 'save.json';
 file_put_contents($file_save,$data_save);
 echo 'Done';
 echo "</pre>";
+
+echo "<pre>";
+print_r(json_decode(file_get_contents('listQuestion_ans.json'),true));
