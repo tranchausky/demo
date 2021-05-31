@@ -45,13 +45,17 @@ foreach($allArray as $k=>$v){
 	if($v[3]){$data[] = $v[3];}
 	if($v[4]){$data[] = $v[4];}
 	if($v[5]){$data[] = $v[5];}
+	$data['more'] = [];
+	$data['more']['7'] = $v[7];
 	if($v[6]){$data['more']['pic'] = $v[6];}
+	if($v[17]){$data['more']['17'] = $v[17];}
 	$listQuest[] = $data;
 }
 
 echo "<pre>";
-//print_r($listQuest);
-$data_save = json_encode($listQuest,JSON_UNESCAPED_UNICODE);
+//print_r($allArray);die;
+//print_r($listQuest);die;
+$data_save = json_encode($allArray,JSON_UNESCAPED_UNICODE);
 $file_save = 'save.json';
 file_put_contents($file_save,$data_save);
 echo 'Done';
