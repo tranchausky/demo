@@ -1,206 +1,363 @@
 <html>
+
 <head>
-  <!-- <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"/> -->
-<!-- <script src="vuejs/vue.min.js"></script> -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <!-- <script src="vuejs/vue.min.js"></script> -->
 
+    <meta charset="utf-8" />
+    <!-- Load required Bootstrap and BootstrapVue CSS -->
+    <!-- <link type="text/css" rel="stylesheet" href="//unpkg.com/bootstrap/dist/css/bootstrap.min.css" /> -->
+    <!-- <link type="text/css" rel="stylesheet" href="//unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.min.css" /> -->
 
-<!-- Load required Bootstrap and BootstrapVue CSS -->
-<link type="text/css" rel="stylesheet" href="//unpkg.com/bootstrap/dist/css/bootstrap.min.css" />
-<link type="text/css" rel="stylesheet" href="//unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.min.css" />
+    <!-- Load polyfills to support older browsers -->
+    <!-- <script src="//polyfill.io/v3/polyfill.min.js?features=es2015%2CIntersectionObserver" crossorigin="anonymous"></script> -->
 
-<!-- Load polyfills to support older browsers -->
-<script src="//polyfill.io/v3/polyfill.min.js?features=es2015%2CIntersectionObserver" crossorigin="anonymous"></script>
+    <!-- Load Vue followed by BootstrapVue -->
+    <script src="vuejs/vue.min.js"></script>
+    <!-- <script src="//unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.min.js"></script> -->
 
-<!-- Load Vue followed by BootstrapVue -->
-<script src="//unpkg.com/vue@latest/dist/vue.min.js"></script>
-<script src="//unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.min.js"></script>
+    <!-- Load the following for BootstrapVueIcons support -->
+    <!-- <script src="//unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue-icons.min.js"></script> -->
 
-<!-- Load the following for BootstrapVueIcons support -->
-<script src="//unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue-icons.min.js"></script>
-
-<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="vuejs/vue-plain-pagination.umd.min.js"></script>
+    <script src="vuejs/axios.min.js"></script>
 
 </head>
+
 <body>
 
-<h3 class="title">Vue Tables 2 Demo - Client Component</h3>
-<div id="app" v-cloak>
+    <div id="app" v-cloak class="container">
+        <br>
+        <h3 class="title">Thi lái xe</h3>
+        <hr/>
 
-	<div id="listQuestion">
-		<div  v-for="(one,index) in items" v-bind:id="'ques-'+(index+1)">
-			<p><b>{{index+1}}: {{one[0]}}</b></p>
-			<img v-if="one['more']['pic']" v-bind:src="'images/'+one['more']['pic']">
-			<ol type="A">
-				<li v-on:click="setChoose(index,'A')" v-bind:class="[indexShow[index].selec=='A'?'select':'']">{{one[1]}}</li>
-				<li v-on:click="setChoose(index,'B')" v-bind:class="[indexShow[index].selec=='B'?'select':'']">{{one[2]}}</li>
-				<li v-on:click="setChoose(index,'C')" v-bind:class="[indexShow[index].selec=='C'?'select':'']" v-if="one[3]">{{one[3]}}</li>
-				<li v-on:click="setChoose(index,'D')" v-bind:class="[indexShow[index].selec=='D'?'select':'']" v-if="one[4]">{{one[4]}}</li>
-			</ol>
-		</div>
-	</div>
-	<ul id="listIndex">
-		<transition v-for="(one,index) in indexShow" name="slide-fade" mode="out-in">
-		<li :key="one['selec']" v-on:click="goToId('ques-'+index)">{{index+1}} <span class="select">{{one['selec']}}</span></li>
-		  </transition>
-		<!-- <li>{{one['selec']}}</li> -->
-		<!-- <li>{{one['correct']}}</li> -->
-	</ul>
-</div>
+        <div id="listQuestion">
+            <div v-for="(one,index) in getContentPagination02" v-bind:id="'ques-'+(index+1)">
+                <p><b>{{one.id+1}}: {{one[0]}}</b></p>
+                <img v-if="one['more']['pic']" v-bind:src="'images/'+one['more']['pic']">
+                <ol type="A">
+                    <li v-on:click="setChoose(one.id,'A')" v-bind:class="[indexShow[one.id].selec=='A'?'select':'']">{{one[1]}}</li>
+                    <li v-on:click="setChoose(one.id,'B')" v-bind:class="[indexShow[one.id].selec=='B'?'select':'']">{{one[2]}}</li>
+                    <li v-on:click="setChoose(one.id,'C')" v-bind:class="[indexShow[one.id].selec=='C'?'select':'']" v-if="one[3]">{{one[3]}}</li>
+                    <li v-on:click="setChoose(one.id,'D')" v-bind:class="[indexShow[one.id].selec=='D'?'select':'']" v-if="one[4]">{{one[4]}}</li>
+                </ol>
+            </div>
+        </div>
+        <div>
+            <button v-on:click="checkAnswer()" v-if="!is_show_answer" class="btn btn-info">Check Answers</button>
+            <button v-on:click="checkAnswerFalse()" v-if="is_show_answer" class="btn btn-primary">Back To Test</button>
+        </div>
+        <div v-if="!is_show_answer">
+            <h3>List câu hỏi hiện tại</h3>
+            <nav class="mb-4">
+                <v-pagination v-model="pagegination02.currentPage" :page-count="pagegination02.totalPageCount" :classes="pagegination02.bootstrapPaginationClasses" :labels="pagegination02.customLabels"></v-pagination>
+            </nav>
+        </div>
+        <ul id="listIndex">
+            <transition v-for="(one,index) in getContentPagination01" name="slide-fade" mode="out-in">
+                <li :key="one['selec']" v-on:click="goToId('ques-'+one.id)">
+                    <span>{{one.id+1}} </span>
+                    <span class="select">{{one['selec']}}</span>
+                    <span class="correct" v-if="is_show_answer" v-html="showContent(one)"></span>
+                </li>
+            </transition>
+            <!-- <li>{{one['selec']}}</li> -->
+            <!-- <li>{{one['correct']}}</li> -->
+        </ul>
+        <div>
+            <h3>List bảng câu hỏi</h3>
+        </div>
+        <nav class="mb-4">
+            <v-pagination v-model="pagegination01.currentPage" :page-count="pagegination01.totalPageCount" :classes="pagegination01.bootstrapPaginationClasses" :labels="pagegination01.customLabels"></v-pagination>
+        </nav>
+    </div>
 
 
-<script>
-new Vue({
-  el: "#app",
-  data: {
-    columns: ['A', 's','p','P'],
-    //data: getData(),
-	indexShow:[],
-    items: [
-	],
-    options: {
-      headings: {
-        A: 'Country Name',
-        code: 'Country Code',
-        uri: 'View Record',
-        p: 'Prices',
-        P: 'Percent',
-      },
-      //editableColumns:['A'],
-      //sortable: ['A', 'code', 'uri'],
-      //filterable: ['A', 'code']
-    }
-  },
-  mounted() {
-		var atNow = this
-        //axios.get('listQuestion_ans.json').then(response => this.data = response.data.data);
-        axios.get('listQuestion_ans.json').then(function(response){
-			atNow.items = response.data
-			console.log(atNow.items)
-		});
-		var dataGet = this.getLocalStore('indexShow')
-		console.log(dataGet)
-		if(dataGet != null){
-			atNow.indexShow = dataGet
-		}else{
-			for(var i=0;i<600;i++){
-				var tem = {};
-				tem.id = i
-				tem.selec = ''
-				tem.correct = ''
-				atNow.indexShow.push(tem);
-			}
-		}
-		
-		//
-		//return
-    },
-	methods: {
-            getDataStream() {
-
+    <script>
+        var vmV = new Vue({
+            el: "#app",
+            components: {
+                vPagination: window['vue-plain-pagination']
             },
-			setChoose(index,value){
-				this.indexShow[index].selec=value
-				this.setLocalStore('indexShow',this.indexShow)
-			},
-			setLocalStore(key,value){
-				value = JSON.stringify(value)
-				localStorage.setItem(key, value);
-			},
-			getLocalStore(key){
-				var data = localStorage.getItem(key);
-				return JSON.parse(data)
-			},goToId(atId){
-				var objControl=document.getElementById(atId);
-				objControl.scrollTop = objControl.offsetTop;
+            data: {
+                columns: ['A', 's', 'p', 'P'],
+                //data: getData(),
+                indexShow: [],
+                items: [],
+                is_show_answer: false,
+                options: {
+                    headings: {
+                        A: 'Country Name',
+                        code: 'Country Code',
+                        uri: 'View Record',
+                        p: 'Prices',
+                        P: 'Percent',
+                    },
+                    //editableColumns:['A'],
+                    //sortable: ['A', 'code', 'uri'],
+                    //filterable: ['A', 'code']
+                },
+                pagegination01: {
+                    currentPage: 1,
+                    totalPageCount: 9,
+                    numberPerPage: 150,
+                    bootstrapPaginationClasses: {
+                        ul: 'pagination',
+                        li: 'page-item',
+                        liActive: 'active',
+                        liDisable: 'disabled',
+                        button: 'page-link'
+                    },
+                    customLabels: {
+                        first: false,
+                        prev: 'Previous',
+                        next: 'Next',
+                        last: false
+                    }
+                },
+                pagegination02: {
+                    currentPage: 1,
+                    totalPageCount: 9,
+                    numberPerPage: 30,
+                    bootstrapPaginationClasses: {
+                        ul: 'pagination',
+                        li: 'page-item',
+                        liActive: 'active',
+                        liDisable: 'disabled',
+                        button: 'page-link'
+                    },
+                    customLabels: {
+                        first: false,
+                        prev: 'Previous',
+                        next: 'Next',
+                        last: false
+                    }
+                }
+            },
+            mounted() {
+                var atNow = this
+                var dataGet = this.getLocalStore('indexShow')
+                    //console.log(dataGet)
+                if (dataGet != null) {
+                    atNow.indexShow = dataGet
+                } else {
+                    for (var i = 0; i < 600; i++) {
+                        var tem = {};
+                        tem.id = i
+                        tem.selec = ''
+                            //tem.correct = ''
+                        atNow.indexShow.push(tem);
+                    }
+                }
+                this.pagegination01.totalPageCount = Math.ceil(atNow.indexShow.length / this.pagegination01.numberPerPage)
 
-			}
+                axios.get('listQuestion_ans.json').then(function(response) {
+                    atNow.items = response.data
+                    for (let index = 0; index < atNow.items.length; index++) {
+                        atNow.items[index].id = index
+                    }
+                    atNow.pagegination02.totalPageCount = Math.ceil(atNow.items.length / atNow.pagegination02.numberPerPage)
+                    atNow.setCorrectDefault()
+                });
+
+                //
+                //return
+            },
+            methods: {
+                showContent(one) {
+                    var numberid = one.id
+                    var selec = one.selec
+                    var correct = one.correct
+                    var first = this.getContentPagination02[0].id
+                    var last = this.getContentPagination02[this.getContentPagination02.length - 1].id
+                    if (numberid >= first && numberid <= last) {
+
+                        if (selec == '') {
+                            return '<span class="right">' + '&#x268A;' + '<span>'
+                        } else {
+                            if (correct != selec) {
+                                return '<span class="wrong">' + correct + '<span>';
+                            } else {
+                                return '<span class="right">' + '&#10003;' + '<span>';
+                            }
+                        }
+                    }
+                    return ''
+
+                },
+
+                fileterCorrect(key) {
+                    key = parseInt(key)
+                    switch (key) {
+                        case 1:
+                            return 'A';
+                            break;
+                        case 2:
+                            return 'B';
+                            break;
+                        case 4:
+                            return 'C';
+                            break;
+                        case 8:
+                            return 'D';
+                            break;
+                        default:
+                            return '';
+                            break;
+                    }
+                },
+                setCorrectDefault() {
+                    // this.items = response.data
+                    for (let index = 0; index < this.items.length; index++) {
+                        this.items[index].id = index
+                        this.indexShow[index].correct = this.fileterCorrect(this.items[index].more[7])
+                            // console.log(this.items[index].more[7])
+                            // console.log(this.fileterCorrect(this.items[index].more[7]))
+                            //console.log(this.indexShow[index].selec)
+                    }
+                    // console.log(this.indexShow)
+                    this.setLocalStore('indexShow', this.indexShow)
+                },
+                getDataStream() {
+
+                },
+                setChoose(index, value) {
+                    if (this.is_show_answer == true) {
+                        return
+                    }
+                    if (value == this.indexShow[index].selec) {
+                        this.indexShow[index].selec = '';
+                    } else {
+                        this.indexShow[index].selec = value
+                        this.setLocalStore('indexShow', this.indexShow)
+                    }
+
+                },
+                setLocalStore(key, value) {
+                    value = JSON.stringify(value)
+                    localStorage.setItem(key, value);
+                },
+                getLocalStore(key) {
+                    var data = localStorage.getItem(key);
+                    return JSON.parse(data)
+                },
+                goToId(atId) {
+                    return;
+                    //var objControl = document.getElementById(atId);
+                    //objControl.scrollTop = objControl.offsetTop;
+
+                },
+                paginate(posts, page, perPage) {
+                    //let page = this.page;
+                    // let perPage = this.perPage;
+                    let from = (page * perPage) - perPage;
+                    let to = (page * perPage);
+                    return posts.slice(from, to);
+                },
+                checkAnswer() {
+                    this.is_show_answer = true;
+                },
+                checkAnswerFalse() {
+                    //alert('false')
+                    this.is_show_answer = false;
+                },
+                getPageChange() {
+                    var maxPage2 = this.pagegination02.currentPage * this.pagegination02.numberPerPage;
+                    maxPage2 = parseInt(maxPage2)
+                    var total = this.pagegination01.totalPageCount
+                    total = parseInt(total)
+                    var pageSet = 0;
+                    for (let index = 0; index <= total; index++) {
+
+                        var max = index * this.pagegination01.numberPerPage;
+                        max = parseInt(max)
+                        var min = (index - 1) * this.pagegination01.numberPerPage;
+                        min = parseInt(min)
+                        if (maxPage2 >= min && maxPage2 <= max) {
+                            pageSet = index
+                            break;
+                        }
+                    }
+                    this.pagegination01.currentPage = pageSet
+                }
+            },
+            computed: {
+                getContentPagination01(page) {
+                    return this.paginate(this.indexShow, this.pagegination01.currentPage, this.pagegination01.numberPerPage)
+                },
+                getContentPagination02(page) {
+                    return this.paginate(this.items, this.pagegination02.currentPage, this.pagegination02.numberPerPage)
+                }
+            },
+            watch: {
+                'pagegination02.currentPage': function(newContent) {
+                    var pageSet = this.getPageChange()
+
+                },
+            }
+        });
+        // vmV.pagegination02 = Object.assign({}, vmV.pagegination02);
+        // vmV.pagegination02.__ob__.dep.notify()
+    </script>
+
+
+
+    <style>
+        [v-cloak] {
+            display: none;
         }
-});
-
-
-</script>
-
-
-
-<style>
-[v-cloak] {
-  display:none;
-}
-#listIndex{
-	columns: 20;
-  -webkit-columns: 20;
-  -moz-columns: 20;
-}
-#listQuestion{
-	max-height: 500px;
-    overflow: auto;
-}
-#listQuestion li.select{color: #3f51b5; font-weight: bold;}
-#listIndex span.select{animation: animate infinite 3s; color: #3f51b5; font-weight: bold;}
-
-.slide-fade-enter-active {
-  transition: all .3s ease;
-}
-.slide-fade-leave-active {
-  transition: all .8s cubic-bezier(1.0, 0.5, 0.8, 1.0);
-}
-.slide-fade-enter, .slide-fade-leave-to
-/* .slide-fade-leave-active for <2.1.8 */ {
-  transform: translateX(10px);
-  opacity: 0;
-}
-</style>
-
-
-<template>
-  <div class="overflow-auto">
-    <b-pagination
-      v-model="currentPage"
-      :total-rows="rows"
-      :per-page="perPage"
-      aria-controls="my-table"
-    ></b-pagination>
-
-    <p class="mt-3">Current Page: {{ currentPage }}</p>
-
-    <b-table
-      id="my-table"
-      :items="items"
-      :per-page="perPage"
-      :current-page="currentPage"
-      small
-    ></b-table>
-  </div>
-</template>
-
-<script>
-  new Vue({
-    data() {
-      return {
-        perPage: 3,
-        currentPage: 1,
-        items: [
-          { id: 1, first_name: 'Fred', last_name: 'Flintstone' },
-          { id: 2, first_name: 'Wilma', last_name: 'Flintstone' },
-          { id: 3, first_name: 'Barney', last_name: 'Rubble' },
-          { id: 4, first_name: 'Betty', last_name: 'Rubble' },
-          { id: 5, first_name: 'Pebbles', last_name: 'Flintstone' },
-          { id: 6, first_name: 'Bamm Bamm', last_name: 'Rubble' },
-          { id: 7, first_name: 'The Great', last_name: 'Gazzoo' },
-          { id: 8, first_name: 'Rockhead', last_name: 'Slate' },
-          { id: 9, first_name: 'Pearl', last_name: 'Slaghoople' }
-        ]
-      }
-    },
-    computed: {
-      rows() {
-        return this.items.length
-      }
-    }
-  })
-</script>
-
+        
+        #listIndex {
+            columns: 5;
+            -webkit-columns: 5;
+            -moz-columns: 5;
+        }
+        
+        #listQuestion {
+            /* max-height: 500px; */
+            /* overflow: auto; */
+        }
+        
+        #listQuestion li.select {
+            color: #3f51b5;
+            font-weight: bold;
+        }
+        
+        #listIndex span.wrong {
+            color: red;
+            font-weight: bold;
+        }
+        
+        #listIndex span.right {
+            color: green;
+            font-weight: bold;
+        }
+        
+        #listIndex span.select {
+            animation: animate infinite 3s;
+            color: #3f51b5;
+            font-weight: bold;
+        }
+        
+        .slide-fade-enter-active {
+            transition: all .3s ease;
+        }
+        
+        .slide-fade-leave-active {
+            transition: all .8s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+        }
+        
+        .slide-fade-enter,
+        .slide-fade-leave-to
+        /* .slide-fade-leave-active for <2.1.8 */
+        
+        {
+            transform: translateX(10px);
+            opacity: 0;
+        }
+    </style>
 
 
 </body>
+
 </html>

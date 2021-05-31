@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link type="text/css" rel="stylesheet" href="//unpkg.com/bootstrap/dist/css/bootstrap.min.css" />
+    <title>Title Page</title>
+
+
+    <script src="vuejs/vue.min.js"></script>
+    <script src="vuejs/vue-plain-pagination.umd.min.js"></script>
+</head>
+
+<body>
+    <h1 class="text-center">Hello World</h1>
+
+    <div id="app" class="container my-4">
+        <h1 class="mb-4">vue-plain-pagination</h1>
+        <p class="text-success">Current page: <strong>{{ pagegination01.currentPage }}</strong></p>
+
+        <nav class="mb-4">
+            <v-pagination v-model="pagegination01.currentPage" :page-count="pagegination01.totalPageCount" :classes="pagegination01.bootstrapPaginationClasses" :labels="pagegination01.customLabels"></v-pagination>
+        </nav>
+
+        <nav class="mb-4">
+            <v-pagination v-model="pagegination01.currentPage" :page-count="pagegination01.totalPageCount" :classes="pagegination01.bootstrapPaginationClasses"></v-pagination>
+        </nav>
+
+        <nav class="mb-4">
+            <v-pagination v-model="pagegination01.currentPage" :page-count="pagegination01.totalPageCount" :classes="pagegination01.bootstrapPaginationClasses" :labels="{first: false, prev: false, next: false, last: false}"></v-pagination>
+        </nav>
+
+    </div>
+
+    <script>
+        new Vue({
+            components: {
+                vPagination: window['vue-plain-pagination']
+            },
+            data: {
+                pagegination01: {
+                    currentPage: 5,
+                    totalPageCount: 9,
+                    bootstrapPaginationClasses: {
+                        ul: 'pagination',
+                        li: 'page-item',
+                        liActive: 'active',
+                        liDisable: 'disabled',
+                        button: 'page-link'
+                    },
+                    customLabels: {
+                        first: false,
+                        prev: 'Previous',
+                        next: 'Next',
+                        last: false
+                    }
+                }
+            }
+        }).$mount('#app')
+    </script>
+</body>
+
+</html>
