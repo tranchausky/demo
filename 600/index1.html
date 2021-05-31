@@ -1,0 +1,206 @@
+<html>
+<head>
+  <!-- <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"/> -->
+<!-- <script src="vuejs/vue.min.js"></script> -->
+
+
+<!-- Load required Bootstrap and BootstrapVue CSS -->
+<link type="text/css" rel="stylesheet" href="//unpkg.com/bootstrap/dist/css/bootstrap.min.css" />
+<link type="text/css" rel="stylesheet" href="//unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.min.css" />
+
+<!-- Load polyfills to support older browsers -->
+<script src="//polyfill.io/v3/polyfill.min.js?features=es2015%2CIntersectionObserver" crossorigin="anonymous"></script>
+
+<!-- Load Vue followed by BootstrapVue -->
+<script src="//unpkg.com/vue@latest/dist/vue.min.js"></script>
+<script src="//unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.min.js"></script>
+
+<!-- Load the following for BootstrapVueIcons support -->
+<script src="//unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue-icons.min.js"></script>
+
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+</head>
+<body>
+
+<h3 class="title">Vue Tables 2 Demo - Client Component</h3>
+<div id="app" v-cloak>
+
+	<div id="listQuestion">
+		<div  v-for="(one,index) in items" v-bind:id="'ques-'+(index+1)">
+			<p><b>{{index+1}}: {{one[0]}}</b></p>
+			<img v-if="one['more']['pic']" v-bind:src="'images/'+one['more']['pic']">
+			<ol type="A">
+				<li v-on:click="setChoose(index,'A')" v-bind:class="[indexShow[index].selec=='A'?'select':'']">{{one[1]}}</li>
+				<li v-on:click="setChoose(index,'B')" v-bind:class="[indexShow[index].selec=='B'?'select':'']">{{one[2]}}</li>
+				<li v-on:click="setChoose(index,'C')" v-bind:class="[indexShow[index].selec=='C'?'select':'']" v-if="one[3]">{{one[3]}}</li>
+				<li v-on:click="setChoose(index,'D')" v-bind:class="[indexShow[index].selec=='D'?'select':'']" v-if="one[4]">{{one[4]}}</li>
+			</ol>
+		</div>
+	</div>
+	<ul id="listIndex">
+		<transition v-for="(one,index) in indexShow" name="slide-fade" mode="out-in">
+		<li :key="one['selec']" v-on:click="goToId('ques-'+index)">{{index+1}} <span class="select">{{one['selec']}}</span></li>
+		  </transition>
+		<!-- <li>{{one['selec']}}</li> -->
+		<!-- <li>{{one['correct']}}</li> -->
+	</ul>
+</div>
+
+
+<script>
+new Vue({
+  el: "#app",
+  data: {
+    columns: ['A', 's','p','P'],
+    //data: getData(),
+	indexShow:[],
+    items: [
+	],
+    options: {
+      headings: {
+        A: 'Country Name',
+        code: 'Country Code',
+        uri: 'View Record',
+        p: 'Prices',
+        P: 'Percent',
+      },
+      //editableColumns:['A'],
+      //sortable: ['A', 'code', 'uri'],
+      //filterable: ['A', 'code']
+    }
+  },
+  mounted() {
+		var atNow = this
+        //axios.get('listQuestion_ans.json').then(response => this.data = response.data.data);
+        axios.get('listQuestion_ans.json').then(function(response){
+			atNow.items = response.data
+			console.log(atNow.items)
+		});
+		var dataGet = this.getLocalStore('indexShow')
+		console.log(dataGet)
+		if(dataGet != null){
+			atNow.indexShow = dataGet
+		}else{
+			for(var i=0;i<600;i++){
+				var tem = {};
+				tem.id = i
+				tem.selec = ''
+				tem.correct = ''
+				atNow.indexShow.push(tem);
+			}
+		}
+		
+		//
+		//return
+    },
+	methods: {
+            getDataStream() {
+
+            },
+			setChoose(index,value){
+				this.indexShow[index].selec=value
+				this.setLocalStore('indexShow',this.indexShow)
+			},
+			setLocalStore(key,value){
+				value = JSON.stringify(value)
+				localStorage.setItem(key, value);
+			},
+			getLocalStore(key){
+				var data = localStorage.getItem(key);
+				return JSON.parse(data)
+			},goToId(atId){
+				var objControl=document.getElementById(atId);
+				objControl.scrollTop = objControl.offsetTop;
+
+			}
+        }
+});
+
+
+</script>
+
+
+
+<style>
+[v-cloak] {
+  display:none;
+}
+#listIndex{
+	columns: 20;
+  -webkit-columns: 20;
+  -moz-columns: 20;
+}
+#listQuestion{
+	max-height: 500px;
+    overflow: auto;
+}
+#listQuestion li.select{color: #3f51b5; font-weight: bold;}
+#listIndex span.select{animation: animate infinite 3s; color: #3f51b5; font-weight: bold;}
+
+.slide-fade-enter-active {
+  transition: all .3s ease;
+}
+.slide-fade-leave-active {
+  transition: all .8s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+}
+.slide-fade-enter, .slide-fade-leave-to
+/* .slide-fade-leave-active for <2.1.8 */ {
+  transform: translateX(10px);
+  opacity: 0;
+}
+</style>
+
+
+<template>
+  <div class="overflow-auto">
+    <b-pagination
+      v-model="currentPage"
+      :total-rows="rows"
+      :per-page="perPage"
+      aria-controls="my-table"
+    ></b-pagination>
+
+    <p class="mt-3">Current Page: {{ currentPage }}</p>
+
+    <b-table
+      id="my-table"
+      :items="items"
+      :per-page="perPage"
+      :current-page="currentPage"
+      small
+    ></b-table>
+  </div>
+</template>
+
+<script>
+  new Vue({
+    data() {
+      return {
+        perPage: 3,
+        currentPage: 1,
+        items: [
+          { id: 1, first_name: 'Fred', last_name: 'Flintstone' },
+          { id: 2, first_name: 'Wilma', last_name: 'Flintstone' },
+          { id: 3, first_name: 'Barney', last_name: 'Rubble' },
+          { id: 4, first_name: 'Betty', last_name: 'Rubble' },
+          { id: 5, first_name: 'Pebbles', last_name: 'Flintstone' },
+          { id: 6, first_name: 'Bamm Bamm', last_name: 'Rubble' },
+          { id: 7, first_name: 'The Great', last_name: 'Gazzoo' },
+          { id: 8, first_name: 'Rockhead', last_name: 'Slate' },
+          { id: 9, first_name: 'Pearl', last_name: 'Slaghoople' }
+        ]
+      }
+    },
+    computed: {
+      rows() {
+        return this.items.length
+      }
+    }
+  })
+</script>
+
+
+
+</body>
+</html>
