@@ -1,0 +1,358 @@
+[
+  {
+    "type": 1,
+    "tip": "Tất cả các câu có đáp án bị nghiêm cấm, không cho phép hoặc không được phép thì chọn đáp án đó."
+  },
+  {
+    "type": 1,
+    "tip": "Tốc độ chậm đi về bên phải."
+  },
+  {
+    "type": 1,
+    "tip": "Chỉ sử dụng còi từ 5 giờ sáng đến 22 giờ tối."
+  },
+  {
+    "type": 1,
+    "tip": "Trong đô thị sử dụng đèn chiếu gần."
+  },
+  {
+    "type": 1,
+    "tip": "Không được phép lắp đặt còi đèn không đúng thiết kế, trừ phi được chấp thuận của cơ quan có thẩm quyền."
+  },
+  {
+    "type": 1,
+    "tip": "Không được vượt trên cầu hẹp có một làn xe."
+  },
+  {
+    "type": 1,
+    "tip": "Không được phép quay đầu xe ở phần đường dành cho người đi bộ qua đường."
+  },
+  {
+    "type": 1,
+    "tip": "Cấm lùi xe ở khu vực cấm dừng và nơi đường bộ giao nhau."
+  },
+  {
+    "type": 1,
+    "tip": "Xe mô tô không được kéo xe khác."
+  },
+  {
+    "type": 1,
+    "tip": "Độ tuổi lấy bằng theo hạng (cách nhau 3 tuổi): 16: Xe dưới 50cm3; 18: Hạng A, B1, B2; 21: Hạng C, FB; 24: Hạng D, FC; 27: Hạng E, FD."
+  },
+  {
+    "type": 1,
+    "tip": "Độ tuổi tối đa người lái xe ô tô hạng E: Nam 55 tuổi và nữ 50 tuổi."
+  },
+  {
+    "type": 1,
+    "tip": "A1 mô tô dưới 175 cm3 và xe 3 bánh của người khuyết tật;"
+  },
+  {
+    "type": 1,
+    "tip": "A2 mô tô 175 cm3 trở lên;"
+  },
+  {
+    "type": 1,
+    "tip": "A3 xe mô tô 3 bánh;"
+  },
+  {
+    "type": 1,
+    "tip": "B1, B2 đến 9 chỗ ngồi, xe tải dưới 3.500 kg; B1 không hành nghề lái xe;"
+  },
+  {
+    "type": 1,
+    "tip": "C đến 9 chỗ ngồi, xe trên 3.500 kg; D chở đến 30 người; E chở trên 30 người."
+  },
+  {
+    "type": 1,
+    "tip": "FC: C + kéo (ô tô đầu kéo, kéo sơ mi rơ moóc); FE: E + kéo (ô tô chở khách nối toa)"
+  },
+  {
+    "type": 1,
+    "tip": "Biển nguy hiểm (hình tam giác vàng)"
+  },
+  {
+    "type": 1,
+    "tip": "Biển cấm (vòng tròn đỏ)"
+  },
+  {
+    "type": 1,
+    "tip": "Biển hiệu lệnh (vòng tròn xanh)"
+  },
+  {
+    "type": 1,
+    "tip": "Biển chỉ dẫn (vuông hoặc hình chữ nhật xanh)"
+  },
+  {
+    "type": 1,
+    "tip": "Biển phụ (vuông, chữ nhật trắng đen): Hiệu lực nằm ở biển phụ khi có đặt biển phụ"
+  },
+  {
+    "type": 1,
+    "tip": "05 năm không cấp lại nếu sử dụng bằng lái đã khai báo mất."
+  },
+  {
+    "type": 1,
+    "tip": "Người điều khiển giao thông tay giang ngang thì trước mặt và sau lưng dừng lại."
+  },
+  {
+    "type": 1,
+    "tip": "Người điều khiển giao thông giơ tay thẳng đứng thì ở các hướng phải dừng lại."
+  },
+  {
+    "type": 1,
+    "tip": "Chuyển làn đường phải có tín hiệu báo trước."
+  },
+  {
+    "type": 1,
+    "tip": "Xe thô sơ phải đi làn đường nên phải trong cùng."
+  },
+  {
+    "type": 1,
+    "tip": "Tránh xe ngược chiều thì nhường đường qua đường hẹp và nhường xe lên dốc."
+  },
+  {
+    "type": 1,
+    "tip": "Giao nhau không có vòng xuyến thì nhường xe đến từ bên phải."
+  },
+  {
+    "type": 1,
+    "tip": "Đứng cách ray đường sắt 5m."
+  },
+  {
+    "type": 1,
+    "tip": "Vào cao tốc phải nhường đường cho xe đang chạy trên đường."
+  },
+  {
+    "type": 1,
+    "tip": "Xe thiết kế nhỏ hơn 70km/h không được vào cao tốc."
+  },
+  {
+    "type": 1,
+    "tip": "Trên cao tốc chỉ được dừng xe, đỗ xe ở nơi quy định."
+  },
+  {
+    "type": 1,
+    "tip": "Trong hầm chỉ được dừng xe, đỗ xe ở nơi quy định."
+  },
+  {
+    "type": 1,
+    "tip": "Xe quá tải trọng phải do cơ quan quản lý đường bộ cấp phép."
+  },
+  {
+    "type": 1,
+    "tip": "Trọng lượng xe kéo rơ moóc phải lớn hơn rơ moóc."
+  },
+  {
+    "type": 1,
+    "tip": "Kéo xe không hệ thống hãm phải dùng thanh nối cứng."
+  },
+  {
+    "type": 1,
+    "tip": "Xe gắn máy tối đa 40km/h."
+  },
+  {
+    "type": 1,
+    "tip": "Xe cơ giới không bao gồm xe gắn máy."
+  },
+  {
+    "type": 1,
+    "tip": "Đường có giải phân cách được xem là đường đôi."
+  },
+  {
+    "type": 1,
+    "tip": "Trong khu vực đông dân cư, đường hai chiều; đường một chiều có một làn xe cơ giới: 50km/h."
+  },
+  {
+    "type": 1,
+    "tip": "Trong khu vực đông dân cư, đường đôi; đường một chiều có hai làn xe cơ giới trở lên: 60km/h."
+  },
+  {
+    "type": 1,
+    "tip": "Ngoài khu vực dân cư; đường đôi; đường một chiều có hai làn xe cơ giới trở lên: ô tô kéo rơ moóc 60km/h; mô tô, xe buýt, ôtô đầu kéo: 70km/h; xe trên 30 chỗ, xe tải trên 3,5 tấn: 80km/h; xe con, xe đến 30 chỗ, tải dưới 3,5 tấn: 90km/h."
+  },
+  {
+    "type": 1,
+    "tip": "Ngoài khu vực dân cư; đường hai chiều; đường một chiều có một làn xe: ô tô kéo rơ moóc 50km/h; mô tô, xe buýt, ôtô đầu kéo: 60km/h; xe trên 30 chỗ, xe tải trên 3,5 tấn: 70km/h; xe con, xe đến 30 chỗ, tải dưới 3,5 tấn: 80km/h."
+  },
+  {
+    "type": 1,
+    "tip": "Khoảng cách an toàn: 60km/h: 35m; 60 đến 80km/h: 55m; 80 đến 100km/h: 70m; 100 đến 120km/h: 100m."
+  },
+  {
+    "type": 1,
+    "tip": "Khoảng cách an toàn dưới 60km/h: Chủ động và đảm bảo khoảng cách."
+  },
+  {
+    "type": 1,
+    "tip": "Giảm tốc độ, chú ý quan sát khi gặp biển báo nguy hiểm."
+  },
+  {
+    "type": 1,
+    "tip": "Giảm tốc độ, đi sát về bên phải khi xe sau xin vượt."
+  },
+  {
+    "type": 1,
+    "tip": "Điểm giao cắt đường sắt thì ưu tiên đường sắt."
+  },
+  {
+    "type": 1,
+    "tip": "Nhường đường cho xe ưu tiên có tín hiệu còi, cờ, đèn."
+  },
+  {
+    "type": 1,
+    "tip": "Không vượt xe khác trên đường vòng, khuất tầm nhìn."
+  },
+  {
+    "type": 1,
+    "tip": "Nơi có vạch kẻ đường dành cho người đi bộ thì nhường đường."
+  },
+  {
+    "type": 1,
+    "tip": "Dừng xe, đỗ xe cách lề đường, hè phố không quá 0,25 mét."
+  },
+  {
+    "type": 1,
+    "tip": "Dừng xe, đỗ xe trên đường hẹp cách xe khác 20 mét."
+  },
+  {
+    "type": 1,
+    "tip": "Giảm tốc độ trên đường ướt, đường hẹp và đèo dốc."
+  },
+  {
+    "type": 1,
+    "tip": "Xe buýt đang dừng đón trả khách thì giảm tốc độ và từ từ vượt qua xe buýt."
+  },
+  {
+    "type": 2,
+    "tip": "Không lái xe liên tục quá 4 giờ."
+  },
+  {
+    "type": 2,
+    "tip": "Không làm việc 1 ngày của lái xe quá 10 giờ."
+  },
+  {
+    "type": 2,
+    "tip": "Người kinh doanh vận tải không được tự ý thay đổi vị trí đón trả khách."
+  },
+  {
+    "type": 2,
+    "tip": "Vận chuyển hàng nguy hiểm phải có giấy phép."
+  },
+  {
+    "type": 4,
+    "tip": "Xe mô tô xuống dốc dài cần sử dụng cả phanh trước và phanh sau để giảm tốc độ."
+  },
+  {
+    "type": 4,
+    "tip": "Khởi hành xe ô tô số tự động cần đạp phanh chân hết hành trình."
+  },
+  {
+    "type": 4,
+    "tip": "Thực hiện \u001dphanh tay cần phải bóp khóa hãm đẩy cần phanh tay về phía trước."
+  },
+  {
+    "type": 4,
+    "tip": "Khởi hành ô tô sử dụng hộp số đạp côn hết hành trình."
+  },
+  {
+    "type": 4,
+    "tip": "Thực hiện quay đầu xe với tốc độ thấp."
+  },
+  {
+    "type": 4,
+    "tip": "Lái xe ô tô qua đường sắt không rào chắn thì cách 5 mét hạ kính cửa, tắt âm thanh, quan sát."
+  },
+  {
+    "type": 4,
+    "tip": "Mở cửa xe thì quan sát rồi mới mở hé cánh cửa."
+  },
+  {
+    "type": 5,
+    "tip": "Yêu cầu của kính chắn gió, chọn “Loại kính an toàn“."
+  },
+  {
+    "type": 5,
+    "tip": "Âm lượng của còi là từ 90dB đến 115 dB."
+  },
+  {
+    "type": 5,
+    "tip": "Động cơ diesel không nổ do nhiên liệu lẫn tạp chất."
+  },
+  {
+    "type": 5,
+    "tip": "Dây đai an toàn có cơ cấu hãm giữ chặt dây khi giật dây đột ngột."
+  },
+  {
+    "type": 5,
+    "tip": "Động cơ 4 kỳ thì pít tông thực hiện 4 hành trình."
+  },
+  {
+    "type": 5,
+    "tip": "Hệ thống bôi trơn giảm ma sát."
+  },
+  {
+    "type": 5,
+    "tip": "Niên hạn ô tô trên 9 chỗ ngồi là 20 năm."
+  },
+  {
+    "type": 5,
+    "tip": "Niên hạn ô tô tải là 25 năm."
+  },
+  {
+    "type": 5,
+    "tip": "Động cơ ô tô biến nhiệt năng thành cơ năng."
+  },
+  {
+    "type": 5,
+    "tip": "Hệ thống truyền lực truyền mô men quay từ động cơ tới bánh xe."
+  },
+  {
+    "type": 5,
+    "tip": "Ly hợp (côn) truyền hoặc ngắt truyền động từ động cơ đến hộp số."
+  },
+  {
+    "type": 5,
+    "tip": "Hộp số ô tô đảm bảo chuyển động lùi."
+  },
+  {
+    "type": 5,
+    "tip": "Hệ thống lái dùng để thay đổi hướng."
+  },
+  {
+    "type": 5,
+    "tip": "Hệ thống phanh giúp giảm tốc độ."
+  },
+  {
+    "type": 5,
+    "tip": "Ắc quy để tích trữ điện năng."
+  },
+  {
+    "type": 5,
+    "tip": "Khởi động xe tự động phải đạp phanh."
+  },
+  {
+    "type": 7,
+    "tip": "Thứ tự ưu tiên không vòng xuyến: Xe vào ngã ba, ngã tư trước - Xe ưu tiên - Đường ưu tiên - Đường cùng cấp theo thứ tự bên phải trống - rẽ phải - đi thẳng - rẽ trái."
+  },
+  {
+    "type": 7,
+    "tip": "Giao nhau cùng cấp có vòng xuyến: Chưa vào vòng xuyến thì ưu tiên xe bên phải; đã vào vòng xuyến ưu tiên xe từ bên trái tới."
+  },
+  {
+    "type": 7,
+    "tip": "Thứ tự xe ưu tiên: Xe cứu hoả (mức độ thương vong lớn hơn); Xe công an; Xe cứu thương."
+  },
+  {
+    "type": 7,
+    "tip": "Xe ưu tiên cùng cấp như xe quân sự, xe công an sẽ xét theo thứ tự ưu tiên đường cùng cấp."
+  },
+  {
+    "type": 7,
+    "tip": "Giơ tay thẳng đứng: Tất cả dừng, trừ xe đã ở trong ngã tư được phép đi;<br/>Giang ngang tay: Trái phải đi; Trước sau dừng;<br/>Tay phải giơ trước: Sau, phải dừng, trước rẽ phải, trái đi các hướng, người đi bộ qua đường đi sau người điều khiển."
+  },
+  {
+    "type": 7,
+    "tip": "Xe xuống dốc phải nhường đường cho xe đang lên dốc."
+  }
+]

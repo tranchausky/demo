@@ -1,0 +1,247 @@
+1||BIỂN BÁO CẤM||
+0|P.101|Đường cấm|Biển báo đường cấm tất cả các loại phương tiện tham gia giao thông đi lại cả hai hướng, trừ xe ưu tiên theo luật định.|P101
+0|P.102|Cấm đi ngược chiều|Biển báo đường cấm tất cả các loại phương tiện tham gia giao thông đi vào theo chiều đặt biển.|P102
+0|P.103a|Cấm ô tô|Biển báo đường cấm tất cả các loại xe cơ giới kể cả mô tô 3 bánh có thùng đi qua, trừ xe mô tô 2 bánh, xe gắn máy (kể cả xe máy điện) và các xe được ưu tiên theo Luật Giao thông đường bộ.|P103a
+0|P.103b|Cấm ô tô rẽ phải|Biển báo đường cấm xe ô tô rẽ phải ( kể cả xe mô tô ba bánh), trừ các xe được ưu tiên theo Luật Giao thông đường bộ.|P103b
+0|P.103c|Cấm ô tô rẽ trái|Biển báo đường cấm xe ô tô rẽ trái và cũng không được phép quay đầu xe, trừ các xe được ưu tiên theo Luật Giao thông đường bộ.|P103c
+0|P.104|Cấm mô tô|Biển báo đường cấm tất cả các loại mô tô đi qua, trừ các loại xe mô tô được ưu tiên theo Luật Giao thông đường bộ.|P104
+0|P.105|Cấm ô tô và mô tô|Biển báo đường cấm tất cả xe cơ giới và xe mô tô đi qua trừ xe gắn máy và xe được ưu tiên theo Luật Giao thông đường bộ.|P105
+0|P.106a|Cấm ô tô tải|Biển báo đường cấm tất cả các loại xe ô tô tải trừ các xe được ưu tiên theo Luật Giao thông đường bộ, hiệu lực cấm đối với cả máy kéo và xe máy chuyên dùng.|P106a
+0|P.106b|Cấm ô tô tải theo trọng lượng|Trọng lượng được tính theo tấn ghi trên biển|P106b
+0|P.106c|Cấm ô tô tải chở hàng nguy hiểm|Biển báo P.106c đường cấm tất cả các loại xe ô tô tải chở hàng nguy hiểm.|P106c
+0|P.107|Cấm ô tô khách và ô tô tải|Biển báo đường cấm xe ô tô khách và các loại xe ô tô tải, kể cả máy kéo và xe máy chuyên dùng đi qua, trừ các xe được ưu tiên theo Luật Giao thông đường bộ.|P107
+0|P.107a|Cấm ô tô khách|Biển báo đường cấm ôtô chở khách đi qua trừ các xe ưu tiên theo quy định. Biển này không cấm xe buýt.|P107a
+0|P.107b|Cấm xe taxi|Biển báo đường cấm ôtô taxi đi lại. Trường hợp cấm xe ôtô taxi theo giờ thì đặt biển phụ ghi giờ cấm.|P107b
+0|P.108|Cấm ôtô kéo rơ moóc|Biển báo đường cấm tất cả các loại xe cơ giới kéo theo rơ moóc kể cả xe mô tô, máy kéo, xe ô tô khách kéo theo rơ moóc đi qua, trừ loại xe ô tô sơ mi rơ moóc và các xe được ưu tiên theo Luật Giao thông đường bộ (có kéo theo rơ moóc).|P108
+0|P.108a|Cấm xe sơ-mi rơ-moóc|Biển báo đường cấm các loại xe sơ-mi-rơ-moóc và các xe kéo rơ- moóc trừ các xe được ưu tiên (có dạng xe sơ-mi-rơ-moóc hoặc có kéo theo rơ-moóc) theo quy định.|P108a
+0|P.109|Cấm máy kéo|Biển báo đường cấm tất cả các loại máy kéo, kể cả máy kéo bánh hơi và bánh xích đi qua.|P109
+0|P.110a|Cấm xe đạp|Biển báo đường cấm xe đạp đi qua. Biển không có giá trị cấm những người dắt xe đạp.|P110a
+0|P.110b|Cấm xe đạp thồ|Biển báo đường cấm xe đạp thồ đi qua. Biển không có giá trị cấm người dắt loại xe này.|P110b
+0|P.111a|Cấm xe gắn máy|Biển báo đường cấm xe gắn máy đi qua. Biển không có giá trị cấm đối với xe đạp.|P111a
+0|P.112|Cấm người đi bộ|Biển báo đường cấm người đi bộ qua lại.|P112
+0|P.113|Cấm xe người kéo, đẩy|Biển báo đường cấm xe người kéo đẩy đi qua. Biển không có giá trị cấm những xe nôi của trẻ em và phương tiện chuyên dùng để đi lại của những người khuyết tật.|P113
+0|P.114|Cấm xe súc vật kéo|Biển báo đường cấm súc vậtấtt vận tải hàng hóa hoặc hành khách dù kéo xe hay chở trên lưng đi qua.|P114
+0|P.115|Hạn chế trọng lượng xe|Biển báo đường cấm các loại phương tiện giao thông đường bộ kể cả các xe được ưu tiên theo Luật Giao thông đường bộ có trọng lượng toàn bộ (cả xe và hàng) vượt quá trị số ghi trên biển tính bằng tấn đi qua.|P115
+0|P.116|Hạn chế trọng lượng trên trục xe|Biển báo đường cấm các loại phương tiện giao thông đường bộ, kể cả các xe được ưu tiên theo Luật Giao thông đường bộ có trọng lượng toàn bộ (cả xe và hàng) phân bố trên một trục bất kỳ của xe vượt quá trị số ghi trên biển tính bằng tấn đi qua.|P116
+0|P.117|Hạn chế chiều cao|Biển có hiệu lực cấm các loại phương tiện giao thông đường bộ đi qua, kể cả các xe được ưu tiên theo Luật Giao thông đường bộ có chiều cao (tính đến điểm cao nhất cả xe và hàng hóa) vượt quá trị số ghi trên biển tính bằng mét đi qua.|P117
+0|P.118|Hạn chế chiều ngang|Biển có hiệu lực cấm các loại phương tiện giao thông đường bộ kể cả các xe được ưu tiên theo Luật Giao thông đường bộ có chiều ngang (cả xe và hàng hóa) vượt quá trị số ghi trên Biển tính bằng mét đi qua.|P118
+0|P.119|Hạn chế chiều dài ô tô|Biển báo đường cấm các loại xe (cơ giới và thô sơ), kể cả các xe được ưu tiên theo Luật Giao thông đường bộ, có độ dài toàn bộ (cả xe và hàng) vượt quá trị số ghi trên biển tính bằng mét đi qua.|P119
+0|P.120|Hạn chế chiều dài ô tô kéo moóc|Biển báo đường cấm các loại phương tiện giao thông đường bộ kéo theo rơ moóc kể cả ô tô sơ mi rơ moóc và các xe được ưu tiên theo Luật Giao thông đường bộ kéo theo rơ moóc có độ dài toàn bộ (cả xe, rơ moóc và hàng) vượt quá trị số ghi trên biển đi qua.|P120
+0|P.121|Cự ly tối thiểu giữa hai xe|Biển báo xe ô tô phải đi cách nhau một khoảng tối thiểu. Biển có hiệu lực cấm các xe ô tô không được đi cách nhau với cự ly nhỏ hơn trị số ghi trên biển tính bằng mét, kể cả các xe được ưu tiên theo Luật Giao thông đường bộ.|P121
+0|P.123a|Cấm rẽ trái|Biển báo đường cấm các loại phương tiện giao thông đường bộ (xe cơ giới và xe thô sơ) rẽ trái, trừ các xe được ưu tiên theo Luật Giao thông đường bộ. Biển không có giá trị cấm quay đầu xe.|P123a
+0|P.123b|Cấm rẽ phải|Biển báo đường cấm các loại phương tiện giao thông đường bộ (xe cơ giới và xe thô sơ) rẽ phải, trừ các xe được ưu tiên theo Luật Giao thông đường bộ. Biển không có giá trị cấm quay đầu xe.|P123b
+0|P.124a|Cấm quay đầu xe|Biển báo đường cấm các loại phương tiện giao thông đường bộ quay đầu xe theo kiểu chữ U, trừ các xe được ưu tiên theo Luật Giao thông đường bộ. Biển không có giá trị cấm rẽ trái để sang hướng đường khác.|P124a
+0|P.124b|Cấm ô tô quay đầu|Biển báo đường cấm xe ô tô và xe mô tô 3 bánh quay đầu xe theo kiểu chữ U, trừ các xe được ưu tiên theo Luật Giao thông đường bộ.|P124b
+0|P.124c|Cấm rẽ trái và quay đầu xe|Biển báo cấm các loại xe rẽ trái đồng thời cấm quay đầu, trừ các xe được ưu tiên theo Luật Giao thông đường bộ.|P124c
+0|P.124d|Cấm rẽ phải và quay đầu xe|Biển báo cấm các loại xe rẽ phải đồng thời cấm quay đầu, trừ các xe được ưu tiên theo Luật Giao thông đường bộ.|P124d
+0|P.124e|Cấm ô tô rẽ trái và quay xe|Biển báo cấm xe ôtô rẽ trái và đồng thời cấm quay đầu phải, trừ các xe được ưu tiên theo Luật Giao thông đường bộ.|P124e
+0|P.124f|Cấm ô tô rẽ phải và quay xe|Biển báo cấm xe ôtô rẽ phải và đồng thời cấm quay đầu phải, trừ các xe được ưu tiên theo Luật Giao thông đường bộ.|P124f
+0|P.125|Cấm vượt|Biển có hiệu lực cấm tất cả các loại xe cơ giới vượt nhau, kể cả các xe được ưu tiên theo Luật Giao thông đường bộ. được phép vượt xe mô tô 2 bánh, xe gắn máy.Biển hết hiệu lực cấm khi có biển số DP.133 “Hết cấm vượt” hoặc đến chỗ có biển số DP.135 “Hết tất cả các lệnh cấm” nếu đồng thời có nhiều biển cấm khác hết tác dụng.|P125
+0|P.126|Cấm ôtô tải vượt|Biển có hiệu lực cấm các loại ôtô tải có khối lượng chuyên chở (theo Giấy chứng nhận kiểm định an toàn kỹ thuật và bảo vệ môi trường phương tiện giao thông cơ giới đường bộ) lớn hơn 3.500 kg (3,5 tấn) kể cả các xe được ưu tiên theo quy định vượt xe cơ giới khác. được phép vượt xe máy 2 bánh, xe gắn máy. Biển không có giá trị cấm các loại xe cơ giới khác vượt nhau và vượt xe ô tô tải.|P126
+0|P.127|Tốc độ tối đa cho phép|Biển có hiệu lực cấm tất cả các loại xe cơ giới đường bộ chạy với tốc độ tối đa vượt quá trị số ghi trên Biển (tính bằng km/h), trừ các xe được ưu tiên theo Luật Giao thông đường bộ.|P127
+0|P.127a|Tốc độ tối đa cho phép về ban đêm|Biển có hiệu lực cấm tất cả các loại xe cơ giới đường bộ chạy ban đêm với tốc độ tối đa vượt quá trị số ghi trên biển (tính bằng km/h), trừ một số trường hợp ưu tiên được quy định.|P127a
+0|P.127b|Tốc độ tối đa trên từng làn đường|Biển ghép tốc độ tối đa cho phép trên từng làn đường|P127b
+0|P.127c|Tốc độ tối đa phương tiện trên từng làn đường|Biển ghép tốc độ tối đa cho phép theo phương tiện, trên từng làn đường|P127c
+0|P.127d|Biển hết hạn chế tốc độ tối đa|Biển hết hạn chế tốc độ tối đa cho phép theo biển ghép|P127d
+0|P.128|Cấm bóp còi|Biển báo cấm các loại xe cơ giới sử dụng còi.|P128
+0|P.129|Kiểm tra|Biển báo nơi đặt trạm kiểm tra, các loại phương tiện vận tải qua đó phải dừng lại để làm thủ tục kiểm tra, kiểm soát theo quy định.|P129
+0|P.130|Cấm dừng và đỗ xe|Biển có hiệu lực cấm các loại xe cơ giới đường bộ dừng và đỗ lại ở phía đường có đặt biển,|P130
+0|P.131a|Cấm đỗ xe|Biển số 131a có hiệu lực cấm các loại xe cơ giới đỗ ở phía đường có đặt biển vào bất kể ngày nào.|P131a
+0|P.131b|Cấm đỗ xe ngày lẻ|Biển có hiệu lực cấm các loại xe cơ giới đỗ ở phía đường có đặt biển vào những ngày lẻ.|P131b
+0|P.131c|Cấm đỗ xe ngày chẵn|Biển có hiệu lực cấm các loại xe cơ giới đỗ ở phía đường có đặt biển vào những ngày chẵn.|P131c
+0|P.132|Nhường cho xe ngược chiều qua đường hẹp|Biển báo cho các loại phương tiện giao thông đường bộ (cơ giới và thô sơ), kể cả các xe được ưu tiên theo Luật Giao thông đường bộ đi theo chiều nhìn thấy biển phải nhường đường cho các loại xe cơ giới đi theo chiều ngược lại khi đi qua các đoạn đường và cầu hẹp.|P132
+0|DP.133|Hết cấm vượt|Biển báo cho người lái xe biết hiệu lực của biển số P.125 “Cấm vượt” và biển số P.126 “Cấm ô tô tải vượt” hết tác dụng.|DP133
+0|DP.134|Hết hạn chế tốc độ tối đa|Biển báo cho người lái xe biết hiệu lực của biển số P.127 “Hạn chế tốc độ tối đa” hết tác dụng. Kể từ biển này, các xe được phép chạy với tốc độ tối đa đã quy định trong Luật Giao thông đường bộ.|DP134
+0|DP.135|Hết tất cả các lệnh cấm|Biển báo cho người lái xe biết hiệu lực của biển số P.121 “Cự ly tối thiểu giữa hai xe” và các biển từ biển số P.125 đến P.131 (a, b, c) được đặt trước đó cùng hết tác dụng.|DP135
+0|P.136|Cấm đi thẳng|Biển được đặt trước nơi đường giao nhau và có hiệu lực cấm tất cả các loại phương tiện giao thông đường bộ (cơ giới và thô sơ) đi thẳng ở nơi đường giao nhau.|P136
+0|P.137|Cấm rẽ trái và rẽ phải|Biển được đặt trước nơi đường giao nhau và có hiệu lực cấm tất cả các loại phương tiện giao thông đường bộ (cơ giới và thô sơ) rẽ trái và rẽ phải ở nơi đường giao nhau.|P137
+0|P.138|Cấm đi thẳng và rẽ trái|Biển được đặt trước nơi đường giao nhau và có hiệu lực cấm tất cả các loại phương tiện giao thông đường bộ (cơ giới và thô sơ) đi thẳng và rẽ trái ở nơi đường giao nhau.|P138
+0|P.139|Cấm đi thẳng và rẽ phải|Biển được đặt trước nơi đường giao nhau và có hiệu lực cấm tất cả các loại phương tiện giao thông đường bộ (cơ giới và thô sơ) đi thẳng và rẽ phải ở nơi đường giao nhau.|P139
+0|P.140|Cấm xe công nông và các loại xe tương tự|Biển báo đường cấm tất cả các loại xe công nông và các loại xe tương tự đi qua.|P140
+0|S.508a|Biển cấm theo giờ|Khi cần báo hiệu cấm các loại phương tiện giao thông đường bộ theo giờ trong thành phố, thị xã phải đặt biển phụ số S508(a,b) dưới biển cấm và có chú thích bằng tiếng Việt, phụ đề tiếng Anh trong biển này.|S508a
+0|S.508b|Biển cấm theo giờ|Khi cần báo hiệu cấm các loại phương tiện giao thông đường bộ theo giờ trong thành phố, thị xã phải đặt biển phụ số S508(a,b) dưới biển cấm và có chú thích bằng tiếng Việt, phụ đề tiếng Anh trong biển này.|S508b
+1||BIỂN BÁO NGUY HIỂM||
+0|W.201a|Chỗ ngoặt nguy hiểm bên trái|Biển báo đường sắp đến chỗ ngoặt nguy hiểm.|W201a
+0|W.201b|Chỗ ngoặt nguy hiểm bên phải|Biển báo đường sắp đến chỗ ngoặt nguy hiểm.|W201b
+0|W.201c|Chỗ ngoặt nguy hiểm có nguy cơ lật bên phải|Biển số W.201c chỗ ngoặt nguy hiểm có nguy cơ lật xe bên phải khi đường cong vòng sang trái.|W201c
+0|W.201d|Chỗ ngoặt nguy hiểm có nguy cơ lật bên trái|Biển số W.201d chỗ ngoặt nguy hiểm có nguy cơ lật xe bên trái khi đường cong vòng bên phải.|W201d
+0|W.202a|Nhiều chỗ ngoặt nguy hiểm liên tiếp|Biển báo sắp đến đoạn đường ngoặt liên tiếp (có từ 3 đoạn cong ngược chiều nhau) rất nguy hiểm, người lái xe cần giảm tốc độ.|W202a
+0|W.202b|Nhiều chỗ ngoặt nguy hiểm liên tiếp|Biển báo sắp đến đoạn đường ngoặt liên tiếp (có từ 3 đoạn cong ngược chiều nhau) rất nguy hiểm, người lái xe cần giảm tốc độ.|W202b
+0|W.203a|Đường bị hẹp cả hai bên|Biển báo sắp đến chỗ một đoạn đường bị hẹp đột ngột.|W203a
+0|W.203b|Đường bị hẹp bên trái|Biển báo sắp đến chỗ một đoạn đường bị hẹp đột ngột.|W203b
+0|W.203c|Đường bị hẹp bên phải|Biển báo sắp đến chỗ một đoạn đường bị hẹp đột ngột.|W203c
+0|W.204|Đường hai chiều|Biển báo hiệu sắp đến đoạn đường chỉ có một làn đường mà tạm thời (đường do sửa chữa hoặc có trở ngại ở một phía đường mà phải tổ chức đi lại cho phương tiện cả hai chiều trên phía đường còn lại) hay thường xuyên các chiều xe đi và về vẫn phải dùng chung. Khi qua đoạn đường này, lái xe cần thận trọng với xe phía chiều ngược lại.|W204
+0|W.205a|Nơi giao nhau của đường đồng cấp|Biển báo hiệu sắp đến nơi giao nhau của các tuyến đường cùng cấp (không có đường nào ưu tiên) trên cùng một mặt bằng.|W205a
+0|W.205b|Nơi giao nhau của đường đồng cấp|Biển báo hiệu sắp đến nơi giao nhau của các tuyến đường cùng cấp (không có đường nào ưu tiên) trên cùng một mặt bằng.|W205b
+0|W.205c|Nơi giao nhau của đường đồng cấp|Biển báo hiệu sắp đến nơi giao nhau của các tuyến đường cùng cấp (không có đường nào ưu tiên) trên cùng một mặt bằng.|W205c
+0|W.205d|Nơi giao nhau của đường đồng cấp|Biển báo hiệu sắp đến nơi giao nhau của các tuyến đường cùng cấp (không có đường nào ưu tiên) trên cùng một mặt bằng.|W205d
+0|W.205e|Nơi giao nhau của đường đồng cấp|Biển báo hiệu sắp đến nơi giao nhau của các tuyến đường cùng cấp (không có đường nào ưu tiên) trên cùng một mặt bằng.|W205e
+0|W.206|Giao nhau chạy theo vòng xuyến|Biển báo hiệu nơi giao nhau có bố trí đảo an toàn ở giữa điểm giao, các loại xe qua điểm giao vòng trái phải đi vòng xuyến qua đảo an toàn.|W206
+0|W.207a|Giao nhau với đường không ưu tiên|Biển báo hiệu đường ưu tiên sắp đến nơi giao nhau với đường không ưu tiên.|W207a
+0|W.207b|Giao nhau với đường không ưu tiên|Biển báo hiệu đường ưu tiên sắp đến nơi giao nhau với đường không ưu tiên.|W207b
+0|W.207c|Giao nhau với đường không ưu tiên|Biển báo hiệu đường ưu tiên sắp đến nơi giao nhau với đường không ưu tiên.|W207c
+0|W.207d|Giao nhau với đường không ưu tiên|Biển báo hiệu đường ưu tiên sắp đến nơi giao nhau với đường không ưu tiên.|W207d
+0|W.207e|Giao nhau với đường không ưu tiên|Biển báo hiệu đường ưu tiên sắp đến nơi giao nhau với đường không ưu tiên.|W207e
+0|W.207f|Giao nhau với đường không ưu tiên|Biển báo hiệu đường ưu tiên sắp đến nơi giao nhau với đường không ưu tiên.|W207f
+0|W.207g|Giao nhau với đường không ưu tiên|Biển báo hiệu đường ưu tiên sắp đến nơi giao nhau với đường không ưu tiên.|W207g
+0|W.207h|Giao nhau với đường không ưu tiên|Biển báo hiệu đường ưu tiên sắp đến nơi giao nhau với đường không ưu tiên.|W207h
+0|W.207i|Giao nhau với đường không ưu tiên|Biển báo hiệu đường ưu tiên sắp đến nơi giao nhau với đường không ưu tiên.|W207i
+0|W.207k|Giao nhau với đường không ưu tiên|Biển báo hiệu đường ưu tiên sắp đến nơi giao nhau với đường không ưu tiên.|W207k
+0|W.207l|Giao nhau với đường không ưu tiên|Biển báo hiệu đường ưu tiên sắp đến nơi giao nhau với đường không ưu tiên.|W207l
+0|W.208|Giao nhau với đường ưu tiên|Biển báo hiệu đường không đươc ưu tiên sắp đến nơi giao nhau với đường ưu tiên (biển được đặt trên đường không ưu tiên). Các xe đi trên đường có đặt biển này phải nhường đường cho xe đi trên đường ưu tiên khi qua nơi giao nhau, trừ các loại xe được ưu tiên theo Luật Giao thông đường bộ.|W208
+0|W.209|Giao nhau có tín hiệu đèn|Biển báo hiệu nơi giao nhau có sự điều khiển giao thông bằng tín hiệu đèn.|W209
+0|W.210|Giao nhau với đường sắt có rào chắn|Biển báo hiệu sắp đến chỗ giao nhau giữa đường bộ và đường sắt có rào chắn kín hay nửa kín ở cả hai bên đường sắt và có nhân viên ngành đường sắt điều khiển giao thông.|W210
+0|W.211a|Giao nhau với đường sắt không có rào chắn|Biển báo hiệu sắp đến chỗ giao nhau giữa đường bộ và đường sắt hoặc đường bộ và đường sắt có từng đoạn đi chung với nhau không có rào chắn, không có người điều khiển giao thông.|W211a
+0|W.211b|Giao nhau với đường tàu điện|Biển báo hiệu sắp đến chỗ giao nhau cùng mức giữa đường bộ với đường tàu điện.|W211b
+0|W.212|Cầu hẹp|Biển báo hiệu sắp đến cầu hẹp (loại cầu có chiều rộng lòng cầu nhỏ hơn hoặc bằng 4,5 m). Khi qua cầu này, lái xe phải đi chậm, quan sát, nhường nhau và dừng lại chờ ở hai đầu cầu.|W212
+0|W.213|Cầu tạm|Biển báo hiệu sắp đến cầu tạm (loại cầu được làm để sử dụng tạm thời cho xe qua lại). Khi gặp biển này lái xe cần thận trọng và lưu ý sau mỗi trận mưa lũ hoặc khi nước ngập nhất thiết không qua cầu.|W213
+0|W.214|Cầu xoay-cầu cất|Biển báo hiệu sắp đến cầu xoay, cầu cất (loại cầu trong từng thời gian có cắt giao thông đường bộ để cho tàu thuyền qua lại). Các phương tiện đi trên đường bộ phải chờ đợi.|W214
+0|W.215a|Kè, vực sâu phía trước|Biển báo hiệu sắp đến những chỗ có kè, vực sâu hoặc bờ sông áp sát đường, lái xe cần đề phòng tình huống nguy hiểm vượt kè, tụt xuống vực sâu (thường xảy ra ở những chỗ nguy hiểm).|W215a
+0|W.215b|Kè, vực sâu bên đường phía bên phải|Biển báo hiệu sắp đến những chỗ có kè, vực sâu hoặc bờ sông áp sát đường, lái xe cần đề phòng tình huống nguy hiểm vượt kè, tụt xuống vực sâu (thường xảy ra ở những chỗ nguy hiểm).|W215b
+0|W.215c|Kè, vực sâu bên đường phía bên trái|Biển báo hiệu sắp đến những chỗ có kè, vực sâu hoặc bờ sông áp sát đường, lái xe cần đề phòng tình huống nguy hiểm vượt kè, tụt xuống vực sâu (thường xảy ra ở những chỗ nguy hiểm).|W215c
+0|W.216a|Đường ngầm|Biển báo hiệu sắp đến chỗ có đường ngầm (đường tràn), đoạn đường vượt qua sông, suối, khe cạn mà nước có thể tràn qua thường xuyên hoặc khi có lũ.|W216a
+0|W.216b|Đường ngầm có nguy cơ lũ quét|Biển báo hiệu sắp đến chỗ có đường ngầm (đường tràn), đoạn đường vượt qua sông, suối, khe cạn thường xuyên có lũ quét.|W216b
+0|W.217|Bến phà|Biển báo hiệu sắp đến bến phà. Người tham gia giao thông đường bộ phải tuân theo nội quy bến phà.|W217
+0|W.218|Cửa chui|Biển báo hiệu sắp đến chỗ đường có cổng chui, kiểu cổng tò vò chắn ngang như cổng đường hầm, cổng thành, cầu vượt đường bộ dạng cầu vòm...|W218
+0|W.219|Dốc xuống nguy hiểm|Biển báo hiệu sắp đến chỗ dốc xuống nguy hiểm. Trị số ghi trong biển chỉ độ dốc thực tế tính bằng %.|W219
+0|W.220|Dốc lên nguy hiểm|Biển báo hiệu sắp đến chỗ dốc lên nguy hiểm. Trị số ghi trong biển chỉ độ dốc thực tế tính bằng %.|W220
+0|W.221a|Đường ổ gà, sống trâu||W221a
+0|W.221b|Đường có gồ giảm tốc|Biển số W.221b báo hiệu đoạn “Đường có gồ giảm tốc” để cảnh báo xe đi chậm trước khi qua những điểm có gồ giảm tốc phía trước hoặc những vị trí tiếp giáp với đầu cầu, cống bị lún, võng;|W221b
+0|W.222a|Đường trơn|Biển báo hiệu sắp đến đoạn đường có thể xảy ra trơn trượt đặc biệt là khi thời tiết xấu, mưa phùn. Lái xe cần tránh hãm phanh, tăng ga, sang số đột ngột hoặc cho xe chạy với tốc độ cao.|W222a
+0|W.222b|Lề đường nguy hiểm||W222b
+0|W.223a|Vách núi nguy hiểm||W223a
+0|W.223b|Vách núi nguy hiểm||W223b
+0|W.224|Đường người đi bộ cắt ngang|Biển báo hiệu sắp đến phần đường ngang dành cho người đi bộ. Gặp biển này các lái xe phải nhường đường cho người đi bộ.|W224
+0|W.225|Trẻ em|Biển báo hiệu gần đến đoạn đường thường có trẻ em đi ngang qua hoặc tụ tập trên đường như ở vườn trẻ, trường học, câu lạc bộ đi ra. Chiều dài của đoạn đường này có thể được chỉ dẫn bằng biển phụ số 501 “Phạm vi tác dụng của biển” đặt bên dưới biển chính.|W225
+0|W.226|Đường người đi xe đạp cắt ngang|Biển báo hiệu gần đến chỗ thường có người đi xe đạp từ những đường nhỏ cắt ngang qua hoặc từ đường dành cho xe đạp đi nhập vào đường ô tô.|W226
+0|W.227|Công trường||W227
+0|W.228a|Đá lở||W228a
+0|W.228b|Đá lở||W228b
+0|W.228c|Sỏi đá bắn lên||W228c
+0|W.228d|Nền đường yếu||W228d
+0|W.229|Dải máy bay lên xuống||W229
+0|W.230|Gia súc||W230
+0|W.231|Thú rừng vượt qua đường||W231
+0|W.232|Gió ngang||W232
+0|W.233|Nguy hiểm khác||W233
+0|W.234|Giao nhau với đường hai chiều|Biển báo hiệu trên đường một chiều sắp đến chỗ giao nhau với đường hai chiều.|W234
+0|W.235|Đường đôi|Biển báo hiệu sắp đến đoạn đường đôi (chiều đi và chiều về phân biệt rõ ràng bằng giải phân cách cứng).|W235
+0|W.236|Hết đường đôi|Biển báo hiệu sắp kết thúc đoạn đường đôi (đoạn đường hết giải phân cách cứng).|W236
+0|W.237|Đường có độ vòng lớn|Biển báo hiệu sắp đến chiếc cầu có độ vồng rất lớn ảnh hưởng tới tầm nhìn.|W237
+0|W.238|Đường cao tốc phía trước|Biển báo hiệu sắp đến đường cao tốc.|W238
+0|W.239|Đường cáp điện ở phía trên||W239
+0|W.240|Đường hầm phía trước|Biển báo hiệu sắp tới đường hầm (đường chạy hai chiều xe mà chiếu sáng lại không tốt).|W240
+0|W.241|Ùn tắc giao thông||W241
+0|W.242a|Nơi đường sắt giao vuông góc với đường bộ|Biển W.242a báo hiệu chỗ giao nhau chỉ có một đường sắt cắt ngang đường bộ.|W242a
+0|W.242b|Nơi 2 đường sắt giao nhau với đường bộ||W242b
+0|W.243a|Nơi đường sắt giao không vuông góc với đường bộ|Đặt cách ray đường sắt gần nhất 50m|W243a
+0|W.243b|Nơi đường sắt giao không vuông góc với đường bộ|Đặt cách ray đường sắt gần nhất 100m|W243b
+0|W.243c|Nơi đường sắt giao không vuông góc với đường bộ|Đặt cách ray đường sắt gần nhất 150m|W243c
+0|W.244|Đoạn đường hay xảy ra tai nạn|Biển báo hiệu đoạn đường phía trước thường xảy ra tai nạn để lái xe cần đặc biệt chú ý.|W244
+0|W.245a|Đi chậm||W245a
+0|W.245b|Đi chậm||W245b
+0|W.246a|Chú ý chướng ngại vật: Vòng tránh sang hai bên|Biển báo hiệu phía trước có chướng ngại vật. người lái xe cần giảm tốc độ đi vòng tránh sang hai bên.|W246a
+0|W.246b|Chú ý chướng ngại vật: Vòng tránh sang bên trái|Biển báo hiệu phía trước có chướng ngại vật. người lái xe cần giảm tốc độ đi vòng tránh sang bên trái.|W246b
+0|W.246c|Chú ý chướng ngại vật: Vòng tránh sang bên phải|Biển báo hiệu phía trước có chướng ngại vật. người lái xe cần giảm tốc độ đi vòng tránh sang bên phải.|W246c
+0|W.247|Chú ý xe đỗ||W247
+1||BIỂN BÁO HIỆU LỆNH||
+0|R.122|Dừng lại|Biển báo hiệu buộc các xe cơ giới và thô sơ kể cả xe được ưu tiên theo quy định phải dừng lại. Chỉ được phép đi nếu có người điều khiển giao thông hoặc đèn cờ cho phép đi. Nếu không thì chỉ được phép đi khi trên đường không còn nguy cơ gây mất an toàn giao thông.|R122
+0|R.301a|Các xe chỉ được đi thẳng|Được đặt trước ngã ba, ngã tư. Các xe chỉ được đi thẳng ở khu vực ngã ba, ngã tư.|R301a
+0|R.301b|Các xe chỉ được rẽ phải|Được đặt sau ngã ba, ngã tư. Các xe chỉ được rẽ phải ở khu vực trước mặt biển.|R301b
+0|R.301c|Các xe chỉ được rẽ trái|Được đặt sau ngã ba, ngã tư. Các xe chỉ được rẽ trái ở khu vực trước mặt biển.|R301c
+0|R.301d|Các xe chỉ được rẽ phải|Được đặt trước ngã ba, ngã tư. Các xe chỉ được rẽ phải ở phạm vi ngã ba, ngã tư đằng sau mặt biển.|R301d
+0|R.301e|Các xe chỉ được rẽ trái|Được đặt trước ngã ba, ngã tư. Các xe chỉ được rẽ trái ở phạm vi ngã ba, ngã tư đằng sau mặt biển.|R301e
+0|R.301f|Các xe chỉ được đi thẳng và rẽ phải|Được đặt trước ngã ba, ngã tư. Các xe chỉ được phép đi thẳng hay rẽ phải ở khu vực sau mặt biển.|R301f
+0|R.301g|Các xe chỉ được đi thẳng và rẽ trái|Được đặt trước ngã ba, ngã tư. Các xe chỉ được phép đi thẳng hay rẽ trái ở khu vực sau mặt biển và được phép quay đầu xe để đi theo hướng ngược lại.|R301g
+0|R.301h|Các xe chỉ được rẽ trái và phải|Được đặt sau ngã ba, ngã tư. Các xe chỉ được phép rẽ trái, quay đầu hoặc rẽ phải ở khu vực ngã ba, ngã tư trước mặt biển.|R301h
+0|R.302a|Hướng phải đi vòng chướng ngại vật||R302a
+0|R.302b|Hướng phải đi vòng chướng ngại vật||R302b
+0|R.302c|Hướng phải đi vòng chướng ngại vật||R302c
+0|R.303|Nơi giao nhau chạy theo vòng xuyến|Biển có hiệu lực bắt buộc các xe muốn chuyển hướng phải chạy vòng theo đảo an toàn theo hướng mũi tên tại nơi đường giao nhau (ngã ba, ngã tư).|R303
+0|R.304|Đường dành cho xe thô sơ|Biển báo đường dành cho xe thô sơ (kể cả xe của người khuyết tật) và người đi bộ, bắt buộc phải đi theo đường dành riêng này, cấm phương tiện giao thông cơ giới kể cả các xe được ưu tiên theo Luật Giao thông đường bộ đi vào đường đã đặt biển này, trừ trường hợp đi cắt ngang qua nhưng phải bảo đảm tuyệt đối an toàn cho người đi bộ.|R304
+0|R.305|Đường dành cho người đi bộ|Biển báo đường dành riêng cho người đi bộ.Các phương tiện giao thông đường bộ kể cả xe được ưu tiên theo Luật Giao thông đường bộ không được phép đi vào, trừ trường hợp đi cắt ngang qua, nhưng phải bảo đảm tuyệt đối an toàn cho người đi bộ.|R305
+0|R.306|Tốc độ tối thiểu cho phép|Biển báo tốc độ tối thiểu cho phép. Biển có hiệu lực bắt buộc các loại xe cơ giới chạy với tốc độ không nhỏ hơn trị số ghi trên biển trong điều kiện giao thông thuận lợi và an toàn. Các loại xe có tốc độ tối đa theo quy định của nhà sản xuất không đạt tốc độ tối thiểu đã ghi trên biển không được phép đi vào đường này.|R306
+0|R.307|Hết hạn chế tốc độ tối thiểu|Biển báo hết đoạn đường hạn chế tốc độ tối thiểu. Kể từ biển này các xe được phép chạy chậm hơn trị số ghi trên biển nhưng không được gây cản trở các xe khác.|R307
+0|R.308a|Tuyến đường cầu vượt cắt qua|Biển số R.308a báo cho người lái xe chỉ được đi thẳng hoặc rẽ trái trên cầu vượt.|R308a
+0|R.308b|Tuyến đường cầu vượt cắt qua|Biển số R.308b báo cho người lái xe chỉ được đi thẳng hoặc rẽ phải trên cầu vượt.|R308b
+0|R.309|Ấn còi|Biển báo lệnh cho người lái xe phải bấm còi.|R309
+0|R.310a|Hướng đi phải theo cho xe chở hàng nguy hiểm||R310a
+0|R.310b|Hướng đi phải theo cho xe chở hàng nguy hiểm||R310b
+0|R.310c|Hướng đi phải theo cho xe chở hàng nguy hiểm||R310c
+0|R.403a|Đường dành cho ôtô|Biển báo hiệu bắt đầu đường dành cho các loại ôtô đi lại.|R403a
+0|R.403b|Đường dành cho ôtô, xe máy|Biển báo hiệu bắt đầu đường dành cho các loại ôtô, xe máy (kể cả xe gắn máy).|R403b
+0|R.404a|Hết đoạn đường dành cho ôtô|Đến hết đoạn đường dành cho ôtô đi lại|R404a
+0|R.404b|Hết đoạn đường dành cho ôtô và xe máy|Đến hết đoạn đường dành cho ôtô, xe máy đi lại|R404b
+0|R.411|Hướng đi trên mỗi làn đường phải theo|Biển báo hiệu cho người tham gia giao thông biết số lượng làn đường trên mặt đường và hướng đi trên mỗi làn đường theo vạch kẻ đường.|R411
+0|R.412a|Làn đường dành cho xe khách|Biển báo hiệu làn đường dành riêng cho ôtô khách (kể cả ôtô buýt).|R412a
+0|R.412b|Làn đường dành cho xe con||R412b
+0|R.412c|Làn đường dành cho xe tải||R412c
+0|R.412d|Làn đường dành cho xe mô tô||R412d
+0|R.412f|Làn đường dành cho xe ô tô||R412f
+0|R.413i|Kết thúc làn đường dành cho xe khách||R413i
+0|R.413j|Kết thúc làn đường dành cho xe con||R413j
+0|R.413k|Kết thúc làn đường dành cho xe tải||R413k
+0|R.413l|Kết thúc làn đường dành cho xe mô tô||R413l
+0|R.413n|Kết thúc làn đường dành cho xe ô tô||R413n
+0|R.415|Biển gộp làn đường theo phương tiện||R415
+0|R.420|Bắt đầu khu dân cư|Biển báo hiệu bắt đầu đoạn đường vào phạm vi khu đông dân cư. Biển có tác dụng báo cho người tham gia giao thông biết phạm vi phải tuân theo những quy định đi đường được áp dụng ở khu đông dân cư.|R420
+0|R.421|Hết khu đông dân cư|Biển báo hiệu hết đoạn đường qua phạm vi khu đông dân cư. Biển có tác dụng báo cho người tham gia giao thông biết phạm vi phải tuân theo những quy định đi đường được áp dụng ở khu đông dân cư đã hết hiệu lực.|R421
+0|R.E,9a|Cấm đỗ xe trong khu vực|Biển báo Cấm đỗ xe trong khu vực có hiệu lực cho tất cả các tuyến đường trong một khu vực (hiệu lực cho cả khu vực).|RE9a
+0|R.E,9b|Cấm đỗ xe theo giờ trong khu vực|Biển báo Cấm đỗ xe theo giờ trong khu vực có hiệu lực cho tất cả các tuyến đường trong một khu vực (hiệu lực cho cả khu vực).|RE9b
+0|R.E,9c|Khu vực đỗ xe|Biển báo khu vực đỗ xe trong khu vực có hiệu lực cho tất cả các tuyến đường trong một khu vực (hiệu lực cho cả khu vực).|RE9c
+0|R.E,9d|Hạn chế tốc độ tối đa trong khu vực|Để quy định hạn chế tốc độ tối đa trong khu vực có hiệu lực cho tất cả các tuyến đường trong một khu vực (hiệu lực cho cả khu vực).|RE9d
+0|R.E,10a|Hết cấm đỗ xe trong khu vực|Để báo hiệu hết cấm đỗ xe trong khu vực có hiệu lực cho tất cả các tuyến đường trong một khu vực (hiệu lực cho cả khu vực).|RE10a
+0|R.E,10a|Hết cấm đỗ xe theo giờ trong khu vực|Để báo hiệu hết cấm đỗ xe theo giờ trong khu vực có hiệu lực cho tất cả các tuyến đường trong một khu vực (hiệu lực cho cả khu vực).|RE10a
+0|R.E,10c|Hết khu vực đỗ xe|Để quy định hết khu vực đỗ xe trong khu vực có hiệu lực cho tất cả các tuyến đường trong một khu vực (hiệu lực cho cả khu vực).|RE10c
+0|R.E,10d|Hết hạn chế tốc độ tối đa trong khu vực|Để quy định hết hạn chế tốc độ tối đa trong khu vực có hiệu lực cho tất cả các tuyến đường trong một khu vực (hiệu lực cho cả khu vực).|RE10d
+0|R.E,11a|Báo hiệu có hầm chui|Chỉ dẫn đoạn đường qua hầm có áp dụng quy định giao thông riêng.|RE11a
+0|R.E,11b|Kết thúc hầm chui|Chỉ dẫn hết đoạn đường qua hầm, các quy định giao thông riêng không còn áp dụng.|RE11b
+1||BIỂN BÁO CHỈ DẪN||
+0|I.401|Bắt đầu đường ưu tiên|Biển chỉ dẫn các phương tiện trên trục đường chính được ưu tiên đi trước ở nơi đường giao nhau, các phương tiện từ đường nhánh ra phải dừng lại nhường đường cho phương tiện trên đường chính đi trước, trừ các xe được ưu tiên theo Luật Giao thông đường bộ.|I401
+0|I.402|Hết đường ưu tiên|Biển chỉ dẫn đã hết đoạn đường ưu tiên. Trên đoạn đường tiếp theo, các xe đi đúng với tốc độ quy định, qua nơi giao nhau ưu tiên bên phải.|I402
+0|I.405a|Đường cụt||I405a
+0|I.405b|Đường cụt||I405b
+0|I.405c|Đường cụt||I405c
+0|I.406|Được ưu tiên qua đường hẹp|Biển chỉ dẫn có quyền được ưu tiên đi trước trên đoạn đường hẹp khi gặp xe đi ngược chiều, trừ trường hợp trên hướng đi ngược chiều có phương tiện đã đi vào phạm vi đường hẹp thì xe đi theo chiều ưu tiên cũng phải nhường đường.|I406
+0|I.407a|Đường một chiều|Chỉ cho phép các loại phương tiệngiao thông đi vào theo chiều mũi tên chỉ, cấm quay đầu ngược lại (trừ các xe được quyền ưu tiên theo Luật Giao thông đường bộ).|I407a
+0|I.407b|Đường một chiều|Chỉ cho phép các loại phương tiệngiao thông đi vào theo chiều mũi tên chỉ, cấm quay đầu ngược lại (trừ các xe được quyền ưu tiên theo Luật Giao thông đường bộ).|I407b
+0|I.407c|Đường một chiều|Chỉ cho phép các loại phương tiệngiao thông đi vào theo chiều mũi tên chỉ, cấm quay đầu ngược lại (trừ các xe được quyền ưu tiên theo Luật Giao thông đường bộ).|I407c
+0|I.408|Nơi đỗ xe|Biển chỉ dẫn những nơi được phép đỗ xe, những bãi đỗ xe, bến xe v.v...|I408
+0|I.408a|Nơi đỗ xe một phần trên hè phố|Biển chỉ dẫn những nơi được phép đỗ xe một phần trên hè phố rộng, phải đặt biển số. Xe phải đổ từ 1⁄2 thân xe trở lên trên hè phố.|I408a
+0|I.409|Chỗ quay xe|Biển chỉ dẫn vị trí được phép quay đầu xe kiểu chữ U. Biển không cấm rẽ trái|I409
+0|I.410|Khu vực quay xe|Biển chỉ dẫn khu vực được phép quay đầu xe kiểu chữ U. Biển không cấm rẽ trái.|I410
+0|I.413a|Đường phía trước có làn đường dành cho ô tô khách|Biển chỉ dẫn đường có làn đường dành riêng cho xe ô tô khách theo chiều ngược lại. Biển được đặt ở ngã ba, ngã tư đầu đường một chiều mà hướng ngược chiều có xe ô tô khách được phép chạy.|I413a
+0|I.413b|Rẽ ra đường có làn dành cho xe khách|Biển chỉ dẫn ở ngã ba, ngã tư rẽ phải hoặc rẽ trái là rẽ ra đường có làn đường dành cho xe ô tô khách.|I413b
+0|I.413c|Rẽ ra đường có làn dành cho xe khách|Biển chỉ dẫn ở ngã ba, ngã tư rẽ phải hoặc rẽ trái là rẽ ra đường có làn đường dành cho xe ô tô khách.|I413c
+0|I.418|Lối đi ở những chỗ cấm rẽ||I418
+0|I.423a|Đường người đi bộ sang ngang||I423a
+0|I.437|Đường cao tốc|Để chỉ dẫn bắt đầu đường cao tốc, đặt biển số I.437 “Đường cao tốc”.|I437
+0|I.444|Xe kéo moóc|Biển này đặt trên nóc buồng lái của xe kéo moóc|I444
+0|I.446|Nơi đỗ xe dành cho người tàn tật|Biển chỉ dẫn vị trí thiết bị chuyên dùng cho người tàn tật.|I446
+0|I.447a|Cầu vượt liên thông|Biển được đặt trước khi vào cầu vượt . Biển chỉ dẫn tại cầu vượt liên thông xe có thể đi thẳng hoặc theo chỉ dẫn trên hình vẽ để rẽ trái hay rẽ phải.|I447a
+0|I.447b|Cầu vượt liên thông|Biển được đặt trước khi vào cầu vượt . Biển chỉ dẫn tại cầu vượt liên thông xe có thể đi thẳng hoặc theo chỉ dẫn trên hình vẽ để rẽ trái hay rẽ phải.|I447b
+0|I.448|Làn đường cứu nạn hay làn thoát xe khẩn cấp|Biển chỉ dẫn gồm 3 cặp biển ở các cự ly 2 km, 1 km và 300 m nhằm chỉ dẫn cho ngƣời tham gia giao thông biết vị trí và khoảng cách có làn cứu nạn.|I448
+0|I.449|Biển tên đường|Biển báo tên đƣờng cho các tuyến đƣờng đối ngoại.|I449
+1||BIỂN BÁO PHỤ||
+0|S.501|Phạm vi tác dụng của biển|Biển được đặt dưới các loại biển báo nguy hiểm, biển báo cấm hoặc hạn chế. Biển thông báo chiều dài đoạn đường nguy hiểm hay đoạn đường phải thi hành lệnh cấm hoặc hạn chế.|S501
+0|S.502|Khoảng cách đến đối tượng báo hiệu|Biển được đặt dưới các loại biển báo nguy hiểm, biển báo cấm hoặc hạn chế, biển hiệu lệnh và biển chỉ dẫn . Biển thông báo khoảng cách thực tế từ vị trí đặt biển đến đối tượng báo hiệu ở phía trước.|S502
+0|S.503a|Hướng tác dụng của biển||S503a
+0|S.503b|Hướng tác dụng của biển||S503b
+0|S.503c|Hướng tác dụng của biển||S503c
+0|S.503d|Hướng tác dụng của biển||S503d
+0|S.503e|Hướng tác dụng của biển||S503e
+0|S.503f|Hướng tác dụng của biển||S503f
+0|S.504|Làn đường||S504
+0|S.506a|Hướng đường ưu tiên||S506a
+0|S.506b|Hướng đường ưu tiên||S506b
+1||VẠCH KẺ ĐƯỜNG||
+0|Vạch 1.1 |Vạch phân chia hai chiều xe chạy (vạch tim đường), dạng vạch đơn, đứt nét|Áp dụng: dùng để phân chia hai chiều xe chạy ngược chiều nhau ở những đoạn đường có từ 2 làn xe trở lên, không có dải phân cách giữa. Xe được phép cắt qua để sử dụng làn ngược chiều từ cả hai phía.|G11
+0|Vạch 1.2|Vạch phân chia hai chiều xe chạy (vạch tim đường), dạng vạch đơn, nét liền|Áp dụng: dùng để phân chia hai chiều xe chạy cho đường có 2 hoặc 3 làn xe, không có dải phân cách giữa; xe không được lấn làn, không được đè lên vạch.|G12
+0|Vạch 1.3|Vạch phân chia hai chiều xe chạy ngược chiều (vạch tim đường), dạng vạch đôi, nét liền|Dùng để phân chia hai chiều xe chạy cho đường có từ 4 làn xe trở lên, không có dải phân cách giữa, xe không được lấn làn, không được đè lên vạch. - Trường hợp các đường có 2 hoặc 3 làn xe, dùng để nhấn mạnh sự nguy hiểm.|G13
+0|Vạch 1.4|Vạch phân chia hai chiều xe chạy, dạng vạch đôi gồm một vạch nét liền, một vạch nét đứt||G14
+0|Vạch 1.5|Vạch xác định ranh giới làn đường có thể thay đổi hướng xe chạy||G15
+0|Vạch 2.1|Vạch phân chia các làn xe cùng chiều, dạng vạch đơn, đứt nét||G21
+0|Vạch 2.2|Vạch phân chia các làn xe cùng chiều, dạng vạch đơn, liền nét.||G22
+0|Vạch 7.6|Vạch chỉ dẫn sắp đến chỗ có bố trí vạch đi bộ qua đường||G76
+0|Vạch 7.8|Vạch xác định khoảng cách xe trên đường.|Vạch 7.8 là vạch dùng để xác định khoảng cách trên đường, giúp cho lái xe biết cần phải giãn cách cự ly để đảm bảo an toàn với xe chạy phía trước. Vạch thường được sử dụng trên đường ôtô cao tốc.|G78
+0|Vạch 9.2|Vạch quy định vị trí dừng đỗ của phương tiện giao thông công cộng trên đường|Vạch 9.2 quy định vị trí dừng xe của các phương tiện vận tải hành khách công cộng trên đường như xe buýt, xe tắc xi ...|G92
