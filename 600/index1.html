@@ -256,10 +256,12 @@
                 },
                 checkAnswer() {
                     this.is_show_answer = true;
+                    var pageSet = this.getPageChange()
                 },
                 checkAnswerFalse() {
                     //alert('false')
                     this.is_show_answer = false;
+                    var pageSet = this.getPageChange()
                 },
                 getPageChange() {
                     var maxPage2 = this.pagegination02.currentPage * this.pagegination02.numberPerPage;
@@ -292,7 +294,6 @@
             watch: {
                 'pagegination02.currentPage': function(newContent) {
                     var pageSet = this.getPageChange()
-
                 },
             }
         });
