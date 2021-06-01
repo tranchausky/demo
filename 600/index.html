@@ -72,7 +72,8 @@
                     <h3>List bảng 600 câu hỏi</h3>
                 </div>
                 <nav class="mb-4">
-                    <v-pagination v-model="pagegination01.currentPage" :page-count="pagegination01.totalPageCount" :classes="pagegination01.bootstrapPaginationClasses" :labels="pagegination01.customLabels"></v-pagination>
+                    <!-- <v-pagination v-model="pagegination01.currentPage" :page-count="pagegination01.totalPageCount" :classes="pagegination01.bootstrapPaginationClasses" :labels="pagegination01.customLabels"></v-pagination> -->
+                    <v-pagination v-model="pagegination01.currentPage" :page-count="pagegination01.totalPageCount" :classes="pagegination01.bootstrapPaginationClasses" :labels="{first: false, prev: false, next: false, last: false}"></v-pagination>
                 </nav>
             </div>
         </div>
