@@ -90,7 +90,7 @@
                         </template>
                     </div>
                     <div class="col-sm-4">
-                        <template v-for="(one,index) in getContentPagination01" v-if="index > 60">
+                        <template v-for="(one,index) in getContentPagination01" v-if="index >= 60">
                             <transition name="slide-fade" mode="out-in">
                                 <li :key="one['selec']" v-on:click="goToId('ques-'+one.id)">
                                     <span>{{one.id+1}} </span>
