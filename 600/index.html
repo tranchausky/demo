@@ -33,64 +33,73 @@
             <div class="col-sm-12">
                 <br>
                 <h3 class="title">Thi lái xe</h3>
-                <hr/>
+                <hr />
 
                 <div id="listQuestion">
                     <div v-for="(one,index) in getContentPagination02" v-bind:id="'ques-'+(index+1)">
                         <p><b>{{one.id+1}}: {{one[0]}}</b></p>
-                        <img v-if="one['more']['pic']" v-bind:src="'images/'+one['more']['pic']" class="img-fluid img-thumbnail">
+                        <img v-if="one['more']['pic']" v-bind:src="'images/'+one['more']['pic']"
+                            class="img-fluid img-thumbnail">
                         <ol type="A">
-                            <li v-on:click="setChoose(one.id,'A')" v-bind:class="[indexShow[one.id].selec=='A'?'select':'']">{{one[1]}}</li>
-                            <li v-on:click="setChoose(one.id,'B')" v-bind:class="[indexShow[one.id].selec=='B'?'select':'']">{{one[2]}}</li>
-                            <li v-on:click="setChoose(one.id,'C')" v-bind:class="[indexShow[one.id].selec=='C'?'select':'']" v-if="one[3]">{{one[3]}}</li>
-                            <li v-on:click="setChoose(one.id,'D')" v-bind:class="[indexShow[one.id].selec=='D'?'select':'']" v-if="one[4]">{{one[4]}}</li>
+                            <li v-on:click="setChoose(one.id,'A')"
+                                v-bind:class="[indexShow[one.id].selec=='A'?'select':'']">{{one[1]}}</li>
+                            <li v-on:click="setChoose(one.id,'B')"
+                                v-bind:class="[indexShow[one.id].selec=='B'?'select':'']">{{one[2]}}</li>
+                            <li v-on:click="setChoose(one.id,'C')"
+                                v-bind:class="[indexShow[one.id].selec=='C'?'select':'']" v-if="one[3]">{{one[3]}}</li>
+                            <li v-on:click="setChoose(one.id,'D')"
+                                v-bind:class="[indexShow[one.id].selec=='D'?'select':'']" v-if="one[4]">{{one[4]}}</li>
                         </ol>
                     </div>
                 </div>
                 <div>
-                    <button v-on:click="checkAnswer()" v-if="!is_show_answer" class="btn btn-info">Check Answers</button>
-                    <button v-on:click="checkAnswerFalse()" v-if="is_show_answer" class="btn btn-primary">Back To Test</button>
+                    <button v-on:click="checkAnswer()" v-if="!is_show_answer" class="btn btn-info">Check
+                        Answers</button>
+                    <button v-on:click="checkAnswerFalse()" v-if="is_show_answer" class="btn btn-primary">Back To
+                        Test</button>
                 </div>
                 <div v-if="!is_show_answer">
                     <h3>List 30 câu hỏi hiện tại</h3>
                     <nav class="mb-4">
-                        <v-pagination v-model="pagegination02.currentPage" :page-count="pagegination02.totalPageCount" :classes="pagegination02.bootstrapPaginationClasses" :labels="{first: false, prev: false, next: false, last: false}"></v-pagination>
+                        <v-pagination v-model="pagegination02.currentPage" :page-count="pagegination02.totalPageCount"
+                            :classes="pagegination02.bootstrapPaginationClasses"
+                            :labels="{first: false, prev: false, next: false, last: false}"></v-pagination>
                     </nav>
                 </div>
                 <div id="listIndex" class="row">
-					<div class="col-sm-4">
-						<template v-for="(one,index) in getContentPagination01" v-if="index < 30">
-							<transition  name="slide-fade" mode="out-in">
-								<li :key="one['selec']" v-on:click="goToId('ques-'+one.id)">
-									<span>{{one.id+1}} </span>
-									<span class="select">{{one['selec']}}</span>
-									<span class="correct" v-if="is_show_answer" v-html="showContent(one)"></span>
-								</li>
-							</transition>
-						</template>
-					</div>
-					<div class="col-sm-4">
-						<template v-for="(one,index) in getContentPagination01" v-if="index >= 30 && index < 60">
-							<transition  name="slide-fade" mode="out-in">
-								<li :key="one['selec']" v-on:click="goToId('ques-'+one.id)">
-									<span>{{one.id+1}} </span>
-									<span class="select">{{one['selec']}}</span>
-									<span class="correct" v-if="is_show_answer" v-html="showContent(one)"></span>
-								</li>
-							</transition>
-						</template>
-					</div>
-					<div class="col-sm-4">
-						<template v-for="(one,index) in getContentPagination01" v-if="index > 60">
-							<transition  name="slide-fade" mode="out-in">
-								<li :key="one['selec']" v-on:click="goToId('ques-'+one.id)">
-									<span>{{one.id+1}} </span>
-									<span class="select">{{one['selec']}}</span>
-									<span class="correct" v-if="is_show_answer" v-html="showContent(one)"></span>
-								</li>
-							</transition>
-						</template>
-					</div>
+                    <div class="col-sm-4">
+                        <template v-for="(one,index) in getContentPagination01" v-if="index < 30">
+                            <transition name="slide-fade" mode="out-in">
+                                <li :key="one['selec']" v-on:click="goToId('ques-'+one.id)">
+                                    <span>{{one.id+1}} </span>
+                                    <span class="select">{{one['selec']}}</span>
+                                    <span class="correct" v-if="is_show_answer" v-html="showContent(one)"></span>
+                                </li>
+                            </transition>
+                        </template>
+                    </div>
+                    <div class="col-sm-4">
+                        <template v-for="(one,index) in getContentPagination01" v-if="index >= 30 && index < 60">
+                            <transition name="slide-fade" mode="out-in">
+                                <li :key="one['selec']" v-on:click="goToId('ques-'+one.id)">
+                                    <span>{{one.id+1}} </span>
+                                    <span class="select">{{one['selec']}}</span>
+                                    <span class="correct" v-if="is_show_answer" v-html="showContent(one)"></span>
+                                </li>
+                            </transition>
+                        </template>
+                    </div>
+                    <div class="col-sm-4">
+                        <template v-for="(one,index) in getContentPagination01" v-if="index > 60">
+                            <transition name="slide-fade" mode="out-in">
+                                <li :key="one['selec']" v-on:click="goToId('ques-'+one.id)">
+                                    <span>{{one.id+1}} </span>
+                                    <span class="select">{{one['selec']}}</span>
+                                    <span class="correct" v-if="is_show_answer" v-html="showContent(one)"></span>
+                                </li>
+                            </transition>
+                        </template>
+                    </div>
 
                     <!-- <li>{{one['selec']}}</li> -->
                     <!-- <li>{{one['correct']}}</li> -->
@@ -100,7 +109,9 @@
                 </div>
                 <nav class="mb-4">
                     <!-- <v-pagination v-model="pagegination01.currentPage" :page-count="pagegination01.totalPageCount" :classes="pagegination01.bootstrapPaginationClasses" :labels="pagegination01.customLabels"></v-pagination> -->
-                    <v-pagination v-model="pagegination01.currentPage" :page-count="pagegination01.totalPageCount" :classes="pagegination01.bootstrapPaginationClasses" :labels="{first: false, prev: false, next: false, last: false}"></v-pagination>
+                    <v-pagination v-model="pagegination01.currentPage" :page-count="pagegination01.totalPageCount"
+                        :classes="pagegination01.bootstrapPaginationClasses"
+                        :labels="{first: false, prev: false, next: false, last: false}"></v-pagination>
                 </nav>
             </div>
         </div>
@@ -171,7 +182,7 @@
             mounted() {
                 var atNow = this
                 var dataGet = this.getLocalStore('indexShow')
-                    //console.log(dataGet)
+                //console.log(dataGet)
                 if (dataGet != null) {
                     atNow.indexShow = dataGet
                 } else {
@@ -179,13 +190,13 @@
                         var tem = {};
                         tem.id = i
                         tem.selec = ''
-                            //tem.correct = ''
+                        //tem.correct = ''
                         atNow.indexShow.push(tem);
                     }
                 }
                 this.pagegination01.totalPageCount = Math.ceil(atNow.indexShow.length / this.pagegination01.numberPerPage)
 
-                axios.get('listQuestion_ans.json').then(function(response) {
+                axios.get('listQuestion_ans.json').then(function (response) {
                     atNow.items = response.data
                     for (let index = 0; index < atNow.items.length; index++) {
                         atNow.items[index].id = index
@@ -204,6 +215,7 @@
                     var correct = one.correct
                     var first = this.getContentPagination02[0].id
                     var last = this.getContentPagination02[this.getContentPagination02.length - 1].id
+
                     if (numberid >= first && numberid <= last) {
 
                         if (selec == '') {
@@ -245,9 +257,9 @@
                     for (let index = 0; index < this.items.length; index++) {
                         this.items[index].id = index
                         this.indexShow[index].correct = this.fileterCorrect(this.items[index].more[7])
-                            // console.log(this.items[index].more[7])
-                            // console.log(this.fileterCorrect(this.items[index].more[7]))
-                            //console.log(this.indexShow[index].selec)
+                        // console.log(this.items[index].more[7])
+                        // console.log(this.fileterCorrect(this.items[index].more[7]))
+                        //console.log(this.indexShow[index].selec)
                     }
                     // console.log(this.indexShow)
                     this.setLocalStore('indexShow', this.indexShow)
@@ -256,7 +268,7 @@
 
                 },
                 setChoose(index, value) {
-					var pageSet = this.getPageChange()
+                    var pageSet = this.getPageChange()
                     if (this.is_show_answer == true) {
                         return
                     }
@@ -292,6 +304,7 @@
                 checkAnswer() {
                     this.is_show_answer = true;
                     var pageSet = this.getPageChange()
+
                 },
                 checkAnswerFalse() {
                     //alert('false')
@@ -327,7 +340,7 @@
                 }
             },
             watch: {
-                'pagegination02.currentPage': function(newContent) {
+                'pagegination02.currentPage': function (newContent) {
                     var pageSet = this.getPageChange()
                 },
             }
@@ -342,47 +355,47 @@
         [v-cloak] {
             display: none;
         }
-      
-        
+
+
         #listQuestion {
             /* max-height: 500px; */
             /* overflow: auto; */
         }
-        
+
         #listQuestion li.select {
             color: #3f51b5;
             font-weight: bold;
         }
-        
+
         #listIndex span.wrong {
             color: red;
             font-weight: bold;
         }
-        
+
         #listIndex span.right {
             color: green;
             font-weight: bold;
         }
-        
+
         #listIndex span.select {
             animation: animate infinite 3s;
             color: #3f51b5;
             font-weight: bold;
         }
-        
+
         .slide-fade-enter-active {
             transition: all .3s ease;
         }
-        
+
         .slide-fade-leave-active {
             transition: all .8s cubic-bezier(1.0, 0.5, 0.8, 1.0);
         }
-        
+
         .slide-fade-enter,
         .slide-fade-leave-to
         /* .slide-fade-leave-active for <2.1.8 */
-        
-        {
+
+            {
             transform: translateX(10px);
             opacity: 0;
         }
