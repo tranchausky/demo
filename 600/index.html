@@ -5,6 +5,8 @@
     <!-- <script src="vuejs/vue.min.js"></script> -->
 
     <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+
     <!-- Load required Bootstrap and BootstrapVue CSS -->
     <!-- <link type="text/css" rel="stylesheet" href="//unpkg.com/bootstrap/dist/css/bootstrap.min.css" /> -->
     <!-- <link type="text/css" rel="stylesheet" href="//unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.min.css" /> -->
@@ -27,49 +29,53 @@
 <body>
 
     <div id="app" v-cloak class="container">
-        <br>
-        <h3 class="title">Thi lái xe</h3>
-        <hr/>
+        <div class="row">
+            <div class="col-sm-12">
+                <br>
+                <h3 class="title">Thi lái xe</h3>
+                <hr/>
 
-        <div id="listQuestion">
-            <div v-for="(one,index) in getContentPagination02" v-bind:id="'ques-'+(index+1)">
-                <p><b>{{one.id+1}}: {{one[0]}}</b></p>
-                <img v-if="one['more']['pic']" v-bind:src="'images/'+one['more']['pic']">
-                <ol type="A">
-                    <li v-on:click="setChoose(one.id,'A')" v-bind:class="[indexShow[one.id].selec=='A'?'select':'']">{{one[1]}}</li>
-                    <li v-on:click="setChoose(one.id,'B')" v-bind:class="[indexShow[one.id].selec=='B'?'select':'']">{{one[2]}}</li>
-                    <li v-on:click="setChoose(one.id,'C')" v-bind:class="[indexShow[one.id].selec=='C'?'select':'']" v-if="one[3]">{{one[3]}}</li>
-                    <li v-on:click="setChoose(one.id,'D')" v-bind:class="[indexShow[one.id].selec=='D'?'select':'']" v-if="one[4]">{{one[4]}}</li>
-                </ol>
+                <div id="listQuestion">
+                    <div v-for="(one,index) in getContentPagination02" v-bind:id="'ques-'+(index+1)">
+                        <p><b>{{one.id+1}}: {{one[0]}}</b></p>
+                        <img v-if="one['more']['pic']" v-bind:src="'images/'+one['more']['pic']" class="img-fluid img-thumbnail">
+                        <ol type="A">
+                            <li v-on:click="setChoose(one.id,'A')" v-bind:class="[indexShow[one.id].selec=='A'?'select':'']">{{one[1]}}</li>
+                            <li v-on:click="setChoose(one.id,'B')" v-bind:class="[indexShow[one.id].selec=='B'?'select':'']">{{one[2]}}</li>
+                            <li v-on:click="setChoose(one.id,'C')" v-bind:class="[indexShow[one.id].selec=='C'?'select':'']" v-if="one[3]">{{one[3]}}</li>
+                            <li v-on:click="setChoose(one.id,'D')" v-bind:class="[indexShow[one.id].selec=='D'?'select':'']" v-if="one[4]">{{one[4]}}</li>
+                        </ol>
+                    </div>
+                </div>
+                <div>
+                    <button v-on:click="checkAnswer()" v-if="!is_show_answer" class="btn btn-info">Check Answers</button>
+                    <button v-on:click="checkAnswerFalse()" v-if="is_show_answer" class="btn btn-primary">Back To Test</button>
+                </div>
+                <div v-if="!is_show_answer">
+                    <h3>List 30 câu hỏi hiện tại</h3>
+                    <nav class="mb-4">
+                        <v-pagination v-model="pagegination02.currentPage" :page-count="pagegination02.totalPageCount" :classes="pagegination02.bootstrapPaginationClasses" :labels="{first: false, prev: false, next: false, last: false}"></v-pagination>
+                    </nav>
+                </div>
+                <ul id="listIndex">
+                    <transition v-for="(one,index) in getContentPagination01" name="slide-fade" mode="out-in">
+                        <li :key="one['selec']" v-on:click="goToId('ques-'+one.id)">
+                            <span>{{one.id+1}} </span>
+                            <span class="select">{{one['selec']}}</span>
+                            <span class="correct" v-if="is_show_answer" v-html="showContent(one)"></span>
+                        </li>
+                    </transition>
+                    <!-- <li>{{one['selec']}}</li> -->
+                    <!-- <li>{{one['correct']}}</li> -->
+                </ul>
+                <div>
+                    <h3>List bảng 600 câu hỏi</h3>
+                </div>
+                <nav class="mb-4">
+                    <v-pagination v-model="pagegination01.currentPage" :page-count="pagegination01.totalPageCount" :classes="pagegination01.bootstrapPaginationClasses" :labels="pagegination01.customLabels"></v-pagination>
+                </nav>
             </div>
         </div>
-        <div>
-            <button v-on:click="checkAnswer()" v-if="!is_show_answer" class="btn btn-info">Check Answers</button>
-            <button v-on:click="checkAnswerFalse()" v-if="is_show_answer" class="btn btn-primary">Back To Test</button>
-        </div>
-        <div v-if="!is_show_answer">
-            <h3>List 30 câu hỏi hiện tại</h3>
-            <nav class="mb-4">
-                <v-pagination v-model="pagegination02.currentPage" :page-count="pagegination02.totalPageCount" :classes="pagegination02.bootstrapPaginationClasses" :labels="pagegination02.customLabels"></v-pagination>
-            </nav>
-        </div>
-        <ul id="listIndex">
-            <transition v-for="(one,index) in getContentPagination01" name="slide-fade" mode="out-in">
-                <li :key="one['selec']" v-on:click="goToId('ques-'+one.id)">
-                    <span>{{one.id+1}} </span>
-                    <span class="select">{{one['selec']}}</span>
-                    <span class="correct" v-if="is_show_answer" v-html="showContent(one)"></span>
-                </li>
-            </transition>
-            <!-- <li>{{one['selec']}}</li> -->
-            <!-- <li>{{one['correct']}}</li> -->
-        </ul>
-        <div>
-            <h3>List bảng 600 câu hỏi</h3>
-        </div>
-        <nav class="mb-4">
-            <v-pagination v-model="pagegination01.currentPage" :page-count="pagegination01.totalPageCount" :classes="pagegination01.bootstrapPaginationClasses" :labels="pagegination01.customLabels"></v-pagination>
-        </nav>
     </div>
 
 
@@ -100,7 +106,7 @@
                 pagegination01: {
                     currentPage: 1,
                     totalPageCount: 9,
-                    numberPerPage: 150,
+                    numberPerPage: 90,
                     bootstrapPaginationClasses: {
                         ul: 'pagination',
                         li: 'page-item',
@@ -309,9 +315,9 @@
         }
         
         #listIndex {
-            columns: 5;
-            -webkit-columns: 5;
-            -moz-columns: 5;
+            columns: 3;
+            -webkit-columns: 3;
+            -moz-columns: 3;
         }
         
         #listQuestion {
