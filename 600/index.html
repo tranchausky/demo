@@ -57,17 +57,44 @@
                         <v-pagination v-model="pagegination02.currentPage" :page-count="pagegination02.totalPageCount" :classes="pagegination02.bootstrapPaginationClasses" :labels="{first: false, prev: false, next: false, last: false}"></v-pagination>
                     </nav>
                 </div>
-                <ul id="listIndex">
-                    <transition v-for="(one,index) in getContentPagination01" name="slide-fade" mode="out-in">
-                        <li :key="one['selec']" v-on:click="goToId('ques-'+one.id)">
-                            <span>{{one.id+1}} </span>
-                            <span class="select">{{one['selec']}}</span>
-                            <span class="correct" v-if="is_show_answer" v-html="showContent(one)"></span>
-                        </li>
-                    </transition>
+                <div id="listIndex" class="row">
+					<div class="col-sm-4">
+						<template v-for="(one,index) in getContentPagination01" v-if="index < 30">
+							<transition  name="slide-fade" mode="out-in">
+								<li :key="one['selec']" v-on:click="goToId('ques-'+one.id)">
+									<span>{{one.id+1}} </span>
+									<span class="select">{{one['selec']}}</span>
+									<span class="correct" v-if="is_show_answer" v-html="showContent(one)"></span>
+								</li>
+							</transition>
+						</template>
+					</div>
+					<div class="col-sm-4">
+						<template v-for="(one,index) in getContentPagination01" v-if="index >= 30 && index < 60">
+							<transition  name="slide-fade" mode="out-in">
+								<li :key="one['selec']" v-on:click="goToId('ques-'+one.id)">
+									<span>{{one.id+1}} </span>
+									<span class="select">{{one['selec']}}</span>
+									<span class="correct" v-if="is_show_answer" v-html="showContent(one)"></span>
+								</li>
+							</transition>
+						</template>
+					</div>
+					<div class="col-sm-4">
+						<template v-for="(one,index) in getContentPagination01" v-if="index > 60">
+							<transition  name="slide-fade" mode="out-in">
+								<li :key="one['selec']" v-on:click="goToId('ques-'+one.id)">
+									<span>{{one.id+1}} </span>
+									<span class="select">{{one['selec']}}</span>
+									<span class="correct" v-if="is_show_answer" v-html="showContent(one)"></span>
+								</li>
+							</transition>
+						</template>
+					</div>
+
                     <!-- <li>{{one['selec']}}</li> -->
                     <!-- <li>{{one['correct']}}</li> -->
-                </ul>
+                </div>
                 <div>
                     <h3>List bảng 600 câu hỏi</h3>
                 </div>
@@ -229,6 +256,7 @@
 
                 },
                 setChoose(index, value) {
+					var pageSet = this.getPageChange()
                     if (this.is_show_answer == true) {
                         return
                     }
@@ -314,12 +342,7 @@
         [v-cloak] {
             display: none;
         }
-        
-        #listIndex {
-            columns: 3;
-            -webkit-columns: 3;
-            -moz-columns: 3;
-        }
+      
         
         #listQuestion {
             /* max-height: 500px; */
