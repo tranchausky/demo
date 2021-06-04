@@ -1,7 +1,9 @@
 <html>
 
 <head>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" rel="stylesheet" /> -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
     <!-- <script src="vuejs/vue.min.js"></script> -->
 
     <meta charset="utf-8" />
@@ -67,35 +69,35 @@
                     </nav>
                 </div>
                 <div id="listIndex" class="row">
-                    <div class="col-sm-4">
+                    <div class="col-4">
                         <template v-for="(one,index) in getContentPagination01" v-if="index < 30">
                             <transition name="slide-fade" mode="out-in">
                                 <li :key="one['selec']" v-on:click="goToId('ques-'+one.id)">
                                     <span>{{one.id+1}} </span>
                                     <span class="select">{{one['selec']}}</span>
-                                    <span class="correct" v-if="is_show_answer" v-html="showContent(one)"></span>
+                                    <span class="correct" v-if="one.select!=''" v-html="showContent(one)"></span>
                                 </li>
                             </transition>
                         </template>
                     </div>
-                    <div class="col-sm-4">
+                    <div class="col-4">
                         <template v-for="(one,index) in getContentPagination01" v-if="index >= 30 && index < 60">
                             <transition name="slide-fade" mode="out-in">
                                 <li :key="one['selec']" v-on:click="goToId('ques-'+one.id)">
                                     <span>{{one.id+1}} </span>
                                     <span class="select">{{one['selec']}}</span>
-                                    <span class="correct" v-if="is_show_answer" v-html="showContent(one)"></span>
+                                    <span class="correct" v-if="one.select!=''" v-html="showContent(one)"></span>
                                 </li>
                             </transition>
                         </template>
                     </div>
-                    <div class="col-sm-4">
+                    <div class="col-4">
                         <template v-for="(one,index) in getContentPagination01" v-if="index >= 60">
                             <transition name="slide-fade" mode="out-in">
                                 <li :key="one['selec']" v-on:click="goToId('ques-'+one.id)">
                                     <span>{{one.id+1}} </span>
                                     <span class="select">{{one['selec']}}</span>
-                                    <span class="correct" v-if="is_show_answer" v-html="showContent(one)"></span>
+                                    <span class="correct" v-if="one.select!=''" v-html="showContent(one)"></span>
                                 </li>
                             </transition>
                         </template>
@@ -217,14 +219,19 @@
                     var last = this.getContentPagination02[this.getContentPagination02.length - 1].id
 
                     if (numberid >= first && numberid <= last) {
-
+						console.log(typeof selec)
                         if (selec == '') {
-                            return '<span class="right">' + '&#x268A;' + '<span>'
+							if(this.is_show_answer ==true)
+								return '<span class="empty">' + '&#x268A;' + '<span>'
                         } else {
                             if (correct != selec) {
                                 return '<span class="wrong">' + correct + '<span>';
-                            } else {
-                                return '<span class="right">' + '&#10003;' + '<span>';
+                            } else{
+								if(this.is_show_answer ==true || one.isShow){
+									one.isShow = true
+									this.setLocalStore('indexShow', this.indexShow)
+									return '<span class="right">' + '&#10003;' + '<span>';
+								}
                             }
                         }
                     }
