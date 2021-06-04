@@ -60,7 +60,7 @@
                     <button v-on:click="checkAnswerFalse()" v-if="is_show_answer" class="btn btn-primary">Back To
                         Test</button>
                 </div>
-                <div v-if="!is_show_answer">
+                <div v-bind:class="is_show_answer==false?'v-show':'v-hide'">
                     <h3>List 30 câu hỏi hiện tại</h3>
                     <nav class="mb-4">
                         <v-pagination v-model="pagegination02.currentPage" :page-count="pagegination02.totalPageCount"
@@ -73,7 +73,7 @@
                         <template v-for="(one,index) in getContentPagination01" v-if="index < 30">
                             <transition name="slide-fade" mode="out-in">
                                 <li :key="one['selec']" v-on:click="goToId('ques-'+one.id)">
-                                    <span>{{one.id+1}} </span>
+                                    <span v-html="showContentNumber(one)"></span>
                                     <span class="select">{{one['selec']}}</span>
                                     <span class="correct" v-if="one.select!=''" v-html="showContent(one)"></span>
                                 </li>
@@ -84,7 +84,7 @@
                         <template v-for="(one,index) in getContentPagination01" v-if="index >= 30 && index < 60">
                             <transition name="slide-fade" mode="out-in">
                                 <li :key="one['selec']" v-on:click="goToId('ques-'+one.id)">
-                                    <span>{{one.id+1}} </span>
+                                    <span v-html="showContentNumber(one)"></span>
                                     <span class="select">{{one['selec']}}</span>
                                     <span class="correct" v-if="one.select!=''" v-html="showContent(one)"></span>
                                 </li>
@@ -95,7 +95,7 @@
                         <template v-for="(one,index) in getContentPagination01" v-if="index >= 60">
                             <transition name="slide-fade" mode="out-in">
                                 <li :key="one['selec']" v-on:click="goToId('ques-'+one.id)">
-                                    <span>{{one.id+1}} </span>
+                                    <span v-html="showContentNumber(one)"></span>
                                     <span class="select">{{one['selec']}}</span>
                                     <span class="correct" v-if="one.select!=''" v-html="showContent(one)"></span>
                                 </li>
@@ -211,6 +211,19 @@
                 //return
             },
             methods: {
+				showContentNumber(one){
+					var numberid = parseInt(one.id)
+
+					var first = parseInt(this.getContentPagination02[0].id)
+                    var last = parseInt(this.getContentPagination02[this.getContentPagination02.length - 1].id)
+					console.log(this.is_show_answer,one,numberid,first,last)
+					
+					if(this.is_show_answer ==true && numberid >= first && numberid <= last){
+						return '<b>'+parseInt(numberid+1)+'</b>'
+					}else{
+						return one.id+1
+					}
+				},
                 showContent(one) {
                     var numberid = one.id
                     var selec = one.selec
@@ -218,23 +231,25 @@
                     var first = this.getContentPagination02[0].id
                     var last = this.getContentPagination02[this.getContentPagination02.length - 1].id
 
-                    if (numberid >= first && numberid <= last) {
-						console.log(typeof selec)
+                    //if (numberid >= first && numberid <= last) {
+						//console.log(typeof selec)
                         if (selec == '') {
-							if(this.is_show_answer ==true)
+							if(this.is_show_answer ==true && numberid >= first && numberid <= last)
 								return '<span class="empty">' + '&#x268A;' + '<span>'
                         } else {
-                            if (correct != selec) {
-                                return '<span class="wrong">' + correct + '<span>';
-                            } else{
-								if(this.is_show_answer ==true || one.isShow){
+								if ((this.is_show_answer ==true || one.isShow) && correct != selec) {
+									one.isShow = true
+									this.setLocalStore('indexShow', this.indexShow)
+									return '<span class="wrong">' + correct + '<span>';
+								}
+								if((this.is_show_answer ==true || one.isShow) && correct == selec){
 									one.isShow = true
 									this.setLocalStore('indexShow', this.indexShow)
 									return '<span class="right">' + '&#10003;' + '<span>';
 								}
                             }
-                        }
-                    }
+                        
+                    //}
                     return ''
 
                 },
@@ -275,6 +290,7 @@
 
                 },
                 setChoose(index, value) {
+					this.indexShow[index].isShow = false;
                     var pageSet = this.getPageChange()
                     if (this.is_show_answer == true) {
                         return
@@ -285,6 +301,7 @@
                         this.indexShow[index].selec = value
                         this.setLocalStore('indexShow', this.indexShow)
                     }
+					
 
                 },
                 setLocalStore(key, value) {
@@ -406,6 +423,8 @@
             transform: translateX(10px);
             opacity: 0;
         }
+		.v-show{visibility: visible;}
+		.v-hide{visibility: hidden;}
     </style>
 
 
