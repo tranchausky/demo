@@ -99,3 +99,12 @@
     /* Non-prefixed version, currently
                                   supported by Chrome, Edge, Opera and Firefox */
 }
+
+.s-task.true {
+    color: green;
+}
+
+.list-five-task {
+    overflow: auto;
+    height: 500px;
+}

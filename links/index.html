@@ -34,6 +34,7 @@
                         <li class="active"><a href="#homepage">Home</a></li>
                         <li><a href="#swot">Swot</a></li>
                         <li class=""><a href="#calendar">Calendar</a></li>
+                        <li class=""><a href="#fivetask">5 Task</a></li>
                         <li class=""><a href="#todo">Todo</a></li>
                         <li class=""><a href="#photo">Photo</a></li>
 
@@ -57,8 +58,7 @@
                     <h3>Sign Up</h3>
                     Email <br />
                     <input class="form-control" type="email" id="registration-email" /><br /> Confirm Email <br />
-                    <input class="form-control" type="email" id="registration-reemail" autocomplete="disable" /><br />
-                    Password <br />
+                    <input class="form-control" type="email" id="registration-reemail" autocomplete="disable" /><br /> Password <br />
                     <input class="form-control" type="password" id="registration-password" /><br />
 
 
@@ -105,8 +105,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="email">Link</label>
-                                    <input type="text" class="form-control" id="email" required
-                                        placeholder="Enter Link">
+                                    <input type="text" class="form-control" id="email" required placeholder="Enter Link">
                                 </div>
                                 <h3>Category</h3>
                                 <div class="form-group">
@@ -223,7 +222,7 @@
                                 <div class="right">
                                     <i class="prev-month fa fa-chevron-left fa-3x">
                                         <</i>
-                                            <i class="next-month fa fa-chevron-right fa-3x">></i>
+                                    <i class="next-month fa fa-chevron-right fa-3x">></i>
                                 </div>
                                 <!-- <br> -->
                                 <!-- <button onclick="addCalendar()">add data</button> -->
@@ -269,8 +268,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="email">Text</label>
-                                    <textarea type="text" class="form-control" id="date-content" required=""
-                                        placeholder="Enter Content" rows="5"></textarea>
+                                    <textarea type="text" class="form-control" id="date-content" required="" placeholder="Enter Content" rows="5"></textarea>
                                 </div>
                                 <button id="btnAddCalen" class="none" onclick="addCalendar()">Add data</button>
                                 <button id="btnUpdateCalen" class="none" onclick="updateCalendar()">Update data</button>
@@ -395,6 +393,76 @@
                     </div>
                 </div>
 
+                <div id="fivetask" class="hide v-m-content fivetask">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <h3>Five Task/Day</h3>
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-3"></div>
+                        <div class="col-sm-6">
+                            <div class="row">
+                                <h3>To day</h3>
+                                <hr>
+                            </div>
+                            <div class="row">
+                                <div class="form-group">
+                                    <div class="col-sm-10">
+                                        <textarea rows="2" id="add-task-1" class="form-control"></textarea>
+                                        <input type="hidden" id="add-task-id">
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <input type="checkbox" id="check-task-1">
+                                    </div>
+                                    <div class="col-sm-10">
+                                        <textarea rows="2" id="add-task-2" class="form-control"></textarea>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <input type="checkbox" id="check-task-2">
+                                    </div>
+                                    <div class="col-sm-10">
+                                        <textarea rows="2" id="add-task-3" class="form-control"></textarea>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <input type="checkbox" id="check-task-3">
+                                    </div>
+                                    <div class="col-sm-10">
+                                        <textarea rows="2" id="add-task-4" class="form-control"></textarea>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <input type="checkbox" id="check-task-4">
+                                    </div>
+                                    <div class="col-sm-10">
+                                        <textarea rows="2" id="add-task-5" class="form-control"></textarea>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <input type="checkbox" id="check-task-5">
+                                    </div>
+                                    <div class="col-sm-12">
+                                        <button class="btn btn-default" id="add-five-task-today" onclick="updateFiveTaskToday()">Save</button>
+                                    </div>
+
+                                </div>
+                            </div>
+
+
+                            <div class="row">
+                                <h3>Old Data</h3>
+                                <hr>
+                            </div>
+                            <div class="row list-five-task" id="list-five-task">
+
+                            </div>
+                            <br/>
+                            <br/>
+                            <br/>
+                        </div>
+                        <div class="col-sm-3"></div>
+                    </div>
+                </div>
+
                 <div id="photo" class="hide v-m-content photo">
                     <div class="row">
                         <div class="col-sm-12">
@@ -443,8 +511,7 @@
                             <div class="row">
                                 <div class="col-sm-3">
                                     <label for="">Edit category</label>
-                                    <select name="list-cat-btn-edit" class="form-control list-cat-btn-edit"
-                                        id="list-cat-btn-edit"></select>
+                                    <select name="list-cat-btn-edit" class="form-control list-cat-btn-edit" id="list-cat-btn-edit"></select>
                                 </div>
                                 <div class="col-sm-4"><span id="photo-time"></span>
                                     <input id="edit-private-photo" type="checkbox">
@@ -454,8 +521,7 @@
                             </div>
                             <br><br>
                             <div class="row">
-                                <img class="img-responsive" id="image-img-photo" src="https://i.imgur.com/mVJdgKk.png"
-                                    alt="">
+                                <img class="img-responsive" id="image-img-photo" src="https://i.imgur.com/mVJdgKk.png" alt="">
                             </div>
 
                             <br /><br><br></span><br>
@@ -475,11 +541,11 @@
     <script>
         //$(function() {
 
-        $('.navbar-nav>li>a').on('click', function () {
+        $('.navbar-nav>li>a').on('click', function() {
             $('.navbar-collapse').collapse('hide');
         });
 
-//});
+        //});
     </script>
 
 
