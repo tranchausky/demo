@@ -34,12 +34,12 @@
         <div class="row">
             <div class="col-sm-12">
                 <br>
-                <h3 class="title">Thi lái xe</h3>
+                <h3 class="title">600 Câu Thi Lái Xe Oto</h3>
                 <hr />
 
                 <div id="listQuestion">
                     <div v-for="(one,index) in getContentPagination02" v-bind:id="'ques-'+(index+1)">
-                        <p><b>{{one.id+1}}: {{one[0]}}</b></p>
+                        <p v-bind:class="[one['more']['16']==1 ? 'cau-liet' : '', '']"><b >{{one.id+1}}: {{one[0]}}</b> <span class="help" v-bind:title="[one['more']['17']]">&#9730;</span></p>
                         <img v-if="one['more']['pic']" v-bind:src="'images/'+one['more']['pic']"
                             class="img-fluid img-thumbnail">
                         <ol type="A">
@@ -425,6 +425,8 @@
         }
 		.v-show{visibility: visible;}
 		.v-hide{visibility: hidden;}
+		.cau-liet{color: red;}
+		.help:hover{cursor: help;}
     </style>
 
 
