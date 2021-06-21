@@ -1,0 +1,79 @@
+<html>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+
+<style>
+body{max-width: 700px;margin: auto;}
+.open{border: 1px solid; max-height: 700px; overflow: auto;}
+</style>
+<body>
+<br>
+<div style=" float: right; ">
+	<a href=".." style=" padding: 8px; border: 1px solid; ">600 Câu</a>
+	<a href="#" style=" padding: 8px; border: 1px solid; ">Lý Thuyết</a>
+	<a href="tips600.html" style=" padding: 8px; border: 1px solid; ">tips600</a>
+	<a href="practice_exam.html" style=" padding: 8px; border: 1px solid; ">practice_exam</a>
+	<a href="bien_bao.html" style=" padding: 8px; border: 1px solid; ">Biển báo</a>
+</div>
+<br>
+
+
+<!-- <button type="button" onclick="loadDoc()">Request data</button> -->
+<p id="demo"></p>
+
+<script>
+loadDoc()
+function loadDoc() {
+  const xhttp = new XMLHttpRequest();
+  xhttp.onload = function() {
+    //document.getElementById("demo").innerHTML = this.responseText;
+	var str = this.responseText
+	var lines = str.split('\n');
+	var result = '';
+	var is_open = false;
+	for(var i = 0;i < lines.length;i++){
+		//code here using lines[i] which will give you each line
+		//console.log(lines[i])
+		var line = lines[i];
+		var res = line.split("|");
+		//console.log(res)
+		if(res[3]=='' && res[4] =='' ){
+			
+			if(is_open == false){
+				result += '<br/><br/>';
+				result += '<h1>'+res[2]+'</h1>';
+				result += '<div class="open">';
+				is_open = true
+			}else{
+				if(is_open == true){
+					result += '</div>';
+					result += '<br/><br/>';
+					result += '<h1>'+res[2]+'</h1>';
+					result += '<div class="open">';
+					//is_open = false;
+				}
+			}
+			
+			//console.log(is_open)
+		}else{
+			result += '<div style=" padding-left: 30px; ">';
+			result += '<h3>'+res[2]+'</h3>';
+			result += '<p>'+res[3]+'</p>';
+			result += '<img src="../signs/sign'+res[4]+'.png" />';
+			result += '<hr>';
+			result += '<br/><br/>';
+			result += '</div>';
+		}
+		result += '';
+		
+	}
+	document.getElementById("demo").innerHTML = result
+
+  }
+  xhttp.open("GET", "../data/signs.csv");
+  xhttp.send();
+}
+</script>
+
+</body>
+</html>
