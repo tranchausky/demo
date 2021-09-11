@@ -1095,7 +1095,7 @@ var lastTimePhoto = ''
 function getListPhoto() {
     photoRef = dbRef.ref('photos/' + user_ID)
     var id_cat_show = $(".list-cat-btn option:selected").val();
-    var query = photoRef.limitToLast(50);
+    var query = photoRef.limitToLast(9999);
 
     if (id_cat_show != '') {
         query = photoRef.orderByChild("id_cat").equalTo(id_cat_show)
