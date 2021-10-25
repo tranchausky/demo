@@ -26,6 +26,11 @@ $(document).ready(function() {
             $('.list-cat-btn').html('<option value="">All</option>' + buildSelectPhotoCat(''))
             getListPhoto()
         }
+        if (atrHref == '#video') {
+            $('.list-select-option-video').html(buildSelectVideoCat(''))
+            $('.list-cat-btn-video').html('<option value="">All</option>' + buildSelectVideoCat(''))
+            getListVideo()
+        }
         if (atrHref == '#todo') {
             getListTodoCompleted()
             getListTodoNew()
@@ -132,6 +137,22 @@ function changeLinkImage(link, cat_id, key) {
         // var select = filterSelect(key, listOptionPhoto)
 }
 
+function changeLinkVideo(videId, cat_id, key) {
+    // $('#image-img-photo').attr('src', link)
+    // $('#image-img-photo').attr('key-id', key)
+    // var d = new Date(allPhoto[key].time);
+
+    // $('#edit-private-photo').prop('checked', false);
+    // if (allPhoto[key].is_show == true) {
+    //     $('#edit-private-photo').prop('checked', true);
+    // }
+    // $('#photo-time').html(d.toLocaleString())
+    // $('.list-cat-btn-edit').html('<option value="">All</option>' + buildSelectPhotoCat(cat_id))
+
+    var str = '<iframe src="https://www.youtube.com/embed/' + videId + '" width="100%" height="400px" allowfullscreen></iframe>';
+    $('#video-iframe').html(str);
+}
+
 function checkDetailCalendar(at) {
     var attrDate = $(at).attr('data-day')
     if (attrDate == undefined) return
@@ -206,6 +227,16 @@ var listOptionPhoto = {
     9: 'People',
     10: 'Month',
     11: 'Year',
+}
+
+var listOptionVideo = {
+    1: 'Gym',
+    2: 'Learning',
+    3: 'Skill',
+    4: 'Video',
+    5: 'Movie',
+    6: 'Entertaiment',
+    7: 'Different',
 }
 
 
@@ -432,6 +463,9 @@ var allTaskNew = {}
 var allTaskComplete = {}
 var allSWOT = {}
 
+var videoRef = null;
+var allVideo = {};
+
 function sortDescObj(list, key) {
     if (list == null || list == [] || list == {}) {
         return null
@@ -550,6 +584,29 @@ $('.addValue').on("click", function(event) {
         alert('Please fill atlease name or email!');
     }
 });
+
+//save video
+$('#video-input').on("focusout", function(event) {
+    event.preventDefault();
+    var linkvideo = $('#video-input').val();
+    var link = 'https://www.youtube.com/oembed?url=' + linkvideo + '&format=json';
+    $.getJSON(link, function(data) {
+        $('#video-input-title').val(data.title)
+    });
+});
+$('.addVideo').on("click", function(event) {
+    event.preventDefault();
+    if ($('#video-input').val() != '') {
+        var data = {};
+        data.url = $('#video-input').val();
+        data.title = $('#video-input-title').val();
+        pushVideo(data);
+        videoForm.reset();
+    } else {
+        alert('Please fill atlease video url!');
+    }
+});
+
 
 function addCalendar() {
 
@@ -1058,6 +1115,21 @@ function buildSelectPhotoCat(key) {
     return str //
 }
 
+function buildSelectVideoCat(key) {
+    var str = '';
+    for (const prop in listOptionVideo) {
+        if (key == prop) {
+            str += '<option value="' + prop + '" selected>' + listOptionVideo[prop] + '</option>'
+        } else {
+            str += '<option value="' + prop + '">' + listOptionVideo[prop] + '</option>'
+        }
+
+    }
+    //str += '</select>';
+    //console.log(str)
+    return str //
+}
+
 function filterSelect(atId, oBject) {
     //var strReturn = '';
     for (const prop in oBject) {
@@ -1090,6 +1162,35 @@ function pushPhoto(image) {
     })
 }
 
+function pushVideo(data) {
+    var is_show = $('#img_is_show_video').is(':checked');
+    var id_cat = $(".list-select-option-video option:selected").val();
+    var videoId = YouTubeGetID(data.url);
+    photoRef = dbRef.ref('videos/' + user_ID)
+
+    photoRef.push({
+        is_show: is_show,
+        url: data.url,
+        videId: videoId,
+        id_cat: id_cat,
+        title: data.title,
+        time: new Date().getTime(),
+        userId: user_ID
+    })
+}
+
+function YouTubeGetID(url) {
+    var ID = '';
+    url = url.replace(/(>|<)/gi, '').split(/(vi\/|v=|\/v\/|youtu\.be\/|\/embed\/)/);
+    if (url[2] !== undefined) {
+        ID = url[2].split(/[^0-9a-z_\-]/i);
+        ID = ID[0];
+    } else {
+        ID = url;
+    }
+    return ID;
+}
+
 var lastTimePhoto = ''
 
 function getListPhoto() {
@@ -1109,6 +1210,29 @@ function getListPhoto() {
         $('#photo .list-image').html(str);
         if (snapshot.val() != null)
             lastTimePhoto = newObjectSort[Object.keys(newObjectSort)[Object.keys(newObjectSort).length - 1]].time
+    })
+}
+
+var lastTimeVideo = ''
+
+function getListVideo() {
+    videoRef = dbRef.ref('videos/' + user_ID)
+    var id_cat_show = $(".list-cat-btn-video option:selected").val();
+    var query = videoRef.limitToLast(9999);
+
+    if (id_cat_show != '') {
+        query = videoRef.orderByChild("id_cat").equalTo(id_cat_show)
+    }
+    query.on("value", function(snapshot) {
+        //photoRef.on("value", function(snapshot) {
+        // console.log(snapshot.val());
+        // return;
+        allVideo = snapshot.val()
+        var newObjectSort = sortDescObj(allVideo, 'time')
+        var str = buildListVideo(newObjectSort)
+        $('#video .list-image').html(str);
+        // if (snapshot.val() != null)
+        //     lastTimeVideo = newObjectSort[Object.keys(newObjectSort)[Object.keys(newObjectSort).length - 1]].time
     })
 }
 
@@ -1161,6 +1285,19 @@ function buildListPhoto(dataIn) {
             str += '<div class="col-sm-3 col-xs-4"><img class="img-thumbnail" onclick="changeLinkImage(&apos;' + dataAt.pic + '&apos;,&apos;' + dataAt.id_cat + '&apos;,&apos;' + key + '&apos;)" str-big="' + dataAt.pic + '" src="' + getThump(dataAt.pic) + '" alt=""></div>'
         } else {
             str += '<div class="col-sm-3 col-xs-4"><img class="img-thumbnail hiden" onclick="changeLinkImage(&apos;' + dataAt.pic + '&apos;,&apos;' + dataAt.id_cat + '&apos;,&apos;' + key + '&apos;)" str-big="' + dataAt.pic + '" src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs%3D" alt=""></div>'
+        }
+    }
+    return str;
+}
+
+function buildListVideo(dataIn) {
+    var str = '';
+    for (var key in dataIn) {
+        var dataAt = dataIn[key]
+        if (dataAt.is_show == false && typeof dataAt.videId != undefined) {
+            str += '<div class="col-sm-3 col-xs-4"><img class="img-thumbnail" onclick="changeLinkVideo(&apos;' + dataAt.videId + '&apos;,&apos;' + dataAt.id_cat + '&apos;,&apos;' + key + '&apos;)" str-big="' + dataAt.url + '" src="https://i.ytimg.com/vi/' + dataAt.videId + '/hqdefault.jpg" alt="">' + dataAt.title + '</div>'
+        } else {
+            str += '<div class="col-sm-3 col-xs-4"><img class="img-thumbnail hiden" onclick="changeLinkVideo(&apos;' + dataAt.videId + '&apos;,&apos;' + dataAt.id_cat + '&apos;,&apos;' + key + '&apos;)" str-big="' + dataAt.urk + '" src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs%3D" alt="">' + dataAt.title + '</div>'
         }
     }
     return str;

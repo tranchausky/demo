@@ -65,8 +65,12 @@
                         }
                         callback.call(window, response);
                     } else {
+                        console.log(this)
+                        var response = JSON.parse(this.responseText);
                         //throw new Error(this.status + " - " + this.statusText);
-                        alert("Error " + this.statusText)
+                        alert("Error: " + this.status + " --" + response.data.error);
+                        // document.body.classList.remove('busy');
+                        callback.call(window, response);
                     }
                 }
             };
