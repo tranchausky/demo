@@ -1,0 +1,41 @@
+[{
+        "0": "Phần của đường bộ được sử dụng cho các phương tiện giao thông qua lại là gì?",
+        "1": "Phần mặt đường và lề đường.",
+        "2": "Phần đường xe chạy.",
+        "3": "Phần đường xe cơ giới.",
+        "more": {
+            "7": "2",
+            "17": "Phần đường xe chạy là phần của đường bộ được sử dụng cho phương tiện giao thông qua lại."
+        }
+    },
+    {
+        "0": "“Làn đường” là gì?",
+        "1": "Là một phần của phần đường xe chạy được chia theo chiều dọc của đường, sử dụng cho xe chạy.",
+        "2": "Là một phần của phần đường xe chạy được chia theo chiều dọc của đường, có bề rộng đủ cho xe chạy an toàn.",
+        "3": "Là đường cho xe ô tô chạy, dừng, đỗ an toàn.",
+        "more": {
+            "7": "2",
+            "17": "Làn đường có bề rộng đủ cho xe chạy an toàn."
+        }
+    }, {
+        "0": "Trong tình huống dưới đây, xe con màu vàng vượt xe con màu đỏ là đúng quy tắc giao thông hay không?",
+        "1": "Đúng.",
+        "2": "Không đúng.",
+        "more": {
+            "7": "1",
+            "pic": "q599.png",
+            "17": "Xe màu đỏ đang tránh về phía bên phải, xe màu vàng đã có tín hiệu xin vượt, vạch kẻ đường theo hướng xe chạy là nét đứt , không có xe ngược chiều. Nên xe vàng vượt đúng quy tắc giao thông."
+        }
+    }, {
+        "0": "Khi gặp hiệu lệnh như dưới đây của cảnh sát giao thông thì người tham gia giao thông phải đi như thế nào là đúng quy tắc giao thông?",
+        "1": "Người tham gia giao thông ở các hướng phải dừng lại.",
+        "2": "Người tham gia giao thông ở các hướng được đi theo chiều gậy chỉ của cảnh sát giao thông.",
+        "3": "Người tham gia giao thông ở phía trước và phía sau người điều khiển được đi tất cả các hướng; giao thông ở phía bên phải và phía bên trái người điều khiển phải dừng lại.",
+        "4": "Người tham gia giao thông ở phía trước và phía sau người điều khiển phải dừng lại; giao thông ở phía bên phải và bên trái người điều khiển được đi tất cả các hướng.",
+        "more": {
+            "7": "8",
+            "pic": "q82.png",
+            "17": "Người điều khiển giao thông tay giang ngang thì trước mặt và sau lưng dừng lại."
+        }
+    }
+]

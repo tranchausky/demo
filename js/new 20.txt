@@ -1,0 +1,14 @@
+<textarea id="text1" onchange="chage()">asdf</textarea>
+<textarea id="text2"></textarea>
+
+<script>
+function chage(){
+var inp = document.getElementById("text1").value;
+console.log(inp)
+var new = digitsBeGone(inp)
+document.getElementById("text2").value = new
+}
+function digitsBeGone(str){
+  return str.match(/\D/g).join('')
+}
+</script>
