@@ -1278,6 +1278,9 @@ function updatePhoto() {
 }
 
 function buildListPhoto(dataIn) {
+    lengthSize = Object.keys(dataIn).length;
+    $('#total-photo').html(lengthSize);
+
     var str = '';
     for (var key in dataIn) {
         var dataAt = dataIn[key]
@@ -1291,6 +1294,9 @@ function buildListPhoto(dataIn) {
 }
 
 function buildListVideo(dataIn) {
+    lengthSize = Object.keys(dataIn).length;
+    $('#total-video').html(lengthSize);
+
     var str = '';
     for (var key in dataIn) {
         var dataAt = dataIn[key]
