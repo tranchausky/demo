@@ -108,6 +108,7 @@
     overflow: auto;
     height: 500px;
 }
-.at-task label{
-	word-break: break-all;
+
+.at-task label {
+    word-break: break-all;
 }

@@ -1,0 +1,93 @@
+.note .split {
+    display: flex;
+    flex-direction: row;
+    border: 1px solid #eeeeee;
+    height: calc(100vh - 100px);
+}
+
+.note .gutter {
+    background-color: #eee;
+    background-repeat: no-repeat;
+    background-position: 50%;
+}
+
+.note .gutter.gutter-horizontal {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAeCAYAAADkftS9AAAAIklEQVQoU2M4c+bMfxAGAgYYmwGrIIiDjrELjpo5aiZeMwF+yNnOs5KSvgAAAABJRU5ErkJggg==');
+    cursor: col-resize;
+}
+
+.note #split-0 .content {
+    background-color: #edf1ed21;
+}
+
+.note #split-1 .content {
+    background-color: #c4d5c4;
+}
+
+.note #split-2 .content {
+    /* background-color: #9fd19f; */
+}
+
+.note .footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    display: block;
+    background: red;
+    height: 30px;
+}
+
+.note .header {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    display: block;
+    background: yellow;
+    height: 40px;
+    padding-top: 4px;
+    padding-left: 4px;
+}
+
+.note .content {
+    display: block;
+    top: 40px;
+    position: relative;
+    /* background: green; */
+    height: calc(100vh - 160px);
+    overflow: auto;
+}
+
+.note h3 {
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.note .split>div {
+    position: relative;
+}
+
+.note .list {
+    padding: 0;
+    margin: 0;
+}
+
+.note .list li {
+    padding: 10px;
+}
+
+.note .list li:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+.note .list li:hover {
+    background-color: #bb7878;
+    cursor: pointer;
+}
+
+.note .list li.active {
+    background-color: #bb7878;
+}
+
+.note .ql-container {
+    height: calc(100% - 44px)!important;
+}

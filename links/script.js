@@ -38,6 +38,9 @@ $(document).ready(function() {
         if (atrHref == '#swot') {
             getListSWOT()
         }
+        if (atrHref == '#note') {
+            getListNotes()
+        }
     })
 
     // $("document").on('click', '#tb-calendar tr td', function() {

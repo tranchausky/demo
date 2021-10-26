@@ -11,6 +11,14 @@
     <link rel="stylesheet" href="imgur.css">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="drap.css">
+
+    <!-- for ntoe -->
+    <link rel="stylesheet" href="note-lib/style-note.css">
+    <script src="note-lib/split.min.js"></script>
+    <link href="note-lib/quill.snow.css" rel="stylesheet" />
+    <script src="note-lib/quill.js"></script>
+
+
 </head>
 
 <body>
@@ -38,6 +46,7 @@
                         <li class=""><a href="#todo">Todo</a></li>
                         <li class=""><a href="#photo">Photo</a></li>
                         <li class=""><a href="#video">Video</a></li>
+                        <li class=""><a href="#note">Notes</a></li>
                         <li class=""><a href="../600">600</a></li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
@@ -614,6 +623,70 @@
                         </div>
                     </div>
                 </div>
+
+                <div id="note" class="hide v-m-content note">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <h3>Note</h3>
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div class="split">
+                            <div id="split-0">
+                                <div class="header">
+                                    <button onClick="event1_add()">add</button>
+                                    <button onClick="event1_edit()">edit</button>
+                                    <!-- <button onClick="event1_delete()">delete</button> -->
+                                </div>
+                                <div class="content">
+                                    <ul class="list">
+                                        <!-- <li class="active">list 1</li>
+                                        <li>list 2</li>
+                                        <li>list 3</li>
+                                        <li>list 4</li>
+                                        <li>list 5</li> -->
+                                    </ul>
+                                </div>
+                                <div class="footer"><span id="footer1-1"></span></div>
+                            </div>
+                            <div id="split-1">
+                                <div class="header">
+                                    <button onClick="event2_add()">add</button>
+                                    <button onClick="event2_edit()">edit</button>
+                                    <button onClick="event2_delete()">delete</button>
+                                </div>
+                                <div class="content">
+                                    <ul class="list">
+                                        <!-- <li>list 1</li>
+                                        <li class="active">list 2</li>
+                                        <li>list 3</li>
+                                        <li>list 4</li>
+                                        <li>list 5</li> -->
+                                    </ul>
+                                </div>
+                                <div class="footer">footer 2</div>
+                            </div>
+                            <div id="split-2">
+                                <div class="header">
+                                    <button onClick="event3_save()">save</button>
+                                </div>
+                                <div class="content">
+                                    <div id="toolbar">
+                                        <!-- <button class="ql-bold">Bold</button>
+                                        <button class="ql-italic">Italic</button> -->
+                                    </div>
+                                    <div id="editor">
+                                        <p>Hello chau!</p>
+                                    </div>
+
+                                </div>
+                                <div class="footer"><span id="footer3-1"></span></div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
             </div>
         </div>
 
@@ -649,10 +722,17 @@
     <!-- <script src="//www.gstatic.com/firebasejs/4.5.0/firebase.js"></script> -->
     <script src="firebase.4.5.0.js"></script>
 
+    <!-- <script src="https://www.gstatic.com/firebasejs/8.2.5/firebase-app.js"></script> -->
+    <!-- <script src="https://www.gstatic.com/firebasejs/8.2.5/firebase-firestore.js"></script> -->
+    <script src="https://www.gstatic.com/firebasejs/4.5.0/firebase-firestore.js"></script>
+
 
     <script src="calendar.js"></script>
     <script src="imgur.js"></script>
     <script src="script.js"></script>
+
+    <script src="note-lib/script-note.js"></script>
+
 </body>
 
 </html>
