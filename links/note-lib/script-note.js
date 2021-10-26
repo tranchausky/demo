@@ -67,7 +67,7 @@ this.quill.on('selection-change', range => {
     if (!range) {
         console.log('blur!');
         //saveing
-        event3_save()
+        // event3_save()
     } else {
         // console.log('focus!');
     }
