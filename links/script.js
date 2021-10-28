@@ -176,7 +176,7 @@ function checkDetailCalendar(at) {
         var listDate = attrDate.split('/')
         var dateInt = new Date(listDate[2], listDate[1] - 1, listDate[0]).getTime();
         console.log('dateInt')
-        console.log(dateInt)
+        //console.log(dateInt)
         var temp = returnDateDatainALl(dateInt)
         keyCalendar = temp[1]
         $('#date-content').val(temp[0].content)
@@ -675,16 +675,16 @@ function getAllCalendar() {
     var end = new Date(listDate[1], listDate[0], lastDate).getTime();
 
 
-    console.log(listDate[1], listDate[0], 1)
-    console.log(listDate[1], listDate[0], lastDate)
+    //console.log(listDate[1], listDate[0], 1)
+    //console.log(listDate[1], listDate[0], lastDate)
 
-    console.log('first, end')
+   // console.log('first, end')
         // console.log('reaload')
         // alert('reaload')
 
     //calendarsRef.orderByChild('time').startAt(1608531964751).endAt(1608531997520).on("value", function (snapshot) {
     calendarsRef.orderByChild('date').startAt(first).endAt(end).on("value", function(snapshot) {
-        console.log(snapshot.val());
+       // console.log(snapshot.val());
         allCalendar = snapshot.val()
 
         // console.log(typeof allCalendar)
@@ -724,7 +724,7 @@ function getAllCalendar() {
 
 
         //alert(1)
-        console.log("added - calendar", snap.key, snap.val());
+        //console.log("added - calendar", snap.key, snap.val());
         //console.log(snap.val())
         // lengthSize++
         // console.log(lengthSize)
@@ -785,7 +785,7 @@ function getDateTimeToday() {
     const d = new Date() // today, now
     var datetoday = d.toLocaleDateString('pt-PT');
     datetoday = datetoday.replaceAll('/', '-')
-    console.log(datetoday) // 17-06-2021
+    //console.log(datetoday) // 17-06-2021
     return datetoday;
 }
 
@@ -794,7 +794,7 @@ function getAllFiveTask() {
     const d = new Date() // today, now
     var datetoday = d.toLocaleDateString('pt-PT');
     datetoday = datetoday.replaceAll('/', '-')
-    console.log(datetoday) // 17-06-2021
+    //console.log(datetoday) // 17-06-2021
         //return;
     getFiveTaskToday()
     getFiveTaskOld()
@@ -805,12 +805,12 @@ function getFiveTaskToday() {
 
     var datetoday = getDateTimeToday()
     fivetaskRef.orderByChild('date').equalTo(datetoday).limitToFirst(2).on("value", function(snapshot) {
-        console.log(snapshot.val());
+        //console.log(snapshot.val());
         var dataReturn = snapshot.val()
-        console.log(dataReturn);
+        //console.log(dataReturn);
         if (dataReturn != null) {
             //for (let index = 0; index < dataReturn.length; index++) {
-            console.log(dataReturn);
+            //console.log(dataReturn);
             for (var key in dataReturn) {
                 const element = dataReturn[key];
                 $('#add-task-id').val(key)
@@ -850,7 +850,7 @@ function getFiveTaskToday() {
 function getFiveTaskOld() {
 
     fivetaskRef.orderByChild('date').on("value", function(snapshot) {
-        console.log(snapshot.val());
+        //console.log(snapshot.val());
         allFiveTask = snapshot.val()
             // console.log(dataReturn);
         if (allFiveTask != null) {
@@ -864,7 +864,7 @@ function getFiveTaskOld() {
 
 
 function buildListFiveTask(dataIn) {
-    console.log(dataIn)
+    //console.log(dataIn)
     dataIn = sortobjkeyOrderLast(dataIn, 'time_add')
 
     var str = '<ol>';
@@ -921,7 +921,7 @@ function buildListFiveTask(dataIn) {
         str += '</li>'
     }
     str += '</ol>';
-    console.log(str)
+    //console.log(str)
     $('#list-five-task').html(str);
 }
 
@@ -1037,9 +1037,9 @@ function getCalendarDate(date) {
 
     //calendarsRef.orderByChild('date').equalTo(date).limitToFirst(1).on("child_added", function (snap) {
     calendarsRef.on("child_added", function(snap) {
-            alert(1)
-            console.log("added", snap.key, snap.val());
-            console.log(snap.val())
+            //alert(1)
+           // console.log("added", snap.key, snap.val());
+          //  console.log(snap.val())
                 // lengthSize++
                 // console.log(lengthSize)
                 // $('#size-list').html(lengthSize)
@@ -1256,12 +1256,12 @@ function getListPhotoNext() {
         // allPhoto = {...allPhoto, ...snapshot.val() };
         $.extend(allPhoto, snapshot.val())
         console.log('allPhoto update')
-        console.log(allPhoto)
+        //console.log(allPhoto)
         var str = buildListPhoto(allPhoto)
 
         $('#photo .list-image').append(str);
         lastTimePhoto = allPhoto[Object.keys(allPhoto)[Object.keys(allPhoto).length - 1]].time
-        console.log(lastTimePhoto)
+       // console.log(lastTimePhoto)
 
     })
 }
@@ -1321,7 +1321,7 @@ function getThump(str) {
 
 var feedback = function(res) {
     if (res.success === true) {
-        console.log(res.data.link)
+       // console.log(res.data.link)
         pushPhoto(res.data.link)
     }
 };
@@ -1371,7 +1371,7 @@ function getListTodoNew() {
 function getListTodoCompleted() {
     todoRef = dbRef.ref('todos/' + user_ID)
     todoRef.orderByChild('status').equalTo('completed').on("value", function(snapshot) {
-        console.log(snapshot.val());
+        //console.log(snapshot.val());
         allTaskComplete = snapshot.val()
         var newObjectSort = sortDescObj(allTaskComplete, 'time')
         buildListTodoCompleted(newObjectSort)
@@ -1383,12 +1383,12 @@ function getListSWOT() {
     //for (let index = 0; index < listKey.length; index++) {
     //var atId = listKey[index];
     var atId = 's';
-    console.log(atId)
+    //console.log(atId)
     var swoftRef = dbRef.ref('swot/' + user_ID + '/' + atId)
         //contactsRef.orderByChild('time').on("value", function (snapshot) {
         //swoftRef.orderByChild('status').equalTo('new').on("value", function (snapshot) {
     swoftRef.orderByChild('time').on("value", function(snapshot) {
-        console.log(snapshot.val());
+        //console.log(snapshot.val());
         allSWOT[atId] = snapshot.val()
             // if(allSWOT == null){
             //     pushSWOTFirst();
@@ -1403,7 +1403,7 @@ function getListSWOT() {
     //console.log(atId)
     swoftRef = dbRef.ref('swot/' + user_ID + '/' + atId)
     swoftRef.orderByChild('time').on("value", function(snapshot) {
-        console.log(snapshot.val());
+        //console.log(snapshot.val());
         allSWOT[atId] = snapshot.val()
             // if(allSWOT == null){
             //     pushSWOTFirst();
@@ -1419,7 +1419,7 @@ function getListSWOT() {
     //console.log(atId)
     swoftRef = dbRef.ref('swot/' + user_ID + '/' + atId)
     swoftRef.orderByChild('time').on("value", function(snapshot) {
-        console.log(snapshot.val());
+        //console.log(snapshot.val());
         allSWOT[atId] = snapshot.val()
             // if(allSWOT == null){
             //     pushSWOTFirst();
@@ -1432,7 +1432,7 @@ function getListSWOT() {
     //console.log(atId)
     swoftRef = dbRef.ref('swot/' + user_ID + '/' + atId)
     swoftRef.orderByChild('time').on("value", function(snapshot) {
-        console.log(snapshot.val());
+        //console.log(snapshot.val());
         allSWOT[atId] = snapshot.val()
             // if(allSWOT == null){
             //     pushSWOTFirst();
@@ -1441,7 +1441,7 @@ function getListSWOT() {
         var newObjectSort = sortDescObj(allSWOT[atId], 'number')
         buildListSwot('t', newObjectSort)
     })
-    console.log(allSWOT);
+   // console.log(allSWOT);
     //}
 }
 

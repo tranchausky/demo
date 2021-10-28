@@ -4,6 +4,9 @@
 //     projectId: 'link-save-d79c8'
 // });
 
+
+
+
 var db = firebase.firestore();
 
 var sizes = localStorage.getItem('split-sizes');
@@ -24,57 +27,61 @@ Split(['#split-0', '#split-1', '#split-2'], {
     },
 })
 
-var toolbarOptions = [
-    ['bold', 'italic', 'underline', 'strike'], // toggled buttons
-    ['blockquote', 'code-block'],
-
-    [{ 'header': 1 }, { 'header': 2 }], // custom button values
-    [{ 'list': 'ordered' }, { 'list': 'bullet' }],
-    [{ 'script': 'sub' }, { 'script': 'super' }], // superscript/subscript
-    [{ 'indent': '-1' }, { 'indent': '+1' }], // outdent/indent
-    [{ 'direction': 'rtl' }], // text direction
-
-    [{ 'size': ['small', false, 'large', 'huge'] }], // custom dropdown
-    [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
-
-    [{ 'color': [] }, { 'background': [] }], // dropdown with defaults from theme
-    [{ 'font': [] }],
-    [{ 'align': [] }],
-
-    ['clean'] // remove formatting button
-];
-
-var quill = new Quill('#editor', {
-    modules: {
-        toolbar: toolbarOptions
-    },
-    theme: 'snow'
-});
-// quill.on('text-change', function() {
-//     console.log('Text change!');
-// });
-// quill.on('editor-change', function(eventName, ...args) {
-//     if (eventName === 'text-change') {
-//         // args[0] will be delta
-//         console.log('text-change 123!');
-//     } else if (eventName === 'selection-change') {
-//         // args[0] will be old range
-//         console.log('selection-change!');
-//     }
-// });
-
-this.quill.on('selection-change', range => {
-    if (!range) {
-        console.log('blur!');
-        //saveing
-        // event3_save()
-    } else {
-        // console.log('focus!');
-    }
-});
+KothingEditor.create("editor", {
+	display: "block",
+	width: "100%",
+	height: "auto",
+	popupDisplay: "full",
+	katex: katex,
+	toolbarItem: [
+	  ["undo", "redo"],
+	  ["font", "fontSize", "formatBlock"],
+	  [
+		"bold",
+		"underline",
+		"italic",
+		"strike",
+		"subscript",
+		"superscript",
+		"fontColor",
+		"hiliteColor",
+	  ],
+	  ["outdent", "indent", "align", "list", "horizontalRule"],
+	  ["link", "table", "image", "audio", "video"],
+	  ["lineHeight", "paragraphStyle", "textStyle"],
+	  ["showBlocks", "codeView"],
+	  ["math"],
+	  ["preview", "print", "fullScreen"],
+	  ["save", "template"],
+	  ["removeFormat"],
+	],
+	callBackSave:function(data){
+		event3_save();
+	},
+	templates: [
+	  {
+		name: "Template-1",
+		html: "<p>HTML source1</p>",
+	  },
+	  {
+		name: "Template-2",
+		html: "<p>HTML source2</p>",
+	  },
+	],
+	charCounter: true,
+  });
 
 function getListNotes() {
     getNoteListCategory()
+}
+function hideShowLoadingEditor(is_show){
+	//var is_show = $('.full-loading').is(":visible");
+	if(is_show == 1){
+		$('.full-loading').show();		
+	}else{
+		$('.full-loading').hide();
+	}
+	
 }
 
 function getNoteListCategory() {
@@ -166,7 +173,7 @@ function getNoteCategory(dataId) {
         if (doc.exists) {
             // console.log("Document data:", doc.data());
             var docData = doc.data();
-            // $('.ql-editor').html(docData.contentPost);
+            // $('#kothing-editor_editor').html(docData.contentPost);
             $('#split-0 ul li.active').html(docData.titleCat);
 
         } else {
@@ -189,7 +196,7 @@ function getNotePost(dataId, at) {
         if (doc.exists) {
             // console.log("Document data:", doc.data());
             var docData = doc.data();
-            $('.ql-editor').html(docData.contentPost);
+            $('#kothing-editor_editor .kothing-editor-editable').html(docData.contentPost);
             $(at).html(docData.titlePost);
 
         } else {
@@ -197,9 +204,11 @@ function getNotePost(dataId, at) {
             console.log("No such document!");
         }
         $('#footer3-1').html('loaded');
+		hideShowLoadingEditor(0);
     }).catch((error) => {
         console.log("Error getting document:", error);
         $('#footer3-1').html('loaded error');
+		hideShowLoadingEditor(0);
     });
 }
 
@@ -315,6 +324,7 @@ function updateNotePost(dataIn) {
         // ...
         // console.log('update-post-done')
         $('#footer3-1').html('saved');
+		hideShowLoadingEditor(0);
         reload_list_post()
     });
 }
@@ -341,7 +351,7 @@ function event1_edit() {
     // }
     // console.log(answer)
     var data = {};
-    // var str = $('.ql-editor').html();
+    // var str = $('#kothing-editor_editor').html();
     data.titleCat = answer;
     updateNoteCategory(data);
 }
@@ -398,7 +408,7 @@ function event2_edit() {
     }
     // console.log(answer)
     var data = {};
-    var str = $('.ql-editor').html();
+    var str = $('#kothing-editor_editor .kothing-editor-editable').html();
     data.titlePost = answer;
     updateNotePost(data);
 }
@@ -427,6 +437,7 @@ function event2_click(at) {
     $(at).addClass('active');
 
     $('#footer3-1').html('loading');
+	hideShowLoadingEditor(1);
     // console.log(data)
     getNotePost(data, at);
 
@@ -436,8 +447,9 @@ function event2_click(at) {
 
 function event3_save() {
     $('#footer3-1').html('saving...');
+	hideShowLoadingEditor(1);
     var data = {};
-    var str = $('.ql-editor').html();
+    var str = $('#kothing-editor_editor .kothing-editor-editable').html();
     data.contentPost = str;
     updateNotePost(data);
 }

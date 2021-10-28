@@ -33,7 +33,7 @@
     bottom: 0;
     width: 100%;
     display: block;
-    background: red;
+    background: #d5d1d1;
     height: 30px;
 }
 
@@ -90,4 +90,17 @@
 
 .note .ql-container {
     height: calc(100% - 76px)!important;
+}
+
+.full-loading{
+	display:none;
+	background: #e7dcdc8c;
+    height: calc(100% - 11px)!important;
+    position: absolute;
+    width: 100%;
+    z-index: 2;
+	display: block;
+    font-size: 20px;
+	text-align: center;
+    padding-top: 30px;
 }

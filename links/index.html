@@ -15,8 +15,12 @@
     <!-- for ntoe -->
     <link rel="stylesheet" href="note-lib/style-note.css">
     <script src="note-lib/split.min.js"></script>
-    <link href="note-lib/quill.snow.css" rel="stylesheet" />
-    <script src="note-lib/quill.js"></script>
+	
+	<link href="note-lib/kothing-editor.min.css" rel="stylesheet" type="text/css"/>   
+    <script src="note-lib/katex.min.js"></script>
+	    <script src="note-lib/kothing-editor.min.js"></script>
+    <!-- <link href="note-lib/quill.snow.css" rel="stylesheet" /> -->
+    <!-- <script src="note-lib/quill.js"></script> -->
 
 
 </head>
@@ -668,17 +672,17 @@
                                 <div class="footer">footer 2</div>
                             </div>
                             <div id="split-2">
+								
                                 <div class="header">
                                     <button onClick="event3_save()">save</button>
                                 </div>
+								
                                 <div class="content">
-                                    <div id="toolbar">
-                                        <!-- <button class="ql-bold">Bold</button>
-                                        <button class="ql-italic">Italic</button> -->
-                                    </div>
-                                    <div id="editor">
-                                        <p>Hello chau!</p>
-                                    </div>
+								<div id="toolbar">
+									<div class="full-loading">Loading...</div>
+								</div>
+									<textarea id="editor" style="display: none">
+									</textarea>
 
                                 </div>
                                 <div class="footer"><span id="footer3-1"></span></div>
