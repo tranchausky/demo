@@ -176,7 +176,7 @@ function getNoteCategory(dataId) {
             // console.log("Document data:", doc.data());
             var docData = doc.data();
             // $('#kothing-editor_editor').html(docData.contentPost);
-            $('#split-0 ul li.active').html(docData.titleCat);
+            $('#split-0 .list li.active').html(docData.titleCat);
 
         } else {
             // doc.data() will be undefined in this case
@@ -340,7 +340,7 @@ function event1_add() {
 }
 
 function event1_edit() {
-    var text = $('#split-0 ul li.active').html();
+    var text = $('#split-0 .list li.active').html();
     var answer = prompt('Category Edit?', text);
     if (answer == null) {
         return;
@@ -375,7 +375,7 @@ function event1_click(at) {
 	
 	hideShowLoadingEditor(1);
 
-    $('#split-0 ul li').removeClass('active');
+    $('#split-0 .list li').removeClass('active');
     $(at).addClass('active');
 }
 
@@ -393,11 +393,11 @@ function event2_add() {
 }
 
 function reload_list_title() {
-    $('#split-0 ul li.active').trigger('click');
+    $('#split-0 .list li.active').trigger('click');
 }
 
 function reload_list_post() {
-    $('#split-1 ul li.active').trigger('click');
+    $('#split-1 .list li.active').trigger('click');
 }
 
 function reload_list_cat() {
@@ -405,7 +405,7 @@ function reload_list_cat() {
 }
 
 function event2_edit() {
-    var text = $('#split-1 ul li.active').html();
+    var text = $('#split-1 .list li.active').html();
     var answer = prompt('Title Edit?', text);
     if (answer == null) {
         return;
@@ -437,7 +437,7 @@ function event2_click(at) {
     data.postId = idPost_selected;
 
 
-    $('#split-1 ul li').removeClass('active');
+    $('#split-1 .list li').removeClass('active');
     $(at).addClass('active');
 
     $('#footer3-1').html('loading');

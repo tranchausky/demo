@@ -69,8 +69,10 @@
 
 .note .list {
     padding: 0;
+	padding-left: 21px;
     margin: 0;
 }
+
 
 .note .list li {
     padding: 10px;
