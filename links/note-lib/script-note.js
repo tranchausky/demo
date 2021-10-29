@@ -27,7 +27,7 @@ Split(['#split-0', '#split-1', '#split-2'], {
     },
 })
 
-KothingEditor.create("editor", {
+const editorText = KothingEditor.create("editor", {
 	display: "block",
 	width: "100%",
 	height: "auto",
@@ -198,7 +198,9 @@ function getNotePost(dataId, at) {
         if (doc.exists) {
             // console.log("Document data:", doc.data());
             var docData = doc.data();
-            $('#kothing-editor_editor .kothing-editor-editable').html(docData.contentPost);
+            //$('#kothing-editor_editor .kothing-editor-editable').html(docData.contentPost);
+			editorText.setContents(docData.contentPost);
+			
             $(at).html(docData.titlePost);
 
         } else {

@@ -112,3 +112,10 @@
 	float:right;
 	padding-right:7px;
 }
+
+.content .kothing-editor .ke-wrapper .ke-wrapper-wysiwyg{
+	min-height: 200px;
+}
+.content .kothing-editor .ke-resizing-bar .ke-powered-by{
+	display: none;
+}
