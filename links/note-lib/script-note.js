@@ -111,6 +111,7 @@ function getNoteListCategory() {
         if ($('#split-0 .list li').length > 0) {
             $('#split-0 .list li').eq(0).trigger('click');
         }
+		setTotalFooter1(Object.keys(newObjectSort).length);
     });
 }
 
@@ -158,6 +159,7 @@ function getNoteListPost(idCategory) {
             idPost_selected = Object.keys(newObjectSort)[0]
             $('#split-1 .list li').eq(0).trigger('click');
         }
+		setTotalFooter2(Object.keys(newObjectSort).length);
 
     });
 }
@@ -370,6 +372,8 @@ function event1_click(at) {
     var id = at.getAttribute('data-id');
     idCategory_selected = id;
     getNoteListPost(id);
+	
+	hideShowLoadingEditor(1);
 
     $('#split-0 ul li').removeClass('active');
     $(at).addClass('active');
@@ -452,4 +456,11 @@ function event3_save() {
     var str = $('#kothing-editor_editor .kothing-editor-editable').html();
     data.contentPost = str;
     updateNotePost(data);
+}
+
+function setTotalFooter2(num){
+	$('#split-1 .footer .footer-sp-right').html(num);
+}
+function setTotalFooter1(num){
+	$('#split-0 .footer .footer-sp-right').html(num);
 }
