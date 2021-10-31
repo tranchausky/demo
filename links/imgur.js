@@ -66,6 +66,7 @@
                         callback.call(window, response);
                     } else {
                         console.log(this)
+                        alert(this.status)
                         var response = JSON.parse(this.responseText);
                         //throw new Error(this.status + " - " + this.statusText);
                         alert("Error: " + this.status + " --" + response.data.error);
