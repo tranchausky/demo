@@ -33,8 +33,9 @@
     bottom: 0;
     width: 100%;
     display: block;
-    background: red;
+    background: #d5d1d1;
     height: 30px;
+	padding-top: 6px; padding-left: 5px ;
 }
 
 .note .header {
@@ -68,8 +69,10 @@
 
 .note .list {
     padding: 0;
+	padding-left: 21px;
     margin: 0;
 }
+
 
 .note .list li {
     padding: 10px;
@@ -90,4 +93,29 @@
 
 .note .ql-container {
     height: calc(100% - 76px)!important;
+}
+
+.full-loading{
+	display:none;
+	background: #e7dcdc8c;
+    height: calc(100% - 69px)!important; top: 39px ;
+    position: absolute;
+    width: 100%;
+    z-index: 2;
+	display: block;
+    font-size: 20px;
+	text-align: center;
+    padding-top: 30px;
+}
+
+.footer-sp-right{
+	float:right;
+	padding-right:7px;
+}
+
+.content .kothing-editor .ke-wrapper .ke-wrapper-wysiwyg{
+	min-height: 200px;
+}
+.content .kothing-editor .ke-resizing-bar .ke-powered-by{
+	display: none;
 }

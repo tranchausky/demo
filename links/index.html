@@ -15,8 +15,12 @@
     <!-- for ntoe -->
     <link rel="stylesheet" href="note-lib/style-note.css">
     <script src="note-lib/split.min.js"></script>
-    <link href="note-lib/quill.snow.css" rel="stylesheet" />
-    <script src="note-lib/quill.js"></script>
+	
+	<link href="note-lib/kothing-editor.min.css" rel="stylesheet" type="text/css"/>   
+    <script src="note-lib/katex.min.js"></script>
+	    <script src="note-lib/kothing-editor.min.js"></script>
+    <!-- <link href="note-lib/quill.snow.css" rel="stylesheet" /> -->
+    <!-- <script src="note-lib/quill.js"></script> -->
 
 
 </head>
@@ -640,15 +644,15 @@
                                     <!-- <button onClick="event1_delete()">delete</button> -->
                                 </div>
                                 <div class="content">
-                                    <ul class="list">
+                                    <ol class="list" reversed>
                                         <!-- <li class="active">list 1</li>
                                         <li>list 2</li>
                                         <li>list 3</li>
                                         <li>list 4</li>
                                         <li>list 5</li> -->
-                                    </ul>
+                                    </ol>
                                 </div>
-                                <div class="footer"><span id="footer1-1"></span></div>
+                                <div class="footer"><span id="footer1-1">footer1</span><span class="footer-sp-right"></span></div>
                             </div>
                             <div id="split-1">
                                 <div class="header">
@@ -657,28 +661,27 @@
                                     <button onClick="event2_delete()">delete</button>
                                 </div>
                                 <div class="content">
-                                    <ul class="list">
+                                    <ol class="list" reversed style="list-style-type: lower-alpha;">
                                         <!-- <li>list 1</li>
                                         <li class="active">list 2</li>
                                         <li>list 3</li>
                                         <li>list 4</li>
                                         <li>list 5</li> -->
-                                    </ul>
+                                    </ol>
                                 </div>
-                                <div class="footer">footer 2</div>
+                                <div class="footer"><span class="footer-2-1">footer2</span><span class="footer-sp-right"></span></div>
                             </div>
                             <div id="split-2">
+								<div id="toolbar">
+									<div class="full-loading">Loading...</div>
+								</div>
                                 <div class="header">
                                     <button onClick="event3_save()">save</button>
                                 </div>
+								
                                 <div class="content">
-                                    <div id="toolbar">
-                                        <!-- <button class="ql-bold">Bold</button>
-                                        <button class="ql-italic">Italic</button> -->
-                                    </div>
-                                    <div id="editor">
-                                        <p>Hello chau!</p>
-                                    </div>
+									<textarea id="editor" style="display: none">
+									</textarea>
 
                                 </div>
                                 <div class="footer"><span id="footer3-1"></span></div>

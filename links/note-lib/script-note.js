@@ -4,6 +4,9 @@
 //     projectId: 'link-save-d79c8'
 // });
 
+
+
+
 var db = firebase.firestore();
 
 var sizes = localStorage.getItem('split-sizes');
@@ -24,57 +27,61 @@ Split(['#split-0', '#split-1', '#split-2'], {
     },
 })
 
-var toolbarOptions = [
-    ['bold', 'italic', 'underline', 'strike'], // toggled buttons
-    ['blockquote', 'code-block'],
-
-    [{ 'header': 1 }, { 'header': 2 }], // custom button values
-    [{ 'list': 'ordered' }, { 'list': 'bullet' }],
-    [{ 'script': 'sub' }, { 'script': 'super' }], // superscript/subscript
-    [{ 'indent': '-1' }, { 'indent': '+1' }], // outdent/indent
-    [{ 'direction': 'rtl' }], // text direction
-
-    [{ 'size': ['small', false, 'large', 'huge'] }], // custom dropdown
-    [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
-
-    [{ 'color': [] }, { 'background': [] }], // dropdown with defaults from theme
-    [{ 'font': [] }],
-    [{ 'align': [] }],
-
-    ['clean'] // remove formatting button
-];
-
-var quill = new Quill('#editor', {
-    modules: {
-        toolbar: toolbarOptions
-    },
-    theme: 'snow'
-});
-// quill.on('text-change', function() {
-//     console.log('Text change!');
-// });
-// quill.on('editor-change', function(eventName, ...args) {
-//     if (eventName === 'text-change') {
-//         // args[0] will be delta
-//         console.log('text-change 123!');
-//     } else if (eventName === 'selection-change') {
-//         // args[0] will be old range
-//         console.log('selection-change!');
-//     }
-// });
-
-this.quill.on('selection-change', range => {
-    if (!range) {
-        console.log('blur!');
-        //saveing
-        // event3_save()
-    } else {
-        // console.log('focus!');
-    }
-});
+const editorText = KothingEditor.create("editor", {
+	display: "block",
+	width: "100%",
+	height: "auto",
+	popupDisplay: "full",
+	katex: katex,
+	toolbarItem: [
+	  ["undo", "redo"],
+	  ["font", "fontSize", "formatBlock"],
+	  [
+		"bold",
+		"underline",
+		"italic",
+		"strike",
+		"subscript",
+		"superscript",
+		"fontColor",
+		"hiliteColor",
+	  ],
+	  ["outdent", "indent", "align", "list", "horizontalRule"],
+	  ["link", "table", "image", "audio", "video"],
+	  ["lineHeight", "paragraphStyle", "textStyle"],
+	  ["showBlocks", "codeView"],
+	  ["math"],
+	  ["preview", "print", "fullScreen"],
+	  ["save", "template"],
+	  ["removeFormat"],
+	],
+	callBackSave:function(data){
+		event3_save();
+	},
+	templates: [
+	  {
+		name: "Template-1",
+		html: "<p>HTML source1</p>",
+	  },
+	  {
+		name: "Template-2",
+		html: "<p>HTML source2</p>",
+	  },
+	],
+	charCounter: true,
+  });
 
 function getListNotes() {
     getNoteListCategory()
+}
+function hideShowLoadingEditor(is_show){
+	//var is_show = $('.full-loading').is(":visible");
+	if(is_show == 1){
+		$('.full-loading').show();		
+	}else{
+		$('.full-loading').hide();
+	}
+	
 }
 
 function getNoteListCategory() {
@@ -104,6 +111,7 @@ function getNoteListCategory() {
         if ($('#split-0 .list li').length > 0) {
             $('#split-0 .list li').eq(0).trigger('click');
         }
+		setTotalFooter1(Object.keys(newObjectSort).length);
     });
 }
 
@@ -151,6 +159,7 @@ function getNoteListPost(idCategory) {
             idPost_selected = Object.keys(newObjectSort)[0]
             $('#split-1 .list li').eq(0).trigger('click');
         }
+		setTotalFooter2(Object.keys(newObjectSort).length);
 
     });
 }
@@ -166,8 +175,8 @@ function getNoteCategory(dataId) {
         if (doc.exists) {
             // console.log("Document data:", doc.data());
             var docData = doc.data();
-            // $('.ql-editor').html(docData.contentPost);
-            $('#split-0 ul li.active').html(docData.titleCat);
+            // $('#kothing-editor_editor').html(docData.contentPost);
+            $('#split-0 .list li.active').html(docData.titleCat);
 
         } else {
             // doc.data() will be undefined in this case
@@ -189,7 +198,9 @@ function getNotePost(dataId, at) {
         if (doc.exists) {
             // console.log("Document data:", doc.data());
             var docData = doc.data();
-            $('.ql-editor').html(docData.contentPost);
+            //$('#kothing-editor_editor .kothing-editor-editable').html(docData.contentPost);
+			editorText.setContents(docData.contentPost);
+			
             $(at).html(docData.titlePost);
 
         } else {
@@ -197,9 +208,11 @@ function getNotePost(dataId, at) {
             console.log("No such document!");
         }
         $('#footer3-1').html('loaded');
+		hideShowLoadingEditor(0);
     }).catch((error) => {
         console.log("Error getting document:", error);
         $('#footer3-1').html('loaded error');
+		hideShowLoadingEditor(0);
     });
 }
 
@@ -315,6 +328,7 @@ function updateNotePost(dataIn) {
         // ...
         // console.log('update-post-done')
         $('#footer3-1').html('saved');
+		hideShowLoadingEditor(0);
         reload_list_post()
     });
 }
@@ -328,7 +342,7 @@ function event1_add() {
 }
 
 function event1_edit() {
-    var text = $('#split-0 ul li.active').html();
+    var text = $('#split-0 .list li.active').html();
     var answer = prompt('Category Edit?', text);
     if (answer == null) {
         return;
@@ -341,7 +355,7 @@ function event1_edit() {
     // }
     // console.log(answer)
     var data = {};
-    // var str = $('.ql-editor').html();
+    // var str = $('#kothing-editor_editor').html();
     data.titleCat = answer;
     updateNoteCategory(data);
 }
@@ -360,8 +374,10 @@ function event1_click(at) {
     var id = at.getAttribute('data-id');
     idCategory_selected = id;
     getNoteListPost(id);
+	
+	hideShowLoadingEditor(1);
 
-    $('#split-0 ul li').removeClass('active');
+    $('#split-0 .list li').removeClass('active');
     $(at).addClass('active');
 }
 
@@ -379,11 +395,11 @@ function event2_add() {
 }
 
 function reload_list_title() {
-    $('#split-0 ul li.active').trigger('click');
+    $('#split-0 .list li.active').trigger('click');
 }
 
 function reload_list_post() {
-    $('#split-1 ul li.active').trigger('click');
+    $('#split-1 .list li.active').trigger('click');
 }
 
 function reload_list_cat() {
@@ -391,14 +407,14 @@ function reload_list_cat() {
 }
 
 function event2_edit() {
-    var text = $('#split-1 ul li.active').html();
+    var text = $('#split-1 .list li.active').html();
     var answer = prompt('Title Edit?', text);
     if (answer == null) {
         return;
     }
     // console.log(answer)
     var data = {};
-    var str = $('.ql-editor').html();
+    var str = $('#kothing-editor_editor .kothing-editor-editable').html();
     data.titlePost = answer;
     updateNotePost(data);
 }
@@ -423,10 +439,11 @@ function event2_click(at) {
     data.postId = idPost_selected;
 
 
-    $('#split-1 ul li').removeClass('active');
+    $('#split-1 .list li').removeClass('active');
     $(at).addClass('active');
 
     $('#footer3-1').html('loading');
+	hideShowLoadingEditor(1);
     // console.log(data)
     getNotePost(data, at);
 
@@ -436,8 +453,16 @@ function event2_click(at) {
 
 function event3_save() {
     $('#footer3-1').html('saving...');
+	hideShowLoadingEditor(1);
     var data = {};
-    var str = $('.ql-editor').html();
+    var str = $('#kothing-editor_editor .kothing-editor-editable').html();
     data.contentPost = str;
     updateNotePost(data);
+}
+
+function setTotalFooter2(num){
+	$('#split-1 .footer .footer-sp-right').html(num);
+}
+function setTotalFooter1(num){
+	$('#split-0 .footer .footer-sp-right').html(num);
 }
