@@ -4,6 +4,8 @@
 //     projectId: 'link-save-d79c8'
 // });
 
+//getListNotes()
+
 
 
 
@@ -22,68 +24,69 @@ Split(['#split-0', '#split-1', '#split-2'], {
     maxSize: 1000,
     gutterSize: 5,
     snapOffset: 1,
-    onDragEnd: function(sizes) {
+    onDragEnd: function (sizes) {
         localStorage.setItem('split-sizes', JSON.stringify(sizes))
     },
 })
 
 const editorText = KothingEditor.create("editor", {
-	display: "block",
-	width: "100%",
-	height: "auto",
-	popupDisplay: "full",
-	katex: katex,
-	toolbarItem: [
-	  ["undo", "redo"],
-	  ["font", "fontSize", "formatBlock"],
-	  [
-		"bold",
-		"underline",
-		"italic",
-		"strike",
-		"subscript",
-		"superscript",
-		"fontColor",
-		"hiliteColor",
-	  ],
-	  ["outdent", "indent", "align", "list", "horizontalRule"],
-	  ["link", "table", "image", "audio", "video"],
-	  ["lineHeight", "paragraphStyle", "textStyle"],
-	  ["showBlocks", "codeView"],
-	  ["math"],
-	  ["preview", "print", "fullScreen"],
-	  ["save", "template"],
-	  ["removeFormat"],
-	],
-	callBackSave:function(data){
-		event3_save();
-	},
-	templates: [
-	  {
-		name: "Template-1",
-		html: "<p>HTML source1</p>",
-	  },
-	  {
-		name: "Template-2",
-		html: "<p>HTML source2</p>",
-	  },
-	],
-	charCounter: true,
-  });
+    display: "block",
+    width: "100%",
+    height: "auto",
+    popupDisplay: "full",
+    katex: katex,
+    toolbarItem: [
+        ["undo", "redo"],
+        ["font", "fontSize", "formatBlock"],
+        [
+            "bold",
+            "underline",
+            "italic",
+            "strike",
+            "subscript",
+            "superscript",
+            "fontColor",
+            "hiliteColor",
+        ],
+        ["outdent", "indent", "align", "list", "horizontalRule"],
+        ["link", "table", "image", "audio", "video"],
+        ["lineHeight", "paragraphStyle", "textStyle"],
+        ["showBlocks", "codeView"],
+        ["math"],
+        ["preview", "print", "fullScreen"],
+        ["save", "template"],
+        ["removeFormat"],
+    ],
+    callBackSave: function (data) {
+        event3_save();
+    },
+    templates: [
+        {
+            name: "Template-1",
+            html: "<p>HTML source1</p>",
+        },
+        {
+            name: "Template-2",
+            html: "<p>HTML source2</p>",
+        },
+    ],
+    charCounter: true,
+});
 
 function getListNotes() {
     getNoteListCategory()
 }
-function hideShowLoadingEditor(is_show){
-	//var is_show = $('.full-loading').is(":visible");
-	if(is_show == 1){
-		$('.full-loading').show();		
-	}else{
-		$('.full-loading').hide();
-	}
-	
+function hideShowLoadingEditor(is_show) {
+    //var is_show = $('.full-loading').is(":visible");
+    if (is_show == 1) {
+        $('.full-loading').show();
+    } else {
+        $('.full-loading').hide();
+    }
+
 }
 
+var listCategoryNote = {};
 function getNoteListCategory() {
     // console.log('note-list-cat')
     $('#split-0 .list').html('');
@@ -97,12 +100,16 @@ function getNoteListCategory() {
             list[doc.id] = {};
             list[doc.id]['time'] = data.time;
             list[doc.id]['titleCat'] = data.titleCat;
+            list[doc.id]['atTop'] = (typeof data.atTop != 'undefined') ? data.atTop : "";
+
+            // console.log(data)
 
             // var data = doc.data();
             // var str = '<li data-id="' + doc.id + '" onClick="event1_click(this)">' + data.titleCat + '</li>';
             // $('#split-0 .list').append(str);
         });
         var newObjectSort = sortDescObj(list, 'time');
+        listCategoryNote = newObjectSort;
         for (var key in newObjectSort) {
             var tem = newObjectSort[key];
             var str = '<li data-id="' + key + '" onClick="event1_click(this)">' + tem.titleCat + '</li>';
@@ -111,7 +118,7 @@ function getNoteListCategory() {
         if ($('#split-0 .list li').length > 0) {
             $('#split-0 .list li').eq(0).trigger('click');
         }
-		setTotalFooter1(Object.keys(newObjectSort).length);
+        setTotalFooter1(Object.keys(newObjectSort).length);
     });
 }
 
@@ -149,17 +156,22 @@ function getNoteListPost(idCategory) {
         });
         // console.log(list)
         var newObjectSort = sortDescObj(list, 'time');
+        var selecteAtTop = (typeof listCategoryNote[idCategory]['atTop'] != '') ? listCategoryNote[idCategory]['atTop'] : "";
         for (var key in newObjectSort) {
             //const element = array[index];
             var tem = newObjectSort[key];
             var str = '<li data-id="' + key + '" onClick="event2_click(this)">' + tem.titlePost + '</li>';
+            if (selecteAtTop == key) {
+                str = '<li data-id="' + key + '" onClick="event2_click(this)" class="booked">' + tem.titlePost + '</li>';
+            }
+
             $('#split-1 .list').append(str);
         }
         if ($('#split-1 .list li').length > 0) {
             idPost_selected = Object.keys(newObjectSort)[0]
             $('#split-1 .list li').eq(0).trigger('click');
         }
-		setTotalFooter2(Object.keys(newObjectSort).length);
+        setTotalFooter2(Object.keys(newObjectSort).length);
 
     });
 }
@@ -199,8 +211,8 @@ function getNotePost(dataId, at) {
             // console.log("Document data:", doc.data());
             var docData = doc.data();
             //$('#kothing-editor_editor .kothing-editor-editable').html(docData.contentPost);
-			editorText.setContents(docData.contentPost);
-			
+            editorText.setContents(docData.contentPost);
+
             $(at).html(docData.titlePost);
 
         } else {
@@ -208,11 +220,11 @@ function getNotePost(dataId, at) {
             console.log("No such document!");
         }
         $('#footer3-1').html('loaded');
-		hideShowLoadingEditor(0);
+        hideShowLoadingEditor(0);
     }).catch((error) => {
         console.log("Error getting document:", error);
         $('#footer3-1').html('loaded error');
-		hideShowLoadingEditor(0);
+        hideShowLoadingEditor(0);
     });
 }
 
@@ -231,16 +243,16 @@ function deleteNotePost(idCategory, idPost) {
 function addNoteCategory(dataIn) {
     var idUserCategory = user_ID;
     db.collection("note_category/" + idUserCategory + "/category").add({
-            titleCat: dataIn.title,
-            aliasCat: "",
-            contentCat: "",
-            time: new Date().getTime(),
-        })
-        .then(function(docRef) {
+        titleCat: dataIn.title,
+        aliasCat: "",
+        contentCat: "",
+        time: new Date().getTime(),
+    })
+        .then(function (docRef) {
             // console.log("Document written with ID: ", docRef.id);
             getNoteListCategory();
         })
-        .catch(function(error) {
+        .catch(function (error) {
             console.error("Error adding document: ", error);
             alert('error add cat');
             getNoteListCategory();
@@ -267,7 +279,9 @@ function updateNoteCategory(dataIn) {
     // var sfRef = db.collection("note_category/" + idUserCategory + "/category").doc("SF");
     var idCat = idCategory_selected;
     var sfRef = db.collection("note_category/" + idUserCategory + "/category").doc(idCat);
-    batch.update(sfRef, { "titleCat": dataIn.titleCat });
+    dataSet = dataIn;
+    // { "titleCat": dataIn.titleCat }
+    batch.update(sfRef, dataSet);
 
     batch.commit().then(() => {
         // ...
@@ -286,16 +300,16 @@ function addNoteTitle(data) {
     var idUserCategory = user_ID;
     var idCategory = data.catId;
     db.collection("note_category/" + idUserCategory + "/category/" + idCategory + '/post').add({
-            titlePost: data.title,
-            aliasPost: "",
-            contentPost: "",
-            time: new Date().getTime(),
-        })
-        .then(function(docRef) {
+        titlePost: data.title,
+        aliasPost: "",
+        contentPost: "",
+        time: new Date().getTime(),
+    })
+        .then(function (docRef) {
             // console.log("Document written with ID: ", docRef.id);
             reload_list_title();
         })
-        .catch(function(error) {
+        .catch(function (error) {
             console.error("Error adding document: ", error);
             alert('error, reload');
             reload_list_title();
@@ -328,7 +342,7 @@ function updateNotePost(dataIn) {
         // ...
         // console.log('update-post-done')
         $('#footer3-1').html('saved');
-		hideShowLoadingEditor(0);
+        hideShowLoadingEditor(0);
         reload_list_post()
     });
 }
@@ -374,8 +388,8 @@ function event1_click(at) {
     var id = at.getAttribute('data-id');
     idCategory_selected = id;
     getNoteListPost(id);
-	
-	hideShowLoadingEditor(1);
+
+    hideShowLoadingEditor(1);
 
     $('#split-0 .list li').removeClass('active');
     $(at).addClass('active');
@@ -428,6 +442,17 @@ function event2_delete() {
         deleteNotePost(idCategory, idPost)
     }
 }
+//set icon bookmark at same, at here
+//set update categgory top Id
+function event2_at() {
+    var data = {};
+    data.atTop = idPost_selected;
+    updateNoteCategory(data);
+    var idCat = idCategory_selected;
+    listCategoryNote[idCat]['atTop'] = idPost_selected;
+    reload_list_title()
+
+}
 
 function event2_click(at) {
     // console.log(at)
@@ -443,7 +468,7 @@ function event2_click(at) {
     $(at).addClass('active');
 
     $('#footer3-1').html('loading');
-	hideShowLoadingEditor(1);
+    hideShowLoadingEditor(1);
     // console.log(data)
     getNotePost(data, at);
 
@@ -453,16 +478,16 @@ function event2_click(at) {
 
 function event3_save() {
     $('#footer3-1').html('saving...');
-	hideShowLoadingEditor(1);
+    hideShowLoadingEditor(1);
     var data = {};
     var str = $('#kothing-editor_editor .kothing-editor-editable').html();
     data.contentPost = str;
     updateNotePost(data);
 }
 
-function setTotalFooter2(num){
-	$('#split-1 .footer .footer-sp-right').html(num);
+function setTotalFooter2(num) {
+    $('#split-1 .footer .footer-sp-right').html(num);
 }
-function setTotalFooter1(num){
-	$('#split-0 .footer .footer-sp-right').html(num);
+function setTotalFooter1(num) {
+    $('#split-0 .footer .footer-sp-right').html(num);
 }

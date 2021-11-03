@@ -35,7 +35,8 @@
     display: block;
     background: #d5d1d1;
     height: 30px;
-	padding-top: 6px; padding-left: 5px ;
+    padding-top: 6px;
+    padding-left: 5px;
 }
 
 .note .header {
@@ -69,10 +70,9 @@
 
 .note .list {
     padding: 0;
-	padding-left: 34px;
+    padding-left: 34px;
     margin: 0;
 }
-
 
 .note .list li {
     padding: 10px;
@@ -89,35 +89,43 @@
 
 .note .list li.active {
     background-color: #bb7878;
-	padding: 8px;
-	padding-left: 3px;
+}
+
+.note .list li.booked {
+    background-color: #ffff00;
+}
+
+.note .list li.booked.active {
+    background-color: #bbbb78;
 }
 
 .note .ql-container {
     height: calc(100% - 76px)!important;
 }
 
-.full-loading{
-	display:none;
-	background: #e7dcdc8c;
-    height: calc(100% - 69px)!important; top: 39px ;
+.full-loading {
+    display: none;
+    background: #e7dcdc8c;
+    height: calc(100% - 69px)!important;
+    top: 39px;
     position: absolute;
     width: 100%;
     z-index: 2;
-	display: block;
+    display: block;
     font-size: 20px;
-	text-align: center;
+    text-align: center;
     padding-top: 30px;
 }
 
-.footer-sp-right{
-	float:right;
-	padding-right:7px;
+.footer-sp-right {
+    float: right;
+    padding-right: 7px;
 }
 
-.content .kothing-editor .ke-wrapper .ke-wrapper-wysiwyg{
-	min-height: 200px;
+.content .kothing-editor .ke-wrapper .ke-wrapper-wysiwyg {
+    min-height: 200px;
 }
-.content .kothing-editor .ke-resizing-bar .ke-powered-by{
-	display: none;
+
+.content .kothing-editor .ke-resizing-bar .ke-powered-by {
+    display: none;
 }

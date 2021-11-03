@@ -1,7 +1,7 @@
-$(document).ready(function() {
+$(document).ready(function () {
     var height = $('.navbar-header').height();
     $('#start-content').css('margin-top', height);
-    $('#myNavbar a').click(function() {
+    $('#myNavbar a').click(function () {
 
         if (user_ID == '') {
             alert('Need Login First')
@@ -45,47 +45,47 @@ $(document).ready(function() {
 
     // $("document").on('click', '#tb-calendar tr td', function() {
     // $('#tb-calendar tr').on('click','td', function () {
-    jQuery(document.body).on('click', '#tb-calendar tr td', function(event) {
+    jQuery(document.body).on('click', '#tb-calendar tr td', function (event) {
         // alert(123)
         // alert('123')
         checkDetailCalendar(this)
     })
 
     //calendar reload 
-    $('.prev-month,.next-month').click(function() {
+    $('.prev-month,.next-month').click(function () {
         hideEventCalendar()
         getAllCalendar()
     })
-    jQuery(document.body).on('click', '#photo .list-image img', function(event) {
+    jQuery(document.body).on('click', '#photo .list-image img', function (event) {
         return
         // $('#photo .list-image img').click(function() {
         var src = $(this).attr('str-big')
-            // alert(src)
+        // alert(src)
         $('#image-img-photo').attr('src', src)
     })
 
-    $('#add-task').click(function() {
+    $('#add-task').click(function () {
         pushTodo()
     })
 
-    $(document.body).on('click', '.list-todo-new .edit', function(event) {
+    $(document.body).on('click', '.list-todo-new .edit', function (event) {
         var text = $(this).closest('.at-task').find('label').eq(0).text()
         var key = $(this).closest('.at-task').attr('data-key')
         $(this).closest('.at-task').after(addEventTodo(text, key))
     })
-    $(document.body).on('click', '.list-todo-new .save', function(event) {
+    $(document.body).on('click', '.list-todo-new .save', function (event) {
         var key = $(this).closest('.form-event').attr('data-key')
         var text = $(this).closest('.form-event').find('input').eq(0).val()
         updateTodo(text, 'new', key);
     })
-    $(document.body).on('click', '.list-todo-new input[type="checkbox"]', function(event) {
+    $(document.body).on('click', '.list-todo-new input[type="checkbox"]', function (event) {
         var isCheck = $(this).is(":checked");
         if (isCheck == true) {
             var key = $(this).closest('.at-task').attr('data-key')
             updateTodo(allTaskNew[key]['task'], 'completed', key)
         }
     })
-    $(document.body).on('click', '.list-todo-completed input[type="checkbox"]', function(event) {
+    $(document.body).on('click', '.list-todo-completed input[type="checkbox"]', function (event) {
         var isCheck = $(this).is(":checked");
         if (isCheck == true) {
             var key = $(this).closest('.at-task').attr('data-key')
@@ -93,20 +93,20 @@ $(document).ready(function() {
         }
     })
 
-    $(document.body).on('click', '.list-todo-completed .delete', function(event) {
+    $(document.body).on('click', '.list-todo-completed .delete', function (event) {
         var text = $(this).closest('.at-task').find('label').eq(0).text()
         var key = $(this).closest('.at-task').attr('data-key')
         updateTodo(allTaskComplete[key]['task'], 'delete', key)
     })
 
 
-    $(document.body).on('change', '.list-cat-btn', function(event) {
+    $(document.body).on('change', '.list-cat-btn', function (event) {
         getListPhoto()
     })
-    $(document.body).on('change', '.list-cat-btn-edit', function(event) {
+    $(document.body).on('change', '.list-cat-btn-edit', function (event) {
         updatePhoto()
     })
-    $(document.body).on('change', '#edit-private-photo', function(event) {
+    $(document.body).on('change', '#edit-private-photo', function (event) {
         updatePhoto()
     })
 
@@ -137,7 +137,7 @@ function changeLinkImage(link, cat_id, key) {
     }
     $('#photo-time').html(d.toLocaleString())
     $('.list-cat-btn-edit').html('<option value="">All</option>' + buildSelectPhotoCat(cat_id))
-        // var select = filterSelect(key, listOptionPhoto)
+    // var select = filterSelect(key, listOptionPhoto)
 }
 
 function changeLinkVideo(videId, cat_id, key) {
@@ -288,7 +288,7 @@ const showLogin = () => {
 };
 
 firebase.auth().onAuthStateChanged(user => {
-    if (user) {} else {
+    if (user) { } else {
         showLogin();
     }
 })
@@ -311,7 +311,7 @@ const register = () => {
     } else {
         auth
             .createUserWithEmailAndPassword(email, password)
-            .catch(function(error) {
+            .catch(function (error) {
                 // Handle Errors here.
                 var errorCode = error.code;
                 var errorMessage = error.message;
@@ -370,7 +370,7 @@ const authenticate = (email, password) => {
     firebase
         .auth()
         .signInWithEmailAndPassword(email, password)
-        .catch(function(error) {
+        .catch(function (error) {
             // Handle Errors here.
             var errorCode = error.code;
             var errorMessage = error.message;
@@ -390,10 +390,10 @@ const signOut = () => {
     firebase
         .auth()
         .signOut()
-        .then(function() {
+        .then(function () {
             location.reload();
         })
-        .catch(function(error) {
+        .catch(function (error) {
             alert("error signing out, check network connection");
         });
 };
@@ -423,10 +423,10 @@ document
 const forgotPassword = (email) => {
     auth
         .sendPasswordResetEmail(email)
-        .then(function() {
+        .then(function () {
             alert("email sent");
         })
-        .catch(function(error) {
+        .catch(function (error) {
             alert("invalid email or bad network connection");
         });
 };
@@ -473,14 +473,14 @@ function sortDescObj(list, key) {
     if (list == null || list == [] || list == {}) {
         return null
     }
-    var sortedKeys = Object.keys(list).sort(function(a, b) {
+    var sortedKeys = Object.keys(list).sort(function (a, b) {
         return list[a][key] > list[b][key] ? -1 : 1
     });
     var newObjectSort = {}
     var tem = []
     for (let index = 0; index < sortedKeys.length; index++) {
         tem = []
-            //newObjectSort.push(list[sortedKeys[index]])
+        //newObjectSort.push(list[sortedKeys[index]])
         newObjectSort[sortedKeys[index]] = list[sortedKeys[index]]
     }
     return newObjectSort
@@ -491,14 +491,14 @@ function loadData() {
 
     var previousLastKey = ''
     contactsRef = dbRef.ref('contacts/' + user_ID)
-        // ".indexOn": ["time"],
-        // contactsRef.orderByChild('time').limitToFirst(6).startAt(1609037750431).on("child_added", function(snap) {
-    contactsRef.orderByChild('time').on("value", function(snapshot) {
+    // ".indexOn": ["time"],
+    // contactsRef.orderByChild('time').limitToFirst(6).startAt(1609037750431).on("child_added", function(snap) {
+    contactsRef.orderByChild('time').on("value", function (snapshot) {
 
         allContacts = snapshot.val()
         var newObjectSort = sortDescObj(allContacts, 'time')
         showContentContact(newObjectSort)
-    }, function(errorObject) {
+    }, function (errorObject) {
         console.log("The read failed: " + errorObject.code);
     });
 
@@ -538,7 +538,7 @@ function showContentContact(data) {
 function getNextPage() {
     return
     console.log(user_ID + '---' + last_Key)
-    contactsRef.orderByChild('userId').startAt(user_ID, last_Key).limitToFirst(pageLength).on("child_added", function(snap) {
+    contactsRef.orderByChild('userId').startAt(user_ID, last_Key).limitToFirst(pageLength).on("child_added", function (snap) {
         // console.log("added", snap.key, snap.val());
         // //console.log(snap.val())
         // lengthSize++
@@ -549,7 +549,7 @@ function getNextPage() {
         last = data
         var data = snap.val()
         showContent(data)
-            //return snap.val()
+        //return snap.val()
     })
 }
 
@@ -568,7 +568,7 @@ function prevPage(first) {
 }
 
 //save contact
-$('.addValue').on("click", function(event) {
+$('.addValue').on("click", function (event) {
     event.preventDefault();
     if ($('#name').val() != '' || $('#email').val() != '') {
         contactsRef.push({
@@ -589,15 +589,15 @@ $('.addValue').on("click", function(event) {
 });
 
 //save video
-$('#video-input').on("focusout", function(event) {
+$('#video-input').on("focusout", function (event) {
     event.preventDefault();
     var linkvideo = $('#video-input').val();
     var link = 'https://www.youtube.com/oembed?url=' + linkvideo + '&format=json';
-    $.getJSON(link, function(data) {
+    $.getJSON(link, function (data) {
         $('#video-input-title').val(data.title)
     });
 });
-$('.addVideo').on("click", function(event) {
+$('.addVideo').on("click", function (event) {
     event.preventDefault();
     if ($('#video-input').val() != '') {
         var data = {};
@@ -678,13 +678,13 @@ function getAllCalendar() {
     //console.log(listDate[1], listDate[0], 1)
     //console.log(listDate[1], listDate[0], lastDate)
 
-   // console.log('first, end')
-        // console.log('reaload')
-        // alert('reaload')
+    // console.log('first, end')
+    // console.log('reaload')
+    // alert('reaload')
 
     //calendarsRef.orderByChild('time').startAt(1608531964751).endAt(1608531997520).on("value", function (snapshot) {
-    calendarsRef.orderByChild('date').startAt(first).endAt(end).on("value", function(snapshot) {
-       // console.log(snapshot.val());
+    calendarsRef.orderByChild('date').startAt(first).endAt(end).on("value", function (snapshot) {
+        // console.log(snapshot.val());
         allCalendar = snapshot.val()
 
         // console.log(typeof allCalendar)
@@ -701,26 +701,26 @@ function getAllCalendar() {
             var temp = d.toLocaleDateString();
 
             var listDate = temp.split('/')
-                //var dateInt = new Date(listDate[2], listDate[1] - 1, listDate[0]).getTime();
+            //var dateInt = new Date(listDate[2], listDate[1] - 1, listDate[0]).getTime();
             var dmy = listDate[1] + '/' + listDate[0] + '/' + listDate[2]
-                // console.log(temp)
-                //var listDate = date.split('/')
-                //var dateInt = new Date(listDate[2], listDate[1], listDate[0]).getTime();
+            // console.log(temp)
+            //var listDate = date.split('/')
+            //var dateInt = new Date(listDate[2], listDate[1], listDate[0]).getTime();
 
             $('#tb-calendar').find('td[data-day="' + dmy + '"]').addClass('had')
-                // console.log(day)
-                // console.log($('#tb-calendar').find('td[data-day="' + day + '"]'))
+            // console.log(day)
+            // console.log($('#tb-calendar').find('td[data-day="' + day + '"]'))
         }
         // allCalendar.for
         buildListCalendar(allCalendar)
 
         // alert(lastDate)
 
-    }, function(errorObject) {
+    }, function (errorObject) {
         console.log("The read failed: " + errorObject.code);
     });
     return
-    calendarsRef.on("child_added", function(snap) {
+    calendarsRef.on("child_added", function (snap) {
 
 
         //alert(1)
@@ -735,8 +735,8 @@ function getAllCalendar() {
         var data = snap.val()
         allCalendar[snap.key] = {}
         allCalendar[snap.key] = data
-            // allCalendar.push(data)
-            //$('#date-content').text(data.content)
+        // allCalendar.push(data)
+        //$('#date-content').text(data.content)
     })
 }
 
@@ -795,7 +795,7 @@ function getAllFiveTask() {
     var datetoday = d.toLocaleDateString('pt-PT');
     datetoday = datetoday.replaceAll('/', '-')
     //console.log(datetoday) // 17-06-2021
-        //return;
+    //return;
     getFiveTaskToday()
     getFiveTaskOld()
 }
@@ -804,7 +804,7 @@ function getFiveTaskToday() {
     fivetaskRef = dbRef.ref('fivetask_today/' + user_ID)
 
     var datetoday = getDateTimeToday()
-    fivetaskRef.orderByChild('date').equalTo(datetoday).limitToFirst(2).on("value", function(snapshot) {
+    fivetaskRef.orderByChild('date').equalTo(datetoday).limitToFirst(2).on("value", function (snapshot) {
         //console.log(snapshot.val());
         var dataReturn = snapshot.val()
         //console.log(dataReturn);
@@ -842,22 +842,22 @@ function getFiveTaskToday() {
             addFiveTaskToday()
         }
 
-    }, function(errorObject) {
+    }, function (errorObject) {
         console.log("The read failed: " + errorObject.code);
     });
 }
 
 function getFiveTaskOld() {
 
-    fivetaskRef.orderByChild('date').on("value", function(snapshot) {
+    fivetaskRef.orderByChild('date').on("value", function (snapshot) {
         //console.log(snapshot.val());
         allFiveTask = snapshot.val()
-            // console.log(dataReturn);
+        // console.log(dataReturn);
         if (allFiveTask != null) {
             buildListFiveTask(allFiveTask)
         }
 
-    }, function(errorObject) {
+    }, function (errorObject) {
         console.log("The read failed: " + errorObject.code);
     });
 }
@@ -902,15 +902,15 @@ function buildListFiveTask(dataIn) {
         str += '<li class="s-task ' + dataIn[key].is_five + '">' + record5 + '</li>'
 
         str += '</ol>'
-            // console.log(allCalendar[key])
-            // var dataAt = dataIn[key]
-            // var day = dataAt.date
-            //     // $('#tb-calendar').find('td[data-day="'+day+'"]').addClass('had')
-            //     // console.log(day)
-            //     // console.log($('#tb-calendar').find('td[data-day="'+day+'"]'))
-            // var d = new Date(day);
-            // var temp = d.toLocaleDateString();
-            // var listD = temp.split('/')
+        // console.log(allCalendar[key])
+        // var dataAt = dataIn[key]
+        // var day = dataAt.date
+        //     // $('#tb-calendar').find('td[data-day="'+day+'"]').addClass('had')
+        //     // console.log(day)
+        //     // console.log($('#tb-calendar').find('td[data-day="'+day+'"]'))
+        // var d = new Date(day);
+        // var temp = d.toLocaleDateString();
+        // var listD = temp.split('/')
 
         // var typeShow = ''
         // if (dataAt.type !== undefined) {
@@ -941,12 +941,12 @@ function buildListCalendar(dataIn) {
     var str = '';
     for (var key in dataIn) {
         str += '<li>'
-            // console.log(allCalendar[key])
+        // console.log(allCalendar[key])
         var dataAt = dataIn[key]
         var day = dataAt.date
-            // $('#tb-calendar').find('td[data-day="'+day+'"]').addClass('had')
-            // console.log(day)
-            // console.log($('#tb-calendar').find('td[data-day="'+day+'"]'))
+        // $('#tb-calendar').find('td[data-day="'+day+'"]').addClass('had')
+        // console.log(day)
+        // console.log($('#tb-calendar').find('td[data-day="'+day+'"]'))
         var d = new Date(day);
         var temp = d.toLocaleDateString();
         var listD = temp.split('/')
@@ -973,10 +973,10 @@ function escape(str) {
         "'": '&#039;',
         '#': '&#035;'
     };
-    return str.replace(/[<&>'"#]/g, function(s) { return c[s]; });
+    return str.replace(/[<&>'"#]/g, function (s) { return c[s]; });
 
 
-    return text.replace(/[<>\&\"\']/g, function(c) {
+    return text.replace(/[<>\&\"\']/g, function (c) {
         return '&#' + c.charCodeAt(0) + ';';
     });
 }
@@ -985,34 +985,34 @@ function escape(str) {
 function sortobjkey(obj, key) {
     if (obj == {} || obj == undefined || obj == '') return {}
     var keys = Object.keys(obj);
-    var kva = keys.map(function(k, i) {
+    var kva = keys.map(function (k, i) {
         return [k, obj[k]];
     });
-    kva.sort(function(a, b) {
+    kva.sort(function (a, b) {
         k = key;
         if (a[1][k] < b[1][k]) return -1;
         if (a[1][k] > b[1][k]) return 1;
         return 0
     });
     var o = {}
-    kva.forEach(function(a) { o[a[0]] = a[1] })
+    kva.forEach(function (a) { o[a[0]] = a[1] })
     return o;
 }
 
 function sortobjkeyOrderLast(obj, key) {
     if (obj == {} || obj == undefined || obj == '') return {}
     var keys = Object.keys(obj);
-    var kva = keys.map(function(k, i) {
+    var kva = keys.map(function (k, i) {
         return [k, obj[k]];
     });
-    kva.sort(function(a, b) {
+    kva.sort(function (a, b) {
         k = key;
         if (a[1][k] > b[1][k]) return -1;
         if (a[1][k] < b[1][k]) return 1;
         return 0
     });
     var o = {}
-    kva.forEach(function(a) { o[a[0]] = a[1] })
+    kva.forEach(function (a) { o[a[0]] = a[1] })
     return o;
 }
 
@@ -1036,23 +1036,23 @@ function getCalendarDate(date) {
     calendarsRef = dbRef.ref('calendars/' + user_ID)
 
     //calendarsRef.orderByChild('date').equalTo(date).limitToFirst(1).on("child_added", function (snap) {
-    calendarsRef.on("child_added", function(snap) {
-            //alert(1)
-           // console.log("added", snap.key, snap.val());
-          //  console.log(snap.val())
-                // lengthSize++
-                // console.log(lengthSize)
-                // $('#size-list').html(lengthSize)
-                // $('#contacts').append(contactHtmlFromObject(snap.val()));
-                // last_Key = snap.key
-                // last = data
-            var data = snap.val()
-            $('#date-content').text(data.content)
+    calendarsRef.on("child_added", function (snap) {
+        //alert(1)
+        // console.log("added", snap.key, snap.val());
+        //  console.log(snap.val())
+        // lengthSize++
+        // console.log(lengthSize)
+        // $('#size-list').html(lengthSize)
+        // $('#contacts').append(contactHtmlFromObject(snap.val()));
+        // last_Key = snap.key
+        // last = data
+        var data = snap.val()
+        $('#date-content').text(data.content)
 
-        })
-        // calendarsRef.off('value', function () {
-        //     alert('2')
-        // });
+    })
+    // calendarsRef.off('value', function () {
+    //     alert('2')
+    // });
 }
 
 //prepare conatct object's HTML
@@ -1091,7 +1091,7 @@ function buildSelect() {
     var str = '';
     for (const prop in listOption) {
         str += '<optgroup label="' + prop + '">'
-            //console.log(listOption[prop])
+        //console.log(listOption[prop])
         for (const prop1 in listOption[prop]) {
             // console.log(listOption[prop][prop1])
             str += '<option value="' + prop1 + '">' + listOption[prop][prop1] + '</option>'
@@ -1204,7 +1204,7 @@ function getListPhoto() {
     if (id_cat_show != '') {
         query = photoRef.orderByChild("id_cat").equalTo(id_cat_show)
     }
-    query.on("value", function(snapshot) {
+    query.on("value", function (snapshot) {
         //photoRef.on("value", function(snapshot) {
         // console.log(snapshot.val());
         allPhoto = snapshot.val()
@@ -1226,7 +1226,7 @@ function getListVideo() {
     if (id_cat_show != '') {
         query = videoRef.orderByChild("id_cat").equalTo(id_cat_show)
     }
-    query.on("value", function(snapshot) {
+    query.on("value", function (snapshot) {
         //photoRef.on("value", function(snapshot) {
         // console.log(snapshot.val());
         // return;
@@ -1250,7 +1250,7 @@ function getListPhotoNext() {
     // if (id_cat_show != '') {
     //     query = photoRef.orderByChild("id_cat").equalTo(id_cat_show)
     // }
-    query.on("value", function(snapshot) {
+    query.on("value", function (snapshot) {
         //photoRef.on("value", function(snapshot) {
         // console.log(snapshot.val());
         // allPhoto = {...allPhoto, ...snapshot.val() };
@@ -1261,7 +1261,7 @@ function getListPhotoNext() {
 
         $('#photo .list-image').append(str);
         lastTimePhoto = allPhoto[Object.keys(allPhoto)[Object.keys(allPhoto).length - 1]].time
-       // console.log(lastTimePhoto)
+        // console.log(lastTimePhoto)
 
     })
 }
@@ -1319,9 +1319,9 @@ function getThump(str) {
     return re
 }
 
-var feedback = function(res) {
+var feedback = function (res) {
     if (res.success === true) {
-       // console.log(res.data.link)
+        // console.log(res.data.link)
         pushPhoto(res.data.link)
     }
 };
@@ -1360,7 +1360,7 @@ function updateTodo(todo, status, key) {
 
 function getListTodoNew() {
     todoRef = dbRef.ref('todos/' + user_ID)
-    todoRef.orderByChild('status').equalTo('new').on("value", function(snapshot) {
+    todoRef.orderByChild('status').equalTo('new').on("value", function (snapshot) {
         // console.log(snapshot.val());
         allTaskNew = snapshot.val()
         var newObjectSort = sortDescObj(allTaskNew, 'time')
@@ -1370,7 +1370,7 @@ function getListTodoNew() {
 
 function getListTodoCompleted() {
     todoRef = dbRef.ref('todos/' + user_ID)
-    todoRef.orderByChild('status').equalTo('completed').on("value", function(snapshot) {
+    todoRef.orderByChild('status').equalTo('completed').on("value", function (snapshot) {
         //console.log(snapshot.val());
         allTaskComplete = snapshot.val()
         var newObjectSort = sortDescObj(allTaskComplete, 'time')
@@ -1385,15 +1385,15 @@ function getListSWOT() {
     var atId = 's';
     //console.log(atId)
     var swoftRef = dbRef.ref('swot/' + user_ID + '/' + atId)
-        //contactsRef.orderByChild('time').on("value", function (snapshot) {
-        //swoftRef.orderByChild('status').equalTo('new').on("value", function (snapshot) {
-    swoftRef.orderByChild('time').on("value", function(snapshot) {
+    //contactsRef.orderByChild('time').on("value", function (snapshot) {
+    //swoftRef.orderByChild('status').equalTo('new').on("value", function (snapshot) {
+    swoftRef.orderByChild('time').on("value", function (snapshot) {
         //console.log(snapshot.val());
         allSWOT[atId] = snapshot.val()
-            // if(allSWOT == null){
-            //     pushSWOTFirst();
-            // }
-            // console.log(allSWOT)
+        // if(allSWOT == null){
+        //     pushSWOTFirst();
+        // }
+        // console.log(allSWOT)
         var newObjectSort = sortDescObj(allSWOT[atId], 'number')
         buildListSwot('s', newObjectSort)
     })
@@ -1402,15 +1402,15 @@ function getListSWOT() {
     atId = 'w';
     //console.log(atId)
     swoftRef = dbRef.ref('swot/' + user_ID + '/' + atId)
-    swoftRef.orderByChild('time').on("value", function(snapshot) {
+    swoftRef.orderByChild('time').on("value", function (snapshot) {
         //console.log(snapshot.val());
         allSWOT[atId] = snapshot.val()
-            // if(allSWOT == null){
-            //     pushSWOTFirst();
-            // }
-            // console.log(allSWOT)
-            // var newObjectSort = sortDescObj(allTaskNew, 'time')
-            // buildListTodoNew(newObjectSort)
+        // if(allSWOT == null){
+        //     pushSWOTFirst();
+        // }
+        // console.log(allSWOT)
+        // var newObjectSort = sortDescObj(allTaskNew, 'time')
+        // buildListTodoNew(newObjectSort)
         var newObjectSort = sortDescObj(allSWOT[atId], 'number')
         buildListSwot('w', newObjectSort)
     })
@@ -1418,30 +1418,30 @@ function getListSWOT() {
     atId = 'o';
     //console.log(atId)
     swoftRef = dbRef.ref('swot/' + user_ID + '/' + atId)
-    swoftRef.orderByChild('time').on("value", function(snapshot) {
+    swoftRef.orderByChild('time').on("value", function (snapshot) {
         //console.log(snapshot.val());
         allSWOT[atId] = snapshot.val()
-            // if(allSWOT == null){
-            //     pushSWOTFirst();
-            // }
-            // console.log(allSWOT)
+        // if(allSWOT == null){
+        //     pushSWOTFirst();
+        // }
+        // console.log(allSWOT)
         var newObjectSort = sortDescObj(allSWOT[atId], 'number')
         buildListSwot('o', newObjectSort)
     })
     atId = 't';
     //console.log(atId)
     swoftRef = dbRef.ref('swot/' + user_ID + '/' + atId)
-    swoftRef.orderByChild('time').on("value", function(snapshot) {
+    swoftRef.orderByChild('time').on("value", function (snapshot) {
         //console.log(snapshot.val());
         allSWOT[atId] = snapshot.val()
-            // if(allSWOT == null){
-            //     pushSWOTFirst();
-            // }
-            // console.log(allSWOT)
+        // if(allSWOT == null){
+        //     pushSWOTFirst();
+        // }
+        // console.log(allSWOT)
         var newObjectSort = sortDescObj(allSWOT[atId], 'number')
         buildListSwot('t', newObjectSort)
     })
-   // console.log(allSWOT);
+    // console.log(allSWOT);
     //}
 }
 
@@ -1590,7 +1590,7 @@ function updateKeySwot() {
     var keyId = $('#keySwot').val();
     var list = $('.title-select-swot').closest('.list-drap-drop').find('ul.drag-list li');
     var listIndex = []
-    list.each(function(index, v) {
+    list.each(function (index, v) {
         var idAt = $(v).attr('keyid');
         updateSortSwot(keyId, idAt, index)
     })
