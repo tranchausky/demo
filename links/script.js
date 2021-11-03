@@ -403,7 +403,9 @@ auth.onAuthStateChanged((firebaseUser) => {
     if (firebaseUser) {
         showHomepage();
         user_ID = firebaseUser.uid
-        $('#email_login').html(firebaseUser.email)
+        // $('#email_login').html(firebaseUser.email)
+        $('#iduser').html(firebaseUser.email)
+        $('.show-signout a').attr('title',firebaseUser.email)
         loadData()
         buildSelect()
     }
