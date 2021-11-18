@@ -142,19 +142,19 @@ function changeLinkImage(link, cat_id, key) {
 
 function changeVideo(videoUrl, cat_id, key) {
     let domain = getDomain(videoUrl);
-
+    var str = '';
     if (domain == 'facebook.com') {
-        var str = '<iframe src="https://www.facebook.com/plugins/video.php?height=476&href=' + videoUrl + '%2F&show_text=false&width=476&t=0" width="476" height="476" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" allowFullScreen="true"></iframe>'
+        str += '<p><a href="' + videoUrl + '">Link video</a></p>';
+        str += '<iframe src="https://www.facebook.com/plugins/video.php?height=476&href=' + videoUrl + '%2F&show_text=false&width=476&t=0" width="476" height="476" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" allowFullScreen="true"></iframe>'
     } else {
-        var str = '<iframe width="400" height="500" src="' + videoUrl + '" ></iframe>'
+        str = '<p><a href="' + videoUrl + '">Link video</a></p><iframe width="400" height="500" src="' + videoUrl + '" ></iframe>'
     }
-    // alert(str)
     // return;
 
     $('#video-iframe').html(str);
 }
 
-function changeLinkVideo(videId, cat_id, key) {
+function changeLinkVideo(videId, videoUrl, key) {
     // $('#image-img-photo').attr('src', link)
     // $('#image-img-photo').attr('key-id', key)
     // var d = new Date(allPhoto[key].time);
@@ -166,7 +166,7 @@ function changeLinkVideo(videId, cat_id, key) {
     // $('#photo-time').html(d.toLocaleString())
     // $('.list-cat-btn-edit').html('<option value="">All</option>' + buildSelectPhotoCat(cat_id))
 
-    var str = '<iframe src="https://www.youtube.com/embed/' + videId + '" width="100%" height="400px" allowfullscreen></iframe>';
+    var str = '<p><a href="' + videoUrl + '">Link video</a></p><iframe src="https://www.youtube.com/embed/' + videId + '" width="100%" height="400px" allowfullscreen></iframe>';
     $('#video-iframe').html(str);
 }
 
@@ -1349,7 +1349,7 @@ function buildListVideo(dataIn) {
         let domain = getDomain(dataAt.url);
 
         if (dataAt.is_show == false && typeof dataAt.videId != undefined && domain == 'youtube.com') {
-            str += '<div class="col-sm-3 col-xs-4"><img class="img-thumbnail" onclick="changeLinkVideo(&apos;' + dataAt.videId + '&apos;,&apos;' + dataAt.id_cat + '&apos;,&apos;' + key + '&apos;)" str-big="' + dataAt.url + '" src="https://i.ytimg.com/vi/' + dataAt.videId + '/default.jpg" alt=""><p>' + dataAt.title + '</p></div>'
+            str += '<div class="col-sm-3 col-xs-4"><img class="img-thumbnail" onclick="changeLinkVideo(&apos;' + dataAt.videId + '&apos;,&apos;' + dataAt.url + '&apos;,&apos;' + key + '&apos;)" str-big="' + dataAt.url + '" src="https://i.ytimg.com/vi/' + dataAt.videId + '/default.jpg" alt=""><p>' + dataAt.title + '</p></div>'
         } else {
             str += '<div class="col-sm-3 col-xs-4"><img class="img-thumbnail hiden" onclick="changeVideo(&apos;' + dataAt.url + '&apos;,&apos;' + dataAt.id_cat + '&apos;,&apos;' + key + '&apos;)" str-big="' + dataAt.url + '" src="https://i.imgur.com/zHOHgOM.png" alt=""><p>' + dataAt.title + '</p></div>'
         }
