@@ -607,7 +607,11 @@ $('.addValue').on("click", function(event) {
 //https://www.youtube.com/oembed
 //www.youtube.com
 function getDomain(url) {
-    return hostName.substring(hostName.lastIndexOf(".", hostName.lastIndexOf(".") - 1) + 1);;
+    var url = new URL(url);
+
+    const hostnameArray = url.hostname.split('.')
+    const numberOfSubdomains = hostnameArray.length - 2
+    return hostnameArray.length === 2 ? url.hostname : hostnameArray.slice(numberOfSubdomains).join('.')
 }
 
 
