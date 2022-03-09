@@ -1204,8 +1204,8 @@ function pushVideo(data) {
     // alert(videoId)
     if (videoId == '') {
         //get path and domain
-        data.url = data.url.match(new RegExp("[^?]+"))
-        data.url = data.url[0]
+        // data.url = data.url.match(new RegExp("[^?]+"))
+        // data.url = data.url[0]
     }
     videoRef = dbRef.ref('videos/' + user_ID)
 
@@ -1221,20 +1221,27 @@ function pushVideo(data) {
 }
 
 function YouTubeGetID(url) {
-    let domain = getDomain(url);
-    if (domain.host != 'youtube.com') {
-        return '';
-    }
 
-    var ID = '';
-    url = url.replace(/(>|<)/gi, '').split(/(vi\/|v=|\/v\/|youtu\.be\/|\/embed\/)/);
-    if (url[2] !== undefined) {
-        ID = url[2].split(/[^0-9a-z_\-]/i);
-        ID = ID[0];
-    } else {
-        ID = '';
+    if (url.lastIndexOf('youtube') >= 0) {
+        let regex = /(youtu.*be.*)\/(watch\?v=|embed\/|v|shorts|)(.*?((?=[&#?])|$))/gm;
+        return regex.exec(url)[3];
     }
-    return ID;
+    return '';
+    // let domain = getDomain(url);
+    // if (doain.hostm != 'youtube.com') {
+    //     return '';
+    // }
+
+
+    // var ID = '';
+    // url = url.replace(/(>|<)/gi, '').split(/(vi\/|v=|\/v\/|youtu\.be\/|\/embed\/)/);
+    // if (url[2] !== undefined) {
+    //     ID = url[2].split(/[^0-9a-z_\-]/i);
+    //     ID = ID[0];
+    // } else {
+    //     ID = '';
+    // }
+    // return ID;
 }
 
 var lastTimePhoto = ''
@@ -1274,6 +1281,7 @@ function getListVideo() {
         // console.log(snapshot.val());
         // return;
         allVideo = snapshot.val()
+            // console.log(allVideo)
         var newObjectSort = sortDescObj(allVideo, 'time')
         var str = buildListVideo(newObjectSort)
         $('#video .list-image').html(str);

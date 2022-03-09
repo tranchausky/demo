@@ -39,11 +39,22 @@
     float: right;
     cursor: move;
 }
-.drag-list .drag-area.selected{
+
+.drag-list .drag-area.selected {
     background: rgb(74 99 84);
 }
 
-.title-select-swot{
+.title-select-swot {
     font-weight: bold;
     font-style: italic;
+}
+
+.list-category-note .move {
+    display: inline-block;
+    background: rgb(158, 211, 179);
+    width: 60px;
+    height: 24px;
+    vertical-align: top;
+    float: right;
+    cursor: move;
 }

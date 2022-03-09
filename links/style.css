@@ -47,6 +47,14 @@
     margin-top: 5px;
 }
 
+.btn-up-down {
+    margin-top: -2px !important;
+    float: right;
+    padding: 1px 4px 1px 4px;
+    margin-left: 5px;
+    font-size: 13px;
+}
+
 .list-todo-completed .list-group {
     max-height: 300px;
     overflow: auto;
