@@ -349,6 +349,9 @@ function updateNotePost(dataIn) {
 //1111
 function event1_add() {
     var answer = prompt('Add Category?', 'New category');
+    if (answer == null) {
+        return;
+    }
     var data = {};
     data.title = answer;
     data.order = $('.list-category-note li').length + 1
