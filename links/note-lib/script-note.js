@@ -536,9 +536,20 @@ function event2_delete() {
 function event2_at() {
     var data = {};
     data.atTop = idPost_selected;
-    updateNoteCategory(data);
-    var idCat = idCategory_selected;
-    listCategoryNote[idCat]['atTop'] = idPost_selected;
+
+    if (listCategoryNote[idCategory_selected]['atTop'] == idPost_selected) {
+        var data1 = {};
+        data1.atTop = "";
+        updateNoteCategory(data1);
+        listCategoryNote[idCategory_selected]['atTop'] = "";
+        // $('.split-1 .list li').removeClass('booked');
+        //return;
+    } else {
+        updateNoteCategory(data);
+        var idCat = idCategory_selected;
+        listCategoryNote[idCat]['atTop'] = idPost_selected;
+    }
+
     reload_list_title()
 
 }
