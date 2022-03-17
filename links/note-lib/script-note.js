@@ -77,6 +77,7 @@ const editorText = KothingEditor.create("editor", {
 */
 
 
+//https://www.sceditor.com/documentation/options/
 var editor_note_show = document.getElementById('editor_note_show');
 sceditor.create(editor_note_show, {
     format: 'bbcode',
