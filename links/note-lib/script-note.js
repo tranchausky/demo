@@ -31,6 +31,7 @@ Split(['#split-0', '#split-1', '#split-2'], {
 
 var last_select_note_cat = 0;
 
+/*
 const editorText = KothingEditor.create("editor", {
     display: "block",
     width: "100%",
@@ -72,6 +73,17 @@ const editorText = KothingEditor.create("editor", {
         },
     ],
     charCounter: true,
+});
+*/
+
+
+var editor_note_show = document.getElementById('editor_note_show');
+sceditor.create(editor_note_show, {
+    format: 'bbcode',
+    icons: 'monocons',
+    style: 'minified/themes/content/default.min.css',
+    width: "100%",
+    height: "99%",
 });
 
 function getListNotes() {
@@ -220,7 +232,10 @@ function getNotePost(dataId, at) {
             // console.log("Document data:", doc.data());
             var docData = doc.data();
             //$('#kothing-editor_editor .kothing-editor-editable').html(docData.contentPost);
-            editorText.setContents(docData.contentPost);
+            //editorText.setContents(docData.contentPost);
+
+            let editorSet = sceditor.instance(editor_note_show);
+            editorSet.setWysiwygEditorValue(docData.contentPost)
 
             $(at).html(docData.titlePost);
 
@@ -580,7 +595,11 @@ function event3_save() {
     $('#footer3-1').html('saving...');
     hideShowLoadingEditor(1);
     var data = {};
-    var str = $('#kothing-editor_editor .kothing-editor-editable').html();
+    //var str = $('#kothing-editor_editor .kothing-editor-editable').html();
+
+    let edirotObj = sceditor.instance(editor_note_show);
+    var str = edirotObj.getBody().innerHTML
+
     data.contentPost = str;
     updateNotePost(data);
 }
