@@ -68,9 +68,20 @@
     padding-left: 31px;
 }
 
+.list-image div img {
+    max-height: 90px;
+}
+
+.video .list-image {
+    max-height: 900px;
+    overflow: auto;
+}
+
 .list-image div {
     padding-top: 4px;
     padding-bottom: 4px;
+    height: 100px;
+    overflow: hidden;
 }
 
 .img-thumbnail.hiden {
