@@ -73,7 +73,7 @@
 }
 
 .video .list-image {
-    max-height: 900px;
+    max-height: calc(100vh - 400px);
     overflow: auto;
 }
 
