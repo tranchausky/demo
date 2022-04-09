@@ -131,3 +131,30 @@
 .at-task label {
     word-break: break-all;
 }
+
+.footer {
+    font-size: 11px;
+}
+
+.footer span {
+    padding-top: 5px;
+    display: inline-block;
+}
+
+.sceditor-group .sceditor-button-print,
+.sceditor-group .sceditor-button-email,
+.sceditor-group .sceditor-button-cut,
+.sceditor-group .sceditor-button-copy,
+.sceditor-group .sceditor-button-pastetext,
+.sceditor-group .sceditor-button-subscript,
+.sceditor-group .sceditor-button-superscript,
+.sceditor-group .sceditor-button-ltr,
+.sceditor-group .sceditor-button-rtl {
+    display: none;
+}
+
+@media only screen and (max-width: 600px) {
+    .sceditor-toolbar div.sceditor-group {
+        display: contents;
+    }
+}

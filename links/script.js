@@ -509,7 +509,8 @@ function loadData() {
     contactsRef = dbRef.ref('contacts/' + user_ID)
         // ".indexOn": ["time"],
         // contactsRef.orderByChild('time').limitToFirst(6).startAt(1609037750431).on("child_added", function(snap) {
-    contactsRef.orderByChild('time').on("value", function(snapshot) {
+    var maxSize = 20;
+    contactsRef.orderByChild('time').limitToFirst(maxSize).on("value", function(snapshot) {
 
         allContacts = snapshot.val()
         var newObjectSort = sortDescObj(allContacts, 'time')
@@ -632,6 +633,15 @@ $('#video-input').on("focusout", function(event) {
 $('.addVideo').on("click", function(event) {
     event.preventDefault();
     if ($('#video-input').val() != '') {
+        var linkvideo = $('#video-input').val();
+
+        var fullvideo = allVideo;
+        var is_result = checkSameVideoOld(linkvideo, fullvideo);
+        if (is_result === false) {
+            alert('Duplicate added video!');
+            return;
+        }
+
         var data = {};
         data.url = $('#video-input').val();
         data.title = $('#video-input-title').val();
@@ -642,6 +652,15 @@ $('.addVideo').on("click", function(event) {
     }
 });
 
+function checkSameVideoOld(atVideo, allVideo) {
+    const result = Object.values(allVideo).filter(value => {
+        return value.url === atVideo;
+    });
+    if (result.length > 0) {
+        return false;
+    }
+    return true;
+}
 
 function addCalendar() {
 
