@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="vi" prefix="og: https://ogp.me/ns#">
+
+<head>
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-TileImage" content="https://danhngonvn.com/wp-content/themes/my-theme/icon/ms-icon-144x144.png">
+    <meta name="theme-color" content="#ffffff">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script type="text/javascript">
+        var glb_root = 'https://danhngonvn.com';
+    </script>
+    <title>Trái Phải DanhNgonVN</title>
+    <meta name="description" content="Danhngon vn, dnvn,danhngonvietnam, danh ngon viet nam" />
+    <script src='dist/js-left-right/jquery.min.js' type="text/javascript"></script>
+    <!-- <script src='https://danhngonvn.com/wp-includes/js/jquery/jquery.min.js'></script> -->
+
+</head>
+
+<body data-rsssl=1>
+    <div class="demo">
+        <div class="demo__content">
+            <div class="demo__card-cont" id="contents">
+            </div>
+        </div>
+    </div>
+    <script>
+        const infor = localStorage.getItem('data_left_right');
+        console.log(infor)
+            // var line = infor.split('\n')
+            // console.log(infor)
+            // console.log(line)
+            // var infor = `Có láng giềng tốt sẽ có những tháng này yên lành.\nTại sao bạn ở trong ngục tù khi mà cánh cửa ngục quá rộng?\nKhi bạn bắt đầu bước đi, con đường sẽ ra.`
+    </script>
+    <script>
+        if (typeof(listBook) !== "undefined" && listBook !== null) {
+            infor = listBook;
+        }
+    </script>
+    <script src="dist/js-left-right/righ-left-mini.js"></script>
+    <style>
+        *,
+        *:before,
+        *:after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        html,
+        body {
+            font-size: 62.5%;
+        }
+        
+        body {
+            background: #63bdf7;
+            overflow: hidden;
+        }
+        
+        .demo {
+            /* position: absolute; */
+            /* left: 50%; */
+            /* top: 50%; */
+            /* width: 30.6rem; */
+            max-width: 450px;
+            width: 100%;
+            /* height: 54rem; */
+            height: 100vh;
+            /* margin-left: -15.3rem; */
+            /* margin-top: -27rem; */
+            margin: auto;
+            background: #f6f6f5;
+            box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.2);
+        }
+        
+        .demo__header {
+            height: 6rem;
+            background: #002942;
+        }
+        /* width */
+        
+         ::-webkit-scrollbar {
+            width: 10px;
+        }
+        /* Track */
+        
+         ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        /* Handle */
+        
+         ::-webkit-scrollbar-thumb {
+            background: #888;
+        }
+        /* Handle on hover */
+        
+         ::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+        
+        .demo__content {
+            overflow: hidden;
+            position: relative;
+            height: 100%;
+            /* height: 48rem; */
+            /* padding-top: 4.5rem; */
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+        
+        .demo__card-cont {
+            position: relative;
+            /* width: 24rem; */
+            /* height: 32rem; */
+            width: 100%;
+            height: 100%;
+            margin: 0 auto 5rem;
+        }
+        
+        .demo__card {
+            z-index: 2;
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            transform-origin: 50% 100%;
+            background: #795548;
+        }
+        
+        .demo__card.reset {
+            transition: transform 0.3s;
+            transform: translateX(0) !important;
+        }
+        
+        .demo__card.reset .demo__card__choice {
+            transition: opacity 0.3s;
+            opacity: 0 !important;
+        }
+        
+        .demo__card.inactive {
+            transition: transform 0.3s;
+        }
+        
+        .demo__card.to-left {
+            transform: translateX(-30rem) rotate(-30deg) !important;
+        }
+        
+        .demo__card.to-right {
+            transform: translate(30rem) rotate(30deg) !important;
+        }
+        
+        .demo__card.below {
+            z-index: 1;
+        }
+        
+        .demo__card__top {
+            height: 20.5rem;
+            /* padding-top: 4rem; */
+        }
+        
+        .demo__card__top.purple {
+            background: #7132b9;
+        }
+        
+        .demo__card__top.blue {
+            background: #248cb6;
+        }
+        
+        .demo__card__top.indigo {
+            background: #303f9f;
+        }
+        
+        .demo__card__top.cyan {
+            background: #26c6da;
+        }
+        
+        .demo__card__top.lime {
+            background: #afb42b;
+        }
+        
+        .demo__card__top.brown {
+            background: #795548;
+        }
+        
+        .demo__card__img {
+            overflow: hidden;
+            width: 100%;
+            height: 100vh;
+            margin: 0 auto 1.5rem;
+            border: 0.5rem solid #ffffff;
+            background-size: cover;
+        }
+        
+        .demo__card__name {
+            text-align: center;
+            font-size: 2rem;
+            font-weight: bold;
+            color: #fff;
+        }
+        
+        .demo__card__btm {
+            /* height: 11.5rem; */
+            height: calc(100vh - 20.5rem);
+            /* background: #ffffff; */
+        }
+        
+        .demo__card__we {
+            text-align: center;
+            font-size: 2.2rem;
+            line-height: 3.5rem;
+            padding: 10px;
+            padding-top: 30px;
+            background: #4caf50b0;
+            z-index: 23444;
+            position: relative;
+            width: 90%;
+            margin: auto;
+            border-radius: 17px;
+            color: white;
+            overflow: auto;
+            max-height: 62vh;
+            border-radius: 34px 2px 34px 2px;
+        }
+        
+        img.avatar {
+            height: 100%;
+            width: 100%;
+            object-fit: cover;
+        }
+        
+        .demo__card__choice {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+        }
+        
+        .demo__card__choice:before {
+            content: "";
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            width: 2rem;
+            height: 2rem;
+            margin-left: -1rem;
+            color: #fff;
+            border-radius: 50%;
+            box-shadow: -2rem -3rem #fff, 2rem -3rem #fff;
+        }
+        
+        .demo__card__choice:after {
+            content: "";
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            width: 4rem;
+            height: 1.5rem;
+            margin-left: -2rem;
+            border: 0.6rem solid #fff;
+            border-bottom: none;
+            border-top-left-radius: 1.5rem;
+            border-top-right-radius: 1.5rem;
+        }
+        
+        .demo__card__choice.m--reject {
+            background: #ff945a;
+        }
+        
+        .demo__card__choice.m--like {
+            background: #b1da96;
+        }
+        
+        .demo__card__choice.m--like:after {
+            transform: scaleY(-1);
+        }
+        
+        .demo__card__drag {
+            z-index: 5;
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            cursor: -webkit-grab;
+            cursor: grab;
+        }
+        
+        .demo__tip {
+            text-align: center;
+            font-size: 2.2rem;
+        }
+    </style>
+</body>
+
+</html>

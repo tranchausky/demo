@@ -606,6 +606,22 @@ function event3_save() {
     updateNotePost(data);
 }
 
+function event3_view() {
+    let edirotObj = sceditor.instance(editor_note_show);
+    var content = edirotObj.getBody().innerHTML
+    var content1 = edirotObj.getBody().innerText
+        // console.log(content)
+        // console.log(content1)
+    buildLeftRight(content1)
+}
+
+function buildLeftRight(strData) {
+
+    localStorage.setItem('data_left_right', strData);
+    window.open("view.html");
+
+}
+
 function setTotalFooter2(num) {
     $('#split-1 .footer .footer-sp-right').html(num);
 }
