@@ -1,199 +1,958 @@
-
-<!DOCTYPE html><!--
+<!DOCTYPE html>
+<!--
 scripts and programs that download content transparent to the user are not allowed without permission
---><html lang=en><head><meta http-equiv=Content-Type content="text/html; charset=utf-8"><title>Online Timer</title><meta name=description content="Timer online with alarm. Create one or multiple timers and start them in any order. Set a silent timer clock or choose a sound."><meta property="og:description" content="Timer online with alarm. Create one or multiple timers and start them in any order."><meta property="og:type" content=website>
-<style>
-@font-face {
-font-family : iconfont;
-src : url("common/fonts/iconfont.woff2?v8") format("woff2"), url("common/fonts/iconfont.woff?v8") format("woff"), url("common/fonts/iconfont.ttf?v8") format("truetype"), url("common/fonts/iconfont.svg?v8#iconfont") format("svg");
-font-weight : 400;
-font-style : normal;
-}
-</style>
+-->
+<html lang=en>
+
+<head>
+    <meta http-equiv=Content-Type content="text/html; charset=utf-8">
+    <title>Online Timer</title>
+    <meta name=description content="Timer online with alarm. Create one or multiple timers and start them in any order. Set a silent timer clock or choose a sound.">
+    <meta property="og:description" content="Timer online with alarm. Create one or multiple timers and start them in any order.">
+    <meta property="og:type" content=website>
+    <style>
+        @font-face {
+            font-family: iconfont;
+            src: url("common/fonts/iconfont.woff2") format("woff2"), url("common/fonts/iconfont.woff") format("woff"), url("common/fonts/iconfont.ttf") format("truetype"), url("common/fonts/iconfont.svg") format("svg");
+            font-weight: 400;
+            font-style: normal;
+        }
+        
+        .i-font {
+            speak: none;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            font-family: iconfont!important;
+            font-style: normal;
+            font-variant: normal;
+            font-weight: inherit;
+            line-height: 1;
+            text-transform: none;
+        }
+    </style>
 
 
-<script>
+    <script>
+        AdMgr = (function() {
+            var isLog = 0,
+                isSent = 0;
 
-AdMgr = (function () {
-    var isLog = 0,
-        isSent = 0;
-    function logAds() {
-        if (isLog) {
-            return;
-        }
-        if (!window.jcb || !window.TADhba) {
-            setTimeout(logAds, 1000);
-            return;
-        }
-        isLog = 1;
-        jcb("/scripts/logads.php?d=d" + "&" + TADhba(), function () {});
-    }
-    AD = { s: [], o: 0 };
-    googletag = window.googletag || {};
-    googletag.cmd = googletag.cmd || [];
-    function push(f) {
-        googletag.cmd.push(f);
-    }
-    function setTargeting(n, v) {
-        if (v) {
-            push(function () {
-                googletag.pubads().setTargeting(n, v);
-            });
-        }
-    }
-    function send() {
-        if (isSent) return;
-        isSent = true;
-        setTargeting("pbv", window.pbv);
-        push(function () {
-            googletag.enableServices();
-            googletag.pubads().refresh(AD.s);
-        });
-    }
-    function rendered() {
-        setTimeout(logAds, 1000);
-    }
-    function bI(i) {
-        delete b[i];
-        if (Object.keys(b).length == 0) {
-            sendAdserverRequest();
-        }
-    }
-    push(function () {
-        googletag.pubads().disableInitialLoad();
-        googletag.pubads().addEventListener("slotRenderEnded", rendered);
-    });
-    var b = { pb: 1, aps: 1 };
-    return { bidsIn: bI, push: push, setTargeting: setTargeting, send: send, rendered: rendered };
-})();
-var pbjs = pbjs || {};
-pbjs.que = pbjs.que || [];
-
-function cmpEvent(t, s) {
-    if (s) {
-        let e = t.eventStatus;
-        if (e == "useractioncomplete" || e == "tcloaded") {
-            if (t.purpose.consents[4]) {
-                consentDataReady();
-            } else {
-                sendAdserverRequest();
+            function logAds() {
+                if (isLog) {
+                    return;
+                }
+                if (!window.jcb || !window.TADhba) {
+                    setTimeout(logAds, 1000);
+                    return;
+                }
+                isLog = 1;
+                jcb("/scripts/logads.php?d=d" + "&" + TADhba(), function() {});
             }
-        }
-    }
-}
-function consentDataReady() {
-    consentDataReady = function () {};
-    pbjs.que.push(function () {
-        pbjs.addAdUnits([
-            {
-                code: "div-gpt-com-728x90",
-                mediaTypes: { banner: { sizes: [[728, 90]] } },
-                bids: [
-                    { bidder: "aol", params: { dcn: "8a96958f01707087f9589c40e2820046", pos: "728x90_atf" } },
-                    { bidder: "appnexus", params: { placementId: 11439172 } },
-                    { bidder: "ix", params: { siteId: "189917", size: [728, 90] } },
-                    { bidder: "medianet", params: { cid: "8CU692DPW", crid: "680365832" } },
-                    { bidder: "pubmatic", params: { adSlot: "com728@728x90", publisherId: "157610" } },
-                    { bidder: "rubicon", params: { accountId: "16448", siteId: "127484", zoneId: "601634" } },
-                    { bidder: "triplelift", params: { inventoryCode: "TimeAndDate_com_728x90" } },
-                ],
-            },
-            {
-                code: "div-gpt-com-160x600",
-                mediaTypes: { banner: { sizes: [[160, 600]] } },
-                bids: [
-                    { bidder: "aol", params: { dcn: "8a96958f01707087f9589c40e2820046", pos: "160x600_atf" } },
-                    { bidder: "appnexus", params: { placementId: 11439179 } },
-                    { bidder: "ix", params: { siteId: "281963", size: [160, 600] } },
-                    { bidder: "medianet", params: { cid: "8CU692DPW", crid: "842241810" } },
-                    { bidder: "pubmatic", params: { adSlot: "com_160@160x600", publisherId: "157610" } },
-                    { bidder: "rubicon", params: { accountId: "16448", siteId: "127484", zoneId: "601642" } },
-                    { bidder: "triplelift", params: { inventoryCode: "TimeAndDate_com_160x600" } },
-                ],
-            },
-        ]);
-        pbjs.requestBids({
-            bidsBackHandler: function () {
-                var c = 0,
-                    a,
-                    b,
-                    i,
-                    r = pbjs.getBidResponses();
-                pbjs.setTargetingForGPTAsync();
-                for (a in r) {
-                    if (r.hasOwnProperty(a)) {
-                        b = r[a].bids;
-                        for (i = 0; i < b.length; i++) {
-                            if (b[i].cpm) {
-                                c++;
-                            }
-                        }
+            AD = {
+                s: [],
+                o: 0
+            };
+            googletag = window.googletag || {};
+            googletag.cmd = googletag.cmd || [];
+
+            function push(f) {
+                googletag.cmd.push(f);
+            }
+
+            function setTargeting(n, v) {
+                if (v) {
+                    push(function() {
+                        googletag.pubads().setTargeting(n, v);
+                    });
+                }
+            }
+
+            function send() {
+                if (isSent) return;
+                isSent = true;
+                setTargeting("pbv", window.pbv);
+                push(function() {
+                    googletag.enableServices();
+                    googletag.pubads().refresh(AD.s);
+                });
+            }
+
+            function rendered() {
+                setTimeout(logAds, 1000);
+            }
+
+            function bI(i) {
+                delete b[i];
+                if (Object.keys(b).length == 0) {
+                    sendAdserverRequest();
+                }
+            }
+            push(function() {
+                googletag.pubads().disableInitialLoad();
+                googletag.pubads().addEventListener("slotRenderEnded", rendered);
+            });
+            var b = {
+                pb: 1,
+                aps: 1
+            };
+            return {
+                bidsIn: bI,
+                push: push,
+                setTargeting: setTargeting,
+                send: send,
+                rendered: rendered
+            };
+        })();
+        var pbjs = pbjs || {};
+        pbjs.que = pbjs.que || [];
+
+        function cmpEvent(t, s) {
+            if (s) {
+                let e = t.eventStatus;
+                if (e == "useractioncomplete" || e == "tcloaded") {
+                    if (t.purpose.consents[4]) {
+                        consentDataReady();
+                    } else {
+                        sendAdserverRequest();
                     }
                 }
-                AdMgr.setTargeting("tadbid", "" + c);
-                AdMgr.bidsIn("pb");
-            },
-        });
-    });
-    TADaps.t = +new Date();
-    apstag.fetchBids(
-        {
-            slots: [
-                { slotID: "div-gpt-com-728x90", slotName: "/1004254/com728", sizes: [[728, 90]] },
-                { slotID: "div-gpt-com-160x600", slotName: "/1004254/com_160", sizes: [[160, 600]] },
-            ],
-            timeout: 2e3,
-        },
-        function (bids) {
-            AdMgr.push(function () {
-                TADaps.e = +new Date();
-                apstag.setDisplayBids();
-                AD.s.forEach(function (o) {
-                    let c = 0,
-                        z = o.getTargeting("amznbid");
-                    if (z && z.length > 0) {
-                        c = z[0];
-                    }
-                    TADaps.b.push(c);
-                });
-                AdMgr.bidsIn("aps");
-            });
+            }
         }
-    );
-}
-pbjs.que.push(function () {
-    pbjs.setConfig({
-        debug: false,
-        priceGranularity: {
-            buckets: [
-                { min: 0, max: 4, increment: 0.01 },
-                { min: 4, max: 8, increment: 0.02 },
-                { min: 8, max: 20, increment: 0.05 },
-                { min: 20, max: 30, increment: 0.1 },
-                { min: 30, max: 50, increment: 0.25 },
-                { min: 50, max: 100, increment: 1 },
-            ],
-        },
-        enableSendAllBids: true,
-        bidderTimeout: 1117,
-        publisherDomain: "https://demo.03way.net",
-        pageUrl: "https://demo.03way.net/timedown/",
-    });
-    consentDataReady();
-});
 
-</script>
-<script src="common/prebidtad.top.desk_97.js" async></script>
+        function consentDataReady() {
+            consentDataReady = function() {};
+            pbjs.que.push(function() {
+                pbjs.addAdUnits([{
+                    code: "div-gpt-com-728x90",
+                    mediaTypes: {
+                        banner: {
+                            sizes: [
+                                [728, 90]
+                            ]
+                        }
+                    },
+                    bids: [{
+                        bidder: "aol",
+                        params: {
+                            dcn: "8a96958f01707087f9589c40e2820046",
+                            pos: "728x90_atf"
+                        }
+                    }, {
+                        bidder: "appnexus",
+                        params: {
+                            placementId: 11439172
+                        }
+                    }, {
+                        bidder: "ix",
+                        params: {
+                            siteId: "189917",
+                            size: [728, 90]
+                        }
+                    }, {
+                        bidder: "medianet",
+                        params: {
+                            cid: "8CU692DPW",
+                            crid: "680365832"
+                        }
+                    }, {
+                        bidder: "pubmatic",
+                        params: {
+                            adSlot: "com728@728x90",
+                            publisherId: "157610"
+                        }
+                    }, {
+                        bidder: "rubicon",
+                        params: {
+                            accountId: "16448",
+                            siteId: "127484",
+                            zoneId: "601634"
+                        }
+                    }, {
+                        bidder: "triplelift",
+                        params: {
+                            inventoryCode: "TimeAndDate_com_728x90"
+                        }
+                    }, ],
+                }, {
+                    code: "div-gpt-com-160x600",
+                    mediaTypes: {
+                        banner: {
+                            sizes: [
+                                [160, 600]
+                            ]
+                        }
+                    },
+                    bids: [{
+                        bidder: "aol",
+                        params: {
+                            dcn: "8a96958f01707087f9589c40e2820046",
+                            pos: "160x600_atf"
+                        }
+                    }, {
+                        bidder: "appnexus",
+                        params: {
+                            placementId: 11439179
+                        }
+                    }, {
+                        bidder: "ix",
+                        params: {
+                            siteId: "281963",
+                            size: [160, 600]
+                        }
+                    }, {
+                        bidder: "medianet",
+                        params: {
+                            cid: "8CU692DPW",
+                            crid: "842241810"
+                        }
+                    }, {
+                        bidder: "pubmatic",
+                        params: {
+                            adSlot: "com_160@160x600",
+                            publisherId: "157610"
+                        }
+                    }, {
+                        bidder: "rubicon",
+                        params: {
+                            accountId: "16448",
+                            siteId: "127484",
+                            zoneId: "601642"
+                        }
+                    }, {
+                        bidder: "triplelift",
+                        params: {
+                            inventoryCode: "TimeAndDate_com_160x600"
+                        }
+                    }, ],
+                }, ]);
+                pbjs.requestBids({
+                    bidsBackHandler: function() {
+                        var c = 0,
+                            a,
+                            b,
+                            i,
+                            r = pbjs.getBidResponses();
+                        pbjs.setTargetingForGPTAsync();
+                        for (a in r) {
+                            if (r.hasOwnProperty(a)) {
+                                b = r[a].bids;
+                                for (i = 0; i < b.length; i++) {
+                                    if (b[i].cpm) {
+                                        c++;
+                                    }
+                                }
+                            }
+                        }
+                        AdMgr.setTargeting("tadbid", "" + c);
+                        AdMgr.bidsIn("pb");
+                    },
+                });
+            });
+            TADaps.t = +new Date();
+            apstag.fetchBids({
+                    slots: [{
+                        slotID: "div-gpt-com-728x90",
+                        slotName: "/1004254/com728",
+                        sizes: [
+                            [728, 90]
+                        ]
+                    }, {
+                        slotID: "div-gpt-com-160x600",
+                        slotName: "/1004254/com_160",
+                        sizes: [
+                            [160, 600]
+                        ]
+                    }, ],
+                    timeout: 2e3,
+                },
+                function(bids) {
+                    AdMgr.push(function() {
+                        TADaps.e = +new Date();
+                        apstag.setDisplayBids();
+                        AD.s.forEach(function(o) {
+                            let c = 0,
+                                z = o.getTargeting("amznbid");
+                            if (z && z.length > 0) {
+                                c = z[0];
+                            }
+                            TADaps.b.push(c);
+                        });
+                        AdMgr.bidsIn("aps");
+                    });
+                }
+            );
+        }
+        pbjs.que.push(function() {
+            pbjs.setConfig({
+                debug: false,
+                priceGranularity: {
+                    buckets: [{
+                        min: 0,
+                        max: 4,
+                        increment: 0.01
+                    }, {
+                        min: 4,
+                        max: 8,
+                        increment: 0.02
+                    }, {
+                        min: 8,
+                        max: 20,
+                        increment: 0.05
+                    }, {
+                        min: 20,
+                        max: 30,
+                        increment: 0.1
+                    }, {
+                        min: 30,
+                        max: 50,
+                        increment: 0.25
+                    }, {
+                        min: 50,
+                        max: 100,
+                        increment: 1
+                    }, ],
+                },
+                enableSendAllBids: true,
+                bidderTimeout: 1117,
+                publisherDomain: "https://demo.03way.net",
+                pageUrl: "https://demo.03way.net/timedown/",
+            });
+            consentDataReady();
+        });
+    </script>
+    <script src="common/prebidtad.top.desk_97.js" async></script>
 
-<link rel=icon href="/favicon-48x48.png" type="image/png" sizes=48x48><link href="/favicon-16x16.png" type="image/png" sizes=16x16 rel=icon><link href="/favicon-32x32.png" type="image/png" sizes=32x32 rel=icon><link rel=stylesheet href="common/global_11.css.br" type="text/css"><style>@keyframes fadeInLeftBig{0%{opacity:0;transform:translateX(-200px)}to{opacity:1;transform:translateX(0)}}.nav-tabs{display:flex;flex-direction:row;flex-wrap:nowrap;font-size:18px;position:relative}@media only screen and (max-width:37.438em){.nav-tabs{animation-delay:.3s;animation-duration:1.5s;animation-fill-mode:both;animation-name:fadeInLeftBig;animation-timing-function:ease-out}}.nav-tabs__wrap{box-shadow:inset 0 -5px 0 #f1f1f1}@media only screen and (max-width:64em){.nav-tabs__wrap{margin:0 6px;overflow-x:auto}.nav-tabs__wrap .fixed{padding-left:0}}.nav-tabs__item{border-bottom:5px solid #f1f1f1;display:block;margin:0 24px;padding:6px 0;text-decoration:none!important;white-space:nowrap}.nav-tabs__item:first-child{margin-left:0;padding-left:0}.nav-tabs__item:hover{border-bottom:5px solid #ccc;color:#556bb5;transition:all .25s ease 0s}.nav-tabs__item.active{border-bottom:5px solid #4a90e2;color:#454545;cursor:default}@media only screen and (max-width:37.438em){.nav-tabs__item{margin:0 12px}}@keyframes fadeInDown{0%{opacity:0;transform:translateY(-20px)}to{opacity:1;transform:translateY(0)}}.fadeInDown{animation-duration:1s;animation-fill-mode:both;animation-name:fadeInDown}@keyframes fadeIn{0%{opacity:0}to{opacity:1}}.fadeIn{animation-duration:1s;animation-fill-mode:both;animation-name:fadeIn}@keyframes fadeInUp{0%{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}.fadeInUp{animation-duration:1s;animation-fill-mode:both;animation-name:fadeInUp}@keyframes fadeInLeft{0%{opacity:0;transform:translateX(-20px)}to{opacity:1;transform:translateX(0)}}.fadeInLeft{animation-duration:1s;animation-fill-mode:both;animation-name:fadeInLeft}@keyframes fadeInRight{0%{opacity:0;transform:translateX(20px)}to{opacity:1;transform:translateX(0)}}.fadeInRight{animation-duration:1s;animation-fill-mode:both;animation-name:fadeInRight}.promo_tool__i{background:#666;border:2px solid #fff;border-radius:50%;color:#fff!important;display:block;font-size:48px;height:80px;left:0;line-height:80px;margin:0 auto;position:absolute;right:0;top:0;width:80px}.promo_tool__i:hover{text-decoration:none}@media only screen and (max-width:37.438em){.promo_tool__i{top:-40px}}.promo_tool__inner{background:#f5f5f5;margin-top:40px;padding:30px 10px 10px;text-align:center}@media only screen and (min-width:37.5em){.promo_tool__inner{min-height:180px}}.socrow{background:#f1f1f1;height:18px;line-height:18px}.totalTimeLeft{font-size:18px;padding:10px 0;text-align:right}.c-timer,.timerContainer{margin-bottom:24px;position:relative;width:100%}.c-timer{font-size:18px}.c-timer:after{clear:both;content:"";display:table}.c-timer__config{display:block;margin-bottom:24px}.c-timer__footer,.c-timer__title{margin-bottom:12px}.c-timer__footer{font-size:18px}.c-timer__footer:after{clear:both;content:"";display:table}.c-timer__edit-wrap{font-size:14px}.c-timer__edit{color:#556bb5;margin-left:12px}.c-timer__delete{color:#d0021b;opacity:0;position:absolute;right:0}.c-timer:hover .c-timer__delete{opacity:1}.c-timer__drag{font-size:24px;left:0;margin-left:-24px;margin-top:-12px;opacity:0;position:absolute;top:0}.c-timer:hover .c-timer__drag{opacity:1}.c-timer--single .c-timer:hover .c-timer__drag{opacity:0}@media only screen and (max-width:37.438em){.c-timer{font-size:14px}}.c-editModal *{z-index:1050!important}.c-editModal .modal{background-color:transparent;background-color:rgba(0,0,0,.4);z-index:inherit}.c-editModal .modal-body,.c-editModal .modal-content,.c-editModal .modal-footer{z-index:inherit}.sound-test{font-size:18px;margin-left:24px}.progressBar{background-color:#aaa;height:32px;position:relative;width:100%}@media only screen and (max-width:37.438em){.progressBar{height:20px}}.currentProgress{background-color:#17a69d;display:inline-block;float:left;height:32px;position:relative;width:100%}.currentProgress--pause{background-color:#fb647f}.currentProgress--start{background-color:#17a69d}@media only screen and (max-width:37.438em){.currentProgress{height:20px}}.timeCount{color:#000;font-size:48px;margin-bottom:12px;overflow:visible;position:relative;transition:.4s ease-in;white-space:nowrap}.timeCount:after{clear:both;content:"";display:table}@media only screen and (max-width:37.438em){.timeCount{font-size:32px;margin-bottom:6px}}@media only screen and (min-width:64.063em){.c-timer--single .timeCount{font-size:150px}}@media only screen and (max-width:37.438em){.c-timer--single .timeCount{font-size:32px;margin-bottom:6px}}.timeLeft{cursor:pointer;line-height:64px;margin-right:24px}.timeLeft:hover{color:#556bb5}@media only screen and (max-width:37.438em){.timeLeft{line-height:44px}}.timeAfter{color:#fff;font-size:14px;font-style:italic;letter-spacing:.5px;line-height:32px;padding:0 12px}@media only screen and (max-width:37.438em){.timeAfter{font-size:10px;line-height:20px}}.c-timer--done .timeCount{color:#777}.c-timer__btn{border-radius:50%;color:#fff;font-size:14px;height:64px;outline:0;text-align:center;width:64px}.c-timer__btn:hover{background:#000;color:#fff;transition-duration:.5s}.c-timer__btn:disabled{background:#fff!important;border:1px solid #aaa;color:#aaa!important;cursor:not-allowed}.c-timer__btn--start{background-color:#17a69d}.c-timer__btn--pause{background-color:#fb647f}.c-timer__btn--reset{background-color:#4387d0;margin-left:12px}.toolbox--general .c-timer__btn{font-size:18px;height:100px;line-height:100px;width:100px}@media only screen and (min-width:64.063em){.c-timer--single .c-timer__btn{font-size:18px;height:100px;line-height:100px;width:100px}}@media only screen and (max-width:37.438em){.c-timer--single .c-timer__btn,.c-timer__btn{font-size:12px;height:44px;line-height:44px;width:44px}}.inputAdd{background-color:#a9a9a9;padding:5px}.tad-sortable-container{position:relative}.tad-sortable-anchor,.tad-sortable-item{cursor:move}.tad-sortable-anchor-only>.tad-sortable-item,.tad-sortable-fixed{cursor:auto}.tad-sortable-place-holder{visibility:hidden!important;z-index:0}.tad-sortable-item-drag{position:absolute;z-index:9999}.is-dragging .progressBar{box-shadow:0 0 4px #999;z-index:9999}.c-fullScreenButton{color:#556bb5;position:absolute;right:0;top:-16px}.c-fullScreenButton i{font-size:1.5em;line-height:.9em;vertical-align:bottom}.c-countdown.is-dragging{background:#fff;box-shadow:0 0 3px #666;z-index:500}.c-timer .c-countdown .c-timer__btn--pause,.c-timer .c-countdown .c-timer__btn--reset,.c-timer .c-countdown .c-timer__btn--start,.c-timer .c-countdown .toolbox{display:none}.toolbox{display:inline-block;font-size:16px;z-index:200}.toolbox--manual{display:none;vertical-align:middle}.c-timer--single .toolbox--manual,.toolbox--general{display:inline-block}.c-timer--single .toolbox--general{display:none}.c-timer--manualMode .toolbox--general{visibility:hidden}.c-timer--manualMode .toolbox--manual{display:inline-block;visibility:visible}.tool__main{position:relative}.c-timer--fullScreen{background-color:#fff;height:100%;left:0;overflow:auto;padding:0 24px;position:fixed;top:0;width:100%;z-index:1040}.c-timer--fullScreen .c-fullScreenButton{padding:0 24px;top:0;z-index:1041}.c-timer--fullScreen .timerContainer{margin-top:24px}.c-timer--fullScreen #ad300{display:none}.picker_time__input{
-max-width:80px;
-}
-.tool__wrap{
-border-top:0;
-}
-</style><link href="common/tpl_banner_8.css.br" type="text/css" rel=stylesheet></head><body class="tpl-banner  timepage"><div class=main-content-div><script>
-window.TAD=window.TAD||{};TAD.abtest='a';
-</script><main class="tpl-banner__main layout-grid layout-grid--sky"><article class="layout-grid__main tpl-banner__content"><p class=tpl-banner__abstract></p><div style="display: none;" data-bind="visible:true"><script type="text/template" id=tpl-timer><div class="c-timer tad-sortable-item" data-bind="css: {'c-timer--running': $parent.getCountdownState($data) === 'running','c-timer--waiting': $parent.getCountdownState($data) === 'waiting','c-timer--done': $parent.getCountdownState($data) === 'done'}"><div class="timeCount"><span class="timeLeft" data-bind="click: $parent.selectCountdown, text: $parent.formatTime(getTimeLeft(), false)" >00:00:00</span><div class="toolbox toolbox--manual fadeIn"><button type="button" class="c-timer__btn c-timer__btn--start fadeIn" title="Start timer" data-bind="{
+    <link rel=icon href="/favicon-48x48.png" type="image/png" sizes=48x48>
+    <link href="/favicon-16x16.png" type="image/png" sizes=16x16 rel=icon>
+    <link href="/favicon-32x32.png" type="image/png" sizes=32x32 rel=icon>
+    <link rel=stylesheet href="common/global_11.css" type="text/css">
+    <style>
+        @keyframes fadeInLeftBig {
+            0% {
+                opacity: 0;
+                transform: translateX(-200px)
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0)
+            }
+        }
+        
+        .nav-tabs {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: nowrap;
+            font-size: 18px;
+            position: relative
+        }
+        
+        @media only screen and (max-width:37.438em) {
+            .nav-tabs {
+                animation-delay: .3s;
+                animation-duration: 1.5s;
+                animation-fill-mode: both;
+                animation-name: fadeInLeftBig;
+                animation-timing-function: ease-out
+            }
+        }
+        
+        .nav-tabs__wrap {
+            box-shadow: inset 0 -5px 0 #f1f1f1
+        }
+        
+        @media only screen and (max-width:64em) {
+            .nav-tabs__wrap {
+                margin: 0 6px;
+                overflow-x: auto
+            }
+            .nav-tabs__wrap .fixed {
+                padding-left: 0
+            }
+        }
+        
+        .nav-tabs__item {
+            border-bottom: 5px solid #f1f1f1;
+            display: block;
+            margin: 0 24px;
+            padding: 6px 0;
+            text-decoration: none!important;
+            white-space: nowrap
+        }
+        
+        .nav-tabs__item:first-child {
+            margin-left: 0;
+            padding-left: 0
+        }
+        
+        .nav-tabs__item:hover {
+            border-bottom: 5px solid #ccc;
+            color: #556bb5;
+            transition: all .25s ease 0s
+        }
+        
+        .nav-tabs__item.active {
+            border-bottom: 5px solid #4a90e2;
+            color: #454545;
+            cursor: default
+        }
+        
+        @media only screen and (max-width:37.438em) {
+            .nav-tabs__item {
+                margin: 0 12px
+            }
+        }
+        
+        @keyframes fadeInDown {
+            0% {
+                opacity: 0;
+                transform: translateY(-20px)
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0)
+            }
+        }
+        
+        .fadeInDown {
+            animation-duration: 1s;
+            animation-fill-mode: both;
+            animation-name: fadeInDown
+        }
+        
+        @keyframes fadeIn {
+            0% {
+                opacity: 0
+            }
+            to {
+                opacity: 1
+            }
+        }
+        
+        .fadeIn {
+            animation-duration: 1s;
+            animation-fill-mode: both;
+            animation-name: fadeIn
+        }
+        
+        @keyframes fadeInUp {
+            0% {
+                opacity: 0;
+                transform: translateY(20px)
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0)
+            }
+        }
+        
+        .fadeInUp {
+            animation-duration: 1s;
+            animation-fill-mode: both;
+            animation-name: fadeInUp
+        }
+        
+        @keyframes fadeInLeft {
+            0% {
+                opacity: 0;
+                transform: translateX(-20px)
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0)
+            }
+        }
+        
+        .fadeInLeft {
+            animation-duration: 1s;
+            animation-fill-mode: both;
+            animation-name: fadeInLeft
+        }
+        
+        @keyframes fadeInRight {
+            0% {
+                opacity: 0;
+                transform: translateX(20px)
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0)
+            }
+        }
+        
+        .fadeInRight {
+            animation-duration: 1s;
+            animation-fill-mode: both;
+            animation-name: fadeInRight
+        }
+        
+        .promo_tool__i {
+            background: #666;
+            border: 2px solid #fff;
+            border-radius: 50%;
+            color: #fff!important;
+            display: block;
+            font-size: 48px;
+            height: 80px;
+            left: 0;
+            line-height: 80px;
+            margin: 0 auto;
+            position: absolute;
+            right: 0;
+            top: 0;
+            width: 80px
+        }
+        
+        .promo_tool__i:hover {
+            text-decoration: none
+        }
+        
+        @media only screen and (max-width:37.438em) {
+            .promo_tool__i {
+                top: -40px
+            }
+        }
+        
+        .promo_tool__inner {
+            background: #f5f5f5;
+            margin-top: 40px;
+            padding: 30px 10px 10px;
+            text-align: center
+        }
+        
+        @media only screen and (min-width:37.5em) {
+            .promo_tool__inner {
+                min-height: 180px
+            }
+        }
+        
+        .socrow {
+            background: #f1f1f1;
+            height: 18px;
+            line-height: 18px
+        }
+        
+        .totalTimeLeft {
+            font-size: 18px;
+            padding: 10px 0;
+            text-align: right
+        }
+        
+        .c-timer,
+        .timerContainer {
+            margin-bottom: 24px;
+            position: relative;
+            width: 100%
+        }
+        
+        .c-timer {
+            font-size: 18px
+        }
+        
+        .c-timer:after {
+            clear: both;
+            content: "";
+            display: table
+        }
+        
+        .c-timer__config {
+            display: block;
+            margin-bottom: 24px
+        }
+        
+        .c-timer__footer,
+        .c-timer__title {
+            margin-bottom: 12px
+        }
+        
+        .c-timer__footer {
+            font-size: 18px
+        }
+        
+        .c-timer__footer:after {
+            clear: both;
+            content: "";
+            display: table
+        }
+        
+        .c-timer__edit-wrap {
+            font-size: 14px
+        }
+        
+        .c-timer__edit {
+            color: #556bb5;
+            margin-left: 12px
+        }
+        
+        .c-timer__delete {
+            color: #d0021b;
+            opacity: 0;
+            position: absolute;
+            right: 0
+        }
+        
+        .c-timer:hover .c-timer__delete {
+            opacity: 1
+        }
+        
+        .c-timer__drag {
+            font-size: 24px;
+            left: 0;
+            margin-left: -24px;
+            margin-top: -12px;
+            opacity: 0;
+            position: absolute;
+            top: 0
+        }
+        
+        .c-timer:hover .c-timer__drag {
+            opacity: 1
+        }
+        
+        .c-timer--single .c-timer:hover .c-timer__drag {
+            opacity: 0
+        }
+        
+        @media only screen and (max-width:37.438em) {
+            .c-timer {
+                font-size: 14px
+            }
+        }
+        
+        .c-editModal * {
+            z-index: 1050!important
+        }
+        
+        .c-editModal .modal {
+            background-color: transparent;
+            background-color: rgba(0, 0, 0, .4);
+            z-index: inherit
+        }
+        
+        .c-editModal .modal-body,
+        .c-editModal .modal-content,
+        .c-editModal .modal-footer {
+            z-index: inherit
+        }
+        
+        .sound-test {
+            font-size: 18px;
+            margin-left: 24px
+        }
+        
+        .progressBar {
+            background-color: #aaa;
+            height: 32px;
+            position: relative;
+            width: 100%
+        }
+        
+        @media only screen and (max-width:37.438em) {
+            .progressBar {
+                height: 20px
+            }
+        }
+        
+        .currentProgress {
+            background-color: #17a69d;
+            display: inline-block;
+            float: left;
+            height: 32px;
+            position: relative;
+            width: 100%
+        }
+        
+        .currentProgress--pause {
+            background-color: #fb647f
+        }
+        
+        .currentProgress--start {
+            background-color: #17a69d
+        }
+        
+        @media only screen and (max-width:37.438em) {
+            .currentProgress {
+                height: 20px
+            }
+        }
+        
+        .timeCount {
+            color: #000;
+            font-size: 48px;
+            margin-bottom: 12px;
+            overflow: visible;
+            position: relative;
+            transition: .4s ease-in;
+            white-space: nowrap
+        }
+        
+        .timeCount:after {
+            clear: both;
+            content: "";
+            display: table
+        }
+        
+        @media only screen and (max-width:37.438em) {
+            .timeCount {
+                font-size: 32px;
+                margin-bottom: 6px
+            }
+        }
+        
+        @media only screen and (min-width:64.063em) {
+            .c-timer--single .timeCount {
+                font-size: 150px
+            }
+        }
+        
+        @media only screen and (max-width:37.438em) {
+            .c-timer--single .timeCount {
+                font-size: 32px;
+                margin-bottom: 6px
+            }
+        }
+        
+        .timeLeft {
+            cursor: pointer;
+            line-height: 64px;
+            margin-right: 24px
+        }
+        
+        .timeLeft:hover {
+            color: #556bb5
+        }
+        
+        @media only screen and (max-width:37.438em) {
+            .timeLeft {
+                line-height: 44px
+            }
+        }
+        
+        .timeAfter {
+            color: #fff;
+            font-size: 14px;
+            font-style: italic;
+            letter-spacing: .5px;
+            line-height: 32px;
+            padding: 0 12px
+        }
+        
+        @media only screen and (max-width:37.438em) {
+            .timeAfter {
+                font-size: 10px;
+                line-height: 20px
+            }
+        }
+        
+        .c-timer--done .timeCount {
+            color: #777
+        }
+        
+        .c-timer__btn {
+            border-radius: 50%;
+            color: #fff;
+            font-size: 14px;
+            height: 64px;
+            outline: 0;
+            text-align: center;
+            width: 64px
+        }
+        
+        .c-timer__btn:hover {
+            background: #000;
+            color: #fff;
+            transition-duration: .5s
+        }
+        
+        .c-timer__btn:disabled {
+            background: #fff!important;
+            border: 1px solid #aaa;
+            color: #aaa!important;
+            cursor: not-allowed
+        }
+        
+        .c-timer__btn--start {
+            background-color: #17a69d
+        }
+        
+        .c-timer__btn--pause {
+            background-color: #fb647f
+        }
+        
+        .c-timer__btn--reset {
+            background-color: #4387d0;
+            margin-left: 12px
+        }
+        
+        .toolbox--general .c-timer__btn {
+            font-size: 18px;
+            height: 100px;
+            line-height: 100px;
+            width: 100px
+        }
+        
+        @media only screen and (min-width:64.063em) {
+            .c-timer--single .c-timer__btn {
+                font-size: 18px;
+                height: 100px;
+                line-height: 100px;
+                width: 100px
+            }
+        }
+        
+        @media only screen and (max-width:37.438em) {
+            .c-timer--single .c-timer__btn,
+            .c-timer__btn {
+                font-size: 12px;
+                height: 44px;
+                line-height: 44px;
+                width: 44px
+            }
+        }
+        
+        .inputAdd {
+            background-color: #a9a9a9;
+            padding: 5px
+        }
+        
+        .tad-sortable-container {
+            position: relative
+        }
+        
+        .tad-sortable-anchor,
+        .tad-sortable-item {
+            cursor: move
+        }
+        
+        .tad-sortable-anchor-only>.tad-sortable-item,
+        .tad-sortable-fixed {
+            cursor: auto
+        }
+        
+        .tad-sortable-place-holder {
+            visibility: hidden!important;
+            z-index: 0
+        }
+        
+        .tad-sortable-item-drag {
+            position: absolute;
+            z-index: 9999
+        }
+        
+        .is-dragging .progressBar {
+            box-shadow: 0 0 4px #999;
+            z-index: 9999
+        }
+        
+        .c-fullScreenButton {
+            color: #556bb5;
+            position: absolute;
+            right: 0;
+            top: -16px
+        }
+        
+        .c-fullScreenButton i {
+            font-size: 1.5em;
+            line-height: .9em;
+            vertical-align: bottom
+        }
+        
+        .c-countdown.is-dragging {
+            background: #fff;
+            box-shadow: 0 0 3px #666;
+            z-index: 500
+        }
+        
+        .c-timer .c-countdown .c-timer__btn--pause,
+        .c-timer .c-countdown .c-timer__btn--reset,
+        .c-timer .c-countdown .c-timer__btn--start,
+        .c-timer .c-countdown .toolbox {
+            display: none
+        }
+        
+        .toolbox {
+            display: inline-block;
+            font-size: 16px;
+            z-index: 200
+        }
+        
+        .toolbox--manual {
+            display: none;
+            vertical-align: middle
+        }
+        
+        .c-timer--single .toolbox--manual,
+        .toolbox--general {
+            display: inline-block
+        }
+        
+        .c-timer--single .toolbox--general {
+            display: none
+        }
+        
+        .c-timer--manualMode .toolbox--general {
+            visibility: hidden
+        }
+        
+        .c-timer--manualMode .toolbox--manual {
+            display: inline-block;
+            visibility: visible
+        }
+        
+        .tool__main {
+            position: relative
+        }
+        
+        .c-timer--fullScreen {
+            background-color: #fff;
+            height: 100%;
+            left: 0;
+            overflow: auto;
+            padding: 0 24px;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1040
+        }
+        
+        .c-timer--fullScreen .c-fullScreenButton {
+            padding: 0 24px;
+            top: 0;
+            z-index: 1041
+        }
+        
+        .c-timer--fullScreen .timerContainer {
+            margin-top: 24px
+        }
+        
+        .c-timer--fullScreen #ad300 {
+            display: none
+        }
+        
+        .picker_time__input {
+            max-width: 80px;
+        }
+        
+        .tool__wrap {
+            border-top: 0;
+        }
+    </style>
+    <link href="common/tpl_banner_8.css" type="text/css" rel=stylesheet>
+</head>
+
+<body class="tpl-banner  timepage">
+    <div class=main-content-div>
+        <script>
+            window.TAD = window.TAD || {};
+            TAD.abtest = 'a';
+        </script>
+        <main class="tpl-banner__main layout-grid layout-grid--sky">
+            <article class="layout-grid__main tpl-banner__content">
+                <p class=tpl-banner__abstract></p>
+                <div style="display: none;" data-bind="visible:true">
+                    <script type="text/template" id=tpl-timer>
+                        <div class="c-timer tad-sortable-item" data-bind="css: {'c-timer--running': $parent.getCountdownState($data) === 'running','c-timer--waiting': $parent.getCountdownState($data) === 'waiting','c-timer--done': $parent.getCountdownState($data) === 'done'}">
+                            <div class="timeCount"><span class="timeLeft" data-bind="click: $parent.selectCountdown, text: $parent.formatTime(getTimeLeft(), false)">00:00:00</span>
+                                <div class="toolbox toolbox--manual fadeIn"><button type="button" class="c-timer__btn c-timer__btn--start fadeIn" title="Start timer" data-bind="{
 click: startStop.toggle, 
 disable: completedRatio() === 0, 
 css: (status() === 0 ? 'c-timer__btn--pause' : 'c-timer__btn--start'),
@@ -202,22 +961,43 @@ attr: { title: status() === 0 ? 'Stop/pause timer' : 'Start timer' }
 }">Start
 </button><button type="button" class="c-timer__btn c-timer__btn--reset fadeIn" title="Reset and start over" disabled data-bind="{
 click: $parent.resetSingle, 
-enable: (status() === 1) && completedRatio() != 1}">Reset</button></div></div><div class="c-timer__title"><span class="tad-sortable-anchor" data-bind="text: label">&nbsp;</span>
-(<span class="tad-sortable-anchor" data-bind="text: $parent.formatTime(getDuration(), false)">&nbsp;</span>)<span data-bind="if:_alarm.getSound() !== $parent.sounds[0]" class="small soft">,
-&nbsp; <i class="i-font i-sound"> </i><span data-bind="text: _alarm.getSound().name">&nbsp;</span>
-&nbsp;sound
-</span><span class="c-timer__edit-wrap"><button class="c-timer__edit" data-bind="click: $parent.selectCountdown"><i class="i-font i-create"> </i> Edit</button><button class="c-timer__delete" data-bind="{if: $parent.countdowns.list().length > 1 && $parent.getCountdownState($data) !== 'running', click: $parent.countdowns.removeItem } ">Remove <i class="i-font i-close"> </i></button><button class="c-timer__drag tad-sortable-anchor" type="button"><i class="i-font tad-sortable-anchor c-city__drag i-move"> </i></button></span></div><div class="progressBar" title="Progress bar"><div class="currentProgress" data-bind="{
+enable: (status() === 1) && completedRatio() != 1}">Reset</button></div>
+                            </div>
+                            <div class="c-timer__title"><span class="tad-sortable-anchor" data-bind="text: label">&nbsp;</span> (
+                                <span class="tad-sortable-anchor" data-bind="text: $parent.formatTime(getDuration(), false)">&nbsp;</span>)<span data-bind="if:_alarm.getSound() !== $parent.sounds[0]" class="small soft">,
+&nbsp; <i class="i-font i-sound"> </i><span data-bind="text: _alarm.getSound().name">&nbsp;</span> &nbsp;sound
+                                </span><span class="c-timer__edit-wrap"><button class="c-timer__edit" data-bind="click: $parent.selectCountdown"><i class="i-font i-create"> </i> Edit</button><button class="c-timer__delete" data-bind="{if: $parent.countdowns.list().length > 1 && $parent.getCountdownState($data) !== 'running', click: $parent.countdowns.removeItem } ">Remove <i class="i-font i-close"> </i></button><button class="c-timer__drag tad-sortable-anchor" type="button"><i class="i-font tad-sortable-anchor c-city__drag i-move"> </i></button></span></div>
+                            <div class="progressBar" title="Progress bar">
+                                <div class="currentProgress" data-bind="{
 css: (status() === 0 ? 'currentProgress--pause' : 'currentProgress--start'), 
 style: { width: completedRatio() * 100 + '%'}
-}"><span class="timeAfter" data-bind="text: completedRatio() === 1 ? '(not started)' : completedRatio() === 0 ? '(done)' : ''">(done)</span></div></div></div></script><section class="tool__wrap pdflexi"><div class=tool__inner><div class="tool__main pdflexi"><div class=c-timers data-bind="css: {
+}"><span class="timeAfter" data-bind="text: completedRatio() === 1 ? '(not started)' : completedRatio() === 0 ? '(done)' : ''">(done)</span></div>
+                            </div>
+                        </div>
+                    </script>
+                    <section class="tool__wrap pdflexi">
+                        <div class=tool__inner>
+                            <div class="tool__main pdflexi">
+                                <div class=c-timers data-bind="css: {
 'c-timer--single': countdowns.list().length === 1,
 'c-timer--manualMode' : currentMode() == modes.MANUAL,
-'c-timer--fullScreen' : fullScreenMode()}"><button type=button class=c-fullScreenButton data-bind="click: fullScreenToggle"><i class=i-font data-bind="{text:(fullScreenMode() ? '&#xe20d;' : '&#xe20c;')}">&#xe20c;</i><span data-bind="{text:(fullScreenMode() ? 'Exit Fullscreen' : 'Fullscreen')}"></span></button><div class=timerContainer><div class="countdownList tad-sortable-container" data-bind="template: { name: 'tpl-timer', foreach: countdowns.list }" data-tad-options="{ byAnchorOnly:true,
+'c-timer--fullScreen' : fullScreenMode()}"><button type=button class=c-fullScreenButton data-bind="click: fullScreenToggle"><i class=i-font data-bind="{text:(fullScreenMode() ? '&#xe20d;' : '&#xe20c;')}">&#xe20c;</i><span data-bind="{text:(fullScreenMode() ? 'Exit Fullscreen' : 'Fullscreen')}"></span></button>
+                                    <div class=timerContainer>
+                                        <div class="countdownList tad-sortable-container" data-bind="template: { name: 'tpl-timer', foreach: countdowns.list }" data-tad-options="{ byAnchorOnly:true,
 koObservableArray:true,
 callback:vm.moveTo,
-dragClass:'is-dragging'}" data-tad-control=tadSortable></div></div><div class=c-timer__footer><div class="six columns"><a class=c-timer__add href="#" data-bind="click: addCountdown"><i class="i-font i-add"></i> Add another timer</a></div><div class="six columns"><div class=totalTimeLeft> Total: <span data-bind="text: formatTime(totalTime(), false)"></span></div></div></div><!--ko if:countdowns.list().length > 1 --><div class="c-timer__config "><label for=configStart class=inline data-bind="css: {'disabled' : isMainRunning}">Timer order: </label><select id=configStart name=configStart
-class="c-timer__btn--select" 
-data-bind="value: currentMode, disable: isMainRunning"><option value=0>Start all together</option><option value=1>End all together</option><option value=2>Start in sequence</option><option value=3>Manually</option></select></div><!--/ko --><div class="toolbox toolbox--general" ><button type=button class="c-timer__btn c-timer__btn--start fadeIn" title="Start timer" data-bind="{
+dragClass:'is-dragging'}" data-tad-control=tadSortable></div>
+                                    </div>
+                                    <div class=c-timer__footer>
+                                        <div class="six columns"><a class=c-timer__add href="#" data-bind="click: addCountdown"><i class="i-font i-add"></i> Add another timer</a></div>
+                                        <div class="six columns">
+                                            <div class=totalTimeLeft> Total: <span data-bind="text: formatTime(totalTime(), false)"></span></div>
+                                        </div>
+                                    </div>
+                                    <!--ko if:countdowns.list().length > 1 -->
+                                    <div class="c-timer__config "><label for=configStart class=inline data-bind="css: {'disabled' : isMainRunning}">Timer order: </label><select id=configStart name=configStart class="c-timer__btn--select" data-bind="value: currentMode, disable: isMainRunning"><option value=0>Start all together</option><option value=1>End all together</option><option value=2>Start in sequence</option><option value=3>Manually</option></select></div>
+                                    <!--/ko -->
+                                    <div class="toolbox toolbox--general"><button type=button class="c-timer__btn c-timer__btn--start fadeIn" title="Start timer" data-bind="{
 click: startStopToggle, 
 css: (isMainRunning() ? 'c-timer__btn--pause' : 'c-timer__btn--start'), 
 text:(isMainRunning() ? 'Pause' : 'Start'),
@@ -225,30 +1005,64 @@ disable: totalCompletedRatio() >= 1 || currentMode() == modes.MANUAL,
 attr: { title: isMainRunning() ? 'Stop/pause timer' : 'Start timer', }"></button><button type=button class="c-timer__btn c-timer__btn--reset fadeIn" title="Reset and start over" data-bind="{
 click: reset, 
 disable: isMainRunning() || totalCompletedRatio() === 0
-}">Reset</button></div></div></div>
+}">Reset</button></div>
+                                </div>
+                            </div>
 
-</div></section>
+                        </div>
+                    </section>
 
 
-<!--ko if: selected() && selected().isEditing --><aside class=c-editModal ><div class=modal><div class=modal-dialog><div class=modal-content><div class=modal-header><button class=close data-bind="click: selected().toggleEditing()">×</button><h2 class=modal-title>Edit Timer</h2></div><div class=modal-body><div class="form-row large" id=fm-timeset><div class="two fl"><input id=hourInput class=fw type=number data-bind="textInput: selected()._alarm.hours" placeholder=00><label for=hourInput>Hrs</label></div><span class="fld-aid fl">&nbsp;:&nbsp;</span><div class="two fl"><input id=minuteInput class=fw type=number data-bind="textInput: selected()._alarm.minutes" placeholder=00><label for=minuteInput>Mins</label></div><span class="fld-aid fl">&nbsp;:&nbsp;</span><div class="two fl"><input id=secondInput class=fw type=number data-bind="textInput: selected()._alarm.seconds" placeholder=00><label for=secondInput>Secs</label></div></div><hr class=dotted><div class="form-row "><label for=labelInput>Timer Name:</label><input id=labelInput type=text data-bind="textInput: selected().label" placeholder=Timer></div><div class=form-row><label for=alarmInput>Timer End Alarm:</label><select id=alarmInput 
-data-bind="options: sounds, 
+                    <!--ko if: selected() && selected().isEditing -->
+                    <aside class=c-editModal>
+                        <div class=modal>
+                            <div class=modal-dialog>
+                                <div class=modal-content>
+                                    <div class=modal-header><button class=close data-bind="click: selected().toggleEditing()">×</button>
+                                        <h2 class=modal-title>Edit Timer</h2>
+                                    </div>
+                                    <div class=modal-body>
+                                        <div class="form-row large" id=fm-timeset>
+                                            <div class="two fl"><input id=hourInput class=fw type=number data-bind="textInput: selected()._alarm.hours" placeholder=00><label for=hourInput>Hrs</label></div><span class="fld-aid fl">&nbsp;:&nbsp;</span>
+                                            <div class="two fl"><input id=minuteInput class=fw type=number data-bind="textInput: selected()._alarm.minutes" placeholder=00><label for=minuteInput>Mins</label></div><span class="fld-aid fl">&nbsp;:&nbsp;</span>
+                                            <div class="two fl"><input id=secondInput class=fw type=number data-bind="textInput: selected()._alarm.seconds" placeholder=00><label for=secondInput>Secs</label></div>
+                                        </div>
+                                        <hr class=dotted>
+                                        <div class="form-row "><label for=labelInput>Timer Name:</label><input id=labelInput type=text data-bind="textInput: selected().label" placeholder=Timer></div>
+                                        <div class=form-row><label for=alarmInput>Timer End Alarm:</label><select id=alarmInput data-bind="options: sounds, 
 selectedOptions: selected()._alarm.sound, 
 optionsText: 'name', 
-value: selected()._alarm.sound"></select><!--ko if:selected()._alarm.getSound() !== sounds[0] --><span><a href="#" class=sound-test data-bind="click: function(data, event){testSound(selected()._alarm.getSound())}, clickBubble: false"><i class="i-font i-sound"> </i> Soundcheck</a></span><!--/ko --></div></div><div class=modal-footer><!--ko if: countdowns.list().length > 1 --><input type=submit class="red fl" value="Delete timer" data-bind="click: function() {countdowns.removeItem(selected()); selected(null)}"><!--/ko --><input type=submit value=Done data-bind="click: selected().toggleEditing()"></div></div></div></div></aside><!--/ko --></div></article></main>
-<script src="common/wcommon_6.js.br"></script>
-<script src="common/ext/knockout-3.2.0.js"></script>
-<!-- <script src="common/tadsortable_8.js.br"></script> -->
-<script src="common/timer_22.js.br"></script> 
-</div>
-</div>
+value: selected()._alarm.sound"></select>
+                                            <!--ko if:selected()._alarm.getSound() !== sounds[0] --><span><a href="#" class=sound-test data-bind="click: function(data, event){testSound(selected()._alarm.getSound())}, clickBubble: false"><i class="i-font i-sound"> </i> Soundcheck</a></span>
+                                            <!--/ko -->
+                                        </div>
+                                    </div>
+                                    <div class=modal-footer>
+                                        <!--ko if: countdowns.list().length > 1 --><input type=submit class="red fl" value="Delete timer" data-bind="click: function() {countdowns.removeItem(selected()); selected(null)}">
+                                        <!--/ko --><input type=submit value=Done data-bind="click: selected().toggleEditing()"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </aside>
+                    <!--/ko -->
+                </div>
+            </article>
+        </main>
+        <script src="common/wcommon_6.js.br"></script>
+        <script src="common/ext/knockout-3.2.0.js"></script>
+        <!-- <script src="common/tadsortable_8.js.br"></script> -->
+        <script src="common/timer_22.js.br"></script>
+    </div>
+    </div>
 
 
 
 
-<script>
- 
-bli();main();
- 
-</script>
+    <script>
+        bli();
+        main();
+    </script>
 
-</body></html>
+</body>
+
+</html>
