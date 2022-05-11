@@ -119,6 +119,7 @@ function getNoteListCategory() {
             list[doc.id]['order'] = (typeof data.order != 'undefined' && !isNaN(data.order)) ? parseInt(data.order) : 0;
             list[doc.id]['titleCat'] = data.titleCat;
             list[doc.id]['atTop'] = (typeof data.atTop != 'undefined') ? data.atTop : "";
+            list[doc.id]['isHightLight'] = data.isHightLight;
             // console.log(data)
 
             // var data = doc.data();
@@ -132,7 +133,8 @@ function getNoteListCategory() {
         for (var key in newObjectSort) {
             var tem = newObjectSort[key];
             var at_index = index;
-            var str = '<li data-id="' + key + '" onClick="event1_click(this)" at-index="' + at_index + '" at-order="' + tem.order + '">' + tem.titleCat + '</li>';
+            var isHightLight = tem.isHightLight == undefined ? "" : tem.isHightLight;
+            var str = '<li data-id="' + key + '" onClick="event1_click(this)" at-index="' + at_index + '" at-order="' + tem.order + '"  isHL="' + isHightLight + '">' + tem.titleCat + '</li>';
             $('#split-0 .list').append(str);
             index++;
         }
@@ -160,17 +162,19 @@ var idPost_selected = '';
 
 function getNoteListPost(idCategory) {
     // console.log('note-list-post')
-    $('#split-1 .list').html('');
+
     var idUserCategory = user_ID;
     db.collection("note_category/" + idUserCategory + '/category/' + idCategory + '/post').get().then((querySnapshot) => {
         // var listData = querySnapshot.docs;
         // console.log(listData[0].data())
+        $('#split-1 .list').html('');
         var list = {};
         querySnapshot.forEach((doc) => {
             var data = doc.data();
             list[doc.id] = {};
             list[doc.id]['time'] = data.time;
             list[doc.id]['titlePost'] = data.titlePost;
+            list[doc.id]['isHightLight'] = data.isHightLight;
 
             // console.log(doc.id, doc.data())
 
@@ -183,9 +187,11 @@ function getNoteListPost(idCategory) {
         for (var key in newObjectSort) {
             //const element = array[index];
             var tem = newObjectSort[key];
-            var str = '<li data-id="' + key + '" onClick="event2_click(this)">' + tem.titlePost + '</li>';
+            var isHightLight = tem.isHightLight == undefined ? "" : tem.isHightLight;
+
+            var str = '<li data-id="' + key + '" onClick="event2_click(this)" isHL="' + isHightLight + '">' + tem.titlePost + '</li>';
             if (selecteAtTop == key) {
-                str = '<li data-id="' + key + '" onClick="event2_click(this)" class="booked">' + tem.titlePost + '</li>';
+                str = '<li data-id="' + key + '" onClick="event2_click(this)" class="booked" isHL="' + isHightLight + '">' + tem.titlePost + '</li>';
             }
 
             $('#split-1 .list').append(str);
@@ -352,6 +358,9 @@ function updateNotePost(dataIn) {
     if (typeof dataIn.titlePost != 'undefined') {
         dataUpdate.titlePost = dataIn.titlePost;
     }
+    if (typeof dataIn.isHightLight != 'undefined') {
+        dataUpdate.isHightLight = dataIn.isHightLight;
+    }
     batch.update(sfRef, dataUpdate);
 
     batch.commit().then(() => {
@@ -392,6 +401,21 @@ function event1_edit() {
     // var str = $('#kothing-editor_editor').html();
     data.titleCat = answer;
     updateNoteCategory(data);
+}
+
+function event1_at_multi() {
+
+    var isHight = $('#split-0 .list li.active').attr('isHL');
+    console.log(isHight);
+    var data = {};
+    data.isHightLight = false;
+    if (isHight == undefined || isHight == "false") {
+        data.isHightLight = true;
+    }
+
+    updateNoteCategory(data);
+    getNoteListCategory();
+    // getNoteListPost(idCategory_selected);
 }
 
 function up_cat_node() {
@@ -537,6 +561,26 @@ function event2_edit() {
     var str = $('#kothing-editor_editor .kothing-editor-editable').html();
     data.titlePost = answer;
     updateNotePost(data);
+}
+
+function event2_at_multi() {
+    var isHight = $('#split-1 .list li.active').attr('isHL');
+    console.log(isHight);
+    var data = {};
+    data.isHightLight = false;
+    if (isHight == undefined || isHight == "false") {
+        data.isHightLight = true;
+    }
+    // var text = $('#split-1 .list li.active').html();
+    // var answer = prompt('Title Edit?', text);
+    // if (answer == null) {
+    //     return;
+    // }
+    // console.log(answer)
+
+    // var str = $('#kothing-editor_editor .kothing-editor-editable').html();
+    updateNotePost(data);
+    getNoteListPost(idCategory_selected);
 }
 
 function event2_delete() {

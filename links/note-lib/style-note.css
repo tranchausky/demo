@@ -151,3 +151,11 @@
     border-radius: 20px;
     border: 3px solid #f7f7f7;
 }
+
+.note .list li[ishl="true"] {
+    background-color: yellow;
+}
+
+.note .list li[ishl="true"].active {
+    background-color: #df8d28;
+}
