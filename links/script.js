@@ -510,7 +510,7 @@ function loadData() {
         // ".indexOn": ["time"],
         // contactsRef.orderByChild('time').limitToFirst(6).startAt(1609037750431).on("child_added", function(snap) {
     var maxSize = 20;
-    contactsRef.orderByChild('time').limitToFirst(maxSize).on("value", function(snapshot) {
+    contactsRef.orderByChild('time').on("value", function(snapshot) {
 
         allContacts = snapshot.val()
         var newObjectSort = sortDescObj(allContacts, 'time')
