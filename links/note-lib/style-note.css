@@ -159,3 +159,11 @@
 .note .list li[ishl="true"].active {
     background-color: #df8d28;
 }
+.is-know a{
+    border: 1px solid transparent;
+    padding: 3px 7px;
+}
+.is-know a:hover,
+.is-know .active{
+    border: 1px solid red;
+}

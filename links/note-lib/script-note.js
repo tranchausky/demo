@@ -89,26 +89,67 @@ sceditor.create(editor_note_show, {
 });
 
 function getListNotes() {
-    getNoteListCategory()
+    //getNoteListCategory()
+    change_note_cat(false);
 }
 
 function hideShowLoadingEditor(is_show) {
     //var is_show = $('.full-loading').is(":visible");
-    if (is_show == 1) {
-        $('.full-loading').show();
-    } else {
-        $('.full-loading').hide();
+    // if (is_show == 1) {
+    //     $('.full-loading').show();
+    // } else {
+    //     $('.full-loading').hide();
+    // }
+    switch (is_show) {
+        case 1:
+            $('.full-loading').show();
+            $('#split-2 .content').show();
+            break;
+        case 0:
+            $('.full-loading').hide();
+            $('#split-2 .content').show();
+            break;
+        case 2:
+            $('.full-loading').hide();
+            $('#split-2 .content').hide();
+            break;
+
+        default:
+            break;
     }
 
 }
 
 var listCategoryNote = {};
 
+var glb_is_note_category = false;
+var glb_link_note_current = '';
+
+function change_note_cat(ischange){
+    glb_is_note_category = ischange;
+
+    $('.is-know a').removeClass('active');
+    
+    
+
+    //var idUserCategory = user_ID;
+    var main_key = 'note_category/';
+    
+    if (glb_is_note_category == true) {
+        main_key = 'note_category_know/';
+        $('.is-know .know').addClass('active');
+    }else{
+        $('.is-know .apply').addClass('active');
+    }
+    glb_link_note_current = main_key + user_ID;
+    getNoteListCategory();
+}
+
 function getNoteListCategory() {
     // console.log('note-list-cat')
     $('#split-0 .list').html('');
-    var idUserCategory = user_ID;
-    db.collection("note_category/" + idUserCategory + '/category').get().then((querySnapshot) => {
+    
+    db.collection(glb_link_note_current + '/category').get().then((querySnapshot) => {
         // console.log(querySnapshot.docs)
         var list = {};
         querySnapshot.forEach((doc) => {
@@ -149,7 +190,7 @@ function getNoteListCategory() {
 
 function deleteNoteCategory(idCategory) {
     var idUserCategory = user_ID;
-    db.collection("note_category/" + idUserCategory + '/category/' + idCategory).delete().then(() => {
+    db.collection(glb_link_note_current + '/category/' + idCategory).delete().then(() => {
         // console.log("Document cat successfully deleted!");
     }).catch((error) => {
         console.error("Error removing document: ", error);
@@ -164,7 +205,7 @@ function getNoteListPost(idCategory) {
     // console.log('note-list-post')
 
     var idUserCategory = user_ID;
-    db.collection("note_category/" + idUserCategory + '/category/' + idCategory + '/post').get().then((querySnapshot) => {
+    db.collection(glb_link_note_current + '/category/' + idCategory + '/post').get().then((querySnapshot) => {
         // var listData = querySnapshot.docs;
         // console.log(listData[0].data())
         $('#split-1 .list').html('');
@@ -199,6 +240,9 @@ function getNoteListPost(idCategory) {
         if ($('#split-1 .list li').length > 0) {
             idPost_selected = Object.keys(newObjectSort)[0]
             $('#split-1 .list li').eq(0).trigger('click');
+            hideShowLoadingEditor(1);
+        }else{
+            hideShowLoadingEditor(2);
         }
         setTotalFooter2(Object.keys(newObjectSort).length);
 
@@ -212,7 +256,7 @@ function getNoteCategory(dataId) {
     // console.log(dataId)
     // console.log(idCategory)
 
-    db.collection("note_category/" + idUserCategory + '/category').doc(idCategory).get().then((doc) => {
+    db.collection(glb_link_note_current + '/category').doc(idCategory).get().then((doc) => {
         if (doc.exists) {
             // console.log("Document data:", doc.data());
             var docData = doc.data();
@@ -235,7 +279,7 @@ function getNotePost(dataId, at) {
     var idCategory = dataId.catId;
     var idPost = dataId.postId;
 
-    db.collection("note_category/" + idUserCategory + '/category/' + idCategory + '/post').doc(idPost).get().then((doc) => {
+    db.collection(glb_link_note_current + '/category/' + idCategory + '/post').doc(idPost).get().then((doc) => {
         if (doc.exists) {
             // console.log("Document data:", doc.data());
             var docData = doc.data();
@@ -262,7 +306,7 @@ function getNotePost(dataId, at) {
 
 function deleteNotePost(idCategory, idPost) {
     var idUserCategory = user_ID;
-    db.collection("note_category/" + idUserCategory + '/category/' + idCategory + '/post').doc(idPost).delete().then(() => {
+    db.collection(glb_link_note_current + '/category/' + idCategory + '/post').doc(idPost).delete().then(() => {
         // console.log("Document post successfully deleted!");
         reload_list_title();
     }).catch((error) => {
@@ -274,7 +318,7 @@ function deleteNotePost(idCategory, idPost) {
 
 function addNoteCategory(dataIn) {
     var idUserCategory = user_ID;
-    db.collection("note_category/" + idUserCategory + "/category").add({
+    db.collection(glb_link_note_current + "/category").add({
             titleCat: dataIn.title,
             order: dataIn.order,
             aliasCat: "",
@@ -299,7 +343,7 @@ function updateNoteCategory(dataIn) {
     if (typeof dataIn.id != 'undefined') {
         idCat = dataIn.id;
     }
-    var sfRef = db.collection("note_category/" + idUserCategory + "/category").doc(idCat);
+    var sfRef = db.collection(glb_link_note_current + "/category").doc(idCat);
     dataSet = dataIn;
     batch.update(sfRef, dataSet);
 
@@ -321,7 +365,7 @@ function updateNoteCategory(dataIn) {
 function addNoteTitle(data) {
     var idUserCategory = user_ID;
     var idCategory = data.catId;
-    db.collection("note_category/" + idUserCategory + "/category/" + idCategory + '/post').add({
+    db.collection(glb_link_note_current + "/category/" + idCategory + '/post').add({
             titlePost: data.title,
             aliasPost: "",
             contentPost: "",
@@ -350,7 +394,7 @@ function updateNotePost(dataIn) {
         return;
     }
 
-    var sfRef = db.collection("note_category/" + idUserCategory + "/category/" + idCategory + '/post').doc(idPost);
+    var sfRef = db.collection(glb_link_note_current + "/category/" + idCategory + '/post').doc(idPost);
     var dataUpdate = {};
     if (typeof dataIn.contentPost != 'undefined') {
         dataUpdate.contentPost = dataIn.contentPost;
@@ -519,7 +563,7 @@ function event1_click(at) {
     idCategory_selected = id;
     getNoteListPost(id);
 
-    hideShowLoadingEditor(1);
+    // hideShowLoadingEditor(1);
 
     $('#split-0 .list li').removeClass('active');
     $(at).addClass('active');

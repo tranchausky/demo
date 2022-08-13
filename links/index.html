@@ -66,6 +66,8 @@
                         <li class="show-signout">
                             <a id="email_login"></a>
                         </li>
+
+                        <li class="show-signout"><a class="" href="#setting">Setting</a></li>
                         <li class="show-signout"><a class="signout" href="#">Out</a></li>
                     </ul>
                 </div>
@@ -119,7 +121,7 @@
                     <div class="row">
                         <div class="col-sm-12">
                             <h3>Add new <sup id="iduser"></sup></h3>
-
+                            
                         </div>
                         <div class="col-sm-6">
                             <form method="post" name="contactForm">
@@ -637,8 +639,14 @@
 
                 <div id="note" class="hide v-m-content note">
                     <div class="row">
-                        <div class="col-sm-12">
+                        <div class="col-xs-6">
                             <h3>Note</h3>
+                        </div>
+                        <div class="col-xs-6">
+                            <h5 class="is-know">
+                                <a href="#" class="apply active" onclick="change_note_cat(false)"> Apply Life</a>
+                                <a href="#" class="know" onclick="change_note_cat(true)">Know Book</a>
+                            </h5>
                         </div>
 
                     </div>
@@ -709,6 +717,33 @@
                     </div>
 
                 </div>
+
+                <div id="setting" class="hide v-m-content setting">
+                    <div class="row">
+                        <div class="col-xs-6">
+                            <h3>Setting</h3>
+                        </div>
+                        <div class="col-xs-6">
+                            <p>Setting system</p>
+                        </div>
+                
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <form method="post" name="settingForm">
+                                <div class="form-group">
+                                    <label for="linkthoiquen">Name</label>
+                                    <input type="text" class="form-control" id="linkthoiquen" placeholder="Enter Link Thoi Quen">
+                                </div>
+                                
+                                <button type="submit" class="btn btn-primary saveSetting">Submit</button>
+                            </form>
+                        
+                        </div>
+                    </div>
+                    
+                
+                </div>
             </div>
         </div>
 
@@ -754,6 +789,7 @@
     <script src="script.js"></script>
 
     <script src="note-lib/script-note.js"></script>
+    <script src="note-lib/script-setting.js"></script>
 
 </body>
 
