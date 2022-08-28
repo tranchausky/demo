@@ -169,6 +169,12 @@ function changeLinkVideo(videId, videoUrl, key) {
     var str = '<p><a href="' + videoUrl + '">Link video</a></p><iframe src="https://www.youtube.com/embed/' + videId + '" width="100%" height="400px" allowfullscreen></iframe>';
     $('#video-iframe').html(str);
 }
+function changeVideoBase64(videId, videoUrl, key) {
+    var decodedString = atob(videId);
+
+    var str = '<p><a href="' + videoUrl + '">Link video</a></p>'+decodedString;
+    $('#video-iframe').html(str);
+}
 
 function checkDetailCalendar(at) {
     var attrDate = $(at).attr('data-day')
@@ -608,11 +614,15 @@ $('.addValue').on("click", function(event) {
 //https://www.youtube.com/oembed
 //www.youtube.com
 function getDomain(url) {
-    var url = new URL(url);
+    try {
+        var url = new URL(url);
 
-    const hostnameArray = url.hostname.split('.')
-    const numberOfSubdomains = hostnameArray.length - 2
-    return hostnameArray.length === 2 ? url.hostname : hostnameArray.slice(numberOfSubdomains).join('.')
+        const hostnameArray = url.hostname.split('.')
+        const numberOfSubdomains = hostnameArray.length - 2
+        return hostnameArray.length === 2 ? url.hostname : hostnameArray.slice(numberOfSubdomains).join('.')
+    } catch (error) {
+        return false;        
+    }
 }
 
 
@@ -627,7 +637,7 @@ $('#video-input').on("focusout", function(event) {
             $('#video-input-title').val(data.title)
         });
     } else {
-        $('#video-input-title').val(domain.host)
+        $('#video-input-title').val(data.title)
     }
 });
 $('.addVideo').on("click", function(event) {
@@ -1367,6 +1377,7 @@ function buildListPhoto(dataIn) {
 }
 
 function buildListVideo(dataIn) {
+    console.log(dataIn);
     lengthSize = Object.keys(dataIn).length;
     $('#total-video').html(lengthSize);
 
@@ -1379,13 +1390,15 @@ function buildListVideo(dataIn) {
             str += '<div class="col-sm-3 col-xs-4"><img class="img-thumbnail" onclick="changeLinkVideo(&apos;' + dataAt.videId + '&apos;,&apos;' + dataAt.url + '&apos;,&apos;' + key + '&apos;)" str-big="' + dataAt.url + '" src="https://i.ytimg.com/vi/' + dataAt.videId + '/default.jpg" alt="" title="' + dataAt.title + '"><p class="hide">' + dataAt.title + '</p></div>'
             str += '<div class="col-sm-3 col-xs-4"><small>' + dataAt.title + '</small></div>';
         } else {
-            str += '<div class="col-sm-3 col-xs-4"><img class="img-thumbnail hiden" onclick="changeVideo(&apos;' + dataAt.url + '&apos;,&apos;' + dataAt.id_cat + '&apos;,&apos;' + key + '&apos;)" str-big="' + dataAt.url + '" src="https://i.imgur.com/zHOHgOM.png" alt="" title="' + dataAt.title + '"><p class="hide">' + dataAt.title + '</p></div>'
+            str += '<div class="col-sm-3 col-xs-4"><img class="img-thumbnail hiden" onclick="changeVideoBase64(&apos;' + btoa(dataAt.url) + '&apos;,&apos;' + dataAt.id_cat + '&apos;,&apos;' + key + '&apos;)" str-big="https://i.imgur.com/zHOHgOM.png" src="https://i.imgur.com/zHOHgOM.png" alt="" title="' + dataAt.title + '"><p class="hide">' + dataAt.title + '</p></div>'
             str += '<div class="col-sm-3 col-xs-4"><small>' + dataAt.title + '</small></div>';
         }
 
     }
     return str;
 }
+
+
 
 function getThump(str) {
     var res = str.split(".");

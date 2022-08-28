@@ -33,7 +33,7 @@
 .drag-list .drag-area {
     display: inline-block;
     background: rgb(158, 211, 179);
-    width: 60px;
+    width: 10px;
     height: 40px;
     vertical-align: top;
     float: right;
