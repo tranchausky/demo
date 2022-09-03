@@ -172,6 +172,9 @@ function changeLinkVideo(videId, videoUrl, key) {
     // }
     // $('#photo-time').html(d.toLocaleString())
     // $('.list-cat-btn-edit').html('<option value="">All</option>' + buildSelectPhotoCat(cat_id))
+    var timeShow = allVideo[key].time;
+    $('#video-time').html(intToTime(timeShow));
+    $('#id_video_now').attr('attr-video',key);
 
     var str = '<p><a href="' + videoUrl + '">Link video</a></p><iframe src="https://www.youtube.com/embed/' + videId + '" width="100%" height="400px" allowfullscreen></iframe>';
     $('#video-iframe').html(str);
@@ -181,6 +184,21 @@ function changeVideoBase64(videId, videoUrl, key) {
 
     var str = '<p><a href="' + videoUrl + '">Link video</a></p>'+decodedString;
     $('#video-iframe').html(str);
+}
+
+function deleteVideo()
+{
+    var idKey = $('#id_video_now').attr('attr-video');
+    if(idKey == null){
+        return;
+    }
+    var result = confirm("Want to delete?");
+    if (!result) {
+        return
+    }
+    console.log(idKey);
+    var id = 'videos/' + user_ID+'/'+idKey;
+    dbRef.ref(id).remove();
 }
 
 function checkDetailCalendar(at) {
@@ -671,6 +689,9 @@ $('.addVideo').on("click", function(event) {
 });
 
 function checkSameVideoOld(atVideo, allVideo) {
+    if(allVideo ==null){
+        return true;
+    }
     const result = Object.values(allVideo).filter(value => {
         return value.url === atVideo;
     });
@@ -1385,6 +1406,10 @@ function buildListPhoto(dataIn) {
 }
 
 function buildListVideo(dataIn) {
+    if(dataIn == null){
+        console.log('No have video')
+        return '';
+    }
     console.log(dataIn);
     lengthSize = Object.keys(dataIn).length;
     $('#total-video').html(lengthSize);
@@ -1646,6 +1671,13 @@ function addSWOT() {
 //     })
 //     getListSWOT()
 // }
+
+function intToTime(value)
+{
+    myDate = new Date(value);
+    var format1 = myDate.toLocaleString();
+    return format1;
+}
 
 function buildListTodoNew(dataIn) {
     var str = '';
