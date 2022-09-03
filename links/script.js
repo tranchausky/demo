@@ -113,6 +113,13 @@ $(document).ready(function() {
 
 });
 
+//try active last click
+function tabClick()
+{
+    var tag = window.location.hash;
+    $('a[href="'+tag+'"]').click();
+}
+
 function addEventTodo(text, key) {
     var str = '<div class="form-event" data-key="' + key + '">' +
         '<div class="col-sm-9 text">' +
@@ -291,7 +298,7 @@ const showRegistration = () => {
     document.querySelector("#login-page").classList.add("hide");
     document.querySelector("#homepage").classList.add("hide");
     // document.querySelector(".show-signout").classList.add("hide");
-    $('.show-signout').hide()
+    $('.show-signout').hide();
 };
 
 document.querySelector("#show-login").addEventListener("click", () => {
@@ -426,8 +433,9 @@ auth.onAuthStateChanged((firebaseUser) => {
             // $('#email_login').html(firebaseUser.email)
         $('#iduser').html(firebaseUser.email)
         $('.show-signout a').attr('title', firebaseUser.email)
-        loadData()
-        buildSelect()
+        loadData();
+        buildSelect();
+        tabClick();
     }
 });
 

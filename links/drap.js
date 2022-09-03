@@ -28,8 +28,8 @@ $('body').on('click', '.drag-list li', function (event) {
 	 $('#swot-at').html(index);
 	 $('#keyAtId').val($(this).attr('keyid'));
 	
-	// var textAt = $(this).find('.title').html();
-	// $('#name1').val(textAt);
+	var textAt = $(this).find('.title').html();
+	$('#name1').val(textAt);
     $('.drag-area').removeClass('selected')
     $(this).find('.drag-area').addClass('selected')
 })

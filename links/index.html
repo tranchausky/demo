@@ -52,7 +52,7 @@
                 <div class="collapse navbar-collapse" id="myNavbar">
                     <ul class="nav navbar-nav">
                         <li class="active"><a href="#homepage">Home</a></li>
-                        <li><a href="#swot">Smart</a></li>
+                        <li><a href="#swot">SMART</a></li>
                         <li class=""><a href="#calendar">Calendar</a></li>
                         <li class=""><a href="#fivetask">5 Task</a></li>
                         <li class=""><a href="#todo">Todo</a></li>
@@ -170,11 +170,11 @@
                 <div id="swot" class="hide v-m-content">
 
                     <div class="container-flux">
-                        <div class="col-sm-12">
+                        <!-- <div class="col-sm-12">
                             <h3>Update data </h3>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6">
+                        </div> -->
+                        <div class="row pt-2">
+                            <div class="col-md-12">
                                 <input type="text" class="form-control" id="name1" required="" placeholder="Enter name">
                                 <button type="submit" class="btn btn-primary" onclick="addSWOT()">Add</button>
                                 <button type="submit" class="btn btn-primary" onclick="editSwot()">Edit</button>
@@ -182,7 +182,7 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-md-6">
+                            <div class="col-md-6 none">
                                 <ul>
                                     <li>at title: <span id="swot-title"></span></li>
                                     <input type="hidden" id="keySwot" />
@@ -611,10 +611,19 @@
                                     <label for="">Edit category</label>
                                     <select name="list-cat-btn-edit" class="form-control list-cat-btn-edit" id="list-cat-btn-video-edit"></select>
                                 </div>
-                                <div class="col-sm-4"><span id="video-time"></span>
+                                <div class="col-sm-3">
                                     <input id="edit-private-video" type="checkbox">
                                     <label for="edit-private-video">is private</label>
+                                </div>
+                                
+                                <div class="col-sm-3">
+                                    
+                                    <label for="">Time:</label>
+                                    <span id="video-time"></span>
+                                </div>
 
+                                <div class="col-sm-3">
+                                    <button class="btn">Delete</button>
                                 </div>
                             </div>
                             <br><br>
