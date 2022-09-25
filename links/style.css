@@ -174,11 +174,11 @@
 #scrum .list-action button{
     margin-top: 0px;
 }
-#scrum .list-action{
+
+#scrum .list-action .event,
+#scrum .list-action .inputtype
+{
     padding: 5px;
-}
-#scrum .list-action .event{
-    padding: 0;
 }
 
 #scrum .list-drap-drop ul.drag-list{
