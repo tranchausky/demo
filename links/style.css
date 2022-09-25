@@ -156,6 +156,51 @@
     display: none;
 }
 
+
+#scrum .list-div{
+    border: 1px solid;
+}
+#scrum .drag-list>li{
+    list-style: nomal;
+    font-size: 14px;
+    margin-left: 22px;
+}
+#scrum .drag-list .drag-area{
+    height: 32px;
+}
+#scrum .drag-list .title{
+    font-size: 14px;
+}
+#scrum .list-action button{
+    margin-top: 0px;
+}
+#scrum .list-action{
+    padding: 5px;
+}
+#scrum .list-action .event{
+    padding: 0;
+}
+
+#scrum .list-drap-drop ul.drag-list{
+    overflow: auto;
+    height: calc(100% - 60px);
+    padding: 5px;
+    padding-bottom: 10px;
+    min-height: 200px;
+}
+#scrum .list-drap-drop h3{
+    border-bottom: 2px dotted;
+    padding: 6px;
+    margin: 0;
+    background: gray;
+    color: white;
+}
+#scrum .list-drap-drop{
+    /* height: calc(100vh - 110px); */
+    
+    padding: 0;
+}
+
 @media only screen and (max-width: 600px) {
     .sceditor-toolbar div.sceditor-group {
         display: contents;
