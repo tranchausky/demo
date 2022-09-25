@@ -1,8 +1,9 @@
+// $('.list-drap-drop li').arrangeable({
 $('.list-drap-drop li').arrangeable({
     dragSelector: '.drag-area'
   });
   
-$('.drag-list *').click(function(){
+$('#swot .drag-list *').click(function(){
     // console.log($(this))
 	 var title = $(this).closest('.list-drap-drop').find('h3');
      $('.list-drap-drop h3').removeClass('title-select-swot');
@@ -18,7 +19,23 @@ $('.drag-list *').click(function(){
 	// $('#name1').val(textAt);
 })
 
-$('body').on('click', '.drag-list li', function (event) {
+// $('#scrum .drag-list *').click(function(){
+//     // console.log($(this))
+// 	 var title = $(this).closest('.list-drap-drop').find('h3');
+//      $('.list-drap-drop h3').removeClass('title-select-scrum');
+//      title.addClass('title-select-scrum');
+
+// 	 $('#scrum-title').html(title.html());
+// 	 $('#keyScrum').val(title.attr('data-key'));
+// 	 //var index = $(this).parents("li").index();
+// 	//  var index = $(this).index();
+// 	//  $('#swot-at').html(index);
+	
+// 	// var textAt = $(this).find('.title').html();
+// 	// $('#name1').val(textAt);
+// })
+
+$('body').on('click', '#swot .drag-list li', function (event) {
 // $('.drag-list li').click(function(){
     // console.log($(this))
 	//  var title = $(this).closest('.list-drap-drop').find('h3').html();
@@ -30,9 +47,25 @@ $('body').on('click', '.drag-list li', function (event) {
 	
 	var textAt = $(this).find('.title').html();
 	$('#name1').val(textAt);
-    $('.drag-area').removeClass('selected')
+    $('#swot .drag-area').removeClass('selected')
     $(this).find('.drag-area').addClass('selected')
 })
+
+// $('body').on('click', '#scrum .drag-list li', function (event) {
+// 	// $('.drag-list li').click(function(){
+// 	// console.log($(this))
+// 	//  var title = $(this).closest('.list-drap-drop').find('h3').html();
+// 	//  $('#swot-title').html(title);
+// 		//var index = $(this).parents("li").index();
+// 		var index = $(this).index();
+// 		$('#scrum-at').html(index);
+// 		$('#keyAtIdScrum').val($(this).attr('keyid'));
+	
+// 	var textAt = $(this).find('.title').html();
+// 	$('#text-scrum').val(textAt);
+// 	$('#scrum .drag-area').removeClass('selected')
+// 	$(this).find('.drag-area').addClass('selected')
+// })
 
 
 // $('body').on('drag.end.arrangeable', '.drag-list li', function (event) {

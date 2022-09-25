@@ -53,6 +53,7 @@
                     <ul class="nav navbar-nav">
                         <li class="active"><a href="#homepage">Home</a></li>
                         <li><a href="#swot">SMART</a></li>
+                        <li><a href="#scrum">Scrum</a></li>
                         <li class=""><a href="#calendar">Calendar</a></li>
                         <li class=""><a href="#fivetask">5 Task</a></li>
                         <li class=""><a href="#todo">Todo</a></li>
@@ -223,6 +224,72 @@
                             </div>
                             <div class="col-md-6 col-sm-6 list-drap-drop drag-list">
                                 <h3 data-key="t">Title T</h3>
+                                <ul class="drag-list">
+
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                </div>
+
+                <div id="scrum" class="hide v-m-content">
+
+                    <div class="container-flux">
+                        <!-- <div class="col-sm-12">
+                            <h3>Update data </h3>
+                        </div> -->
+                        <div class="row pt-2">
+                            <div class="col-md-12">
+                                <div class="row list-action">
+                                    <div class="col-sm-2 event">
+                                        <button type="submit" class="btn btn-primary" onclick="addScrum()">Add</button>
+                                        <button type="submit" class="btn btn-primary" onclick="editScrum()">Edit</button>
+                                        <button type="submit" class="btn btn-primary" onclick="deleteScrum()">Delete</button>
+                                    </div>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" id="text-scrum" required="" placeholder="Enter mew">
+                                    </div>
+                                    
+                                    
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 none">
+                                <ul>
+                                    <li>at title: <span id="scrum-title"></span></li>
+                                    <input type="hidden" id="keyScrum" />
+                                    <input type="hidden" id="keyAtIdScrum" />
+                                    <li>at at: <span id="scrum-at"></span></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="row list-div">
+                            <div class="col-xs-3 list-drap-drop ">
+                                <h3 data-key="todo">Todo</h3>
+
+                                <ul class="drag-list">
+                                </ul>
+                            </div>
+                            <div class="col-xs-3 list-drap-drop ">
+                                <h3 data-key="going">Ongoing</h3>
+                                <ul class="drag-list">
+
+                                </ul>
+                            </div>
+                            <div class="col-xs-3 list-drap-drop ">
+                                <h3 data-key="test">Testing</h3>
+                                <ul class="drag-list">
+
+                                </ul>
+
+                            </div>
+                            <div class="col-xs-3 list-drap-drop ">
+                                <h3 data-key="done">Done</h3>
                                 <ul class="drag-list">
 
                                 </ul>
@@ -759,9 +826,13 @@
     </div>
 
     <script src="jquery.min.js"></script>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script> -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
     <script src="bootstrap.min.js"></script>
-    <script src="drag-arrange.min.js"></script>
+    <!-- <script src="drag-arrange.min.js"></script> -->
+    <script src="drag-arrange.js"></script>
     <script src="drap.js"></script>
+    <script src="drap_ui.js"></script>
 
     <script>
         //$(function() {
