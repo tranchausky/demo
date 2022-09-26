@@ -157,30 +157,36 @@
 }
 
 
+#tx .list-div,
 #scrum .list-div{
     border: 1px solid;
 }
+#tx .drag-list>li,
 #scrum .drag-list>li{
     list-style: nomal;
     font-size: 14px;
     margin-left: 22px;
 }
+#tx .drag-list .drag-area,
 #scrum .drag-list .drag-area{
     height: 32px;
 }
+#tx .drag-list .title,
 #scrum .drag-list .title{
     font-size: 14px;
 }
+#tx .list-action button,
 #scrum .list-action button{
     margin-top: 0px;
 }
 
-#scrum .list-action .event,
-#scrum .list-action .inputtype
+#tx .list-action .event,#tx .list-action .inputtype,
+#scrum .list-action .event,#scrum .list-action .inputtype
 {
     padding: 5px;
 }
 
+#tx .list-drap-drop ul.drag-list,
 #scrum .list-drap-drop ul.drag-list{
     overflow: auto;
     height: calc(100% - 60px);
@@ -188,6 +194,7 @@
     padding-bottom: 10px;
     min-height: 200px;
 }
+#tx .list-drap-drop h3,
 #scrum .list-drap-drop h3{
     border-bottom: 2px dotted;
     padding: 6px;
@@ -195,6 +202,7 @@
     background: gray;
     color: white;
 }
+#tx .list-drap-drop,
 #scrum .list-drap-drop{
     /* height: calc(100vh - 110px); */
     

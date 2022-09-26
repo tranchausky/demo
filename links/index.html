@@ -54,6 +54,7 @@
                         <li class="active"><a href="#homepage">Home</a></li>
                         <li><a href="#swot">SMART</a></li>
                         <li><a href="#scrum">Scrum</a></li>
+                        <li><a href="#tx">TX</a></li>
                         <li class=""><a href="#calendar">Calendar</a></li>
                         <li class=""><a href="#fivetask">5 Task</a></li>
                         <li class=""><a href="#todo">Todo</a></li>
@@ -245,12 +246,12 @@
                         <div class="row pt-2">
                             <div class="col-md-12">
                                 <div class="row list-action">
-                                    <div class="col-sm-2 event">
+                                    <div class="col-sm-3 event">
                                         <button type="submit" class="btn btn-primary" onclick="addScrum()">Add</button>
                                         <button type="submit" class="btn btn-primary" onclick="editScrum()">Edit</button>
                                         <button type="submit" class="btn btn-primary" onclick="deleteScrum()">Delete</button>
                                     </div>
-                                    <div class="col-sm-10 inputtype">
+                                    <div class="col-sm-9 inputtype">
                                         <input type="text" class="form-control" id="text-scrum" required="" placeholder="Enter mew">
                                     </div>
                                     
@@ -294,6 +295,56 @@
 
                                 </ul>
                             </div>
+                        </div>
+                    </div>
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                </div>
+
+                <div id="tx" class="hide v-m-content">
+
+                    <div class="container-flux">
+                        <div class="row pt-2">
+                            <div class="col-md-12">
+                                <div class="row list-action">
+                                    <div class="col-sm-3 event">
+                                        <button type="submit" class="btn btn-primary" onclick="addTx()">Add</button>
+                                        <button type="submit" class="btn btn-primary" onclick="editTx()">Edit</button>
+                                        <button type="submit" class="btn btn-primary" onclick="deleteTx()">Delete</button>
+                                    </div>
+                                    <div class="col-sm-9 inputtype">
+                                        <input type="text" class="form-control" id="text-tx" required="" placeholder="Enter mew">
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 none">
+                                <ul>
+                                    <li>at title: <span id="tx-title"></span></li>
+                                    <input type="hidden" id="keyTx" />
+                                    <input type="hidden" id="keyAtIdTx" />
+                                    <li>at at: <span id="tx-at"></span></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="row list-div">
+                            <div class="col-sm-6 col-xs-12 list-drap-drop ">
+                                <h3 data-key="good">Good</h3>
+
+                                <ul class="drag-list">
+                                </ul>
+                            </div>
+                            <div class="col-sm-6 col-xs-12 list-drap-drop ">
+                                <h3 data-key="bad">Bad</h3>
+                                <ul class="drag-list">
+
+                                </ul>
+                            </div>
+                           
                         </div>
                     </div>
                     <br />

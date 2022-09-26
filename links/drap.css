@@ -52,7 +52,10 @@
     font-weight: bold;
     font-style: italic;
 }
-
+.title-select-tx {
+    font-weight: bold;
+    font-style: italic;
+}
 
 .list-category-note .move {
     display: inline-block;

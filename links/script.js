@@ -41,6 +41,9 @@ $(document).ready(function () {
         if (atrHref == '#scrum') {
             getListScrum()
         }
+        if (atrHref == '#tx') {
+            getListTx()
+        }
         if (atrHref == '#note') {
             getListNotes()
         }
@@ -304,6 +307,7 @@ var firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 
 var user_ID = '';
+var refGoodBad = 'goodbad/';
 
 //invokes firebase authentication. 
 
@@ -1918,4 +1922,172 @@ function updateSortScrum(obj){
     console.log(a)
 }
 
+function deleteScrum() {
+  
+
+    var idType = $('#keyScrum').val();
+    if (idType == '' || idType == null) {
+        alert('1er')
+        return;
+    }
+
+    var idKey = $('#keyAtIdScrum').val();
+    if (idKey == '' || idKey == null) {
+        alert('2er')
+        return;
+    }
+
+    var result = confirm("Want to delete?");
+    if (!result) {
+        return
+    }
+    swoftRef = dbRef.ref('scrum/' + user_ID + '/' + idKey)
+    swoftRef.remove();
+}
 //deleteScrum
+
+//Good_Bad Start
+
+function getListTx() {
+
+    var sTxRef = dbRef.ref(refGoodBad + user_ID)
+    var good = [];
+    var bad = [];
+
+    sTxRef.orderByChild('time').on("value", function (snapshot) {
+
+        good = {};
+        bad = {};
+
+        for (var key in snapshot.val()) {
+            var newPost = snapshot.val()[key];
+            switch (newPost.keytype) {
+                case 'good':
+                    good[key] = newPost;
+                    break;
+                case 'bad':
+                    bad[key] = newPost;
+                    break;
+
+                default:
+                    break;
+            }
+        }
+        var newObjectSort1 = sortDescObj(good, 'number');
+        var newObjectSort2 = sortDescObj(bad, 'number');
+
+        buildListTx('good', newObjectSort1);
+        buildListTx('bad', newObjectSort2);
+    })
+
+
+    return;
+}
+
+function buildListTx(keySwot, dataIn) {
+    var str = '';
+    for (var key in dataIn) {
+        var dataAt = dataIn[key]
+        str += '<li keyid="' + key + '" class="portlet" key-old="' + keySwot + '" number = "' + dataAt['number'] + '"><span class="title portlet-content">' + dataAt['text'] + '</span><span class="drag-area portlet-header"></span></li>';
+    }
+    $('h3[data-key="' + keySwot + '"]').closest('.list-drap-drop').find('ul.drag-list').html(str);
+}
+
+
+function addTx() {
+    var keyType = $('#keyTx').val();
+    if (keyType == '' || keyType == null) {
+        alert(1)
+        return;
+    }
+    var text = $('#text-tx').val();
+    if (text == '') {
+        alert(2)
+        return
+    }
+    var linkTx = refGoodBad + user_ID;
+    var sTxRef = dbRef.ref(linkTx)
+    sTxRef.push({
+        keytype: keyType,
+        text: text,
+        number: 0,
+        status: 'new',
+        time: new Date().getTime(),
+        userId: user_ID
+    })
+    $('#text-tx').val('');
+}
+
+function editTx() {
+    var idType = $('#keyTx').val();
+    if (idType == '' || idType == null) {
+        console.log('err-1')
+        return;
+    }
+    var text = $('#text-tx').val();
+    if (text == '') {
+        console.log('err-2')
+        return
+    }
+    var idKey = $('#keyAtIdTx').val();
+    if (idKey == '' || idKey == null) {
+        console.log('err-3')
+        return
+    }
+    updateTx(idType, idKey, text);
+    $('#text-tx').val('');
+}
+//private
+function updateTx(idType, idKey, text) {
+    swoftRef = dbRef.ref(refGoodBad + user_ID + '/' + idKey)
+    swoftRef.update({
+        keytype: idType,
+        status: 'edit',
+        text: text,
+        timeEdit: new Date().getTime(),
+        // userId: user_ID
+    })
+}
+function sortTx() {
+    var idType = $('#keyTx').val();
+    if (idType == '' || idType == null) {
+        return;
+    }
+    var listAt = $('.title-select-tx').closest('.list-drap-drop').find('.drag-list li');
+    var objnew = {}
+    $.each(listAt, function (index, value) {
+        var keydb = $(value).attr('keyid');
+        objnew['/' + keydb + '/number'] = index;
+    })
+    updateSortTx(objnew);
+}
+//data is object multi
+//{ keytype:idType, status: 'edit', text: text, timeEdit: new Date().getTime(), },{ keytype:idType, status: 'edit', text: text, timeEdit: new Date().getTime(), }
+function updateSortTx(obj) {
+    swoftRef = dbRef.ref(refGoodBad).child(user_ID);
+    var a = swoftRef.update(obj);
+    console.log(a)
+}
+
+function deleteTx() {
+    
+    var idType = $('#keyTx').val();
+    if (idType == '' || idType == null) {
+        alert(1);
+        return;
+    }
+
+    var idKey = $('#keyAtIdTx').val();
+    if (idKey == '' || idKey == null) {
+        alert(2);
+        return
+    }
+    var result = confirm("Want to delete?");
+    if (!result) {
+        return
+    }
+    swoftRef = dbRef.ref(refGoodBad + user_ID + '/' + idKey)
+    swoftRef.remove();
+}
+
+//Good_Bad End
