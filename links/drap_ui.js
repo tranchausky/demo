@@ -8,11 +8,15 @@ $(function () {
             console.log(ui.item);
             var at = ui.item;
             var keyold = $(at).attr('key-old');
+            var keyid = $(at).attr('keyid');
+            var text = $(at).find('.title').html();
             console.log(keyold);
             var keynew = $(this).closest('.list-drap-drop').find('h3').attr('data-key');
             console.log(keynew);
             //var idType = 
             $('#keyScrum').val(keynew);
+            $('#text-scrum').val(text);
+            $('#keyAtIdScrum').val(keyid);
             editScrum();
         },
         stop: function(event, ui) {

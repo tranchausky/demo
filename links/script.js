@@ -1865,14 +1865,17 @@ function addScrum() {
 function editScrum() {
     var idType = $('#keyScrum').val();
     if (idType == '' || idType == null) {
+        console.log('err-1')
         return;
     }
     var text = $('#text-scrum').val();
     if (text == '') {
+        console.log('err-2')
         return
     }
     var idKey = $('#keyAtIdScrum').val();
     if (idKey == '' || idKey == null) {
+        console.log('err-3')
         return
     }
     updateScrum(idType, idKey, text);
