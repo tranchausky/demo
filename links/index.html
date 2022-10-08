@@ -252,7 +252,8 @@
                                         <button type="submit" class="btn btn-primary" onclick="deleteScrum()">Delete</button>
                                     </div>
                                     <div class="col-sm-9 inputtype">
-                                        <input type="text" class="form-control" id="text-scrum" required="" placeholder="Enter mew">
+                                        <!-- <input type="text" class="form-control"  required="" placeholder="Enter mew"> -->
+                                        <textarea name="" id="text-scrum" class="form-control" rows="2"></textarea>
                                     </div>
                                     
                                     
@@ -272,18 +273,29 @@
                         <div class="row list-div">
                             <div class="col-sm-3 col-xs-12 list-drap-drop ">
                                 <h3 data-key="todo">Todo</h3>
+                                <div class="move">
+                                    <a href="javascript:void(0)" class="next" onclick="moveEvent('going')">Next</a>
+                                </div>
 
                                 <ul class="drag-list">
                                 </ul>
                             </div>
                             <div class="col-sm-3 col-xs-12 list-drap-drop ">
                                 <h3 data-key="going">Ongoing</h3>
+                                <div class="move">
+                                    <a href="javascript:void(0)" class="back"  onclick="moveEvent('todo')">Back</a>
+                                    <a href="javascript:void(0)" class="next" onclick="moveEvent('test')">Next</a>
+                                </div>
                                 <ul class="drag-list">
 
                                 </ul>
                             </div>
                             <div class="col-sm-3 col-xs-12 list-drap-drop ">
                                 <h3 data-key="test">Testing</h3>
+                                <div class="move">
+                                    <a href="javascript:void(0)" class="back" onclick="moveEvent('going')">Back</a>
+                                    <a href="javascript:void(0)" class="next" onclick="moveEvent('done')">Next</a>
+                                </div>
                                 <ul class="drag-list">
 
                                 </ul>
@@ -291,6 +303,10 @@
                             </div>
                             <div class="col-sm-3 col-xs-12 list-drap-drop ">
                                 <h3 data-key="done">Done</h3>
+                                <div class="move">
+                                    <a href="javascript:void(0)" class="back" onclick="moveEvent('test')">Back</a>
+                                    <a href="javascript:void(0)" class="next" onclick="moveEvent('archive')">Next</a>
+                                </div>
                                 <ul class="drag-list">
 
                                 </ul>

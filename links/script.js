@@ -1840,13 +1840,22 @@ function buildListScrum(keySwot, dataIn) {
     $('h3[data-key="' + keySwot + '"]').closest('.list-drap-drop').find('ul.drag-list').html(str);
 }
 
+function moveEvent(keynew){
+    $('#keyScrum').val(keynew);
+    //$('#text-scrum').val(text);
+    //$('#keyAtIdScrum').val(keyid);
+    editScrum();
+}
 
 function addScrum() {
+    keyType = 'todo';
+    /*
     var keyType = $('#keyScrum').val();
     if (keyType == '' || keyType == null) {
         alert(1)
         return;
     }
+    */
     var text = $('#text-scrum').val();
     if (text == '') {
         alert(2)
@@ -1925,6 +1934,8 @@ function updateSortScrum(obj){
 function deleteScrum() {
   
 
+   
+
     var idType = $('#keyScrum').val();
     if (idType == '' || idType == null) {
         alert('1er')
@@ -1941,6 +1952,11 @@ function deleteScrum() {
     if (!result) {
         return
     }
+
+    //just change type for view
+    moveEvent('archive');
+    return;
+
     swoftRef = dbRef.ref('scrum/' + user_ID + '/' + idKey)
     swoftRef.remove();
 }
