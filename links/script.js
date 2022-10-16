@@ -1,3 +1,49 @@
+//https://www.sceditor.com/documentation/options/
+var editor_note_show = document.getElementById('editor_note_show');
+var instance_sceditor = sceditor.create(editor_note_show, {
+    format: 'bbcode',
+    // icons: 'monocons',
+    format: 'xhtml',
+    plugins: 'undo',
+    style: 'minified/themes/content/default.min.css',
+    toolbar: 'bold,italic,underline,size,color,undo,removeformat|bulletlist,orderedlist,indent,outdent|horizontalrule,table,code,quote,date|maximize,source',
+    width: "100%",
+    height: "99%",
+});
+
+// sceditor.instance(editor_note_show).unbind(function (e) {
+//     // alert('Gained focus');/
+//     console.log('unbind')
+// });
+
+sceditor.instance(editor_note_show).bind('blur', function (e) {
+    console.log('blur')
+    event3_save();
+});
+
+
+function event3_loadmindmap() {
+    if ($('#split-1').width()!=0) {
+        // $('.sceditor-container').hide();
+        //viewHide1();
+        instanceSplit.collapse(1);
+    } else {
+        // $('.sceditor-container').show();
+        loadDefaultViewNote();
+    }
+
+}
+function event2_view_tab1(){
+    if ($('#split-0').width() != 0) {
+        // $('.sceditor-container').hide();
+        instanceSplit.collapse(0);
+    } else {
+        // $('.sceditor-container').show();
+        loadDefaultViewNote();
+    }
+
+}
+
 $(document).ready(function () {
     var height = $('.navbar-header').height();
     $('#start-content').css('margin-top', height);

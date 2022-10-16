@@ -17,17 +17,23 @@ if (sizes) {
 } else {
     sizes = [15, 25, 60]; // default sizes
 }
+var instanceSplit;
 // https://github.com/nathancahill/split/tree/master/packages/splitjs#installation
-Split(['#split-0', '#split-1', '#split-2'], {
+// loadDefaultViewNote();
+instanceSplit = Split(['#split-0', '#split-1', '#split-2'], {
     sizes: sizes,
     minSize: 100,
     maxSize: 1000,
     gutterSize: 5,
     snapOffset: 1,
-    onDragEnd: function(sizes) {
+    onDragEnd: function (sizes) {
         localStorage.setItem('split-sizes', JSON.stringify(sizes))
     },
-})
+});
+function loadDefaultViewNote(){
+    instanceSplit.setSizes(sizes);
+}
+
 
 var last_select_note_cat = 0;
 
@@ -77,16 +83,6 @@ const editorText = KothingEditor.create("editor", {
 */
 
 
-//https://www.sceditor.com/documentation/options/
-var editor_note_show = document.getElementById('editor_note_show');
-sceditor.create(editor_note_show, {
-    format: 'bbcode',
-    icons: 'monocons',
-    plugins: 'undo',
-    style: 'minified/themes/content/default.min.css',
-    width: "100%",
-    height: "99%",
-});
 
 function getListNotes() {
     //getNoteListCategory()
@@ -147,9 +143,10 @@ function change_note_cat(ischange){
 
 function getNoteListCategory() {
     // console.log('note-list-cat')
-    $('#split-0 .list').html('');
+    
     
     db.collection(glb_link_note_current + '/category').get().then((querySnapshot) => {
+        $('#split-0 .list').html('');
         // console.log(querySnapshot.docs)
         var list = {};
         querySnapshot.forEach((doc) => {
@@ -180,7 +177,10 @@ function getNoteListCategory() {
             index++;
         }
         if ($('#split-0 .list li').length > 0) {
-            $('#split-0 .list li').eq(0).trigger('click');
+            const myTimeout = setTimeout(function(){
+                $('#split-0 .list li').eq(0).trigger('click');
+            }, 500);
+            
         }
         setTotalFooter1(Object.keys(newObjectSort).length);
         focus_category_reload(last_select_note_cat);
@@ -287,7 +287,7 @@ function getNotePost(dataId, at) {
             //editorText.setContents(docData.contentPost);
 
             let editorSet = sceditor.instance(editor_note_show);
-            editorSet.setWysiwygEditorValue(docData.contentPost)
+            editorSet.setWysiwygEditorValue(docData.contentPost);
 
             $(at).html(docData.titlePost);
 
@@ -532,7 +532,7 @@ function down_cat_node() {
 function focus_category_reload(at_index) {
     $('#split-0 .list li').removeClass('active');
     $('#split-0 .list li').eq(at_index).addClass('active');
-    $('#split-0 .list li.active').trigger('click');
+    // $('#split-0 .list li.active').trigger('click');
 }
 
 function update_cat_sort_all() {
