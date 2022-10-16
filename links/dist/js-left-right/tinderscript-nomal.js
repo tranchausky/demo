@@ -1,3 +1,5 @@
+//https://obfuscator.io/
+
 $ = jQuery;
 $(document).ready(function() {
 
@@ -103,7 +105,8 @@ $(document).ready(function() {
 
     function imgNewRandom() {
         var imgid = getRndInteger(1, 600);
-        return glb_root + `/wp-content/themes/my-theme/pics/` + imgid + `.jpeg`;
+        return glb_root_path + imgid + `.jpeg`;
+        //return glb_root + `/wp-content/themes/my-theme/pics/` + imgid + `.jpeg`;
     }
 
     function addNewCart() {
@@ -121,9 +124,9 @@ $(document).ready(function() {
             // alert(index)
             const element = data[index];
             var imgid = getRndInteger(1, 600);
-            var attr_image = `data-src="` + glb_root + `/wp-content/themes/my-theme/pics/` + imgid + `.jpeg"`;
+            var attr_image = `data-src="` + glb_root_path + imgid + `.jpeg"`;
             // if (index == max - 1) {
-            attr_image = `src="` + glb_root + `/wp-content/themes/my-theme/pics/` + imgid + `.jpeg"`;
+            attr_image = `src="` + glb_root_path + imgid + `.jpeg"`;
             // }
             str +=
                 `<div class="demo__card" data-vid="` + index + `">
