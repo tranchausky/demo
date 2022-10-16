@@ -235,6 +235,15 @@
         overflow: hidden;
         padding: 0;
     }
+    .forms-in .note .list{
+        padding: 0;
+        padding-left: 2px;
+        margin: 0;
+    }
+    .forms-in .note .list li {
+        padding: 3px;
+        list-style: none;
+    }
 }
 
 /* nav collapse at size md */
