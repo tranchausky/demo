@@ -103,7 +103,7 @@
     height: calc(100% - 76px)!important;
 }
 
-.full-loading {
+.full-loading, .full-saveing {
     display: none;
     background: #e7dcdc8c;
     height: calc(100% - 69px)!important;
@@ -115,6 +115,9 @@
     font-size: 20px;
     text-align: center;
     padding-top: 30px;
+}
+.full-saveing {
+    display: none;
 }
 
 .footer-sp-right {

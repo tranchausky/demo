@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<title>JS Paint</title>
+
+	<!-- This should mirror CSP in electron-main.js, except maybe for firebase stuff. -->
+	<!-- Firebase stuff is somewhat speculative, as the quota is exceeded as I'm adding this. -->
+	<!-- Lax img-src is needed for speech recognition, e.g. interpret_command("draw a cat")[0].exec(); -->
+	<!-- connect-src needs data:/blob: for loading images via fetch, including from local storage. -->
+	<meta http-equiv="Content-Security-Policy" content="
+		default-src 'self';
+		script-src 'self' https://jspaint.firebaseio.com;
+		style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
+		img-src 'self' data: blob: http: https:;
+		font-src 'self' https://fonts.gstatic.com;
+		connect-src * data: blob: https://jspaint.firebaseio.com wss://jspaint.firebaseio.com;
+	">
+
+	<link href="styles/normalize.css" rel="stylesheet" type="text/css">
+	<link href="styles/layout.css" class="flippable-layout-stylesheet" rel="stylesheet" type="text/css">
+	<link href="styles/print.css" rel="stylesheet" type="text/css" media="print">
+	<link href="lib/os-gui/layout.css" class="flippable-layout-stylesheet" rel="stylesheet" type="text/css">
+	<!-- <link href="lib/os-gui/windows-98.css" rel="stylesheet" type="text/css"> -->
+	<!-- <link href="lib/os-gui/windows-default.css" rel="stylesheet" type="text/css" title="Windows Default"> -->
+	<!-- <link href="lib/os-gui/peggys-pastels.css" rel="alternate stylesheet" type="text/css" title="Peggy's Pastels"> -->
+	<!-- <link href="lib/tracky-mouse/tracky-mouse.css" rel="stylesheet" type="text/css"> -->
+	<link href="lib/98.css/98.custom-build.css" class="flippable-layout-stylesheet not-for-modern" rel="stylesheet"
+		type="text/css">
+
+	<link rel="apple-touch-icon" href="images/icons/apple-icon-180x180.png">
+	<link rel="shortcut icon" href="favicon.ico">
+	<link rel="mask-icon" href="images/icons/safari-pinned-tab.svg" color="red">
+	<link rel="manifest" href="manifest.webmanifest">
+	<meta name="msapplication-TileColor" content="#008080">
+	<meta name="msapplication-TileImage" content="images/icons/ms-icon-144x144.png">
+	<meta name="theme-color" content="#000080">
+
+	<meta name="viewport" content="width=device-width, user-scalable=no">
+
+	<meta name="description" content="Classic MS Paint in the browser, with extra features" />
+	<meta property="og:image:width" content="279">
+	<meta property="og:image:height" content="279">
+	<meta property="og:description" content="Classic MS Paint in the browser, with extra features.">
+	<meta property="og:title" content="JS Paint">
+	<meta property="og:url" content="https://jspaint.app">
+	<meta name="twitter:title" content="JS Paint">
+	<meta name="twitter:description" content="Classic MS Paint in the browser, with extra features">
+	<meta name="twitter:image" content="https://jspaint.app/images/meta/twitter-card-plz-no-crop.png">
+	<meta name="twitter:card" content="summary_large_image">
+	<meta name="twitter:site" content="@isaiahodhner">
+	<meta name="twitter:creator" content="@isaiahodhner">
+
+	<script src="src/error-handling-basic.js"></script>
+	<script src="src/theme.js"></script>
+</head>
+
+<body>
+
+	<script defer src="src/test-news.js"></script>
+	<!-- <div>
+        <h1>123123123</h1>
+        </div> -->
+	<div id="news" hidden>
+		
+	</div>
+
+	<!-- Note: no CDNs, even with fallback, as the fallback is too complicated to handle with CSP. -->
+	<script src="lib/jquery-3.4.1.min.js"></script>
+	<script src="lib/gif.js/gif.js"></script>
+	<script src="lib/pako-2.0.3.min.js"></script> <!-- for UPNG.js and UTIF.js -->
+	<script src="lib/UPNG.js"></script>
+	<script src="lib/UTIF.js"></script>
+	<script src="lib/bmp.js"></script>
+	<script src="lib/pdf.js/build/pdf.js"></script>
+	<script src="lib/anypalette-0.6.0.js"></script>
+	<script src="lib/FileSaver.js"></script>
+	<script src="lib/font-detective.js"></script>
+	<script src="lib/libtess.min.js"></script>
+	<!-- <script src="lib/tracky-mouse/tracky-mouse.js"></script> -->
+	<script src="lib/os-gui/parse-theme.js"></script>
+	<script src="lib/os-gui/$Window.js"></script>
+	<script src="lib/os-gui/MenuBar.js"></script>
+	<script src="lib/imagetracer_v1.2.5.js"></script>
+
+	<script src="src/app-localization.js"></script>
+	<!-- must not be async/deferred, as it uses document.write(); and must come before other app code which uses localization functions -->
+	<script src="src/msgbox.js"></script>
+	<script src="src/functions.js"></script>
+	<script src="src/helpers.js"></script>
+	<script src="src/storage.js"></script>
+	<script src="src/$Component.js"></script>
+	<script src="src/$ToolWindow.js"></script>
+
+	<script src="src/error-handling-enhanced.js"></script>
+
+	<script src="src/$ToolBox.js"></script>
+	<script src="src/$ColorBox.js"></script>
+	<script src="src/$FontBox.js"></script>
+	<script src="src/Handles.js"></script>
+	<script src="src/OnCanvasObject.js"></script>
+	<script src="src/OnCanvasSelection.js"></script>
+	<script src="src/OnCanvasTextBox.js"></script>
+	<script src="src/OnCanvasHelperLayer.js"></script>
+	<script src="src/image-manipulation.js"></script>
+	<script src="src/tool-options.js"></script>
+	<script src="src/tools.js"></script>
+	<!--<script src="src/extra-tools.js"></script>-->
+	<script src="src/edit-colors.js"></script>
+	<script src="src/manage-storage.js"></script>
+	<script src="src/imgur.js"></script>
+	<script src="src/help.js"></script>
+	<script src="src/simulate-random-gestures.js"></script>
+	<script src="src/menus.js"></script>
+	<script src="src/speech-recognition.js"></script>
+	<script src="src/app.js"></script>
+	<script src="src/sessions.js"></script>
+	<script src="lib/konami.js"></script>
+	<script src="src/vaporwave-fun.js"></script>
+
+	<noscript>
+		<h1><img src="images/icons/32x32.png" width="32" height="32" alt="" /> JS Paint</h1>
+
+		<p>This application requires JavaScript to run.</p>
+
+		<p>You can also check out <a href="https://github.com/1j01/jspaint">the source code and project info</a>.</p>
+	</noscript>
+
+	<svg style="position: absolute; pointer-events: none; bottom: 100%;">
+		<defs>
+			<filter id="disabled-inset-filter" x="0" y="0" width="1px" height="1px">
+				<feColorMatrix in="SourceGraphic" type="matrix" values="
+					1 0 0 0 0
+					0 1 0 0 0
+					0 0 1 0 0
+					-1000 -1000 -1000 1 0
+				" result="black-parts-isolated" />
+				<feFlood result="shadow-color" flood-color="var(--ButtonShadow)" />
+				<feFlood result="hilight-color" flood-color="var(--ButtonHilight)" />
+				<feOffset in="black-parts-isolated" dx="1" dy="1" result="offset" />
+				<feComposite in="hilight-color" in2="offset" operator="in" result="hilight-colored-offset" />
+				<feComposite in="shadow-color" in2="black-parts-isolated" operator="in" result="shadow-colored" />
+				<feMerge>
+					<feMergeNode in="hilight-colored-offset" />
+					<feMergeNode in="shadow-colored" />
+				</feMerge>
+			</filter>
+			<filter id="disabled-inset-filter-2" x="0" y="0" width="1px" height="1px">
+				<feColorMatrix in="SourceGraphic" type="matrix" values="
+					1 0 0 0 0
+					0 1 0 0 0
+					0 0 1 0 0
+					-1 -1 -0 1 0
+				" result="black-and-blue-parts-isolated" />
+				<feFlood result="shadow-color" flood-color="var(--ButtonShadow)" />
+				<feFlood result="hilight-color" flood-color="var(--ButtonHilight)" />
+				<feOffset in="black-and-blue-parts-isolated" dx="1" dy="1" result="offset" />
+				<feComposite in="hilight-color" in2="offset" operator="in" result="hilight-colored-offset" />
+				<feComposite in="shadow-color" in2="black-and-blue-parts-isolated" operator="in"
+					result="shadow-colored" />
+				<feMerge>
+					<feMergeNode in="hilight-colored-offset" />
+					<feMergeNode in="shadow-colored" />
+				</feMerge>
+			</filter>
+		</defs>
+	</svg>
+</body>
+
+</html>

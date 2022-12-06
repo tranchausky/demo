@@ -109,6 +109,14 @@ function hideShowLoadingEditor(is_show) {
             $('.full-loading').hide();
             $('#split-2 .content').hide();
             break;
+        case 3:
+            $('.full-saveing').show();
+            $('#split-2 .content').hide();
+            break;
+        case 4:
+            $('.full-saveing').hide();
+            $('#split-2 .content').show();
+            break;
 
         default:
             break;
@@ -274,6 +282,7 @@ function getNoteCategory(dataId) {
     });
 }
 
+var paintContent = '';
 function getNotePost(dataId, at) {
     var idUserCategory = user_ID;
     var idCategory = dataId.catId;
@@ -281,13 +290,23 @@ function getNotePost(dataId, at) {
 
     db.collection(glb_link_note_current + '/category/' + idCategory + '/post').doc(idPost).get().then((doc) => {
         if (doc.exists) {
-            // console.log("Document data:", doc.data());
+            //console.log("Document data:", doc.data());
             var docData = doc.data();
             //$('#kothing-editor_editor .kothing-editor-editable').html(docData.contentPost);
             //editorText.setContents(docData.contentPost);
 
             let editorSet = sceditor.instance(editor_note_show);
             editorSet.setWysiwygEditorValue(docData.contentPost);
+
+            paintContent = null;
+            $('#image_preview').hide();
+            if(typeof docData.paint != 'undefined'){
+                var paint = docData.paint;
+                paintContent = paint;
+                paint = JSON.parse(paint.replace(/&quot;/g,'"'));
+                $('#image_preview').attr('src',paint);
+                $('#image_preview').show();
+            }
 
             $(at).html(docData.titlePost);
 
@@ -405,13 +424,18 @@ function updateNotePost(dataIn) {
     if (typeof dataIn.isHightLight != 'undefined') {
         dataUpdate.isHightLight = dataIn.isHightLight;
     }
+    var contentPaint = getPaint();
+    if (contentPaint != null) {
+        dataUpdate.paint = contentPaint;
+    }
     batch.update(sfRef, dataUpdate);
 
     batch.commit().then(() => {
         // ...
         // console.log('update-post-done')
         $('#footer3-1').html('saved');
-        hideShowLoadingEditor(0);
+        // hideShowLoadingEditor(0);
+        hideShowLoadingEditor(4);
         reload_list_post()
     });
 }
@@ -683,7 +707,7 @@ function event2_click(at) {
 
 function event3_save() {
     $('#footer3-1').html('saving...');
-    hideShowLoadingEditor(1);
+    hideShowLoadingEditor(3);
     var data = {};
     //var str = $('#kothing-editor_editor .kothing-editor-editable').html();
 
@@ -701,6 +725,37 @@ function event3_view() {
         // console.log(content)
         // console.log(content1)
     buildLeftRight(content1)
+}
+
+function event3_paint() {
+    var idPost = idPost_selected;
+    if(paintContent != null){
+        setPaint(paintContent)
+    }
+    openInNewTab('mspaint/index_paint.html#local:'+idPost);
+}
+function setPaint(str){
+    var idPost = idPost_selected;
+    localStorage.setItem("image#"+idPost, str);
+}
+function removePaint(){
+    var idPost = idPost_selected;
+    localStorage.removeItem("image#"+idPost);
+}
+var is_open_paint = 0;
+function openInNewTab(href){
+    is_open_paint = 1;
+    Object.assign(document.createElement('a'), {
+        target: '_blank',
+        rel: 'noopener noreferrer',
+        href: href,
+    }).click();
+}
+function getPaint() {
+    var idPost = idPost_selected;
+    var datanew = localStorage.getItem("image#"+idPost);
+    removePaint();
+    return datanew;
 }
 
 function buildLeftRight(strData) {
