@@ -785,11 +785,14 @@
                         <div class="col-xs-6">
                             <h3>Note</h3>
                         </div>
-                        <div class="col-xs-6">
+                        <div class="col-xs-4">
                             <h5 class="is-know">
                                 <a href="#" class="apply active" onclick="change_note_cat(false)"> Apply Life</a>
                                 <a href="#" class="know" onclick="change_note_cat(true)">Know Book</a>
                             </h5>
+                        </div>
+                        <div class="col-xs-2">
+                            <h5 class='is-know'><a role='button' class="" onclick="setForPreview();" data-id-show ="my-detail-view"><i class="fa fa-fw fa-arrows-alt" aria-hidden="true"></i>View Detail</a></h5>
                         </div>
 
                     </div>
@@ -890,6 +893,34 @@
                     
                 
                 </div>
+
+                <!-- This is the modal -->
+                <div class="modal fade" tabindex="-1" role="dialog" id="my-detail-view">
+                    <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                            <h4 class="modal-title" id="title-preview">Modal title</h4>
+                        </div>
+                        <div class="modal-body">
+                            <div class="text-right">
+                                <a href="javascript:void(0)" onclick="goBackDetailPreview();">Back</a>
+                                <a href="javascript:void(0)" onclick="goNextDetailPreview();">Next</a>
+                            </div>
+                            <div id="image_preview_double">
+                                <img src="" alt="" style="width: 100%; border: 1px solid;"/>
+                            </div>
+                            <br>
+                            <div class="content-preview" id="content-preview" style=" border: 1px solid pink; padding: 4px; ">
+
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        </div>
+                    </div><!-- /.modal-content -->
+                    </div><!-- /.modal-dialog -->
+                </div><!-- /.modal -->
             </div>
         </div>
 

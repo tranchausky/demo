@@ -302,13 +302,14 @@ function getNotePost(dataId, at) {
             $('#image_preview').hide();
             if(typeof docData.paint != 'undefined'){
                 var paint = docData.paint;
-                paintContent = paint;
-                paint = JSON.parse(paint.replace(/&quot;/g,'"'));
-                $('#image_preview').attr('src',paint);
+                paintContent = JSON.parse(paint.replace(/&quot;/g,'"'));
+                $('#image_preview').attr('src',paintContent);
                 $('#image_preview').show();
             }
 
             $(at).html(docData.titlePost);
+
+            setPreviewDetail(docData.titlePost,docData.contentPost,paintContent);
 
         } else {
             // doc.data() will be undefined in this case
@@ -321,6 +322,73 @@ function getNotePost(dataId, at) {
         $('#footer3-1').html('loaded error');
         hideShowLoadingEditor(0);
     });
+}
+
+function setPreviewDetail(title,content,src){
+    $('#image_preview_double img').hide();
+
+    if($('#image_preview').is(':visible')) {
+        // var src = $('#image_preview').attr('src');
+        $('#image_preview_double img').attr('src',src);
+        $('#image_preview_double img').show();
+    }
+
+    
+    $('#content-preview').html(content);
+
+    
+    $('#title-preview').html(title);
+}
+
+function setForPreview(){
+    var title = $('#split-1 .content li.active').html();
+    let edirotObj = sceditor.instance(editor_note_show);
+    var content = edirotObj.getBody().innerHTML;
+    var src = $('#image_preview').attr('src');
+
+    setPreviewDetail(title,content,src);
+
+    $('#my-detail-view').modal('show');
+}
+
+function goBackDetailPreview(){
+    var indexat =li2_index-1;
+	if(li2_index ==0){
+		return;
+	}
+
+	var element = $('#split-1 ol.list li').eq(indexat);
+	if(element.length != 0){
+		$('#split-1 ol.list li').removeClass('active');
+		element.trigger('click');
+
+		// var attop = element.position().top;
+		// $('#split-1 .content').scrollTop(attop);
+	}
+}
+function goNextDetailPreview(){
+    // li2_index
+
+    var next =li2_index+1;
+	
+	var element = $('#split-1 ol.list li').eq(next);
+	if(element.length != 0){
+		$('#split-1 ol.list li').removeClass('active');
+		element.trigger('click');
+		
+		// var attop = element.position().top;
+		// $('#split-1 .content').scrollTop(attop);
+
+	}else{
+		//nextpage
+		// var total_feed = $('#length-content-1-total').html();
+		// total_feed = parseInt(total_feed) - 1;
+		// if(next < total_feed){
+		// 	// page_feed++;
+		// 	getFeed();
+		// 	// event2_next();
+		// }
+	}
 }
 
 function deleteNotePost(idCategory, idPost) {
@@ -683,10 +751,15 @@ function event2_at() {
 
 }
 
+var li2_index = 0;
 function event2_click(at) {
-    // console.log(at)
 
     var id = at.getAttribute('data-id');
+
+    var listItem = $('li[data-id="'+id+'"]');
+    li2_index = $( "#split-1 .list li" ).index( listItem );
+
+
     idPost_selected = id;
     var data = {};
     data.catId = idCategory_selected;

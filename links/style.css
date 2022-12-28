@@ -293,3 +293,8 @@
         display: block !important;
     }
 }
+
+#my-detail-view .modal-dialog{
+    max-width: 1000px;
+    width: 80%;
+}
