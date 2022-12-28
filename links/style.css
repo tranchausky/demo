@@ -298,3 +298,6 @@
     max-width: 1000px;
     width: 80%;
 }
+#content-preview *{
+    word-break: break-all;
+}
