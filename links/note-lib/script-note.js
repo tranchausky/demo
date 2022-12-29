@@ -299,17 +299,19 @@ function getNotePost(dataId, at) {
             editorSet.setWysiwygEditorValue(docData.contentPost);
 
             paintContent = null;
+            var paint = '';
             $('#image_preview').hide();
             if(typeof docData.paint != 'undefined'){
-                var paint = docData.paint;
-                paintContent = JSON.parse(paint.replace(/&quot;/g,'"'));
-                $('#image_preview').attr('src',paintContent);
+                paint = docData.paint;
+                paintContent = paint;
+                paint = JSON.parse(paint.replace(/&quot;/g,'"'));
+                $('#image_preview').attr('src',paint);
                 $('#image_preview').show();
             }
 
             $(at).html(docData.titlePost);
 
-            setPreviewDetail(docData.titlePost,docData.contentPost,paintContent);
+            setPreviewDetail(docData.titlePost,docData.contentPost,paint);
 
         } else {
             // doc.data() will be undefined in this case
