@@ -2228,7 +2228,6 @@ function getListTaskNoDone(atpoint){
 
     switch (atpoint) {
         case 1:
-            console.log('check 1');
             if(checkIsDoneNotEmpty(one,is_one) !==false){
                 console.log('noti 1');
                 notifyMe(one);
@@ -2236,7 +2235,6 @@ function getListTaskNoDone(atpoint){
             }
             break;
         case 2:
-            console.log('check 2');
             if(checkIsDoneNotEmpty(two,is_two) !==false){
                 console.log('noti 2');
                 notifyMe(two);
@@ -2244,7 +2242,6 @@ function getListTaskNoDone(atpoint){
             }
             break;
         case 3:
-            console.log('check 3');
             if(checkIsDoneNotEmpty(three,is_three) !==false){
                 console.log('noti 3');
                 notifyMe(three);
@@ -2252,7 +2249,6 @@ function getListTaskNoDone(atpoint){
             }
             break;
         case 4:
-            console.log('check 4');
             if(checkIsDoneNotEmpty(four,is_four) !==false){
                 console.log('noti 4');
                 notifyMe(four);
@@ -2260,7 +2256,6 @@ function getListTaskNoDone(atpoint){
             }
             break;
         case 5:
-            console.log('check 5');
             if(checkIsDoneNotEmpty(five,is_five) !==false){
                 console.log('noti 5');
                 notifyMe(five);
@@ -2275,12 +2270,8 @@ function getListTaskNoDone(atpoint){
 function autoGetOneTask(){
     var list = [1,2,3,4,5];
     shuffle(list);
-    console.log('list');
-    console.log(list);
     for (let index = 0; index < list.length; index++) {
         const element = list[index];
-        console.log('element');
-        console.log(element);
         var isAt = getListTaskNoDone(element);
         if(isAt ==true){
             return false;
