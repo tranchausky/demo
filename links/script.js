@@ -48,13 +48,16 @@ $(document).ready(function () {
     var height = $('.navbar-header').height();
     $('#start-content').css('margin-top', height);
     $('#myNavbar a').click(function () {
+        var atrHref = $(this).attr('href')
 
         if (user_ID == '') {
             alert('Need Login First')
             return
         }
+        if (atrHref == '../timedown') {
+            return;
+        }
 
-        var atrHref = $(this).attr('href')
         $('.v-m-content').addClass('hide');
         $(atrHref).removeClass('hide');
 
@@ -902,6 +905,12 @@ function addFiveTaskToday() {
     })
 }
 
+$("#fivetask .form-group textarea").focusout(function(){
+    updateFiveTaskToday();
+  });
+  $('#fivetask .form-group input').change(function() {
+    updateFiveTaskToday();
+  });
 function updateFiveTaskToday() {
 
     var key = $('#add-task-id').val();
@@ -2153,3 +2162,170 @@ function deleteTx() {
 }
 
 //Good_Bad End
+
+function showPhotoPic(){
+    $('#modal-Photo').modal('show');
+    $('#image_preview_photo_double img').attr('src',$('#image-img-photo').attr('src'));
+}
+$('#image-img-photo').click(function(){
+    showPhotoPic();
+});
+
+
+$(document).ready(function() {
+    var pubnub = PUBNUB({
+            subscribe_key : 'demo'
+        });
+
+    pubnub.subscribe({
+            channel : "pubnub-html5-notification-demo", // Subscribing to PubNub's channel
+            message : function(message){
+                      console.log(message);
+                      notifyMe(message.text);
+                }
+        })
+});
+
+function notifyMe(message) {
+
+    if (message == undefined){
+        message = "Xin chào đây là thông báo từ 03way!";
+    };
+
+    // Let's check if the browser supports notifications
+    if (!("Notification" in window)) {
+        alert("This browser does not support desktop notification");
+    }
+
+    // Let's check whether notification permissions have already been granted
+    else if (Notification.permission === "granted") {
+    // If it's okay let's create a notification
+        var notification = new Notification(message);
+    }
+
+    // Otherwise, we need to ask the user for permission
+    else if (Notification.permission !== 'denied') {
+        Notification.requestPermission(function (permission) {
+            // If the user accepts, let's create a notification
+                if (permission === "granted") {
+                var notification = new Notification("Hi there!");
+                }
+        });
+    }
+}
+function getListTaskNoDone(atpoint){
+    atpoint = parseInt(atpoint);
+    var one = $('#add-task-1').val();
+    var two = $('#add-task-2').val();
+    var three = $('#add-task-3').val();
+    var four = $('#add-task-4').val();
+    var five = $('#add-task-5').val();
+    var is_one = $("#check-task-1").is(':checked') ? true : false;
+    var is_two = $("#check-task-2").is(':checked') ? true : false;
+    var is_three = $("#check-task-3").is(':checked') ? true : false;
+    var is_four = $("#check-task-4").is(':checked') ? true : false;
+    var is_five = $("#check-task-5").is(':checked') ? true : false;
+
+    switch (atpoint) {
+        case 1:
+            console.log('check 1');
+            if(checkIsDoneNotEmpty(one,is_one) !==false){
+                console.log('noti 1');
+                notifyMe(one);
+                return true;
+            }
+            break;
+        case 2:
+            console.log('check 2');
+            if(checkIsDoneNotEmpty(two,is_two) !==false){
+                console.log('noti 2');
+                notifyMe(two);
+                return true;
+            }
+            break;
+        case 3:
+            console.log('check 3');
+            if(checkIsDoneNotEmpty(three,is_three) !==false){
+                console.log('noti 3');
+                notifyMe(three);
+                return true;
+            }
+            break;
+        case 4:
+            console.log('check 4');
+            if(checkIsDoneNotEmpty(four,is_four) !==false){
+                console.log('noti 4');
+                notifyMe(four);
+                return true;
+            }
+            break;
+        case 5:
+            console.log('check 5');
+            if(checkIsDoneNotEmpty(five,is_five) !==false){
+                console.log('noti 5');
+                notifyMe(five);
+                return true;
+            }
+            break;
+        default:
+            break;
+    }
+    return false;
+}
+function autoGetOneTask(){
+    var list = [1,2,3,4,5];
+    shuffle(list);
+    console.log('list');
+    console.log(list);
+    for (let index = 0; index < list.length; index++) {
+        const element = list[index];
+        console.log('element');
+        console.log(element);
+        var isAt = getListTaskNoDone(element);
+        if(isAt ==true){
+            return false;
+        }
+    }
+    return true;
+}
+
+//https://stackoverflow.com/a/2450976
+function shuffle(array) {
+    let currentIndex = array.length,  randomIndex;
+  
+    // While there remain elements to shuffle.
+    while (currentIndex != 0) {
+  
+      // Pick a remaining element.
+      randomIndex = Math.floor(Math.random() * currentIndex);
+      currentIndex--;
+  
+      // And swap it with the current element.
+      [array[currentIndex], array[randomIndex]] = [
+        array[randomIndex], array[currentIndex]];
+    }
+  
+    return array;
+  }
+
+function checkIsDoneNotEmpty(task,isTaskDone){
+    if(isTaskDone == true){
+        return false;
+    }
+    if(task == ''){
+        return false;
+    }
+    return task;
+}
+var timeAutoNoti = 5*1000*60; //5 minus
+function run_time() {
+    var isEnd = autoGetOneTask();
+
+    if (isEnd == true) {
+        // Do something with el
+    } else {
+        setTimeout(run_time, timeAutoNoti); // try again in 3000 milliseconds
+    }
+}
+console.log('Run task 5minus');
+setTimeout(run_time, timeAutoNoti);

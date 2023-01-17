@@ -301,3 +301,8 @@
 #content-preview *{
     word-break: break-all;
 }
+#modal-Photo .modal-dialog{
+    width: 90%;
+    min-width: 200px;
+    max-width: 1100px;
+}

@@ -62,7 +62,7 @@
                         <li class=""><a href="#video">Video</a></li>
                         <li class=""><a href="#note">Note</a></li>
                         <!-- <li class=""><a href="../600">600</a></li> -->
-                        <li class=""><a href="../timedown">Time</a></li>
+                        <li class=""><a href="../timedown" target="_blank">Time</a></li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
                         <li class="show-signout">
@@ -921,6 +921,33 @@
                     </div><!-- /.modal-content -->
                     </div><!-- /.modal-dialog -->
                 </div><!-- /.modal -->
+
+                <!-- This is the modal -->
+                <div class="modal fade" tabindex="-1" role="dialog" id="modal-Photo">
+                    <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                            <h4 class="modal-title" id="title-modal-photo">Image view</h4>
+                        </div>
+                        <div class="modal-body">
+                            <!-- <div class="text-right">
+                                <a href="javascript:void(0)" onclick="goBackDetailPhoto();">Back</a>
+                                <a href="javascript:void(0)" onclick="goNextDetailPhoto();">Next</a>
+                            </div> -->
+                            <div id="image_preview_photo_double">
+                                <img src="" alt="" style="width: 100%; border: 1px solid;"/>
+                            </div>
+                            <br>
+
+                            </div>
+                        </div>
+                        <!-- <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        </div> -->
+                    </div><!-- /.modal-content -->
+                    </div><!-- /.modal-dialog -->
+                </div><!-- /.modal -->
             </div>
         </div>
 
@@ -934,6 +961,7 @@
     <script src="drag-arrange.js"></script>
     <script src="drap.js"></script>
     <script src="drap_ui.js"></script>
+    <script src="dist/nofifycation.min.js"></script>
 
     <script>
         //$(function() {
