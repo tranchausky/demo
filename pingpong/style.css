@@ -1,0 +1,144 @@
+/*
+ *********************************************************************************************************************************************
+ *  Copyright 2005-2007, Widgetschmiede                                                                                                      *
+ *  http://www.widgetschmie.de/widgets/pongClock                                                                                             *
+ *                                                                                                                                           *
+ *  This Widget is Freeware and will always be. However, if you`d like to use some of its code, please tell us at "support@widgetschmie.de"  *
+ *********************************************************************************************************************************************
+ */
+
+
+body { margin:0; font:10px Arial; color:#0F0; }
+a { color:#EEE; text-decoration:none; }
+a:hover { color:#FFF; text-decoration:none; text-shadow:#FFF 0px 0px 3px; }
+.visibleLink { color:#00f; text-decoration:underline; cursor:hand; }
+ul { padding:0 5px 0 2em; }
+li { margin:0; padding:1px 0; }
+.big { font-size:1.8em; }
+
+
+/* front */
+#front { position:relative; }
+.front { width:166px; height:126px; background:url(Default.png) top left no-repeat; }
+#glass { display:none; position:absolute; top:0px; left:0px; width:166px; height:126px; z-index:6; }
+
+.smallSign { position:absolute; top:0px; left:0px; right:0px; bottom:0px; padding:26px 2px 2px;
+				color:#FFF; text-align:center; background-color:rgba(0,0,0,0.7); z-index:4; }
+.fullscreenSign { position:absolute; top:0px; left:0px; right:0px; bottom:0px; padding:20% 5% 5%;
+				color:#FFF; text-align:center; background-color:rgba(0,0,0,0.7); z-index:4; }
+
+.smallPlayField { position:absolute; top:4px; left:8px; width:150px; height:110px; background:url(Images/smallMidline.gif) top center repeat-y rgb(0,0,0); overflow:hidden; }
+.smallPlayFieldGlossy { position:absolute; top:4px; left:8px; width:150px; height:110px; background:url(Images/smallFullback.png) top center no-repeat; overflow:hidden; }
+.fullscreenPlayField { position:absolute; top:0px; left:0px; width:300px; height:200px; background:url(Images/largeMidline.gif) top center repeat-y rgba(0,0,0,0.85); overflow:hidden; }
+
+.bar { display:block; position:absolute; top:30px; left:12px; width:6px; height:24px; background-color:#0F0; border:none; }
+.ball { display:block; position:absolute; top:10px; left:-10px; width:6px; height:6px; background-color:#0F0; border:none; }
+
+.scoreBoard { display:block; position:relative; top:5%; width:50%; margin:0px auto; text-align:center; }
+.scoreLeft { display:block; float:left; width:45%; text-align:left; }
+.scoreRight { display:block; float:right; width:45%; text-align:right; }
+.smallNumber { width:9px; height:10px; margin:0px 2px 0px 1px; }
+.largeNumber { width:54px; height:60px; margin:0px 10px 0px 5px; }
+
+#ballMoveDebug { position:absolute; top:10px; left:5px; width:90%; font-size:8px; color:#FFF; background-color:rgba(0,0,0,0.5); z-index:10; }
+#ballHitDebug { position:absolute; top:22px; left:5px; width:90%; font-size:8px; color:#FF0; background-color:rgba(0,0,0,0.5); z-index:10; }
+#projectedIndicator { position:absolute; top:10px; left:10px; width:5px; height:5px; background:url(Images/redcross.gif) top left no-repeat; }
+
+#controllerDiv { position:absolute; opacity:0; bottom:12px; left:8px; z-index:7; }
+.smallController { width:40px; height:16px; padding:0 2px; }
+.smallController:hover { background-color:rgba(255,255,255,0.25); }
+.fullscreenController { width:200px; height:80px; background:url(Images/fullscreen_menu_bg.png) center center no-repeat; }
+#modeToggle { float:left; cursor:default; z-index:8; }
+#fullscreenToggle { float:left; cursor:default; z-index:8; }
+.smallControls { width:16px; height:16px; margin:0 2px; padding:0; }
+.fullscreenControls { width:80px; height:80px; margin:0 10px; padding:0; }
+
+
+#flip { opacity:0; background:url(/System/Library/WidgetResources/ibutton/white_i.png) no-repeat top left; z-index:8000; cursor:default; }
+#fliprollie { display:none; opacity:0.25; background:url(/System/Library/WidgetResources/ibutton/white_rollie.png) no-repeat top left; z-index:7999; }
+.flip { position:absolute; bottom:13px; right:9px; width:13px; height:13px; }
+
+
+/* backside */
+#back {
+	display:none; position:relative; width:234px; height:160px; margin:0; padding:8px 8px 12px;
+	color:#EEE; background:url(./Images/backside.png) top left no-repeat; line-height:1.2;
+}
+
+#prefform {
+	position:relative; height:90px; margin:0px 5px; padding:6px;
+	text-align:left; color:#000; background:url(./Images/backside_texture.png) fixed top left no-repeat rgb(120,120,120);
+}
+#prefform a { color:#111; text-decoration:underline; }
+.prefsection { display:none; }
+.subprefitem { margin:0px 0px 0px 15px; }
+.clicksel { cursor:default; }
+.disabled { opacity:0.55; }
+
+.tabbar { height:16px; margin:2px 12px 0px; padding:0px; text-align:left; }
+.tabitem {
+	position:relative; display:inline-block; height:16px; margin:0; padding:4px 6px 0px;
+	color:#222; background:url(./Images/backside_texture.png) fixed top left no-repeat rgb(120,120,120);
+	cursor:default; z-index:2; opacity:0.6; font-size:10px;
+}
+.tabitem:hover { opacity:0.8; }
+.tabitem .bevelLeft, .tabitem .bevelRight { bottom:2px; }
+.selected { color:#000; opacity:1; }
+
+.info_icon { width:14px; height:14px; vertical-align:middle; }
+
+#opacityArea {
+	position:relative; width:100%; height:11px; margin-top:5px; padding-top:19px;
+	background:url(Images/sliderBar.png) top center no-repeat; text-align:center;
+}
+#opacitySlider {
+	position:absolute; top:0px; left:0px; width:20px; height:20px;
+	background:url(Images/sliderKnob.png) top left no-repeat;
+	-apple-dashboard-region:dashboard-region(control rectangle);
+}
+#opacityValue { display:none; position:absolute; top:25px; left:0px; padding:5px 4px 3px; z-index:10; }
+.opacityHint { background-color:#FF9; border:1px solid #FC6; }
+.opacityMark { background-color:#CF9; border:1px solid #9C6; }
+.opacityWarn { color:white; text-shadow:rgba(255,255,255,0.8) 0px 0px 3px; background-color:#C33; border:1px solid #900; }
+
+
+#helpdiv { position:absolute; top:2px; right:1px; left:3px; bottom:1px; overflow:auto; line-height:1.3; }
+#infolink { float:left; margin:0px 5px 0px 0px; border:none; }
+.amboss { border:none; }
+.version { position:absolute; display:inline-block; bottom:20px; left:15px; width:162px; text-align:left; z-index:2; }
+.done { position:absolute; bottom:20px; right:20px; cursor:default; z-index:8; }
+
+
+/* Layout elements */
+.bevelTop {
+	position:absolute; top:0px; left:12px; right:12px; height:6px;
+	background:url(Images/Bevel/bevelTop.png) top left repeat-x;
+}
+.bevelBottom {
+	position:absolute; bottom:0px; left:12px; right:12px; height:6px;
+	background:url(Images/Bevel/bevelBottom.png) bottom left repeat-x;
+}
+.bevelLeft {
+	position:absolute; top:10px; left:0px; width:6px; bottom:8px;
+	background:url(Images/Bevel/bevelLeft.png) top left repeat-y;
+}
+.bevelRight {
+	position:absolute; top:10px; right:0px; width:6px; bottom:8px;
+	background:url(Images/Bevel/bevelRight.png) top right repeat-y;
+}
+.bevelTopLeft {
+	position:absolute; top:0px; left:0px; width:12px; height:10px;
+	background:url(Images/Bevel/bevelTopLeft.png) top left no-repeat;
+}
+.bevelTopRight {
+	position:absolute; top:0px; right:0px; width:12px; height:10px;
+	background:url(Images/Bevel/bevelTopRight.png) top right no-repeat;
+}
+.bevelBottomLeft {
+	position:absolute; bottom:0px; left:0px; width:12px; height:8px;
+	background:url(Images/Bevel/bevelBottomLeft.png) bottom left no-repeat;
+}
+.bevelBottomRight {
+	position:absolute; bottom:0px; right:0px; width:12px; height:8px;
+	background:url(Images/Bevel/bevelBottomRight.png) bottom right no-repeat;
+}

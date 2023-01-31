@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-stylesheet href="./style.css" type="text/css"?>
+<!DOCTYPE html
+	PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+
+<head>
+	<title></title>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+	<style type="text/css">
+		@import "style.css";
+	</style>
+	<script type="text/javascript" src="./utilities.js"></script>
+	<script type="text/javascript" src="./simpleAjaxRequest.js" charset="utf-8" ></script>
+	<script type="text/javascript" src="./versioncheck.js" charset="utf-8" ></script>
+	<script type="text/javascript" src="./preferences.js" charset="utf-8" ></script>
+	<script type="text/javascript" src="./scripts.js" charset="utf-8" ></script>
+	<script type="text/javascript" src="./WidgetResources/button/genericButton.js"
+		charset="utf-8" ></script>
+</head>
+
+<body onload="setup()">
+	<div id="front" class="front" onmousemove="mousemove(event)" onmouseout="mouseexit(event)">
+		<div id="controllerDiv" class="smallController">
+			<img id="modeToggle" class="smallControls" src="Images/game_on.png" alt="play!"
+				onclick="toggleMode(event)" />
+			<img id="fullscreenToggle" class="smallControls" src="Images/toggle.png" alt="full"
+				onclick="toggleFullscreen(event)" />
+		</div>
+
+		<div id="fliprollie" class="flip"></div>
+		<div id="flip" class="flip" onclick="exitflip(event); showPrefs();" onmouseover="enterflip(event);"
+			onmouseout="exitflip(event);"></div>
+	</div>
+
+	<div id="back">
+		<div class="tabbar">
+			<div id="tab_look" class="tabitem" onclick="switchPrefTab('look')">
+				<div class="bevelTop"></div>
+				<div class="bevelLeft"></div>
+				<div class="bevelRight"></div>
+				<div class="bevelTopLeft"></div>
+				<div class="bevelTopRight"></div>
+				Look
+			</div>
+			<div id="tab_physics" class="tabitem" onclick="switchPrefTab('physics')">
+				<div class="bevelTop"></div>
+				<div class="bevelLeft"></div>
+				<div class="bevelRight"></div>
+				<div class="bevelTopLeft"></div>
+				<div class="bevelTopRight"></div>
+				Physics
+			</div>
+			<div id="tab_about" class="tabitem" onclick="switchPrefTab('about')">
+				<div class="bevelTop"></div>
+				<div class="bevelLeft"></div>
+				<div class="bevelRight"></div>
+				<div class="bevelTopLeft"></div>
+				<div class="bevelTopRight"></div>
+				About
+			</div>
+		</div>
+
+		<form id="prefform" method="get" onsubmit="return false;">
+			<div class="bevelTop"></div>
+			<div class="bevelBottom"></div>
+			<div class="bevelLeft"></div>
+			<div class="bevelRight"></div>
+			<div class="bevelTopLeft"></div>
+			<div class="bevelTopRight"></div>
+			<div class="bevelBottomLeft"></div>
+			<div class="bevelBottomRight"></div>
+
+			<div id="prefs_look" class="prefsection">
+				<table cellspacing="0" cellpadding="1" style="width:80%;">
+					<tr>
+						<td>Clock mode:</td>
+						<td><input type="radio" name="clocktype" value="12" /><span class="clicksel"
+								onclick="selectVal(this)">12h</span></td>
+						<td><input type="radio" name="clocktype" value="24" /><span class="clicksel"
+								onclick="selectVal(this)">24h</span></td>
+					</tr>
+				</table>
+
+				<input type="checkbox" name="showglass" value="true" /><span class="clicksel"
+					onclick="selectVal(this)">Show glass</span><br />
+				<input type="checkbox" name="fullscreen_showglass" value="true" /><span class="clicksel"
+					onclick="selectVal(this)">Show glass while in fullscreen</span><br />
+
+				<div id="opacityArea" onmousedown="sliderPressed(event)">
+					<div id="opacitySlider"></div>
+					<div id="opacityValue"></div>
+					fullscreen opacity
+				</div>
+			</div>
+
+			<div id="prefs_physics" class="prefsection">
+				<table cellspacing="0" cellpadding="1" style="width:100%;">
+					<tr>
+						<td>Bounce:</td>
+						<td><input type="radio" name="bouncemode" value="relative" /><span class="clicksel"
+								onclick="selectVal(this)">relative</span></td>
+						<td><input type="radio" name="bouncemode" value="absolute" /><span class="clicksel"
+								onclick="selectVal(this)">absolute</span></td>
+					</tr>
+					<tr>
+						<td colspan="3"></td>
+					</tr>
+					<tr>
+						<td>CPU usage:</td>
+						<td><input type="radio" name="ballinterval" value="40" /><span class="clicksel"
+								onclick="selectVal(this)">low</span></td>
+						<td><input type="radio" name="ballinterval" value="20" /><span class="clicksel"
+								onclick="selectVal(this)">more</span></td>
+					</tr>
+				</table>
+			</div>
+
+			<div id="prefs_about" class="prefsection">
+				<div id="helpdiv">
+					<h3>pongClock</h3>
+					<p>© 2005 - 2007 by <a href="javascript:gotoURL('http://widgetschmie.de/');"
+							title="visit our website">Widgetschmie.de</a></p>
+
+					<p>
+					<ul>
+						<li>Click <img src="Images/game_on.png" alt="tennis" class="info_icon" /> to play Pong</li>
+						<li>Click <img src="Images/clock.png" alt="clock" class="info_icon" /> to switch back to the
+							clock</li>
+						<li>Click <img src="Images/toggle.png" alt="screens" class="info_icon" /> to switch to full
+							screen mode or back</li>
+						</p>
+				</div>
+			</div>
+
+		</form>
+
+		<div class="version">
+			<a id="infolink" href="javascript:gotoURL('http://widgetschmie.de/widgets/pongClock/')"
+				title="visit website"><img class="amboss" src="Images/Amboss.png" alt="Widgetschmie.de" /></a><span
+				id="infospan">??</span><br />
+			<a id="latestinfo" href="javascript:checkLatestVersion('latestinfo');">check version</a>
+		</div>
+		<div id="done" class="done"></div>
+	</div>
+</body>
+
+</html>
