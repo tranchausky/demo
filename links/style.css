@@ -301,6 +301,9 @@
 #content-preview *{
     word-break: break-all;
 }
+#my-view-excel .modal-dialog{
+    width: 90%;
+}
 #modal-Photo .modal-dialog{
     width: 90%;
     min-width: 200px;

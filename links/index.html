@@ -792,7 +792,11 @@
                             </h5>
                         </div>
                         <div class="col-xs-2">
-                            <h5 class='is-know'><a role='button' class="" onclick="setForPreview();" data-id-show ="my-detail-view"><i class="fa fa-fw fa-arrows-alt" aria-hidden="true"></i>View Detail</a></h5>
+                            <h5 class='is-know'>
+                                <a role='button' class="" onclick="setForPreview();" data-id-show ="my-detail-view"><i class="fa fa-fw fa-arrows-alt" aria-hidden="true"></i>View Detail</a>
+                                <a role='button' class="" onclick="setViewExcelLink();" data-id-show ="my-detail-view"><i class="fa fa-fw fa-arrows-alt" aria-hidden="true"></i>V Excel</a>
+                            </h5>
+                            
                         </div>
 
                     </div>
@@ -913,6 +917,35 @@
                             <br>
                             <div class="content-preview" id="content-preview" style=" border: 1px solid pink; padding: 4px; display: inline-block; width: 100%;">
 
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        </div>
+                    </div><!-- /.modal-content -->
+                    </div><!-- /.modal-dialog -->
+                </div><!-- /.modal -->
+
+                <!-- This is the modal -->
+                <div class="modal fade" tabindex="-1" role="dialog" id="my-view-excel">
+                    <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                            <h4 class="modal-title" id="title-preview">View Excel</h4>
+                        </div>
+                        <div class="modal-body">
+                            <!-- <div class="text-right">
+                                <a href="javascript:void(0)" onclick="goBackDetailPreview();">Back</a>
+                                <a href="javascript:void(0)" onclick="goNextDetailPreview();">Next</a>
+                            </div> -->
+                            <!-- <div id="image_preview_double">
+                                <img src="" alt="" style="width: 100%; border: 1px solid;"/>
+                            </div> -->
+                            <!-- <br> -->
+                            <div class="content-preview" id="content-excel-preview" style="height: 600px; border: 1px solid pink; padding: 4px; display: inline-block; width: 100%;">
+                                <input type="text" id="value-link-excel" onchange="setViewExcelLink(this.value)">
+                                <iframe id="myIframe-exit" width="100%" height="90%" src="" ></iframe>
                             </div>
                         </div>
                         <div class="modal-footer">

@@ -353,6 +353,19 @@ function setForPreview(){
     $('#my-detail-view').modal('show');
 }
 
+function setViewExcelLink(link_excel){
+    if(link_excel=='' || link_excel == undefined){
+        link_excel = $('#value-link-excel').val();
+    }
+    //var link_excel = 'https://docs.google.com/spreadsheets/d/16QM4ZuArg_QHk69Eerk_ghsIRtTJC_0bT0ZhEX05ne8/edit';
+    $('#myIframe-exit').attr('src',link_excel);
+    $('#my-view-excel').modal('show');
+}
+
+function iframeDidLoad(){
+    console.log('load done')
+}
+
 function goBackDetailPreview(){
     var indexat =li2_index-1;
 	if(li2_index ==0){
