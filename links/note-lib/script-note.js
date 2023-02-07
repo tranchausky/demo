@@ -361,6 +361,9 @@ function setViewExcelLink(link_excel){
     $('#myIframe-exit').attr('src',link_excel);
     $('#my-view-excel').modal('show');
 }
+function empty_excel_iframe(){
+    $('#myIframe-exit').attr('src','');
+}
 
 function iframeDidLoad(){
     console.log('load done')
