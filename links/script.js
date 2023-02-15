@@ -508,6 +508,7 @@ auth.onAuthStateChanged((firebaseUser) => {
         loadData();
         buildSelect();
         tabClick();
+        getSettingUser();
     }
 });
 

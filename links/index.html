@@ -887,14 +887,18 @@
                     </div>
                     <div class="row">
                         <div class="col-sm-6">
-                            <form method="post" name="settingForm">
-                                <div class="form-group">
+                            <div id="settingForm">
+                                <!-- <div class="form-group">
                                     <label for="linkthoiquen">Name</label>
                                     <input type="text" class="form-control" id="linkthoiquen" placeholder="Enter Link Thoi Quen">
+                                </div> -->
+                                <div class="form-group">
+                                    <label for="setting_gg_excel">Google Link Excel</label>
+                                    <input type="text" class="form-control" id="setting_gg_excel" placeholder="Google Link Excel">
                                 </div>
                                 
-                                <button type="submit" class="btn btn-primary saveSetting">Submit</button>
-                            </form>
+                                <button type="submit" class="btn btn-primary saveSetting" onclick="updateSettingUser();">Submit</button>
+                            </div>
                         
                         </div>
                     </div>

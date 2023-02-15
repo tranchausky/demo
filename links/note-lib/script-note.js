@@ -358,6 +358,9 @@ function setForPreview(){
 function setViewExcelLink(link_excel){
     if(link_excel=='' || link_excel == undefined){
         link_excel = $('#value-link-excel').val();
+        if(link_excel==''){
+            link_excel  = $('#setting_gg_excel').val();
+        }
     }
     //var link_excel = 'https://docs.google.com/spreadsheets/d/16QM4ZuArg_QHk69Eerk_ghsIRtTJC_0bT0ZhEX05ne8/edit';
     $('#myIframe-exit').attr('src',link_excel);
@@ -922,4 +925,63 @@ function buildDrawpDropForNote() {
             console.log($(this))
         }
     });
+}
+
+function updateSettingUser(){
+    var dataIn = getSetDataUpdate(0,null);
+    
+    var batch = db.batch();
+
+    var atIdSetting = user_ID;
+    var linkGet = "user/" + user_ID + '/setting';
+    var sfRef = db.collection(linkGet).doc(atIdSetting);
+    dataSet = dataIn;
+    batch.set(sfRef, dataSet);
+
+    batch.commit().then(() => {
+        alert('Save Done')
+        console.log('update-done');
+
+    });
+
+}
+function getSetDataUpdate(isSet,dataIn){
+    if(isSet == 1){
+        $('#setting_gg_excel').val(dataIn.gg_excel!=undefined?dataIn.gg_excel:"");
+    }else{
+        var data = {};
+        data.gg_excel = $('#setting_gg_excel').val();
+        return data;
+    }
+}
+
+
+function getSettingUser(){
+    var linkGet = "user/" + user_ID + '/setting';
+    var atIdSetting = user_ID;
+    db.collection(linkGet).doc(atIdSetting).get().then((querySnapshot) => {
+
+        getSetDataUpdate(1,querySnapshot.data());
+       // querySnapshot.forEach((doc) => {
+            //console.log(`${doc.id} => ${doc.data()}`);
+            // console.log(`${doc.id} => ${doc.data()}`);
+          //  console.log(doc.id, doc.data())
+        //});
+    }).catch(function(error) {
+
+        //set setting empty
+        var batch = db.batch();
+ 
+        var atIdSetting = user_ID;
+        var linkGet = "user/" + user_ID + '/setting';
+        var sfRef = db.collection(linkGet).doc(atIdSetting);
+        dataSet = {};
+        batch.set(sfRef, dataSet);
+
+        batch.commit().then(() => {
+  
+            console.log('update-done');
+
+        });
+    });;
 }
