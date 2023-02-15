@@ -283,6 +283,7 @@ function getNoteCategory(dataId) {
 }
 
 var paintContent = '';
+var activePostValue = null;
 function getNotePost(dataId, at) {
     var idUserCategory = user_ID;
     var idCategory = dataId.catId;
@@ -292,6 +293,7 @@ function getNotePost(dataId, at) {
         if (doc.exists) {
             //console.log("Document data:", doc.data());
             var docData = doc.data();
+            activePostValue = docData;
             //$('#kothing-editor_editor .kothing-editor-editable').html(docData.contentPost);
             //editorText.setContents(docData.contentPost);
 
@@ -301,7 +303,7 @@ function getNotePost(dataId, at) {
             paintContent = null;
             var paint = '';
             $('#image_preview').hide();
-            if(typeof docData.paint != 'undefined'){
+            if(typeof docData.paint != 'undefined' && docData.paint != "" && docData.paint != undefined ){
                 paint = docData.paint;
                 paintContent = paint;
                 paint = JSON.parse(paint.replace(/&quot;/g,'"'));
@@ -468,14 +470,22 @@ function updateNoteCategory(dataIn) {
 }
 
 function addNoteTitle(data) {
+    console.log(data);
+    // return;
     var idUserCategory = user_ID;
     var idCategory = data.catId;
-    db.collection(glb_link_note_current + "/category/" + idCategory + '/post').add({
-            titlePost: data.title,
-            aliasPost: "",
-            contentPost: "",
-            time: new Date().getTime(),
-        })
+
+    var dataSave = {
+        titlePost: data.title,
+        aliasPost: data.aliasPost!=undefined?data.aliasPost:"",
+        contentPost: data.contentPost!=undefined?data.contentPost:"",
+        isHightLight: data.isHightLight!=undefined?data.isHightLight:"",
+        paint: data.paint!=undefined?data.paint:"",
+        time: new Date().getTime(),
+    };
+    console.log(dataSave);
+
+    db.collection(glb_link_note_current + "/category/" + idCategory + '/post').add(dataSave)
         .then(function(docRef) {
             // console.log("Document written with ID: ", docRef.id);
             reload_list_title();
@@ -735,6 +745,45 @@ function event2_at_multi() {
     // var str = $('#kothing-editor_editor .kothing-editor-editable').html();
     updateNotePost(data);
     getNoteListPost(idCategory_selected);
+}
+
+function showMoveTaskToCategory(){
+
+    var list = $('.list-category-note').html();
+    list = list.replaceAll('event1_click', 'event1_move_click');
+    list = list.replaceAll('class="active"', 'class="active old"');
+
+    $('#list-old-category ul').html(list);
+    var text = $('#split-1 .list .active').html();
+    $('#title-note-at-move').html(text);
+
+    $('#my-list-note-category').modal('show');
+}
+function moveTaskToCategory(){
+    var atIdMove = $('#list-old-category .active').attr('data-id');
+
+    var data = activePostValue;
+    // data.title = answer;
+    data.catId = atIdMove;
+    data.title = data.titlePost;
+    addNoteTitle(data);
+
+    //add for new older
+
+    //add value  = activePostValue
+    
+    //delete old
+    var idCategory = idCategory_selected;
+    var idPost = idPost_selected;
+    deleteNotePost(idCategory, idPost)
+
+    $('#my-list-note-category').modal('hide');
+}
+function event1_move_click(at){
+    var dataat = $(at).attr('data-id');
+    $(at).closest('ul').find('li').removeClass('active');
+    $(at).addClass('active')
+    // alert(dataat)
 }
 
 function event2_delete() {

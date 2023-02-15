@@ -817,6 +817,9 @@
                                         <li>list 4</li>
                                         <li>list 5</li> -->
                                     </ol>
+                                    <ol class="list-history">
+                                        <li>List history</li>
+                                    </ol>
                                 </div>
                                 <div class="footer">
                                     <span id="footer1-1"></span>
@@ -831,6 +834,7 @@
                                     <button onClick="event2_add()">add</button>
                                     <button onClick="event2_edit()">edit</button>
                                     <button onClick="event2_at_multi()">active</button>
+                                    <button onClick="showMoveTaskToCategory()">move</button>
 
                                     <!-- <button onClick="event2_at()">at</button> -->
                                 </div>
@@ -918,6 +922,33 @@
                             <div class="content-preview" id="content-preview" style=" border: 1px solid pink; padding: 4px; display: inline-block; width: 100%;">
 
                             </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        </div>
+                    </div><!-- /.modal-content -->
+                    </div><!-- /.modal-dialog -->
+                </div><!-- /.modal -->
+
+                <!-- This is the modal -->
+                <div class="modal fade" tabindex="-1" role="dialog" id="my-list-note-category">
+                    <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                            <h4 class="modal-title" >Move: <span id="title-note-at-move"></span></h4>
+                        </div>
+                        <div class="modal-body">
+                            <!-- <div class="text-right">
+                                <a href="javascript:void(0)" onclick="goBackDetailPreview();">Back</a>
+                                <a href="javascript:void(0)" onclick="goNextDetailPreview();">Next</a>
+                            </div> -->
+                            <div id="list-old-category" class="list-old-category">
+                                <ul></ul>
+                                <!-- <img src="" alt="" style="width: 100%; border: 1px solid;"/> -->
+                            </div>
+                            <br>
+                            <button onclick="moveTaskToCategory()">Move</button>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

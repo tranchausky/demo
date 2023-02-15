@@ -170,3 +170,15 @@
 .is-know .active{
     border: 1px solid red;
 }
+.list-old-category .active{
+    background: #5e3c3c;
+    color: white;
+}
+.list-old-category .old{
+    background: rgb(163, 162, 162);
+    color: white;
+}
+.list-old-category{
+    max-height: 300px;
+    overflow: auto;
+}
