@@ -299,6 +299,7 @@ function getNotePost(dataId, at) {
 
             let editorSet = sceditor.instance(editor_note_show);
             editorSet.setWysiwygEditorValue(docData.contentPost);
+            lastMd5 = fMD5(docData.contentPost);
 
             paintContent = null;
             var paint = '';
@@ -847,15 +848,30 @@ function event2_click(at) {
 }
 
 //33333
-
+var lastMd5 = '';
 function event3_save() {
+    let edirotObj = sceditor.instance(editor_note_show);
+    var str = edirotObj.getBody().innerHTML
+    var str1 = edirotObj.val();
+    // console.log(str)
+    // console.log(str1)
+    var newMd5 = fMD5(str1).trim();
+    // console.log(newMd5);
+    if(newMd5 === lastMd5){
+        return;
+    }else{
+        // console.log('not equa')
+        // console.log(lastMd5)
+        // console.log(newMd5)
+        // console.log('not equa')
+    }
+    lastMd5 = newMd5;
+    // console.log('save--',newMd5,lastMd5);
     $('#footer3-1').html('saving...');
     hideShowLoadingEditor(3);
     var data = {};
     //var str = $('#kothing-editor_editor .kothing-editor-editable').html();
 
-    let edirotObj = sceditor.instance(editor_note_show);
-    var str = edirotObj.getBody().innerHTML
 
     data.contentPost = str;
     updateNotePost(data);
