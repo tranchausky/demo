@@ -158,6 +158,12 @@
 .note .list li[ishl="true"] {
     background-color: yellow;
 }
+.list-old-category li{
+    padding: 5px;
+}
+.list-old-category li[ishl="true"] {
+    background-color: yellow;
+}
 
 .note .list li[ishl="true"].active {
     background-color: #df8d28;
@@ -171,7 +177,7 @@
     border: 1px solid red;
 }
 .list-old-category .active{
-    background: #5e3c3c;
+    background: #5e3c3c!important;
     color: white;
 }
 .list-old-category .old{
