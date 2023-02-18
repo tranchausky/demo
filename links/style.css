@@ -301,6 +301,15 @@
 #content-preview *{
     word-break: break-all;
 }
+#my-view-excel .modal-dialog .modal-content .modal-body iframe{
+    height: 96%;
+}
+#my-view-excel .modal-dialog .modal-content .modal-body{
+    height: 84vh;
+}
+#my-view-excel .modal-dialog .modal-content{
+    height: 90vh;
+}
 #my-view-excel .modal-dialog{
     width: 90%;
 }

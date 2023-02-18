@@ -907,7 +907,7 @@
                 </div>
 
                 <!-- This is the modal -->
-                <div class="modal fade" tabindex="-1" role="dialog" id="my-detail-view">
+                <div class="modal fade" tabindex="-1" role="dialog" id="my-detail-view" data-backdrop="static">
                     <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -935,7 +935,7 @@
                 </div><!-- /.modal -->
 
                 <!-- This is the modal -->
-                <div class="modal fade" tabindex="-1" role="dialog" id="my-list-note-category">
+                <div class="modal fade" tabindex="-1" role="dialog" id="my-list-note-category" data-backdrop="static">
                     <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -962,11 +962,11 @@
                 </div><!-- /.modal -->
 
                 <!-- This is the modal -->
-                <div class="modal fade" tabindex="-1" role="dialog" id="my-view-excel">
+                <div class="modal fade" tabindex="-1" role="dialog" id="my-view-excel" data-backdrop="static">
                     <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="empty_excel_iframe()"><span aria-hidden="true">×</span></button>
+                            <button type="button" class="close" data-dismiss="modal"  aria-label="Close" onclick="empty_excel_iframe()"><span aria-hidden="true">×</span></button>
                             <h4 class="modal-title" id="title-preview">View Excel</h4>
                         </div>
                         <div class="modal-body">
@@ -978,20 +978,20 @@
                                 <img src="" alt="" style="width: 100%; border: 1px solid;"/>
                             </div> -->
                             <!-- <br> -->
-                            <div class="content-preview" id="content-excel-preview" style="height: 600px; border: 1px solid pink; padding: 4px; display: inline-block; width: 100%;">
+                            <div class="content-preview" id="content-excel-preview" style="height: 100%; border: 1px solid pink; padding: 4px; display: inline-block; width: 100%;">
                                 <input type="text" id="value-link-excel" onchange="setViewExcelLink(this.value)">
                                 <iframe id="myIframe-exit" width="100%" height="90%" src="" ></iframe>
                             </div>
                         </div>
-                        <div class="modal-footer">
+                        <!-- <div class="modal-footer">
                             <button type="button" class="btn btn-default" data-dismiss="modal" onclick="empty_excel_iframe()">Close</button>
-                        </div>
+                        </div> -->
                     </div><!-- /.modal-content -->
                     </div><!-- /.modal-dialog -->
                 </div><!-- /.modal -->
 
                 <!-- This is the modal -->
-                <div class="modal fade" tabindex="-1" role="dialog" id="modal-Photo">
+                <div class="modal fade" tabindex="-1" role="dialog" id="modal-Photo" data-backdrop="static">
                     <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
