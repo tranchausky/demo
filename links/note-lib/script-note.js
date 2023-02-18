@@ -36,6 +36,7 @@ function loadDefaultViewNote(){
 
 
 var last_select_note_cat = 0;
+var idLastClickDetail = '';
 
 /*
 const editorText = KothingEditor.create("editor", {
@@ -246,8 +247,15 @@ function getNoteListPost(idCategory) {
             $('#split-1 .list').append(str);
         }
         if ($('#split-1 .list li').length > 0) {
-            idPost_selected = Object.keys(newObjectSort)[0]
-            $('#split-1 .list li').eq(0).trigger('click');
+            //trigger click here
+            if(idLastClickDetail != ''){
+                $('#split-1 .list').find(`li[data-id='`+idLastClickDetail+`']`).trigger('click');
+                idLastClickDetail = '';
+            }else{
+                idPost_selected = Object.keys(newObjectSort)[0];
+                $('#split-1 .list li').eq(0).trigger('click');
+            }
+            
             hideShowLoadingEditor(1);
         }else{
             hideShowLoadingEditor(2);
@@ -682,6 +690,7 @@ function event1_delete() {
 
 function event1_click(at) {
     // console.log(at)
+    $('.list-history li').removeClass('active');
 
     var id = at.getAttribute('data-id');
     idCategory_selected = id;
@@ -865,6 +874,7 @@ function event3_save() {
         // console.log(newMd5)
         // console.log('not equa')
     }
+    setOneHistory();
     lastMd5 = newMd5;
     // console.log('save--',newMd5,lastMd5);
     $('#footer3-1').html('saving...');
@@ -1000,4 +1010,150 @@ function getSettingUser(){
 
         });
     });;
+}
+
+function goLoHistory(at){
+    let editorSet = sceditor.instance(editor_note_show);
+    editorSet.setWysiwygEditorValue('');
+
+    $(at).addClass('active');
+    getListDataHistory(1);
+}
+
+var listIdSaveHistory = [];
+var maxHistory = 100;
+function getListDataHistory(isShow){
+    // var idUserCategory = user_ID;
+    db.collection(glb_link_note_current + '/category_history/').get().then((querySnapshot) => {
+        // var listData = querySnapshot.docs;
+        // console.log(listData[0].data())
+        
+        var list = {};
+        querySnapshot.forEach((doc) => {
+            var data = doc.data();
+            list[doc.id] = {};
+            list[doc.id]['time'] = data.time;
+            var timesave = new Date(data.time);
+            list[doc.id]['title'] = data.title + " ("+timesave.getDate()+'/'+timesave.getMonth()+ " "+timesave.getHours()+":"+timesave.getMinutes()+")";
+            list[doc.id]['idCat'] = data.idCat;
+            list[doc.id]['idCatDetail'] = data.idCatDetail;
+            // list[doc.id]['isHightLight'] = data.isHightLight;
+
+        });
+        // console.log(list);
+
+        var newObjectSort = sortDescObj(list, 'time');
+        // var selecteAtTop = (typeof listCategoryNote[idCategory]['atTop'] != '') ? listCategoryNote[idCategory]['atTop'] : "";
+        var indexAuto = 1;
+        var str = '';
+        for (var key in newObjectSort) {
+            if(indexAuto >maxHistory ){
+                deleteOneHistory(key);
+                continue;
+            }
+            listIdSaveHistory.push(key);
+            //const element = array[index];
+            var tem = newObjectSort[key];
+            var isHightLight = "";
+            var catId = tem.idCat;
+            var catDetail = tem.idCatDetail;
+
+            str += '<li index="' + key + '" catid="'+catId+'" catdetail="'+catDetail+'" onClick="eventlistTory_click(this)" isHL="' + isHightLight + '">' + tem.title + '</li>';
+
+            
+            indexAuto++;
+        }
+        
+        if(isShow !=0){
+            $('#split-1 .list').html('');
+            $('#split-1 .list').append(str);
+            setTotalFooter2(Object.keys(newObjectSort).length);
+        }
+        
+
+    });
+}
+function getConditionHistory(catId,catDetailId, callback){
+    // var idUserCategory = user_ID;
+    db.collection(glb_link_note_current + '/category_history/').where("idCat", "==", catId).where("idCatDetail", "==", catDetailId).get().then((querySnapshot) => {
+        // console.log(querySnapshot.docs.length)
+        var list = {};
+        querySnapshot.forEach((doc) => {
+            var data = doc.data();
+            deleteOneHistory(doc.id)
+            // list[doc.id] = {};
+            // list[doc.id]['time'] = data.time;
+            // var timesave = new Date(data.time);
+            // list[doc.id]['title'] = data.title + " ("+timesave.getDate()+'/'+timesave.getMonth()+ " "+timesave.getHours()+":"+timesave.getMinutes()+")";
+            // list[doc.id]['idCat'] = data.idCat;
+            // list[doc.id]['idCatDetail'] = data.idCatDetail;
+            // list[doc.id]['isHightLight'] = data.isHightLight;
+
+        });
+
+        // if(querySnapshot.docs.length==0){
+            callback(callback)
+        // }
+    });
+}
+
+function eventlistTory_click(at){
+    $('#split-1 .list li').removeClass('active');
+    $(at).addClass('active');
+    var catid = $(at).attr('catid');
+    var catdetail = $(at).attr('catdetail');
+    clickCatId(catid,catdetail);
+}
+function clickCatId(catid,catdetail){
+    $('#split-0 .list').find(`li[data-id='`+catid+`']`).trigger('click');
+    idLastClickDetail = catdetail;
+    //$('#split-1 .list').find(`li[data-id='`+catdetail+`']`).trigger('click');
+}
+function setOneHistory(){
+
+    var catTitle = $('#split-0 .active').eq(0);
+    var catDetailTitle = $('#split-1 .active').eq(0);
+    if(catDetailTitle.length == 0){
+        return;
+    }
+    var idCat = catTitle.attr('data-id');
+    var title = catTitle.html();
+
+    var idCatDetail = catDetailTitle.attr('data-id');
+    var titleDetail = catDetailTitle.html();
+    // console.log(idCat,title,idCatDetail,titleDetail);
+    // console.log(catDetailTitle);
+    var titleSave = title +"-->" +titleDetail;
+
+    getConditionHistory(idCat,idCatDetail,function(){
+        var idUserCategory = user_ID;
+        db.collection(glb_link_note_current + "/category_history").add({
+                title: titleSave,
+                // order: dataIn.order,
+                idCat :idCat,
+                idCatDetail :idCatDetail,
+                // aliasCat: "",
+                // contentCat: "",
+                time: new Date().getTime(),
+            })
+            .then(function(docRef) {
+                // console.log("Document written with ID: ", docRef.id);
+                // getNoteListCategory();
+                //deleteOneHistory
+                getListDataHistory(0);
+            })
+            .catch(function(error) {
+                console.error("Error adding document: ", error);
+                alert('error add cat');
+                // getNoteListCategory();
+            });
+    })
+}
+function deleteOneHistory(idDelete) {
+    // var idUserCategory = user_ID;
+    db.collection(glb_link_note_current + '/category_history/').doc(idDelete).delete().then(() => {
+        // console.log("Document cat successfully deleted!");
+    }).catch((error) => {
+        console.error("Error removing document: ", error);
+    });
 }

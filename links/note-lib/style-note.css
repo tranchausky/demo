@@ -20,6 +20,9 @@
     background-color: #edf1ed21;
 }
 
+.note #split-1 li {
+    list-style-type: auto;
+}
 .note #split-1 .content {
     background-color: #c4d5c4;
 }
@@ -187,4 +190,15 @@
 .list-old-category{
     max-height: 300px;
     overflow: auto;
+}
+ol.list-history{
+    padding: 8px;
+    padding-left: 28px;
+}
+.list-history li:hover{
+    cursor: pointer;
+    background-color: #bb7878;
+}
+.list-history .active{
+    background-color: #bb7878;
 }
