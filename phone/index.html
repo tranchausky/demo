@@ -1,0 +1,92 @@
+<html>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tìm Số Điện Thoại Mới Của Châu</title>
+
+<body style="text-align: center; margin: auto;">
+    <style>select option{padding-left: 6px; padding-right: 6px;}</style>
+    <h3><strong>Lấy Số Điện Thoại Mới của Châu, Dựa Vào Ngày Sinh</strong></h3>
+    <select name="day" id="day" size="16">
+        <optgroup label="Day" id="setday">
+        </optgroup>
+    </select>
+    <select name="month" id="month" size="16">
+        <optgroup label="Month" id="setmonth">
+        </optgroup>
+    </select>
+    <select name="year" id="year" size="16">
+        <optgroup label="year" id="setyear">
+        </optgroup>
+    </select>
+    <button onclick="find()">Tìm Số Mới đi</button>
+
+    <pre>
+<span id="data-status"></span>
+    </pre>
+    <pre id="data-view">
+            </pre>
+    <script src="bcrypt.js"></script>
+    <script src="SimpleCrypto.min.js"></script>
+    <script>
+        document.getElementById('setday').innerHTML = getOptionFromTo(1, 31);
+        document.getElementById('setmonth').innerHTML = getOptionFromTo(1, 12);
+        document.getElementById('setyear').innerHTML = getOptionFromTo(1900, 2000);
+
+        function getOptionFromTo(from, to) {
+            var str = '';
+            for (index = from; index <= to; index++) {
+                str += '<option value="' + index + '">' + index + '</option>';
+            }
+            return str;
+        }
+        var dmy = '';
+        var keyDMY = '$2a$10$7zPvVoiT/Eu6NS/sYY1LietllLmtplO12DcnUOo/3K0TRAaykQpU6';
+        function find() {
+            var d = document.getElementById('day').value;
+            var m = document.getElementById('month').value;
+            var y = document.getElementById('year').value;
+            dmy = d + '-' + m + '-' + y;
+            compare(keyDMY);
+        }
+        var bcrypt = dcodeIO.bcrypt;
+        var salt = bcrypt.genSaltSync(10);
+        function compare(encrypted) {
+            bcrypt.compare(dmy, encrypted, (err, res) => {
+                
+                document.getElementById('data-view').innerHTML = "";
+                if (res == true) {
+                    document.getElementById('data-status').innerHTML = "Kết quả:  Quá Đúng!";
+                    getContent(dmy);
+                }else{
+                    document.getElementById('data-status').innerHTML = "Kết quả: "+getTextWrong();
+                }
+            })
+        }
+        var dataContent = 'ba9de9926b2dc887ce7d40ff965bd23bb1d99498b166399b48f671a930cb2cfcAWp1sUEZTO8AUHL7z7GAFNwEsO5+VC6dka6bYBFt31ZZFGGpIZDv/VfMk42glwyHd23caaef4c31d6e35809a851ca055d970fd41b60c7946281c599da3a6d5f253e';
+        function getContent(_secretKey) {
+            var simpleCrypto = new SimpleCrypto(_secretKey);
+            var decipherText = simpleCrypto.decrypt(dataContent);
+            document.getElementById('data-view').innerHTML = decipherText;
+        }
+
+        function getRandomInt(min, max) {
+            return min+Math.round(Math.random() * (max-min));
+        }
+        
+        var listText = [
+            "Không chính xác", "Sai lầm", "Không đúng","Không đúng đắn","Không đúng chuẩn","Oh my god","Oh no", "Nhầm lẫn", "Mắc lỗi", "Sai sót", "Thiếu chính xác", "Không đúng sự thật", "Không đúng đắn", "Sai phiên bản"
+            ];
+        function getTextWrong(){
+            
+            var leng = listText.length;
+            leng =leng-1;
+            var number = getRandomInt(0,leng);
+            return listText[number];
+        }
+        
+        
+    </script>
+
+</body>
+
+</html>
