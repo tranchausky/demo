@@ -55,12 +55,16 @@
             bcrypt.compare(dmy, encrypted, (err, res) => {
                 
                 document.getElementById('data-view').innerHTML = "";
+                var text = '';
                 if (res == true) {
-                    document.getElementById('data-status').innerHTML = "Kết quả:  Quá Đúng!";
+                    var imgStr = "<img style='width: 60px;' src='imgs/right.jpg'><br>";
+                    text = imgStr + "Kết quả:  Quá Đúng!";
                     getContent(dmy);
                 }else{
-                    document.getElementById('data-status').innerHTML = "Kết quả: "+getTextWrong();
+                    var imgStr = "<img style='width: 60px;' src='imgs/"+getRandomInt(1,8)+".jpg'><br>";
+                    text = imgStr +"Kết quả: "+getTextWrong();
                 }
+                document.getElementById('data-status').innerHTML = text;
             })
         }
         var dataContent = 'ba9de9926b2dc887ce7d40ff965bd23bb1d99498b166399b48f671a930cb2cfcAWp1sUEZTO8AUHL7z7GAFNwEsO5+VC6dka6bYBFt31ZZFGGpIZDv/VfMk42glwyHd23caaef4c31d6e35809a851ca055d970fd41b60c7946281c599da3a6d5f253e';
