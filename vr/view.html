@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8" />
+	<title>Photo Viewer</title>
+	<meta name="viewport" content="initial-scale=1.0" />
+	<script src="three.min.js"></script>
+	<script src="photo-viewer.min.js"></script>
+	<style>
+		html,
+		body {
+			margin: 0;
+			width: 100%;
+			height: 100%;
+			overflow: hidden;
+		}
+
+		#container {
+			width: 100%;
+			height: 100%;
+		}
+	</style>
+</head>
+
+<body>
+	<div id="container"></div>
+
+	<script>
+
+		function getSearchParameters() {
+			var prmstr = window.location.search.substr(1);
+			return prmstr != null && prmstr != "" ? transformToAssocArray(prmstr) : {};
+		}
+
+		function transformToAssocArray(prmstr) {
+			var params = {};
+			var prmarr = prmstr.split("&");
+			for (var i = 0; i < prmarr.length; i++) {
+				var tmparr = prmarr[i].split("=");
+				params[tmparr[0]] = tmparr[1];
+			}
+			return params;
+		}
+
+		var params = getSearchParameters();
+
+		if (typeof params.id != 'undefined') {
+			var idLink = params.id;
+			var link = 'https://i.imgur.com/' + idLink + '.jpg';
+			fetchStatus(link);
+		} else {
+			var link = 'https://i.imgur.com/VvaYMOh.jpg';
+			fetchStatus(link);
+		}
+
+		function returnStatus(req, status) {
+			if (status == 200) {
+				console.log("The url is available");
+				view360(link);
+			}
+			else {
+				alert('Image Not Found')
+				console.log("The url returned status code " + status);
+				document.getElementById('container').innerHTML = '<h2 style="text-align: center;">Image Not Found</h2>';
+				// send a different event
+			}
+		}
+
+		function fetchStatus(address) {
+			var client = new XMLHttpRequest();
+			client.onreadystatechange = function () {
+				// in case of network errors this might not give reliable results
+				if (this.readyState == 4)
+					returnStatus(this, this.status);
+			}
+			client.open("HEAD", address);
+			client.send();
+		}
+
+		function view360(link) {
+			var div = document.getElementById('container');
+			var PSV = new PhotoSphereViewer({
+				panorama: link,
+				container: div,
+				time_anim: 3000,
+				navbar: true,
+				navbar_style: {
+					backgroundColor: 'rgba(58, 67, 77, 0.7)'
+				},
+			});
+		}
+	</script>
+</body>
+
+</html>
