@@ -225,26 +225,50 @@
     padding-right: 20px;
 }
 
-@media only screen and (max-width: 600px) {
-    .sceditor-toolbar div.sceditor-group {
-        display: contents;
-    }
-    .forms-in .split button {
-        margin-top: 5px;
-        width: 19px;
-        overflow: hidden;
-        padding: 0;
-    }
-    .forms-in .note .list{
-        padding: 0;
-        padding-left: 2px;
-        margin: 0;
-    }
-    .forms-in .note .list li {
-        padding: 3px;
-        list-style: none;
-    }
+
+#my-detail-view .modal-dialog{
+    max-width: 1000px;
+    width: 80%;
 }
+#content-preview *{
+    word-break: break-all;
+}
+#my-view-excel .modal-dialog .modal-content .modal-body iframe{
+    height: 96%;
+}
+#my-view-excel .modal-dialog .modal-content .modal-body{
+    height: 84vh;
+}
+#my-view-excel .modal-dialog .modal-content{
+    height: 90vh;
+}
+#my-view-excel .modal-dialog{
+    width: 90%;
+}
+#modal-Photo .modal-dialog{
+    width: 90%;
+    min-width: 200px;
+    max-width: 1100px;
+}
+.list-drap-drop.drag-list .title{
+    font-size: 13px;
+}
+.list-drap-drop.drag-list h3{
+    font-size: 20px;
+    margin: 4px 2px 0px 1px;
+}
+.list-drap-drop.drag-list{
+    /* max-height: 40vh;
+    height: 40vh;
+    overflow: auto; */
+}
+ul.drag-list{
+    overflow: auto;
+    max-height: 40vh;
+    height: 40vh;
+    overflow: auto;
+}
+
 
 /* nav collapse at size md */
 @media (max-width: 1200px) {
@@ -294,45 +318,29 @@
     }
 }
 
-#my-detail-view .modal-dialog{
-    max-width: 1000px;
-    width: 80%;
-}
-#content-preview *{
-    word-break: break-all;
-}
-#my-view-excel .modal-dialog .modal-content .modal-body iframe{
-    height: 96%;
-}
-#my-view-excel .modal-dialog .modal-content .modal-body{
-    height: 84vh;
-}
-#my-view-excel .modal-dialog .modal-content{
-    height: 90vh;
-}
-#my-view-excel .modal-dialog{
-    width: 90%;
-}
-#modal-Photo .modal-dialog{
-    width: 90%;
-    min-width: 200px;
-    max-width: 1100px;
-}
-.list-drap-drop.drag-list .title{
-    font-size: 13px;
-}
-.list-drap-drop.drag-list h3{
-    font-size: 20px;
-    margin: 4px 2px 0px 1px;
-}
-.list-drap-drop.drag-list{
-    /* max-height: 40vh;
-    height: 40vh;
-    overflow: auto; */
-}
-ul.drag-list{
-    overflow: auto;
-    max-height: 40vh;
-    height: 40vh;
-    overflow: auto;
+@media only screen and (max-width: 600px) {
+    .sceditor-toolbar div.sceditor-group {
+        display: contents;
+    }
+    .forms-in .split button {
+        margin-top: 5px;
+        width: 19px;
+        overflow: hidden;
+        padding: 0;
+    }
+    .forms-in .note .list{
+        padding: 0;
+        padding-left: 2px;
+        margin: 0;
+    }
+    .forms-in .note .list li {
+        padding: 3px;
+        list-style: none;
+    }
+    .forms-out #swot .event-action-swot input{
+        margin-top: 10px;
+    }
+    .forms-out #swot .event-action-swot{
+        display: block!important;
+    }
 }
