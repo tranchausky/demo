@@ -54,7 +54,7 @@ $(document).ready(function () {
             alert('Need Login First')
             return
         }
-        if (atrHref == '../timedown') {
+        if (atrHref == '../timedown' || atrHref =='#') {
             return;
         }
 
