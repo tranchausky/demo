@@ -1,0 +1,41 @@
+
+https://stackoverflow.com/a/73744343/3633498
+<br/>
+<br/>
+<br/>
+<input type="file" id="inputImg">
+<img src="" id="pic1">
+
+<script>
+
+async function compressImage(blobImg, percent) {
+  let bitmap = await createImageBitmap(blobImg);
+  let canvas = document.createElement("canvas");
+  let ctx = canvas.getContext("2d");
+  canvas.width = bitmap.width;
+  canvas.height = bitmap.height;
+  ctx.drawImage(bitmap, 0, 0);
+  let dataUrl = canvas.toDataURL("image/jpeg", percent/100);
+  return dataUrl;
+}
+
+inputImg.addEventListener('change', async(e) => {
+  let img = e.target.files[0];
+  console.log('File Name: ', img.name)
+  console.log('Original Size: ', img.size.toLocaleString())
+  
+  let imgCompressed = await compressImage(img, 75) // set to 75%
+  let compSize = atob(imgCompressed.split(",")[1]).length;
+  console.log('Compressed Size: ', compSize.toLocaleString())
+  //console.log(imgCompressed)
+  viewBySrc(imgCompressed)
+})
+
+
+//view image
+
+function viewBySrc(src){
+document.getElementById("pic1").src= src;
+}
+
+</script>
