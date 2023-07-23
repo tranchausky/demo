@@ -141,6 +141,7 @@ $(document).ready(function () {
         compareTextPasswordSession(pp_ss, hash, function(ispassHash){
             if(ispassHash == true){
                 sessionStorage.setItem("sessionLogin", 'true');
+                location.reload();
             }else{
                 alert('Wrong Password Session')
                 sessionStorage.removeItem("sessionLogin");
