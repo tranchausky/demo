@@ -1,0 +1,96 @@
+<html>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Password hash</title>
+
+<body style="text-align: center; margin: auto;">
+    <style>select option{padding-left: 6px; padding-right: 6px;}</style>
+    <br>
+    <h3><strong>Lấy Số Điện Thoại Mới của Châu, <br>Dựa Vào Ngày Sinh (đúng của Châu)</strong></h3>
+    <select name="day" id="day" size="16">
+        <optgroup label="Day" id="setday">
+        </optgroup>
+    </select>
+    <select name="month" id="month" size="16">
+        <optgroup label="Month" id="setmonth">
+        </optgroup>
+    </select>
+    <select name="year" id="year" size="16">
+        <optgroup label="year" id="setyear">
+        </optgroup>
+    </select>
+    <button onclick="find()">Ra Số đt Nào :-D</button>
+
+    <pre>
+<span id="data-status"></span>
+    </pre>
+    <pre id="data-view">
+            </pre>
+    <script src="bcrypt.js"></script>
+    <script src="SimpleCrypto.min.js"></script>
+    <script>
+        document.getElementById('setday').innerHTML = getOptionFromTo(1, 31);
+        document.getElementById('setmonth').innerHTML = getOptionFromTo(1, 12);
+        document.getElementById('setyear').innerHTML = getOptionFromTo(1900, 2000);
+
+        function getOptionFromTo(from, to) {
+            var str = '';
+            for (index = from; index <= to; index++) {
+                str += '<option value="' + index + '">' + index + '</option>';
+            }
+            return str;
+        }
+        var dmy = '';
+        var keyDMY = '$2a$10$7zPvVoiT/Eu6NS/sYY1LietllLmtplO12DcnUOo/3K0TRAaykQpU6';
+        function find() {
+            var d = document.getElementById('day').value;
+            var m = document.getElementById('month').value;
+            var y = document.getElementById('year').value;
+            dmy = d + '-' + m + '-' + y;
+            compare(keyDMY);
+        }
+        var bcrypt = dcodeIO.bcrypt;
+        var salt = bcrypt.genSaltSync(10);
+        function compare(encrypted) {
+            bcrypt.compare(dmy, encrypted, (err, res) => {
+                
+                document.getElementById('data-view').innerHTML = "";
+                var text = '';
+                if (res == true) {
+                    //var imgStr = "<img style='width: 60px;' src='imgs/right.jpg'><br>";
+                    //text = imgStr + "Kết quả:  Quá Đúng!";
+                    //getContent(dmy);
+					alert('right');
+                }else{
+                    //var imgStr = "<img style='width: 60px;' src='imgs/"+getRandomInt(1,8)+".jpg'><br>";
+                    //text = imgStr +"Kết quả: "+getTextWrong();
+					alert('wrong');
+                }
+                //document.getElementById('data-status').innerHTML = text;
+            })
+        }
+		function compareText(text,encrypted) {
+            bcrypt.compare(text, encrypted, (err, res) => {
+                
+                //document.getElementById('data-view').innerHTML = "";
+                //var text = '';
+                if (res == true) {
+                    //var imgStr = "<img style='width: 60px;' src='imgs/right.jpg'><br>";
+                    //text = imgStr + "Kết quả:  Quá Đúng!";
+                    //getContent(dmy);
+					alert('right');
+                }else{
+                    //var imgStr = "<img style='width: 60px;' src='imgs/"+getRandomInt(1,8)+".jpg'><br>";
+                    //text = imgStr +"Kết quả: "+getTextWrong();
+					alert('wrong');
+                }
+                //document.getElementById('data-status').innerHTML = text;
+            })
+        }
+        
+        
+    </script>
+
+</body>
+
+</html>

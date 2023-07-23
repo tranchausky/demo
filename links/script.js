@@ -44,6 +44,15 @@ function event2_view_tab1(){
 
 }
 
+
+function checkIsEnter(event, idtrigger) {
+    var x = event.code;
+    if(x == "Enter") {
+        $('#'+idtrigger).trigger('click')
+    }    
+}
+
+
 $(document).ready(function () {
     var height = $('.navbar-header').height();
     $('#start-content').css('margin-top', height);
@@ -97,6 +106,49 @@ $(document).ready(function () {
             getListNotes()
         }
     })
+
+
+    //function check back to website
+    showHideSessionLogin();
+
+    $('#login_session').click(function(){
+        checkLoginBasic();
+    })
+
+    function compareTextPasswordSession(text,encrypted, callback) {
+        text = text.trim();
+        var bcrypt = dcodeIO.bcrypt;
+        bcrypt.compare(text, encrypted, (err, res) => {
+            if (res == true) {
+                //alert('right');
+                //return true;
+                callback(true)
+            }else{
+                //alert('wrong');
+                //return false;
+                callback(false)
+            }
+        })
+    }
+    
+    function checkLoginBasic() {
+
+        var pp_ss = $('#password_ss').val();
+        if(pp_ss == ''){
+            return false;
+        }
+        var hash = '$2y$10$elFm3BzPfJKM0XUYnW58kOisbDcCOLmynndLHhwhCtLvjqw0AY97m';
+        compareTextPasswordSession(pp_ss, hash, function(ispassHash){
+            if(ispassHash == true){
+                sessionStorage.setItem("sessionLogin", 'true');
+            }else{
+                alert('Wrong Password Session')
+                sessionStorage.removeItem("sessionLogin");
+            }
+            showHideSessionLogin();
+        });
+    
+    }
 
     // $("document").on('click', '#tb-calendar tr td', function() {
     // $('#tb-calendar tr').on('click','td', function () {
@@ -167,6 +219,18 @@ $(document).ready(function () {
 
 
 });
+
+function showHideSessionLogin() {
+
+    let isSession = sessionStorage.getItem("sessionLogin");
+    if(isSession !== 'true') {
+        $('#my-ss-login-view').modal('show');
+        return false;
+    }else{
+        $('#my-ss-login-view').modal('hide');
+        return true;
+    }
+}
 
 //try active last click
 function tabClick() {
@@ -501,14 +565,17 @@ auth.onAuthStateChanged((firebaseUser) => {
 
     if (firebaseUser) {
         showHomepage();
-        user_ID = firebaseUser.uid
-        // $('#email_login').html(firebaseUser.email)
-        $('#iduser').html(firebaseUser.email)
-        $('.show-signout a').attr('title', firebaseUser.email)
-        loadData();
-        buildSelect();
-        tabClick();
-        getSettingUser();
+        var rs = showHideSessionLogin();
+        if(rs == true){
+            user_ID = firebaseUser.uid
+            // $('#email_login').html(firebaseUser.email)
+            $('#iduser').html(firebaseUser.email)
+            $('.show-signout a').attr('title', firebaseUser.email)
+            loadData();
+            buildSelect();
+            tabClick();
+            getSettingUser();
+        }
     }
 });
 
