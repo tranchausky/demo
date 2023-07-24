@@ -52,6 +52,35 @@ function checkIsEnter(event, idtrigger) {
     }    
 }
 
+function changeDataAttribute(at, attribtue, value) {
+    var idGet = $(at).attr('id');
+    $(at).attr(attribtue,value);
+
+
+    if(idGet=='setting_pw_hash') {
+        var pw_hash = $('#setting_pw_hash');
+        var bcrypt = dcodeIO.bcrypt;
+        const rounds = 10
+        var pw_basic = $(pw_hash).val();
+        pw_basic = pw_basic.trim();
+
+        if(pw_basic== ""){
+            $(at).attr('pw_hash', '');
+            return;
+        }
+        //data.pw_hash = '';
+        bcrypt.hash(pw_basic, rounds, (err, hash) => {
+            if (err) {
+                console.error(err)
+                //return
+                $(at).attr('pw_hash') = '';
+            }
+            $(at).attr('pw_hash', hash);
+            //console.log(hash)
+        })
+    }
+}
+
 
 $(document).ready(function () {
     var height = $('.navbar-header').height();
@@ -109,7 +138,7 @@ $(document).ready(function () {
 
 
     //function check back to website
-    showHideSessionLogin();
+    //showHideSessionLogin();
 
     $('#login_session').click(function(){
         checkLoginBasic();
@@ -138,6 +167,11 @@ $(document).ready(function () {
             return false;
         }
         var hash = '$2y$10$elFm3BzPfJKM0XUYnW58kOisbDcCOLmynndLHhwhCtLvjqw0AY97m';
+        var hash = glb_password_hash;
+        alert('123')
+        if(hash == ''){
+            return;
+        }
         compareTextPasswordSession(pp_ss, hash, function(ispassHash){
             if(ispassHash == true){
                 sessionStorage.setItem("sessionLogin", 'true');
@@ -224,6 +258,12 @@ $(document).ready(function () {
 function showHideSessionLogin() {
 
     let isSession = sessionStorage.getItem("sessionLogin");
+    var hash = glb_password_hash;
+    if(hash == ''){
+        $('#my-ss-login-view').modal('hide');
+        return true;
+    }
+
     if(isSession !== 'true') {
         $('#my-ss-login-view').modal('show');
         return false;
@@ -566,16 +606,17 @@ auth.onAuthStateChanged((firebaseUser) => {
 
     if (firebaseUser) {
         showHomepage();
+        user_ID = firebaseUser.uid
+        // $('#email_login').html(firebaseUser.email)
+        $('#iduser').html(firebaseUser.email)
+        $('.show-signout a').attr('title', firebaseUser.email)
+        getSettingUser();
         var rs = showHideSessionLogin();
+
         if(rs == true){
-            user_ID = firebaseUser.uid
-            // $('#email_login').html(firebaseUser.email)
-            $('#iduser').html(firebaseUser.email)
-            $('.show-signout a').attr('title', firebaseUser.email)
             loadData();
             buildSelect();
             tabClick();
-            getSettingUser();
         }
     }
 });

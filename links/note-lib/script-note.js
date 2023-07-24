@@ -10,6 +10,7 @@
 
 
 var db = firebase.firestore();
+var glb_password_hash = '';
 
 var sizes = localStorage.getItem('split-sizes');
 if (sizes) {
@@ -972,11 +973,22 @@ function updateSettingUser(){
 
 }
 function getSetDataUpdate(isSet,dataIn){
+    // console.log(dataIn)
     if(isSet == 1){
         $('#setting_gg_excel').val(dataIn.gg_excel!=undefined?dataIn.gg_excel:"");
+        $('#setting_pw_hash').val(dataIn.pw_hash!=undefined?dataIn.pw_hash:"");
+        glb_password_hash = dataIn.pw_hash!=undefined?dataIn.pw_hash:"";
     }else{
         var data = {};
         data.gg_excel = $('#setting_gg_excel').val();
+
+        var pwhash = $('#setting_pw_hash');
+        if(pwhash.attr('data-is-old') == 'false'){
+            data.pw_hash = pwhash.attr('pw_hash')?pwhash.attr('pw_hash'):"";
+        }else{
+            data.pw_hash = pwhash.val()?pwhash.val():"";
+        }
+
         return data;
     }
 }

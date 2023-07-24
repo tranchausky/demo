@@ -901,6 +901,11 @@
                                     <label for="setting_gg_excel">Google Link Excel</label>
                                     <input type="text" class="form-control" id="setting_gg_excel" placeholder="Google Link Excel">
                                 </div>
+
+                                <div class="form-group">
+                                    <label for="setting_pw_hash">One Password When Back Login</label>
+                                    <input type="password" data-is-old="true" onchange="changeDataAttribute(this,'data-is-old',false);" class="form-control" id="setting_pw_hash" placeholder="password setting">
+                                </div>
                                 
                                 <button type="submit" class="btn btn-primary saveSetting" onclick="updateSettingUser();">Submit</button>
                             </div>
