@@ -58,6 +58,7 @@ function changeDataAttribute(at, attribtue, value) {
 
 
     if(idGet=='setting_pw_hash') {
+        $('#updateProfileUser').hide();
         var pw_hash = $('#setting_pw_hash');
         var bcrypt = dcodeIO.bcrypt;
         const rounds = 10
@@ -66,6 +67,7 @@ function changeDataAttribute(at, attribtue, value) {
 
         if(pw_basic== ""){
             $(at).attr('pw_hash', '');
+            $('#updateProfileUser').show();
             return;
         }
         //data.pw_hash = '';
@@ -73,9 +75,12 @@ function changeDataAttribute(at, attribtue, value) {
             if (err) {
                 console.error(err)
                 //return
+                alert('Bcryt error')
                 $(at).attr('pw_hash') = '';
+                $('#updateProfileUser').show();
             }
             $(at).attr('pw_hash', hash);
+            $('#updateProfileUser').show();
             //console.log(hash)
         })
     }
@@ -168,8 +173,8 @@ $(document).ready(function () {
         }
         var hash = '$2y$10$elFm3BzPfJKM0XUYnW58kOisbDcCOLmynndLHhwhCtLvjqw0AY97m';
         var hash = glb_password_hash;
-        alert('123')
         if(hash == ''){
+            $('#my-ss-login-view').modal('hide');
             return;
         }
         compareTextPasswordSession(pp_ss, hash, function(ispassHash){
@@ -611,15 +616,15 @@ auth.onAuthStateChanged((firebaseUser) => {
         $('#iduser').html(firebaseUser.email)
         $('.show-signout a').attr('title', firebaseUser.email)
         getSettingUser();
-        var rs = showHideSessionLogin();
-
-        if(rs == true){
-            loadData();
-            buildSelect();
-            tabClick();
-        }
+        
     }
 });
+
+function loadMoreAfterLogin(){
+    loadData();
+    buildSelect();
+    tabClick();
+}
 
 document
     .querySelector("#forgot-password")

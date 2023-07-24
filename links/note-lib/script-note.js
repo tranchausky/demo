@@ -978,6 +978,12 @@ function getSetDataUpdate(isSet,dataIn){
         $('#setting_gg_excel').val(dataIn.gg_excel!=undefined?dataIn.gg_excel:"");
         $('#setting_pw_hash').val(dataIn.pw_hash!=undefined?dataIn.pw_hash:"");
         glb_password_hash = dataIn.pw_hash!=undefined?dataIn.pw_hash:"";
+
+        var rs = showHideSessionLogin();
+        if(rs == true){
+            loadMoreAfterLogin();
+        }
+
     }else{
         var data = {};
         data.gg_excel = $('#setting_gg_excel').val();
