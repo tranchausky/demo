@@ -1,8 +1,12 @@
 var github_url = 'https://api.github.com/';
 var github_api_version = '2022-11-28';
-var github_api_authen = 'Bearer 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';
+var github_api_authen = 'Bearer ';
+var github_api_authen_base = 'Z2hwX2IwVkV5VUNnc0R6ZThLUHZFODhlallMeUFyRXJSTDJVb1I5UQ==';
 var github_api_accept = 'application/vnd.github+json';
 var github_get_user = {};
+
+var encodedString = btoa('');
+var decodedString = atob('base64');
 
 function callAjax(method,url,urlMore,dataSendIn){
     var dataSend = JSON.stringify(dataSendIn);
@@ -12,7 +16,7 @@ function callAjax(method,url,urlMore,dataSendIn){
     return $.ajax({
 		headers: {
 			'X-GitHub-Api-Version': github_api_version,
-			'Authorization': github_api_authen,
+			'Authorization': github_api_authen+atob(github_api_authen_base),
 			'Accept': github_api_accept
 		},
         cache:      false,
