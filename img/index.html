@@ -1,7 +1,7 @@
 <br/>
 <br/>
 <h1>
-Small image faster
+Convert Image to Webp
 </h1>
 <br/>
 <input type="file" id="inputImg" accept="image/*" multiple>
@@ -34,7 +34,7 @@ async function compressImage(blobImg, percent) {
   canvas.width = bitmap.width;
   canvas.height = bitmap.height;
   ctx.drawImage(bitmap, 0, 0);
-  let dataUrl = canvas.toDataURL("image/jpeg", percent/100);
+  let dataUrl = canvas.toDataURL("image/webp", percent/100);
   return dataUrl;
 }
 
@@ -133,7 +133,7 @@ function downloadlink(key){
 	const linkSource = src;
     const downloadLink = document.createElement("a");
     downloadLink.href = linkSource;
-	var filename = document.getElementById('filenew_'+key).innerHTML;
+	var filename = document.getElementById('filenew_'+key).innerHTML+'.webp';
     downloadLink.download = filename;
     downloadLink.click();
 }
