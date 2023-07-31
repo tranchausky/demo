@@ -71,7 +71,7 @@ $(document).ready(function () {
 
 });
 
-function changeFileUpload(e) {
+async function changeFileUpload(e) {
     base64StringFile = '';
     // Get a reference to the file
     const file = e.files[0];
@@ -84,23 +84,46 @@ function changeFileUpload(e) {
         return;
     }
 
-    var path_name_file = tableFilePath_path + '/' + e.files[0].name;
+    var filename = e.files[0].name
+    var path_name_file = tableFilePath_path + '/' + filename;
     path_name_file = trimSpecific(path_name_file, '/');
-    $('#inputAddFileContent_path').val(path_name_file);
 
-    // Encode the file using the FileReader API
-    const reader = new FileReader();
-    reader.onloadend = () => {
-        // Use a regex to remove data url part
-        base64StringFile = reader.result
-            .replace('data:', '')
-            .replace(/^.+,/, '');
+    filename = filename.toLowerCase()
+    //checkis image
+    if (filename.match(/\.(jpg|jpeg|png|gif)$/i)){
+        path_name_file = path_name_file+'.webp';
+        base64StringFile = await compressImage(e.files[0], 75); // set to 75%
+    }else{
 
-        //console.log(base64String);
-        // Logs wL2dvYWwgbW9yZ...
-    };
-    reader.readAsDataURL(file);
+        // Encode the file using the FileReader API
+        const reader = new FileReader();
+        reader.onloadend = () => {
+            // Use a regex to remove data url part
+            base64StringFile = reader.result
+                .replace('data:', '')
+                .replace(/^.+,/, '');
+
+            //console.log(base64String);
+            // Logs wL2dvYWwgbW9yZ...
+        };
+        reader.readAsDataURL(file);
+    }
+
+    $('#inputAddFileContent_path').val(path_name_file);    
+
 }
+
+async function compressImage(blobImg, percent) {
+    let bitmap = await createImageBitmap(blobImg);
+    let canvas = document.createElement("canvas");
+    let ctx = canvas.getContext("2d");
+    canvas.width = bitmap.width;
+    canvas.height = bitmap.height;
+    ctx.drawImage(bitmap, 0, 0);
+    let dataUrl = canvas.toDataURL("image/webp", percent/100);
+    //return dataUrl;
+    return dataUrl.replace('data:', '').replace(/^.+,/, '');;
+  }
 
 var listBreadcrumb = [];
 function buildBreadcrumb() {
