@@ -262,6 +262,12 @@ $(document).ready(function () {
 
 function showHideSessionLogin() {
 
+    var isremember = localStorage.getItem('isremember');
+    if(isremember == 'true'){
+        $('#my-ss-login-view').modal('hide');
+        return true;
+    }
+
     let isSession = sessionStorage.getItem("sessionLogin");
     var hash = glb_password_hash;
     if(hash == ''){
@@ -579,6 +585,13 @@ const authenticate = (email, password) => {
     firebase
         .auth()
         .signInWithEmailAndPassword(email, password)
+        .then((userCredential) => {
+            // Signed in 
+            //var user = userCredential.user;
+            var status = $('#isremember').is(":checked");
+            localStorage.setItem('isremember', status);
+            // ...
+          })
         .catch(function (error) {
             // Handle Errors here.
             var errorCode = error.code;
