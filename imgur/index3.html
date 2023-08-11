@@ -1,0 +1,36 @@
+<h3>A demonstration of how to access a File Upload Button</h3>
+
+<input type="file" id="myFile" accept="image/png, image/gif, image/jpeg">
+
+<button id="submitBtn">Submit</button>
+
+ <script src='https://code.jquery.com/jquery-2.2.4.min.js'></script>
+
+
+<script>
+$('#submitBtn').click(function(){
+  var formData = new FormData();
+  formData.append("image", $("#myFile")[0].files[0]);
+
+   $.ajax({
+    url: "https://api.imgur.com/3/image",
+    type: "POST",
+    datatype: "json",
+    headers: {
+      "Authorization": "Client-ID 6f03f08136476d1" //my
+    },
+    data: formData,
+    success: function(response) {
+      console.log(response);
+      var photo = response.data.link;
+      var photo_hash = response.data.deletehash;
+    },
+    cache: false,
+    contentType: false,
+    processData: false
+  });
+  
+});
+
+
+</script>

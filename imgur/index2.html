@@ -1,0 +1,215 @@
+
+<br/>
+<br/>
+<h1>
+Convert Image to jpeg, upload img
+</h1>
+<br/>
+<input type="file" id="inputImg" accept="image/*" multiple>
+<img src="" id="pic1">
+
+<div class="list">
+<table>
+
+<tbody id="listimg">
+<thead>
+<tr>
+<th>stt</th>
+<th>name</th>
+<th>size first</th>
+<th>size now</th>
+<th>img</th>
+<th>save</th>
+<th>upload</th>
+</tr>
+
+</thead>
+</tbody>
+</table>
+</div>
+
+ <script src='https://code.jquery.com/jquery-2.2.4.min.js'></script>
+<script>
+
+var extension_onefile = '';
+async function compressImage(blobImg, percent,fileExt) {
+  let bitmap = await createImageBitmap(blobImg);
+  let canvas = document.createElement("canvas");
+  let ctx = canvas.getContext("2d");
+  canvas.width = bitmap.width;
+  canvas.height = bitmap.height;
+  ctx.drawImage(bitmap, 0, 0);
+  let dataUrl = canvas.toDataURL("image/jpeg", percent/100);
+  //let dataUrl = canvas.toDataURL("image/"+fileExt, percent/100); //more size
+  return dataUrl;
+}
+
+
+inputImg.addEventListener('change', async(e) => {
+  let img = e.target.files[0];
+  var fileInput = e.target;
+  fileList = [];
+    for (var i = 0; i < fileInput.files.length; i++) {
+        fileList.push(fileInput.files[i]);
+    }
+	console.log(fileList);
+	buildImageList(fileList);
+})
+var lenglistimage = 1;
+var listallimage = [];
+function buildImageList(listfile){
+	var str = '';
+	
+	for (var i = 0; i < listfile.length; i++) {
+		str +='<tr>';
+        str +='<td>'+ (lenglistimage)+'</td>';
+        str +='<td id="filenew_'+lenglistimage+'">'+ (listfile[i].name)+'</td>';
+        str +='<td>'+ (showSize(listfile[i].size))+'</td>';
+        str +='<td id="szienew_'+lenglistimage+'">'+ ''+'</td>';
+		var fileExt = listfile[i].name.split('.').pop();
+		var linkst = '';
+        str +='<td id="imagenew_'+lenglistimage+'"></td>';
+        str +='<td class="chuot" onclick="downloadlink('+lenglistimage+',&apos;'+fileExt+'&apos;)">download</td>';
+        str +='<td id="img_link_'+lenglistimage+'"><span class="chuot" onclick="upload('+lenglistimage+',&apos;'+fileExt+'&apos;)">upload</span></td>';
+		str +='</tr>';
+		
+		minifileOneFile(listfile[i], lenglistimage,fileExt);
+		
+		lenglistimage++;
+		listallimage.push(listfile[i])
+    }
+
+	document.getElementById('listimg').innerHTML =document.getElementById('listimg').innerHTML+ str;
+}
+
+async function minifileOneFile(img, keyindex,fileExt){
+	console.log('File Name: ', img.name)
+  console.log('Original Size: ', img.size.toLocaleString())
+  
+  let imgCompressed = await compressImage(img, 75,fileExt) // set to 75%
+  let compSize = atob(imgCompressed.split(",")[1]).length;
+  console.log('Compressed Size: ', compSize.toLocaleString())
+  
+  document.getElementById('szienew_'+keyindex).innerHTML = showSize(compSize);
+  viewBySrc(keyindex,imgCompressed)
+  
+  //console.log(imgCompressed)
+  //viewBySrc(imgCompressed)
+}
+
+
+//view image
+
+function viewBySrc(key,src){
+	//document.getElementById('imagenew_'+key).src= src;
+	//var tem = '<img src="" id="pic1">';
+	
+	var image = new Image();
+	image.onload = function(){
+	   console.log(image.width); // image is loaded and we have image width 
+	}
+	image.src = src;
+	image.id = 'pic_'+key;
+	image.width = 100;
+	//document.body.appendChild(image);
+	document.getElementById('imagenew_'+key).appendChild(image);
+	
+}
+
+function showSize(size){
+
+let fileSize = size.toString();
+
+
+if(fileSize.length < 7) return `${Math.round(+fileSize/1024).toFixed(2)}kb`
+    return `${(Math.round(+fileSize/1024)/1000).toFixed(2)}MB`
+
+}
+
+function upload(key, fileExt){
+	//console.log(key)
+	var src = document.getElementById('pic_'+key).src;
+	
+	//const file = new File([
+	//  new Blob([src])
+	//], "output_file_name.jpg");
+	
+	var formData = new FormData();
+	  formData.append("image", listallimage[key-1]);
+
+	   $.ajax({
+		url: "https://api.imgur.com/3/image",
+		type: "POST",
+		datatype: "json",
+		headers: {
+		  "Authorization": "Client-ID 6f03f08136476d1" //my
+		},
+		data: formData,
+		success: function(response) {
+		  console.log(response);
+		  var photo = response.data.link;
+		  var photo_hash = response.data.deletehash;
+		  document.getElementById('img_link_'+key).innerHTML = photo;
+		},
+		error: function (xhr, ajaxOptions, thrownError) {
+			console.log(xhr)
+			alert(xhr.status);
+			alert(thrownError);
+		},
+		cache: false,
+		contentType: false,
+		processData: false
+	  });
+	
+}
+function downloadlink(key, fileExt){
+	/*
+	var src = document.getElementById('pic_'+key).src;
+	//if(src !=''){
+		//download(link);
+		
+		const link = document.createElement("a");
+      link.href = URL.createObjectURL(src);
+      link.download = 'filenmae.jpeg';
+      link.click();
+	//}
+	*/
+	var src = document.getElementById('pic_'+key).src;
+	
+	///const linkSource = 'data:'+fileFormat+';base64'+src;
+	const linkSource = src;
+    const downloadLink = document.createElement("a");
+    downloadLink.href = linkSource;
+	//var filename = document.getElementById('filenew_'+key).innerHTML+'.jpeg';
+	//var filename = document.getElementById('filenew_'+key).innerHTML+'.'+fileExt;
+	var filename = document.getElementById('filenew_'+key).innerHTML;
+    downloadLink.download = filename;
+    downloadLink.click();
+}
+
+
+</script>
+
+<style>
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  <!-- width: 100%; -->
+}
+
+td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-color: #dddddd;
+}
+.chuot:hover{
+    cursor: pointer;
+}
+img{
+    max-height: 100px;
+}
+</style>
