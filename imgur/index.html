@@ -1,11 +1,37 @@
 
+<style>
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  <!-- width: 100%; -->
+}
+
+td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-color: #dddddd;
+}
+.chuot:hover{
+    cursor: pointer;
+}
+img{
+    max-height: 100px;
+}
+</style>
+
 <br/>
 <br/>
 <h1>
 Convert Image to jpeg, upload img
 </h1>
 <br/>
-<input type="file" id="inputImg" accept="image/*" multiple>
+<!-- <input type="file" id="inputImg" accept="image/png, image/gif, image/jpeg,video/*" multiple> -->
+<input type="file" id="inputImg" accept="image/png, image/gif, image/jpeg" multiple>
+<p><input type="text" id="url" placeholder="image url" onfocusout="changeurl(this)"></p>
 <img src="" id="pic1">
 
 <div class="list">
@@ -61,6 +87,7 @@ function buildImageList(listfile){
 	var str = '';
 	
 	for (var i = 0; i < listfile.length; i++) {
+		console.log(listfile[i].type)
 		str +='<tr>';
         str +='<td>'+ (lenglistimage)+'</td>';
         str +='<td id="filenew_'+lenglistimage+'">'+ (listfile[i].name)+'</td>';
@@ -70,10 +97,13 @@ function buildImageList(listfile){
 		var linkst = '';
         str +='<td id="imagenew_'+lenglistimage+'"></td>';
         str +='<td class="chuot" onclick="downloadlink('+lenglistimage+',&apos;'+fileExt+'&apos;)">download</td>';
-        str +='<td id="img_link_'+lenglistimage+'"><span class="chuot" onclick="upload('+lenglistimage+',&apos;'+fileExt+'&apos;)">upload</span></td>';
+		var type = listfile[i].type.slice(0, 5);
+        str +='<td id="img_link_'+lenglistimage+'"><span class="chuot" onclick="upload('+lenglistimage+',&apos;'+fileExt+'&apos;,&apos;'+type+'&apos;)">upload</span></td>';
 		str +='</tr>';
 		
-		minifileOneFile(listfile[i], lenglistimage,fileExt);
+		if(type == 'image'){
+			minifileOneFile(listfile[i], lenglistimage,fileExt);
+		}
 		
 		lenglistimage++;
 		listallimage.push(listfile[i])
@@ -81,6 +111,43 @@ function buildImageList(listfile){
 
 	document.getElementById('listimg').innerHTML =document.getElementById('listimg').innerHTML+ str;
 }
+
+function changeurl(at){
+	console.log(at);
+	var linkUrl = document.getElementById('url').value;
+	//console.log(vl)
+	
+	var str = '';
+	
+	
+	//for (var i = 0; i < listfile.length; i++) {
+		//console.log(listfile[i].type)
+		str +='<tr>';
+        str +='<td>'+ (lenglistimage)+'</td>';
+        str +='<td id="filenew_'+lenglistimage+'">url upload</td>';
+        str +='<td></td>';
+        str +='<td>'+ ''+'</td>';
+		var fileExt = linkUrl.split('.').pop();
+		var linkst = '';
+        str +='<td id="imagenew_'+lenglistimage+'"></td>';
+        str +='<td class="chuot" onclick="downloadlink('+lenglistimage+',&apos;'+fileExt+'&apos;)">download</td>';
+		//var type = listfile[i].type.slice(0, 5);
+       
+		str +='<td id="img_link_'+lenglistimage+'"><span class="chuot" onclick="upload_url('+lenglistimage+',&apos;'+linkUrl+'&apos;)">upload url</span></td>';
+		str +='</tr>';
+		
+		//if(type == 'image'){
+			//minifileOneFile(listfile[i], lenglistimage,fileExt);
+		//}
+		
+		lenglistimage++;
+		listallimage.push({})
+    //}
+
+	document.getElementById('listimg').innerHTML =document.getElementById('listimg').innerHTML+ str;
+	
+}
+
 
 async function minifileOneFile(img, keyindex,fileExt){
 	console.log('File Name: ', img.name)
@@ -116,6 +183,8 @@ function viewBySrc(key,src){
 	
 }
 
+
+
 function showSize(size){
 
 let fileSize = size.toString();
@@ -126,16 +195,17 @@ if(fileSize.length < 7) return `${Math.round(+fileSize/1024).toFixed(2)}kb`
 
 }
 
-function upload(key, fileExt){
+function upload(key, fileExt, typeupload){
 	//console.log(key)
-	var src = document.getElementById('pic_'+key).src;
+	//var src = document.getElementById('pic_'+key).src;
 	
 	//const file = new File([
 	//  new Blob([src])
 	//], "output_file_name.jpg");
 	
 	var formData = new FormData();
-	  formData.append("image", listallimage[key-1]);
+	  //formData.append("image", listallimage[key-1]);
+	  formData.append(typeupload, listallimage[key-1]);
 
 	   $.ajax({
 		url: "https://api.imgur.com/3/image",
@@ -161,6 +231,36 @@ function upload(key, fileExt){
 		processData: false
 	  });
 	
+}
+function upload_url(key,url){
+	var formData = new FormData();
+	  formData.append("image", url);
+	  formData.append("type", 'url');
+	  
+
+	   $.ajax({
+		url: "https://api.imgur.com/3/image",
+		type: "POST",
+		datatype: "json",
+		headers: {
+		  "Authorization": "Client-ID 6f03f08136476d1" //my
+		},
+		data: formData,
+		success: function(response) {
+		  console.log(response);
+		  var photo = response.data.link;
+		  var photo_hash = response.data.deletehash;
+		  document.getElementById('img_link_'+key).innerHTML = photo;
+		},
+		error: function (xhr, ajaxOptions, thrownError) {
+			console.log(xhr)
+			alert(xhr.status);
+			alert(thrownError);
+		},
+		cache: false,
+		contentType: false,
+		processData: false
+	  });
 }
 function downloadlink(key, fileExt){
 	/*
@@ -190,26 +290,3 @@ function downloadlink(key, fileExt){
 
 </script>
 
-<style>
-table {
-  font-family: arial, sans-serif;
-  border-collapse: collapse;
-  <!-- width: 100%; -->
-}
-
-td, th {
-  border: 1px solid #dddddd;
-  text-align: left;
-  padding: 8px;
-}
-
-tr:nth-child(even) {
-  background-color: #dddddd;
-}
-.chuot:hover{
-    cursor: pointer;
-}
-img{
-    max-height: 100px;
-}
-</style>
