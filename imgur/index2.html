@@ -1,5 +1,4 @@
 
-
 <style>
 table {
   font-family: arial, sans-serif;
@@ -22,7 +21,6 @@ tr:nth-child(even) {
 img{
     max-height: 100px;
 }
-.list{max-height: 500px;overflow: auto;}
 </style>
 
 <br/>
@@ -34,11 +32,6 @@ Convert Image to jpeg, upload img
 <!-- <input type="file" id="inputImg" accept="image/png, image/gif, image/jpeg,video/*" multiple> -->
 <input type="file" id="inputImg" accept="image/png, image/gif, image/jpeg" multiple>
 <p><input type="text" id="url" placeholder="image url" onfocusout="changeurl(this)"></p>
-<p>
-<input type="text" id="attr_img_url" placeholder="attribute image url" value="src">
-<input type="text" id="have_url" placeholder="url have img" onfocusout="getimg(this)" value="">
-
-</p>
 <img src="" id="pic1">
 
 <div class="list">
@@ -63,7 +56,7 @@ Convert Image to jpeg, upload img
 
  <script src='https://code.jquery.com/jquery-2.2.4.min.js'></script>
 <script>
-var glb_data_ajax = '';
+
 var extension_onefile = '';
 async function compressImage(blobImg, percent,fileExt) {
   let bitmap = await createImageBitmap(blobImg);
@@ -130,43 +123,11 @@ return (Math.round(+fileSize/1024)/1000).toFixed(2);
 }
 
 
-function getimg(at){
-//have_url
-console.log(at);
-var linkUrl = document.getElementById('have_url').value;
-if(linkUrl.trim()==''){
-	return}
-
-
-$.get(linkUrl, function(data, status){
-    //alert("Data: " + data + "\nStatus: " + status);
-	//console.log(data);
-	glb_data_ajax= data;
-	console.log(status);
-	var list_img = $(data).find('img');
-	console.log(list_img)
-	var attribute_img = document.getElementById('attr_img_url').value
-	$.each(list_img,function(i,v){
-	
-			var img = $(v).attr(attribute_img)
-			console.log(v)
-			console.log(img)
-			addurl(img)
-	})
-  });
-  
-}
 function changeurl(at){
 	console.log(at);
 	var linkUrl = document.getElementById('url').value;
 	//console.log(vl)
 	document.getElementById('url').value = '';
-	addurl(linkUrl)
-}
-function addurl(linkUrl){
-	if(linkUrl == undefined){
-	return
-	}
 	if(linkUrl.trim()==''){
 	return}
 	
@@ -280,7 +241,6 @@ function upload(key, fileExt, typeupload){
 			console.log(xhr)
 			alert(xhr.status);
 			alert(thrownError);
-			document.getElementById('img_link_'+key).innerHTML = "upload-error";
 		},
 		cache: false,
 		contentType: false,
@@ -313,7 +273,6 @@ function upload_url(key,url){
 			console.log(xhr)
 			alert(xhr.status);
 			alert(thrownError);
-			document.getElementById('img_link_'+key).innerHTML = "upload-error";
 		},
 		cache: false,
 		contentType: false,
@@ -344,7 +303,6 @@ function downloadlink(key, fileExt){
     downloadLink.download = filename;
     downloadLink.click();
 }
-
 
 
 </script>
