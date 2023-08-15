@@ -98,8 +98,14 @@ function buildImageList(listfile){
         str +='<td id="imagenew_'+lenglistimage+'"></td>';
         str +='<td class="chuot" onclick="downloadlink('+lenglistimage+',&apos;'+fileExt+'&apos;)">download</td>';
 		var type = listfile[i].type.slice(0, 5);
-        str +='<td id="img_link_'+lenglistimage+'"><span class="chuot" onclick="upload('+lenglistimage+',&apos;'+fileExt+'&apos;,&apos;'+type+'&apos;)">upload</span></td>';
-		str +='</tr>';
+		var sizefile = getsizefileMB(listfile[i].size);
+		if(sizefile <10){
+			str +='<td id="img_link_'+lenglistimage+'"><span class="chuot" onclick="upload('+lenglistimage+',&apos;'+fileExt+'&apos;,&apos;'+type+'&apos;)">upload</span></td>';
+			
+		}else{
+			str +='<td>size maxupload 10MB/'+sizefile+'MB</td>';	
+		}
+        str +='</tr>';
 		
 		if(type == 'image'){
 			minifileOneFile(listfile[i], lenglistimage,fileExt);
@@ -111,11 +117,19 @@ function buildImageList(listfile){
 
 	document.getElementById('listimg').innerHTML =document.getElementById('listimg').innerHTML+ str;
 }
+function getsizefileMB(fileSize){
+//Math.round(+fileSize/1024)/1000).toFixed(2)}MB
+return (Math.round(+fileSize/1024)/1000).toFixed(2);
+}
+
 
 function changeurl(at){
 	console.log(at);
 	var linkUrl = document.getElementById('url').value;
 	//console.log(vl)
+	document.getElementById('url').value = '';
+	if(linkUrl.trim()==''){
+	return}
 	
 	var str = '';
 	
@@ -129,7 +143,7 @@ function changeurl(at){
         str +='<td>'+ ''+'</td>';
 		var fileExt = linkUrl.split('.').pop();
 		var linkst = '';
-        str +='<td id="imagenew_'+lenglistimage+'"></td>';
+        str +='<td id="imagenew_'+lenglistimage+'"><img src="'+linkUrl+'"/></td>';
         str +='<td class="chuot" onclick="downloadlink('+lenglistimage+',&apos;'+fileExt+'&apos;)">download</td>';
 		//var type = listfile[i].type.slice(0, 5);
        
@@ -203,6 +217,8 @@ function upload(key, fileExt, typeupload){
 	//  new Blob([src])
 	//], "output_file_name.jpg");
 	
+	document.getElementById('img_link_'+key).innerHTML = "uploading...";
+	
 	var formData = new FormData();
 	  //formData.append("image", listallimage[key-1]);
 	  formData.append(typeupload, listallimage[key-1]);
@@ -237,7 +253,8 @@ function upload_url(key,url){
 	  formData.append("image", url);
 	  formData.append("type", 'url');
 	  
-
+	document.getElementById('img_link_'+key).innerHTML = "uploading...";
+	
 	   $.ajax({
 		url: "https://api.imgur.com/3/image",
 		type: "POST",
