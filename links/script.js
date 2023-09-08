@@ -1612,8 +1612,12 @@ function buildListVideo(dataIn) {
             str += '<div class="col-sm-3 col-xs-4"><img class="img-thumbnail" onclick="changeLinkVideo(&apos;' + dataAt.videId + '&apos;,&apos;' + dataAt.url + '&apos;,&apos;' + key + '&apos;)" str-big="' + dataAt.url + '" src="https://i.ytimg.com/vi/' + dataAt.videId + '/default.jpg" alt="" title="' + dataAt.title + '"><p class="hide">' + dataAt.title + '</p></div>'
             str += '<div class="col-sm-3 col-xs-4"><small>' + dataAt.title + '</small></div>';
         } else {
-            str += '<div class="col-sm-3 col-xs-4"><img class="img-thumbnail hiden" onclick="changeVideoBase64(&apos;' + btoa(dataAt.url) + '&apos;,&apos;' + dataAt.id_cat + '&apos;,&apos;' + key + '&apos;)" str-big="https://i.imgur.com/zHOHgOM.png" src="https://i.imgur.com/zHOHgOM.png" alt="" title="' + dataAt.title + '"><p class="hide">' + dataAt.title + '</p></div>'
-            str += '<div class="col-sm-3 col-xs-4"><small>' + dataAt.title + '</small></div>';
+            try {
+                str += '<div class="col-sm-3 col-xs-4"><img class="img-thumbnail hiden" onclick="changeVideoBase64(&apos;' + btoa(dataAt.url) + '&apos;,&apos;' + dataAt.id_cat + '&apos;,&apos;' + key + '&apos;)" str-big="https://i.imgur.com/zHOHgOM.png" src="https://i.imgur.com/zHOHgOM.png" alt="" title="' + dataAt.title + '"><p class="hide">' + dataAt.title + '</p></div>'
+                str += '<div class="col-sm-3 col-xs-4"><small>' + dataAt.title + '</small></div>';
+            } catch (error) {
+                console.log(error);
+            }
         }
 
     }
