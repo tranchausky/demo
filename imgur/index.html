@@ -37,11 +37,19 @@ Convert Image to jpeg, upload img
 <p>
 <input type="text" id="attr_img_url" placeholder="attribute image url" value="src">
 <input type="text" id="have_url" placeholder="url have img" onfocusout="getimg(this)" value="">
-
+</p>
+<p>
+<textarea type="text" id="texthtml" placeholder="html" onfocusout="getimg_html(this)"></textarea>
 </p>
 <img src="" id="pic1">
 
+<div style=" padding-bottom: 10px; ">
+	<button id="clear" onclick="clearnow();">clear</button>
+</div>
 <div class="list">
+
+
+
 <table>
 
 <tbody id="listimg">
@@ -142,22 +150,31 @@ $.get(linkUrl, function(data, status){
     //alert("Data: " + data + "\nStatus: " + status);
 	//console.log(data);
 	glb_data_ajax= data;
-	console.log(status);
+	//console.log(status);
+	getImgfromHtml(data);
+  });
+  
+}
+function getImgfromHtml(data){
 	var list_img = $(data).find('img');
-	console.log(list_img)
+	//console.log(list_img)
 	var attribute_img = document.getElementById('attr_img_url').value
 	$.each(list_img,function(i,v){
 	
 			var img = $(v).attr(attribute_img)
-			console.log(v)
-			console.log(img)
+			//console.log(v)
+			//console.log(img)
 			addurl(img)
 	})
-  });
-  
 }
+
+function getimg_html(at){
+var texthtml = document.getElementById('texthtml').value;
+getImgfromHtml(texthtml);
+}
+
 function changeurl(at){
-	console.log(at);
+	//console.log(at);
 	var linkUrl = document.getElementById('url').value;
 	//console.log(vl)
 	document.getElementById('url').value = '';
@@ -345,6 +362,11 @@ function downloadlink(key, fileExt){
     downloadLink.click();
 }
 
+function clearnow(){
+	$('#listimg').empty();
+	lenglistimage = 1;
+	listallimage = [];
+}
 
 
 </script>
