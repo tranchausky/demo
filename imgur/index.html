@@ -307,6 +307,11 @@ function upload(key, fileExt, typeupload){
 }
 function upload_url(key,url ,typeImg){
 	var formData = new FormData();
+	
+	if(typeImg=='base64'){
+		url=url.replace(/^data:image\/(png|jpg);base64,/, "");
+	}
+	
 	  formData.append("image", url);
 	  formData.append("type", typeImg);
 	  
