@@ -164,7 +164,7 @@ function getImgfromHtml(data){
 			var img = $(v).attr(attribute_img)
 			//console.log(v)
 			//console.log(img)
-			addurl(img)
+			addurl(img,'img')
 	})
 }
 
@@ -178,9 +178,9 @@ function changeurl(at){
 	var linkUrl = document.getElementById('url').value;
 	//console.log(vl)
 	document.getElementById('url').value = '';
-	addurl(linkUrl)
+	addurl(linkUrl,'url')
 }
-function addurl(linkUrl){
+function addurl(linkUrl, typeImg){
 	if(linkUrl == undefined){
 	return
 	}
@@ -203,7 +203,7 @@ function addurl(linkUrl){
         str +='<td class="chuot" onclick="downloadlink('+lenglistimage+',&apos;'+fileExt+'&apos;)">download</td>';
 		//var type = listfile[i].type.slice(0, 5);
        
-		str +='<td id="img_link_'+lenglistimage+'"><span class="chuot" onclick="upload_url('+lenglistimage+',&apos;'+linkUrl+'&apos;)">upload url</span></td>';
+		str +='<td id="img_link_'+lenglistimage+'"><span class="chuot" onclick="upload_url('+lenglistimage+',&apos;'+linkUrl+'&apos;,&apos;'+typeImg+'&apos;)">upload url</span></td>';
 		str +='</tr>';
 		
 		//if(type == 'image'){
@@ -305,10 +305,10 @@ function upload(key, fileExt, typeupload){
 	  });
 	
 }
-function upload_url(key,url){
+function upload_url(key,url ,typeImg){
 	var formData = new FormData();
 	  formData.append("image", url);
-	  formData.append("type", 'url');
+	  formData.append("type", typeImg);
 	  
 	document.getElementById('img_link_'+key).innerHTML = "uploading...";
 	
@@ -368,6 +368,30 @@ function clearnow(){
 	listallimage = [];
 }
 
+document.onpaste = function (event) {
+    var items = (event.clipboardData || event.originalEvent.clipboardData).items;
+    console.log(JSON.stringify(items)); // will give you the mime types
+    for (index in items) {
+        var item = items[index];
+		let allowedExtension = ['image/jpeg', 'image/jpg', 'image/png','image/gif','image/bmp'];
+		
+        if (item.kind === 'file' && allowedExtension.indexOf(item.type)>-1) {
+			console.log(item);
+			//return;
+            var blob = item.getAsFile();
+            var reader = new FileReader();
+            reader.onload = function (event) {
+                //console.log(event.target.result);
+                var imagebase64 = event.target.result;
+                console.log(imagebase64)
+				addurl(imagebase64,'base64')
+
+                //document.getElementById('imgview').src = imagebase64
+            }; // data url!
+            reader.readAsDataURL(blob);
+        }
+    }
+}
 
 </script>
 
