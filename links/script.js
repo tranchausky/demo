@@ -1017,7 +1017,7 @@ function addFiveTaskToday() {
     fivetaskRef = dbRef.ref('fivetask_today/' + user_ID)
     fivetaskRef.push({
         date: getDateTimeToday(),
-        one: 'new day',
+        one: "",
         two: "",
         three: "",
         four: "",
