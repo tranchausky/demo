@@ -1,0 +1,109 @@
+<html>
+    <body>
+        <div class="title">
+            <h1>Percent</h1>
+
+        </div>
+        <div class="cal">
+            <label for="">Total
+                <input type="number" id="total" onchange="change()" oninput="formart(this)">
+            </label>
+            <label for="">Prices
+                <input type="number" id="prices" onchange="change()" oninput="formart(this)">
+            </label>
+            <label for="">%
+                <input type="number" id="percent" onchange="change()" >
+            </label>
+            
+            <label for="">Result
+                <input type="text" id="result" disabled>
+            </label>
+        </div>
+        <br><br>
+        <div class="history">
+            <table class="table">
+                <tr>
+                    <th>Total</th>
+                   <th>Price</th>
+                    <th>Percent</th>
+                   <th>Result</th>
+                </tr>
+                <tbody id="tbody">
+                    
+                </tbody>
+            </table>
+        </div>
+
+<style>
+table, td, th {  
+  border: 1px solid #ddd;
+  text-align: left;
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+th, td {
+  padding: 15px;
+}
+</style>
+<script>
+function change(){
+    var total = document.getElementById('total').value;
+    total = total.replace(/\D/gm,"");
+    var percent = document.getElementById('percent').value;
+    percent = percent.replace(/\D/gm,"");
+    var price = document.getElementById('prices').value;
+    price = price.replace(/\D/gm,"");
+    var cal = calculator(total,percent,price);
+    document.getElementById('result').value = cal;
+    log(total,percent,price,cal);
+}
+
+function formart(at){
+    var reg = at.value.replace(/\D/gm,"");
+    var str1 = parseInt(reg);
+    at.value = (str1).format(0, 3, '.', ',')
+}
+function log(total,percent,price,result){
+    
+    if(result =='0,00'){
+        return;
+    }
+
+    total = parseInt(total);
+    price = parseInt(price);
+    //result = parseInt(result);
+    total= total.format(0, 3, '.', ',');
+    price= price.format(0, 3, '.', ',');
+    //result= result.format(2, 3, '.', ',');
+    var str = '<tr><td>'+total+
+    '</td><td>'+percent+'</td><td>'+price+'</td><td>'+result+'</td></tr>';
+    document.getElementById('tbody').innerHTML += str;
+}
+function calculator(total,percent,price){
+    var cal = total *price* percent /100;
+    console.log(cal)
+    cal = (cal).format(2, 3, '.', ',');
+    return cal;
+}
+
+/**
+ * Number.prototype.format(n, x, s, c)
+ * 
+ * @param integer n: length of decimal
+ * @param integer x: length of whole part
+ * @param mixed   s: sections delimiter
+ * @param mixed   c: decimal delimiter
+ */
+Number.prototype.format = function(n, x, s, c) {
+    var re = '\\d(?=(\\d{' + (x || 3) + '})+' + (n > 0 ? '\\D' : '$') + ')',
+        num = this.toFixed(Math.max(0, ~~n));
+
+    return (c ? num.replace('.', c) : num).replace(new RegExp(re, 'g'), '$&' + (s || ','));
+};
+</script>
+    </body>
+</html>
