@@ -21,8 +21,6 @@
     <meta property="og:description"
         content="Interface builder for CSS Grid and Bootstrap that wants to be the kick-off for your front-end developments." />
 
-
-
     <!-- Javascript -->
     <script type="text/javascript" src="js/jquery.min.js"></script>
     <script type="text/javascript" src="js/jquery-ui.min.js"></script>
@@ -40,7 +38,10 @@
     <!-- <link href="/builder/v4/layoutit/src/css/bootstrap.min.css" rel="stylesheet"> -->
 
     <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/jquery-linedtextarea.css" />
+
     <script src="js/bootstrap.min.js"></script>
+    <script src="js/jquery-linedtextarea.js"></script>
     <!-- LESS include for dev only -->
     <link rel="stylesheet/less" type="text/css" href="css/less/common.less" />
     <link rel="stylesheet/less" type="text/css" href="css/less/homepage.less" />
@@ -58,7 +59,7 @@
 <body class="edit builder">
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top navbar-layoutit">
         <div class="navbar-header">
-            <a class="navbar-brand" href="/"> <img src="img/ico128.png" /> BT build!</a>
+            <a class="navbar-brand" href="/">BT build!</a>
             <ul class="navbar-nav mr-auto" id="menu-layoutit">
                 <li class="tools-btns">
                     <div data-toggle="buttons-radio">
@@ -66,15 +67,11 @@
                             </span></button>
                         <button class="btn btn-primary" id="sourcepreview"><i class="fas fa-eye"></i> <span> Preview
                             </span> </button>
-                        <button class="btn btn-primary" id="button-download-modal" href="php/downloadAjax.html"
-                            data-target="#layoutitModal" data-toggle="modal"><i class="fas fa-download"></i> <span>
-                                Download </span> </button>
-                        <button class="btn btn-primary" id="button-share-modal" href="/share/indexV4"
+                        
+                        <!-- <button class="btn btn-primary" id="button-share-modal" href="/share/indexV4"
                             data-toggle="modal" data-target="#layoutitModal" data-toggle="modal"><i
-                                class="fas fa-share"></i> <span> Permalink </span> </button>
+                                class="fas fa-share"></i> <span> Permalink </span> </button> -->
                         <button class="btn btn-icon" href="#clear" id="clear"><i class="fas fa-trash-alt"></i></button>
-                        <a href="/build_v3/startWithLayout/layout/2"> <button class="btn-primary btn-old-bs"> Use
-                                Bootstrap 3</button></a>
                     </div>
                 </li>
             </ul>
@@ -91,10 +88,7 @@
                     <!-- <a class="top-link" href="/en/register">Register</a> | -->
                     <!-- <a class="top-link" href="/en/login">Login</a> -->
                 </div>
-                <a href="#" target="_blank" role="button" class="button btn-hire-inner">Hire Us </a>
-                <button href="/feedbacks/indexV3" role="button" data-toggle="modal" data-target="#layoutitModal"
-                    id="feedback" class="button btn-feedback btn-primary">
-                    Feedback </button>
+                <button class="btn btn-primary" id="button-download-modal" href="php/downloadAjax.html" data-target="#layoutitModal" data-toggle="modal"><i class="fas fa-download"></i> <span>Download</span> </button>
             </div>
         </div>
     </nav>
@@ -120,7 +114,7 @@
                     <li class="rows" id="estRows">
 
                         <div class="lyrow">
-                            <a href="#close" class="remove badge badge-danger"><i class="fas fa-times"></i> remove</a>
+                            <a href="#close" class="remove badge badge-danger"><i class="fas fa-times"></i> re</a>
                             <span class="drag badge badge-default "><i class="fas fa-arrows-alt"></i> drag</span>
                             <div class="preview"><input type="text" value="12" placeholder="Enter your own"
                                     class="form-control"></div>
@@ -131,7 +125,7 @@
                             </div>
                         </div>
                         <div class="lyrow">
-                            <a href="#close" class="remove badge badge-danger"><i class="fas fa-times"></i> remove</a>
+                            <a href="#close" class="remove badge badge-danger"><i class="fas fa-times"></i> re</a>
                             <span class="drag badge badge-default "><i class="fas fa-arrows-alt"></i> drag</span>
                             <div class="preview"><input type="text" value="6 6" placeholder="Enter your own"
                                     class="form-control"></div>
@@ -143,7 +137,7 @@
                             </div>
                         </div>
                         <div class="lyrow">
-                            <a href="#close" class="remove badge badge-danger"><i class="fas fa-times"></i> remove</a>
+                            <a href="#close" class="remove badge badge-danger"><i class="fas fa-times"></i> re</a>
                             <span class="drag badge badge-default "><i class="fas fa-arrows-alt"></i> drag</span>
                             <div class="preview"><input type="text" value="8 4" placeholder="Enter your own"
                                     class="form-control"></div>
@@ -155,7 +149,7 @@
                             </div>
                         </div>
                         <div class="lyrow">
-                            <a href="#close" class="remove badge badge-danger"><i class="fas fa-times"></i> remove</a>
+                            <a href="#close" class="remove badge badge-danger"><i class="fas fa-times"></i> re</a>
                             <span class="drag badge badge-default "><i class="fas fa-arrows-alt"></i> drag</span>
                             <div class="preview"><input type="text" value="4 4 4" placeholder="Enter your own"
                                     class="form-control"></div>
@@ -168,7 +162,7 @@
                             </div>
                         </div>
                         <div class="lyrow">
-                            <a href="#close" class="remove badge badge-danger"><i class="fas fa-times"></i> remove</a>
+                            <a href="#close" class="remove badge badge-danger"><i class="fas fa-times"></i> re</a>
                             <span class="drag badge badge-default display-none"><i class="fas fa-arrows-alt"></i>
                                 drag</span>
                             <div class="preview"><input type="text" value="" placeholder="Enter your own"
@@ -196,7 +190,8 @@
                     </li>
                     <li class="boxes" id="elmBase">
                         <div class="box box-element">
-                            <a href="#close" class="remove badge badge-danger"><i class="fas fa-times"></i> remove</a>
+                            <a href="#close" class="remove badge badge-danger"><i class="fas fa-times"></i> re</a>
+                            <a href="#editv" class="edit badge badge-danger"><i class="fas fa-pencil-alt"></i> e</a>
                             <span class="drag badge badge-default"><i class="fas fa-arrows-alt"></i> drag</span>
                             <span class="configuration">
                                 <span class="btn-group btn-group-sm">
@@ -220,6 +215,18 @@
                                         <a href="#" class="dropdown-item" class="" rel="text-info">Info</a>
                                         <a href="#" class="dropdown-item" class="" rel="text-warning">Warning</a>
                                         <a href="#" class="dropdown-item" class="" rel="text-danger">Danger</a>
+                                    </div>
+                                </span>
+								<span class="btn-group btn-group-sm">
+                                    <a class="btn btn-default dropdown-toggle" data-toggle="dropdown" href="#">Size
+                                        <span class="caret"></span></a>
+                                    <div class="dropdown-menu">
+                                        <a href="#" class="dropdown-item" class="" rel="h1">H1</a>
+                                        <a href="#" class="dropdown-item" class="" rel="h2">H2</a>
+                                        <a href="#" class="dropdown-item" class="" rel="h3">H3</a>
+                                        <a href="#" class="dropdown-item" class="" rel="h4">H4</a>
+                                        <a href="#" class="dropdown-item" class="" rel="h5">H5</a>
+                                        <a href="#" class="dropdown-item" class="" rel="h6">H6</a>
                                     </div>
                                 </span>
                             </span>
@@ -228,10 +235,11 @@
                                 <h3 contenteditable="true">h3. Lorem ipsum dolor sit amet.</h3>
                             </div>
                         </div>
-                        <div class="box box-element">
-                            <a href="#close" class="remove badge badge-danger"><i class="fas fa-times"></i> remove</a>
+						<div class="box box-element">
+                            <a href="#close" class="remove badge badge-danger"><i class="fas fa-times"></i> re</a>
+                            <a href="#editv" class="edit badge badge-danger"><i class="fas fa-pencil-alt"></i> e</a>
                             <span class="drag badge badge-default"><i class="fas fa-arrows-alt"></i> drag</span>
-                            <span class="configuration">
+							<span class="configuration">
                                 <span class="btn-group btn-group-sm">
                                     <a class="btn btn-default dropdown-toggle" data-toggle="dropdown" href="#">Align
                                         <span class="caret"></span></a>
@@ -243,368 +251,45 @@
                                     </div>
                                 </span>
                                 <span class="btn-group btn-group-sm">
-                                    <a class="btn btn-default dropdown-toggle" data-toggle="dropdown" href="#">Emphasis
+                                    <a class="btn btn-default dropdown-toggle" data-toggle="dropdown" href="#">Style Color
                                         <span class="caret"></span></a>
                                     <div class="dropdown-menu">
                                         <a href="#" class="dropdown-item" class="active" rel="">Default</a>
-                                        <a href="#" class="dropdown-item" class="" rel="text-muted">Muted</a>
-                                        <a href="#" class="dropdown-item" class="" rel="text-primary">Primary</a>
-                                        <a href="#" class="dropdown-item" class="" rel="text-success">Success</a>
-                                        <a href="#" class="dropdown-item" class="" rel="text-info">Info</a>
-                                        <a href="#" class="dropdown-item" class="" rel="text-warning">Warning</a>
-                                        <a href="#" class="dropdown-item" class="" rel="text-danger">Danger</a>
+                                        <a href="#" class="dropdown-item" class="" rel="alert-secondary">Muted</a>
+                                        <a href="#" class="dropdown-item" class="" rel="alert-primary">Primary</a>
+                                        <a href="#" class="dropdown-item" class="" rel="alert-success">Success</a>
+                                        <a href="#" class="dropdown-item" class="" rel="alert-info">Info</a>
+                                        <a href="#" class="dropdown-item" class="" rel="alert-warning">Warning</a>
+                                        <a href="#" class="dropdown-item" class="" rel="alert-danger">Danger</a>
+                                        <a href="#" class="dropdown-item" class="" rel="alert-light">Light</a>
+                                        <a href="#" class="dropdown-item" class="" rel="alert-dark">Dark</a>
                                     </div>
                                 </span>
-
-                                <a class="btn btn-sm btn-default" href="#" rel="lead">Lead</a>
                             </span>
-                            <div class="preview">Paragraph</div>
+                            <div class="preview">Alerts</div>
                             <div class="view">
-                                <p contenteditable="true">Lorem ipsum dolor sit amet, <strong>consectetur adipiscing
-                                        elit</strong>. Aliquam eget sapien sapien. Curabitur in metus urna. In hac
-                                    habitasse platea dictumst. Phasellus eu sem sapien, sed vestibulum velit. Nam purus
-                                    nibh, lacinia non faucibus et, pharetra in dolor. Sed iaculis posuere diam ut
-                                    cursus. <em>Morbi commodo sodales nisi id sodales. Proin consectetur, nisi id
-                                        commodo imperdiet, metus nunc consequat lectus, id bibendum diam velit et
-                                        dui.</em> Proin massa magna, vulputate nec bibendum nec, posuere nec lacus.
-                                    <small>Aliquam mi erat, aliquam vel luctus eu, pharetra quis elit. Nulla euismod
-                                        ultrices massa, et feugiat ipsum consequat eu. </small></p>
+                                <div class="alert alert-primary" role="alert">
+								  This is a primary alert—check it out!
+								</div>
                             </div>
                         </div>
                         <div class="box box-element">
-                            <a href="#close" class="remove badge badge-danger"><i class="fas fa-times"></i> remove</a>
+                            <a href="#close" class="remove badge badge-danger"><i class="fas fa-times"></i> re</a>
+                            <a href="#editv" class="edit badge badge-danger"><i class="fas fa-pencil-alt"></i> e</a>
                             <span class="drag badge badge-default"><i class="fas fa-arrows-alt"></i> drag</span>
-                            <div class="preview">Address</div>
+                            <div class="preview">Group Text</div>
                             <div class="view">
-                                <address contenteditable="true">
-                                    <strong>Twitter, Inc.</strong><br>
-                                    795 Folsom Ave, Suite 600<br>
-                                    San Francisco, CA 94107<br>
-                                    <abbr title="Phone">P:</abbr> (123) 456-7890
-                                </address>
+                                <h2 contenteditable="true">Heading</h2>
+                                <p contenteditable="true">Donec id elit non mi porta gravida at eget metus. Fusce
+                                    dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum
+                                    massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec
+                                    sed odio dui.</p>
+                                <p><a class="btn" href="#" contenteditable="true">View details &raquo;</a></p>
                             </div>
                         </div>
                         <div class="box box-element">
-                            <a href="#close" class="remove badge badge-danger"><i class="fas fa-times"></i> remove</a>
-                            <span class="drag badge badge-default"><i class="fas fa-arrows-alt"></i> drag</span>
-                            <span class="configuration">
-                                <a class="btn btn-sm btn-default" href="#" rel="text-right">Pull right</a>
-                            </span>
-                            <div class="preview">Blockquote</div>
-                            <div class="view">
-                                <blockquote class="blockquote" contenteditable="true">
-                                    <p class="mb-0">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer
-                                        posuere erat a ante.</p>
-                                    <footer class="blockquote-footer">Someone famous in <cite
-                                            title="Source Title">Source Title</cite></footer>
-                                </blockquote>
-                            </div>
-                        </div>
-                        <div class="box box-element">
-                            <a href="#close" class="remove badge badge-danger"><i class="fas fa-times"></i> remove</a>
-                            <span class="drag badge badge-default"><i class="fas fa-arrows-alt"></i> drag</span>
-                            <span class="configuration">
-                                <a class="btn btn-sm btn-default" href="#" rel="list-unstyled">Unstyled</a>
-                                <a class="btn btn-sm btn-default" href="#" data-class="list-item"
-                                    rel="list-inline-item">Inline</a>
-                            </span>
-                            <div class="preview">Unordered List</div>
-                            <div class="view">
-                                <ul contenteditable="true">
-                                    <li class="list-item">Lorem ipsum dolor sit amet</li>
-                                    <li class="list-item">Consectetur adipiscing elit</li>
-                                    <li class="list-item">Integer molestie lorem at massa</li>
-                                    <li class="list-item">Facilisis in pretium nisl aliquet</li>
-                                    <li class="list-item">Nulla volutpat aliquam velit</li>
-                                    <li class="list-item">Faucibus porta lacus fringilla vel</li>
-                                    <li class="list-item">Aenean sit amet erat nunc</li>
-                                    <li class="list-item">Eget porttitor lorem</li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="box box-element">
-                            <a href="#close" class="remove badge badge-danger"><i class="fas fa-times"></i> remove</a>
-                            <span class="drag badge badge-default"><i class="fas fa-arrows-alt"></i> drag</span>
-                            <span class="configuration">
-                                <a class="btn btn-sm btn-default" href="#" rel="list-unstyled">Unstyled</a>
-                                <a class="btn btn-sm btn-default" href="#" data-class="list-item"
-                                    rel="list-inline-item">Inline</a>
-                            </span>
-                            <div class="preview">Ordered List</div>
-                            <div class="view">
-                                <ol contenteditable="true">
-                                    <li class="list-item">Lorem ipsum dolor sit amet</li>
-                                    <li class="list-item">Consectetur adipiscing elit</li>
-                                    <li class="list-item">Integer molestie lorem at massa</li>
-                                    <li class="list-item">Facilisis in pretium nisl aliquet</li>
-                                    <li class="list-item">Nulla volutpat aliquam velit</li>
-                                    <li class="list-item">Faucibus porta lacus fringilla vel</li>
-                                    <li class="list-item">Aenean sit amet erat nunc</li>
-                                    <li class="list-item">Eget porttitor lorem</li>
-                                </ol>
-                            </div>
-                        </div>
-                        <div class="box box-element">
-                            <a href="#close" class="remove badge badge-danger"><i class="fas fa-times"></i> remove</a>
-                            <span class="drag badge badge-default"><i class="fas fa-arrows-alt"></i> drag</span>
-                            <span class="configuration">
-                            </span>
-                            <div class="preview">Description</div>
-                            <div class="view">
-                                <dl contenteditable="true">
-                                    <dt>Description lists</dt>
-                                    <dd>A description list is perfect for defining terms.</dd>
-                                    <dt>Euismod</dt>
-                                    <dd>Vestibulum id ligula porta felis euismod semper eget lacinia odio sem nec elit.
-                                    </dd>
-                                    <dd>Donec id elit non mi porta gravida at eget metus.</dd>
-                                    <dt>Malesuada porta</dt>
-                                    <dd>Etiam porta sem malesuada magna mollis euismod.</dd>
-                                    <dt>Felis euismod semper eget lacinia</dt>
-                                    <dd>Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut
-                                        fermentum massa justo sit amet risus.</dd>
-                                </dl>
-                            </div>
-                        </div>
-                        <div class="box box-element">
-                            <a href="#close" class="remove badge badge-danger"><i class="fas fa-times"></i> remove</a>
-                            <span class="drag badge badge-default"><i class="fas fa-arrows-alt"></i> drag</span>
-                            <span class="configuration">
-                                <span class="btn-group btn-group-sm">
-                                    <a class="btn btn-default dropdown-toggle" data-toggle="dropdown" href="#">Style
-                                        <span class="caret"></span></a>
-                                    <div class="dropdown-menu">
-                                        <a href="#" class="dropdown-item" class="active" rel="">Default</a>
-                                        <a href="#" class="dropdown-item" class="" rel="table-striped">Striped</a>
-                                        <a href="#" class="dropdown-item" class="" rel="table-bordered">Bordered</a>
-                                    </div>
-                                </span>
-                                <a class="btn btn-sm btn-default" href="#" rel="table-hover">Hover</a>
-                                <a class="btn btn-sm btn-default" href="#" rel="table-sm">Condensed</a>
-                            </span>
-                            <div class="preview">Table</div>
-                            <div class="view">
-                                <table class="table" contenteditable="true">
-                                    <thead>
-                                        <tr>
-                                            <th>#</th>
-                                            <th>Product</th>
-                                            <th>Payment Taken</th>
-                                            <th>Status</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>TB - Monthly</td>
-                                            <td>01/04/2012</td>
-                                            <td>Default</td>
-                                        </tr>
-                                        <tr class="table-active">
-                                            <td>1</td>
-                                            <td>TB - Monthly</td>
-                                            <td>01/04/2012</td>
-                                            <td>Approved</td>
-                                        </tr>
-                                        <tr class="table-success">
-                                            <td>2</td>
-                                            <td>TB - Monthly</td>
-                                            <td>02/04/2012</td>
-                                            <td>Declined</td>
-                                        </tr>
-                                        <tr class="table-warning">
-                                            <td>3</td>
-                                            <td>TB - Monthly</td>
-                                            <td>03/04/2012</td>
-                                            <td>Pending</td>
-                                        </tr>
-                                        <tr class="table-danger">
-                                            <td>4</td>
-                                            <td>TB - Monthly</td>
-                                            <td>04/04/2012</td>
-                                            <td>Call in to confirm</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                        <div class="box box-element">
-                            <a href="#close" class="remove badge badge-danger"><i class="fas fa-times"></i> remove</a>
-                            <span class="drag badge badge-default"><i class="fas fa-arrows-alt"></i> drag</span>
-                            <span class="configuration">
-                                <a class="btn btn-sm btn-secondary" href="#" rel="form-inline">Inline</a>
-                            </span>
-                            <div class="preview">Form</div>
-                            <div class="view">
-                                <form role="form">
-                                    <div class="form-group">
-                                        <label for="exampleInputEmail1">Email address</label>
-                                        <input type="email" class="form-control" id="exampleInputEmail1"
-                                            placeholder="Enter email">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="exampleInputPassword1">Password</label>
-                                        <input type="password" class="form-control" id="exampleInputPassword1"
-                                            placeholder="Password">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="exampleInputFile">File input</label>
-                                        <input type="file" class="form-control-file" id="exampleInputFile">
-                                        <p class="help-block">Example block-level help text here.</p>
-                                    </div>
-                                    <div class="checkbox">
-                                        <label>
-                                            <input type="checkbox"> Check me out
-                                        </label>
-                                    </div>
-                                    <button type="submit" class="btn btn-primary">Submit</button>
-                                </form>
-                            </div>
-                        </div>
-                        <div class="box box-element">
-                            <a href="#close" class="remove badge badge-danger"><i class="fas fa-times"></i> remove</a>
-                            <span class="drag badge badge-default"><i class="fas fa-arrows-alt"></i> drag</span>
-                            <span class="configuration">
-                                <a class="btn btn-sm btn-secondary" href="#" rel="form-inline">Inline</a>
-                            </span>
-                            <div class="preview">Input Text</div>
-                            <div class="view">
-                                <div class="form-group" contenteditable="true">
-                                    <label for="exampleInputTextview">Text Input</label>
-                                    <input type="text" class="form-control" id="exampleInputTextview"
-                                        placeholder="">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="box box-element">
-                            <a href="#close" class="remove badge badge-danger"><i class="fas fa-times"></i> remove</a>
-                            <span class="drag badge badge-default"><i class="fas fa-arrows-alt"></i> drag</span>
-                            <span class="configuration">
-                                <a class="btn btn-sm btn-secondary" href="#" rel="form-inline">Inline</a>
-                            </span>
-                            <div class="preview">Input Password</div>
-                            <div class="view">
-                                <div class="form-group" contenteditable="true">
-                                    <label for="exampleInputPW">Password</label>
-                                    <input type="password" class="form-control" id="exampleInputPW"
-                                        placeholder="">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="box box-element">
-                            <a href="#close" class="remove badge badge-danger"><i class="fas fa-times"></i> remove</a>
-                            <span class="drag badge badge-default"><i class="fas fa-arrows-alt"></i> drag</span>
-                            <span class="configuration">
-                                <a class="btn btn-sm btn-secondary" href="#" rel="form-inline">Inline</a>
-                            </span>
-                            <div class="preview">Input Select</div>
-                            <div class="view">
-                                <div class="form-group" contenteditable="true">
-                                    <label for="inputGroupSelect04">Input Select</label>
-                                    <select class="custom-select" id="inputGroupSelect04">
-                                        <option selected>Choose...</option>
-                                        <option value="1">One</option>
-                                        <option value="2">Two</option>
-                                        <option value="3">Three</option>
-                                      </select>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="box box-element">
-                            <a href="#close" class="remove badge badge-danger"><i class="fas fa-times"></i> remove</a>
-                            <span class="drag badge badge-default"><i class="fas fa-arrows-alt"></i> drag</span>
-                            <span class="configuration">
-                                <a class="btn btn-sm btn-secondary" href="#" rel="form-inline">Inline</a>
-                            </span>
-                            <div class="preview">Input Checkbox</div>
-                            <div class="view">
-                                <div class="form-group" contenteditable="true">
-                                    <input type="checkbox" class="" id="exampleCheck1">
-                                    <label class="form-check-label" for="exampleCheck1">Check me out</label>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="box box-element">
-                            <a href="#close" class="remove badge badge-danger"><i class="fas fa-times"></i> remove</a>
-                            <span class="drag badge badge-default"><i class="fas fa-arrows-alt"></i> drag</span>
-                            <span class="configuration">
-                                <a class="btn btn-sm btn-secondary" href="#" rel="form-inline">Inline</a>
-                            </span>
-                            <div class="preview">Input Radio</div>
-                            <div class="view">
-                                <div class="form-group" contenteditable="true">
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" checked>
-                                        <label class="form-check-label" for="exampleRadios1">
-                                          Default radio
-                                        </label>
-                                      </div>
-                                      <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2">
-                                        <label class="form-check-label" for="exampleRadios2">
-                                          Second default radio
-                                        </label>
-                                      </div>
-                                      <div class="form-check disabled">
-                                        <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios3" value="option3" disabled>
-                                        <label class="form-check-label" for="exampleRadios3">
-                                          Disabled radio
-                                        </label>
-                                      </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="box box-element">
-                            <a href="#close" class="remove badge badge-danger"><i class="fas fa-times"></i> remove</a>
-                            <span class="drag badge badge-default"><i class="fas fa-arrows-alt"></i> drag</span>
-                            <span class="configuration">
-                                <span class="btn-group btn-group-sm">
-                                    <a class="btn btn-default dropdown-toggle" data-toggle="dropdown" href="#">Styles
-                                        <span class="caret"></span></a>
-                                    <div class="dropdown-menu">
-                                        <a href="#" class="dropdown-item" class="" rel="btn-primary">Primary</a>
-                                        <a href="#" class="dropdown-item" class="" rel="btn-secondary">Secondary</a>
-                                        <a href="#" class="dropdown-item" class="" rel="btn-success">Success</a>
-                                        <a href="#" class="dropdown-item" class="" rel="btn-info">Info</a>
-                                        <a href="#" class="dropdown-item" class="" rel="btn-warning">Warning</a>
-                                        <a href="#" class="dropdown-item" class="" rel="btn-danger">Danger</a>
-                                        <a href="#" class="dropdown-item" class="" rel="btn-link">Link</a>
-                                        <a href="#" class="dropdown-item" class="" rel="btn-outline-primary">Primary
-                                            outline</a>
-                                        <a href="#" class="dropdown-item" class="" rel="btn-outline-secondary">Secondary
-                                            outline</a>
-                                        <a href="#" class="dropdown-item" class="" rel="btn-outline-success">Success
-                                            outline</a>
-                                        <a href="#" class="dropdown-item" class="" rel="btn-outline-info">Info
-                                            outline</a>
-                                        <a href="#" class="dropdown-item" class="" rel="btn-outline-warning">Warning
-                                            outline</a>
-                                        <a href="#" class="dropdown-item" class="" rel="btn-outline-danger">Danger
-                                            outline</a>
-                                    </div>
-                                </span>
-                                <span class="btn-group btn-group-sm">
-                                    <a class="btn btn-default dropdown-toggle" data-toggle="dropdown" href="#">Size
-                                        <span class="caret"></span></a>
-                                    <div class="dropdown-menu">
-                                        <a href="#" class="dropdown-item" class="" rel="btn-lg">Large</a>
-                                        <a href="#" class="dropdown-item" class="" rel="btn-md">Default</a>
-                                        <a href="#" class="dropdown-item" class="" rel="btn-sm">Small</a>
-                                    </div>
-                                </span>
-
-                                <a class="btn btn-sm btn-secondary" href="#" rel="btn-block">Block</a>
-                                <a class="btn btn-sm btn-secondary" href="#" rel="active">Active</a>
-                                <a class="btn btn-sm btn-secondary" href="#" rel="form-inline">Inline</a>
-                                <a class="btn btn-sm btn-secondary" href="#" rel="disabled">Disabled</a>
-                            </span>
-                            <div class="preview">Button</div>
-                            <div class="view">
-                                <button type="button" class="btn btn-success" contenteditable="true">ButtonView</button>
-                            </div>
-                        </div>
-                        <div class="box box-element">
-                            <a href="#close" class="remove badge badge-danger"><i class="fas fa-times"></i> remove</a>
+                            <a href="#close" class="remove badge badge-danger"><i class="fas fa-times"></i> re</a>
+                            <a href="#editv" class="edit badge badge-danger"><i class="fas fa-pencil-alt"></i> e</a>
                             <span class="drag badge badge-default"><i class="fas fa-arrows-alt"></i> drag</span>
                             <span class="configuration">
                                 <span class="btn-group btn-group-sm">
@@ -711,7 +396,604 @@
                             </div>
                         </div>
                         <div class="box box-element">
-                            <a href="#close" class="remove badge badge-danger"><i class="fas fa-times"></i> remove</a>
+                            <a href="#close" class="remove badge badge-danger"><i class="fas fa-times"></i> re</a>
+                            <a href="#editv" class="edit badge badge-danger"><i class="fas fa-pencil-alt"></i> e</a>
+                            <span class="drag badge badge-default"><i class="fas fa-arrows-alt"></i> drag</span>
+                            <span class="configuration">
+                                <span class="btn-group btn-group-sm">
+                                    <a class="btn btn-default dropdown-toggle" data-toggle="dropdown" href="#">Align
+                                        <span class="caret"></span></a>
+                                    <div class="dropdown-menu">
+                                        <a href="#" class="dropdown-item" class="active" rel="">Default</a>
+                                        <a href="#" class="dropdown-item" class="" rel="text-left">Left</a>
+                                        <a href="#" class="dropdown-item" class="" rel="text-center">Center</a>
+                                        <a href="#" class="dropdown-item" class="" rel="text-right">Right</a>
+                                    </div>
+                                </span>
+                                <span class="btn-group btn-group-sm">
+                                    <a class="btn btn-default dropdown-toggle" data-toggle="dropdown" href="#">Emphasis
+                                        <span class="caret"></span></a>
+                                    <div class="dropdown-menu">
+                                        <a href="#" class="dropdown-item" class="active" rel="">Default</a>
+                                        <a href="#" class="dropdown-item" class="" rel="text-muted">Muted</a>
+                                        <a href="#" class="dropdown-item" class="" rel="text-primary">Primary</a>
+                                        <a href="#" class="dropdown-item" class="" rel="text-success">Success</a>
+                                        <a href="#" class="dropdown-item" class="" rel="text-info">Info</a>
+                                        <a href="#" class="dropdown-item" class="" rel="text-warning">Warning</a>
+                                        <a href="#" class="dropdown-item" class="" rel="text-danger">Danger</a>
+                                    </div>
+                                </span>
+
+                                <a class="btn btn-sm btn-default" href="#" rel="lead">Lead</a>
+                            </span>
+                            <div class="preview">Paragraph</div>
+                            <div class="view">
+                                <p contenteditable="true">Lorem ipsum dolor sit amet, <strong>consectetur adipiscing
+                                        elit</strong>. Aliquam eget sapien sapien. Curabitur in metus urna. In hac
+                                    habitasse platea dictumst. Phasellus eu sem sapien, sed vestibulum velit. Nam purus
+                                    nibh, lacinia non faucibus et, pharetra in dolor. Sed iaculis posuere diam ut
+                                    cursus. <em>Morbi commodo sodales nisi id sodales. Proin consectetur, nisi id
+                                        commodo imperdiet, metus nunc consequat lectus, id bibendum diam velit et
+                                        dui.</em> Proin massa magna, vulputate nec bibendum nec, posuere nec lacus.
+                                    <small>Aliquam mi erat, aliquam vel luctus eu, pharetra quis elit. Nulla euismod
+                                        ultrices massa, et feugiat ipsum consequat eu. </small></p>
+                            </div>
+                        </div>
+                        
+                        <div class="box box-element">
+                            <a href="#close" class="remove badge badge-danger"><i class="fas fa-times"></i> re</a>
+                            <a href="#editv" class="edit badge badge-danger"><i class="fas fa-pencil-alt"></i> e</a>
+                            <span class="drag badge badge-default"><i class="fas fa-arrows-alt"></i> drag</span>
+                            <span class="configuration">
+                                <span class="btn-group btn-group-sm">
+                                    <a class="btn btn-default dropdown-toggle" data-toggle="dropdown" href="#">Styles
+                                        <span class="caret"></span></a>
+                                    <div class="dropdown-menu">
+                                        <a href="#" class="dropdown-item" class="" rel="badge-default">Default</a>
+                                        <a href="#" class="dropdown-item" class="" rel="badge-primary">Primary</a>
+                                        <a href="#" class="dropdown-item" class="" rel="badge-success">Success</a>
+                                        <a href="#" class="dropdown-item" class="" rel="badge-info">Info</a>
+                                        <a href="#" class="dropdown-item" class="" rel="badge-warning">Warning</a>
+                                        <a href="#" class="dropdown-item" class="" rel="badge-danger">Danger</a>
+                                    </div>
+                                </span>
+                            </span>
+                            <div class="preview">Label</div>
+                            <div class="view">
+                                <span class="badge badge-default" contenteditable="true">Label</span>
+                            </div>
+                        </div>
+                        <div class="box box-element">
+                            <a href="#close" class="remove badge badge-danger"><i class="fas fa-times"></i> re</a>
+                            <a href="#editv" class="edit badge badge-danger"><i class="fas fa-pencil-alt"></i> e</a>
+                            <span class="drag badge badge-default"><i class="fas fa-arrows-alt"></i> drag</span>
+                            <div class="preview">Address</div>
+                            <div class="view">
+                                <address contenteditable="true">
+                                    <strong>Twitter, Inc.</strong><br>
+                                    795 Folsom Ave, Suite 600<br>
+                                    San Francisco, CA 94107<br>
+                                    <abbr title="Phone">P:</abbr> (123) 456-7890
+                                </address>
+                            </div>
+                        </div>
+                        <div class="box box-element">
+                            <a href="#close" class="remove badge badge-danger"><i class="fas fa-times"></i> re</a>
+                            <a href="#editv" class="edit badge badge-danger"><i class="fas fa-pencil-alt"></i> e</a>
+                            <span class="drag badge badge-default"><i class="fas fa-arrows-alt"></i> drag</span>
+                            <span class="configuration">
+                                <a class="btn btn-sm btn-default" href="#" rel="text-right">Pull right</a>
+                            </span>
+                            <div class="preview">Blockquote</div>
+                            <div class="view">
+                                <blockquote class="blockquote" contenteditable="true">
+                                    <p class="mb-0">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer
+                                        posuere erat a ante.</p>
+                                    <footer class="blockquote-footer">Someone famous in <cite
+                                            title="Source Title">Source Title</cite></footer>
+                                </blockquote>
+                            </div>
+                        </div>
+                        <div class="box box-element">
+                            <a href="#close" class="remove badge badge-danger"><i class="fas fa-times"></i> re</a>
+                            <a href="#editv" class="edit badge badge-danger"><i class="fas fa-pencil-alt"></i> e</a>
+                            <span class="drag badge badge-default"><i class="fas fa-arrows-alt"></i> drag</span>
+                            <span class="configuration">
+                                <a class="btn btn-sm btn-default" href="#" rel="list-unstyled">Unstyled</a>
+                                <a class="btn btn-sm btn-default" href="#" data-class="list-item"
+                                    rel="list-inline-item">Inline</a>
+                            </span>
+                            <div class="preview">Unordered List</div>
+                            <div class="view">
+                                <ul contenteditable="true">
+                                    <li class="list-item">Lorem ipsum dolor sit amet</li>
+                                    <li class="list-item">Consectetur adipiscing elit</li>
+                                    <li class="list-item">Integer molestie lorem at massa</li>
+                                    <li class="list-item">Facilisis in pretium nisl aliquet</li>
+                                    <li class="list-item">Nulla volutpat aliquam velit</li>
+                                    <li class="list-item">Faucibus porta lacus fringilla vel</li>
+                                    <li class="list-item">Aenean sit amet erat nunc</li>
+                                    <li class="list-item">Eget porttitor lorem</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="box box-element">
+                            <a href="#close" class="remove badge badge-danger"><i class="fas fa-times"></i> re</a>
+                            <a href="#editv" class="edit badge badge-danger"><i class="fas fa-pencil-alt"></i> e</a>
+                            <span class="drag badge badge-default"><i class="fas fa-arrows-alt"></i> drag</span>
+                            <span class="configuration">
+                                <a class="btn btn-sm btn-default" href="#" rel="list-unstyled">Unstyled</a>
+                                <a class="btn btn-sm btn-default" href="#" data-class="list-item"
+                                    rel="list-inline-item">Inline</a>
+                            </span>
+                            <div class="preview">Ordered List</div>
+                            <div class="view">
+                                <ol contenteditable="true">
+                                    <li class="list-item">Lorem ipsum dolor sit amet</li>
+                                    <li class="list-item">Consectetur adipiscing elit</li>
+                                    <li class="list-item">Integer molestie lorem at massa</li>
+                                    <li class="list-item">Facilisis in pretium nisl aliquet</li>
+                                    <li class="list-item">Nulla volutpat aliquam velit</li>
+                                    <li class="list-item">Faucibus porta lacus fringilla vel</li>
+                                    <li class="list-item">Aenean sit amet erat nunc</li>
+                                    <li class="list-item">Eget porttitor lorem</li>
+                                </ol>
+                            </div>
+                        </div>
+                        <div class="box box-element">
+                            <a href="#close" class="remove badge badge-danger"><i class="fas fa-times"></i> re</a>
+                            <a href="#editv" class="edit badge badge-danger"><i class="fas fa-pencil-alt"></i> e</a>
+                            <span class="drag badge badge-default"><i class="fas fa-arrows-alt"></i> drag</span>
+                            <span class="configuration">
+                            </span>
+                            <div class="preview">Description</div>
+                            <div class="view">
+                                <dl contenteditable="true">
+                                    <dt>Description lists</dt>
+                                    <dd>A description list is perfect for defining terms.</dd>
+                                    <dt>Euismod</dt>
+                                    <dd>Vestibulum id ligula porta felis euismod semper eget lacinia odio sem nec elit.
+                                    </dd>
+                                    <dd>Donec id elit non mi porta gravida at eget metus.</dd>
+                                    <dt>Malesuada porta</dt>
+                                    <dd>Etiam porta sem malesuada magna mollis euismod.</dd>
+                                    <dt>Felis euismod semper eget lacinia</dt>
+                                    <dd>Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut
+                                        fermentum massa justo sit amet risus.</dd>
+                                </dl>
+                            </div>
+                        </div>
+                        <div class="box box-element">
+                            <a href="#close" class="remove badge badge-danger"><i class="fas fa-times"></i> re</a>
+                            <a href="#editv" class="edit badge badge-danger"><i class="fas fa-pencil-alt"></i> e</a>
+                            <span class="drag badge badge-default"><i class="fas fa-arrows-alt"></i> drag</span>
+                            <span class="configuration">
+                                <span class="btn-group btn-group-sm">
+                                    <a class="btn btn-default dropdown-toggle" data-toggle="dropdown" href="#">Style
+                                        <span class="caret"></span></a>
+                                    <div class="dropdown-menu">
+                                        <a href="#" class="dropdown-item" class="active" rel="">Default</a>
+                                        <a href="#" class="dropdown-item" class="" rel="table-striped">Striped</a>
+                                        <a href="#" class="dropdown-item" class="" rel="table-bordered">Bordered</a>
+                                    </div>
+                                </span>
+                                <a class="btn btn-sm btn-default" href="#" rel="table-hover">Hover</a>
+                                <a class="btn btn-sm btn-default" href="#" rel="table-sm">Condensed</a>
+                            </span>
+                            <div class="preview">Table</div>
+                            <div class="view">
+                                <table class="table" contenteditable="true">
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Product</th>
+                                            <th>Payment Taken</th>
+                                            <th>Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>1</td>
+                                            <td>TB - Monthly</td>
+                                            <td>01/04/2012</td>
+                                            <td>Default</td>
+                                        </tr>
+                                        <tr class="table-active">
+                                            <td>1</td>
+                                            <td>TB - Monthly</td>
+                                            <td>01/04/2012</td>
+                                            <td>Approved</td>
+                                        </tr>
+                                        <tr class="table-success">
+                                            <td>2</td>
+                                            <td>TB - Monthly</td>
+                                            <td>02/04/2012</td>
+                                            <td>Declined</td>
+                                        </tr>
+                                        <tr class="table-warning">
+                                            <td>3</td>
+                                            <td>TB - Monthly</td>
+                                            <td>03/04/2012</td>
+                                            <td>Pending</td>
+                                        </tr>
+                                        <tr class="table-danger">
+                                            <td>4</td>
+                                            <td>TB - Monthly</td>
+                                            <td>04/04/2012</td>
+                                            <td>Call in to confirm</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        
+                        <div class="box box-element">
+                            <a href="#close" class="remove badge badge-danger"><i class="fas fa-times"></i> re</a>
+                            <a href="#editv" class="edit badge badge-danger"><i class="fas fa-pencil-alt"></i> e</a>
+                            <span class="drag badge badge-default"><i class="fas fa-arrows-alt"></i> drag</span>
+                            <span class="configuration">
+                                <span class="btn-group btn-group-sm">
+                                    <a class="btn btn-default dropdown-toggle" data-toggle="dropdown" href="#">Styles
+                                        <span class="caret"></span></a>
+                                    <div class="dropdown-menu">
+                                        <a href="#" class="dropdown-item" class="active" rel="">Default</a>
+                                        <a href="#" class="dropdown-item" class="" rel="rounded">Rounded</a>
+                                        <a href="#" class="dropdown-item" class="" rel="rounded-circle">Circle</a>
+                                        <a href="#" class="dropdown-item" class="" rel="img-thumbnail">Thumbnail</a>
+                                    </div>
+                                </span>
+                                <span class="btn-group btn-group-sm">
+                                    <a class="btn btn-default dropdown-toggle" data-toggle="dropdown" href="#">Alignment 
+                                        <span class="caret"></span></a>
+                                    <div class="dropdown-menu">
+                                        <a href="#" class="dropdown-item" class="" rel="text-left">Left</a>
+                                        <a href="#" class="dropdown-item" class="" rel="d-block m-auto">Center</a>
+                                        <a href="#" class="dropdown-item" class="" rel="float-right">Right</a>
+                                    </div>
+                                </span>
+                                <a class="btn btn-sm btn-default" href="#" rel="w-100">With 100%</a>
+                            </span>
+                            <div class="preview">Banner</div>
+                            <div class="view">
+                                <!-- <div class="d-block"> -->
+                                    <img alt="Bootstrap Image Preview" class="img-fluid" src="img/banner-1.jpg">
+                                <!-- </div> -->
+                            </div>
+                        </div>
+                        <div class="box box-element">
+                            <a href="#close" class="remove badge badge-danger"><i class="fas fa-times"></i> re</a>
+                            <a href="#editv" class="edit badge badge-danger"><i class="fas fa-pencil-alt"></i> e</a>
+                            <span class="drag badge badge-default"><i class="fas fa-arrows-alt"></i> drag</span>
+                            <span class="configuration">
+                                <span class="btn-group btn-group-sm">
+                                    <a class="btn btn-default dropdown-toggle" data-toggle="dropdown" href="#">Styles
+                                        <span class="caret"></span></a>
+                                    <div class="dropdown-menu">
+                                        <a href="#" class="dropdown-item" class="active" rel="">Default</a>
+                                        <a href="#" class="dropdown-item" class="" rel="rounded">Rounded</a>
+                                        <a href="#" class="dropdown-item" class="" rel="rounded-circle">Circle</a>
+                                        <a href="#" class="dropdown-item" class="" rel="img-thumbnail">Thumbnail</a>
+                                    </div>
+                                </span>
+                                <a class="btn btn-sm btn-default" href="#" rel="w-100">With 100%</a>
+                                <a href="#" class="btn btn-sm btn-default" rel="d-block m-auto">Center</a>
+                                <a href="#" class="btn btn-sm btn-default" rel="float-right">Right</a>
+                            </span>
+                            <div class="preview">Image</div>
+                            <div class="view">
+                                <img alt="Bootstrap Image Preview" class="img-fluid" src="img/game.png">
+                            </div>
+                        </div>
+                        <div class="box box-element">
+                            <a href="#close" class="remove badge badge-danger"><i class="fas fa-times"></i> re</a>
+                            <a href="#editv" class="edit badge badge-danger"><i class="fas fa-pencil-alt"></i> e</a>
+                            <span class="drag badge badge-default"><i class="fas fa-arrows-alt"></i> drag</span>
+                            <span class="configuration">
+                                <span class="btn-group btn-group-sm">
+                                    <a class="btn btn-default dropdown-toggle" data-toggle="dropdown" href="#">Styles
+                                        <span class="caret"></span></a>
+                                    <div class="dropdown-menu">
+                                        <a href="#" class="dropdown-item" class="active" rel="">Default</a>
+                                        <a href="#" class="dropdown-item" class="" rel="rounded">Rounded</a>
+                                        <a href="#" class="dropdown-item" class="" rel="rounded-circle">Circle</a>
+                                        <a href="#" class="dropdown-item" class="" rel="img-thumbnail">Thumbnail</a>
+                                    </div>
+                                </span>
+                            </span>
+                            <div class="preview">Icon</div>
+                            <div class="view">
+                                <i class="fas fa-image"></i>
+                            </div>
+                        </div>
+                        <div class="box box-element">
+                            <a href="#close" class="remove badge badge-danger"><i class="fas fa-times"></i> re</a>
+                            <a href="#editv" class="edit badge badge-danger"><i class="fas fa-pencil-alt"></i> e</a>
+                            <span class="drag badge badge-default"><i class="fas fa-arrows-alt"></i> drag</span>
+                            <span class="configuration">
+                                <span class="btn-group btn-group-sm">
+                                    <a class="btn btn-default dropdown-toggle" data-toggle="dropdown" href="#">Styles
+                                        <span class="caret"></span></a>
+                                    <div class="dropdown-menu">
+                                        <a href="#" class="dropdown-item" class="active" rel="">Default</a>
+                                        <a href="#" class="dropdown-item" class="" rel="rounded">Rounded</a>
+                                        <a href="#" class="dropdown-item" class="" rel="rounded-circle">Circle</a>
+                                        <a href="#" class="dropdown-item" class="" rel="img-thumbnail">Thumbnail</a>
+                                    </div>
+                                </span>
+                            </span>
+                            <div class="preview">Hr</div>
+                            <div class="view">
+                               <hr>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+
+                <ul class="nav flex-column accordion-group">
+                    <li class="nav-item nav-header"><i class="fas fa-plus"></i> For From
+                        <div class="float-right popover-info"><i class="fas fa-question-circle"></i>
+                            <div class="popover fade right">
+                                <div class="arrow"></div>
+                                <h3 class="popover-title">Help</h3>
+                                <div class="popover-content">Drag &amp; Drop the elements inside the columns where you
+                                    want to insert it. And from there, you can configure the style of that element. If
+                                    you need more info please visit <a target="_blank"
+                                        href="http://getbootstrap.com/css">Base CSS.</a></div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="boxes" id="elmBase">
+                        
+                        <div class="box box-element">
+                            <a href="#close" class="remove badge badge-danger"><i class="fas fa-times"></i> re</a>
+                            <a href="#editv" class="edit badge badge-danger"><i class="fas fa-pencil-alt"></i> e</a>
+                            <span class="drag badge badge-default"><i class="fas fa-arrows-alt"></i> drag</span>
+                            <span class="configuration">
+                                <a class="btn btn-sm btn-secondary" href="#" rel="form-inline">Inline</a>
+                            </span>
+                            <div class="preview">Form</div>
+                            <div class="view">
+                                <form role="form">
+                                    <div class="form-group">
+                                        <label for="exampleInputEmail1">Email address</label>
+                                        <input type="email" class="form-control" id="exampleInputEmail1"
+                                            placeholder="Enter email">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="exampleInputPassword1">Password</label>
+                                        <input type="password" class="form-control" id="exampleInputPassword1"
+                                            placeholder="Password">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="exampleInputFile">File input</label>
+                                        <input type="file" class="form-control-file" id="exampleInputFile">
+                                        <p class="help-block">Example block-level help text here.</p>
+                                    </div>
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox"> Check me out
+                                        </label>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary">Submit</button>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="box box-element">
+                            <a href="#close" class="remove badge badge-danger"><i class="fas fa-times"></i> re</a>
+                            <a href="#editv" class="edit badge badge-danger"><i class="fas fa-pencil-alt"></i> e</a>
+                            <span class="drag badge badge-default"><i class="fas fa-arrows-alt"></i> drag</span>
+                            <span class="configuration">
+                                <a class="btn btn-sm btn-secondary" href="#" rel="form-inline">Inline</a>
+                            </span>
+                            <div class="preview">Input Text</div>
+                            <div class="view">
+                                <div class="form-group" contenteditable="false">
+                                    <label for="exampleInputTextview">Text Input</label>
+                                    <input type="text" class="form-control" id="exampleInputTextview"
+                                        placeholder="">
+                                </div>
+                            </div>
+                        </div>
+						
+                        <div class="box box-element">
+                            <a href="#close" class="remove badge badge-danger"><i class="fas fa-times"></i> re</a>
+                            <a href="#editv" class="edit badge badge-danger"><i class="fas fa-pencil-alt"></i> e</a>
+                            <span class="drag badge badge-default"><i class="fas fa-arrows-alt"></i> drag</span>
+                            <span class="configuration">
+                                <a class="btn btn-sm btn-secondary" href="#" rel="form-inline">Inline</a>
+                            </span>
+                            <div class="preview">Input Password</div>
+                            <div class="view">
+                                <div class="form-group" contenteditable="false">
+                                    <label for="exampleInputPW">Password</label>
+                                    <input type="password" class="form-control" id="exampleInputPW"
+                                        placeholder="">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="box box-element">
+                            <a href="#close" class="remove badge badge-danger"><i class="fas fa-times"></i> re</a>
+                            <a href="#editv" class="edit badge badge-danger"><i class="fas fa-pencil-alt"></i> e</a>
+                            <span class="drag badge badge-default"><i class="fas fa-arrows-alt"></i> drag</span>
+                            <span class="configuration">
+                                <a class="btn btn-sm btn-secondary" href="#" rel="form-inline">Inline</a>
+                            </span>
+                            <div class="preview">Input Select</div>
+                            <div class="view">
+                                <div class="form-group" contenteditable="false">
+                                    <label for="inputGroupSelect04">Input Select</label>
+                                    <select class="custom-select" id="inputGroupSelect04">
+                                        <option selected>Choose...</option>
+                                        <option value="1">One</option>
+                                        <option value="2">Two</option>
+                                        <option value="3">Three</option>
+                                      </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="box box-element">
+                            <a href="#close" class="remove badge badge-danger"><i class="fas fa-times"></i> re</a>
+                            <a href="#editv" class="edit badge badge-danger"><i class="fas fa-pencil-alt"></i> e</a>
+                            <span class="drag badge badge-default"><i class="fas fa-arrows-alt"></i> drag</span>
+                            <span class="configuration">
+                                <a class="btn btn-sm btn-secondary" href="#" rel="form-inline">Inline</a>
+                            </span>
+                            <div class="preview">Input Checkbox</div>
+                            <div class="view">
+                                <div class="form-group" contenteditable="false">
+                                    <input type="checkbox" class="" id="exampleCheck1">
+                                    <label class="form-check-label" for="exampleCheck1">Check me out</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="box box-element">
+                            <a href="#close" class="remove badge badge-danger"><i class="fas fa-times"></i> re</a>
+                            <a href="#editv" class="edit badge badge-danger"><i class="fas fa-pencil-alt"></i> e</a>
+                            <span class="drag badge badge-default"><i class="fas fa-arrows-alt"></i> drag</span>
+                            <span class="configuration">
+                                <a class="btn btn-sm btn-secondary" href="#" rel="form-inline">Inline</a>
+                            </span>
+                            <div class="preview">Input Radio</div>
+                            <div class="view">
+                                <div class="form-group" contenteditable="true">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" checked>
+                                        <label class="form-check-label" for="exampleRadios1">
+                                          Default radio
+                                        </label>
+                                      </div>
+                                      <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2">
+                                        <label class="form-check-label" for="exampleRadios2">
+                                          Second default radio
+                                        </label>
+                                      </div>
+                                      <div class="form-check disabled">
+                                        <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios3" value="option3" disabled>
+                                        <label class="form-check-label" for="exampleRadios3">
+                                          Disabled radio
+                                        </label>
+                                      </div>
+                                </div>
+                            </div>
+                        </div>
+						<div class="box box-element">
+                            <a href="#close" class="remove badge badge-danger"><i class="fas fa-times"></i> re</a>
+                            <a href="#editv" class="edit badge badge-danger"><i class="fas fa-pencil-alt"></i> e</a>
+                            <span class="drag badge badge-default"><i class="fas fa-arrows-alt"></i> drag</span>
+                            <span class="configuration">
+                                <a class="btn btn-sm btn-secondary" href="#" rel="form-inline">Inline</a>
+                            </span>
+                            <div class="preview">Input File</div>
+                            <div class="view">
+                                <div class="form-group">
+									<label for="exampleFormControlFile1">Example file input</label>
+									<input type="file" class="form-control-file" id="exampleFormControlFile1">
+								  </div>
+                            </div>
+                        </div>
+                        <div class="box box-element">
+                            <a href="#close" class="remove badge badge-danger"><i class="fas fa-times"></i> re</a>
+                            <a href="#editv" class="edit badge badge-danger"><i class="fas fa-pencil-alt"></i> e</a>
+                            <span class="drag badge badge-default"><i class="fas fa-arrows-alt"></i> drag</span>
+                            <span class="configuration">
+                                <span class="btn-group btn-group-sm">
+                                    <a class="btn btn-default dropdown-toggle" data-toggle="dropdown" href="#">Styles
+                                        <span class="caret"></span></a>
+                                    <div class="dropdown-menu">
+                                        <a href="#" class="dropdown-item" class="" rel="btn-primary">Primary</a>
+                                        <a href="#" class="dropdown-item" class="" rel="btn-secondary">Secondary</a>
+                                        <a href="#" class="dropdown-item" class="" rel="btn-success">Success</a>
+                                        <a href="#" class="dropdown-item" class="" rel="btn-info">Info</a>
+                                        <a href="#" class="dropdown-item" class="" rel="btn-warning">Warning</a>
+                                        <a href="#" class="dropdown-item" class="" rel="btn-danger">Danger</a>
+                                        <a href="#" class="dropdown-item" class="" rel="btn-link">Link</a>
+                                        <a href="#" class="dropdown-item" class="" rel="btn-outline-primary">Primary
+                                            outline</a>
+                                        <a href="#" class="dropdown-item" class="" rel="btn-outline-secondary">Secondary
+                                            outline</a>
+                                        <a href="#" class="dropdown-item" class="" rel="btn-outline-success">Success
+                                            outline</a>
+                                        <a href="#" class="dropdown-item" class="" rel="btn-outline-info">Info
+                                            outline</a>
+                                        <a href="#" class="dropdown-item" class="" rel="btn-outline-warning">Warning
+                                            outline</a>
+                                        <a href="#" class="dropdown-item" class="" rel="btn-outline-danger">Danger
+                                            outline</a>
+                                    </div>
+                                </span>
+                                <span class="btn-group btn-group-sm">
+                                    <a class="btn btn-default dropdown-toggle" data-toggle="dropdown" href="#">Size
+                                        <span class="caret"></span></a>
+                                    <div class="dropdown-menu">
+                                        <a href="#" class="dropdown-item" class="" rel="btn-lg">Large</a>
+                                        <a href="#" class="dropdown-item" class="" rel="btn-md">Default</a>
+                                        <a href="#" class="dropdown-item" class="" rel="btn-sm">Small</a>
+                                    </div>
+                                </span>
+
+                                <a class="btn btn-sm btn-secondary" href="#" rel="btn-block">Block</a>
+                                <a class="btn btn-sm btn-secondary" href="#" rel="active">Active</a>
+                                <a class="btn btn-sm btn-secondary" href="#" rel="form-inline">Inline</a>
+                                <a class="btn btn-sm btn-secondary" href="#" rel="disabled">Disabled</a>
+                            </span>
+                            <div class="preview">Button</div>
+                            <div class="view">
+                                <button type="button" class="btn btn-success" contenteditable="true">ButtonView</button>
+                            </div>
+                        </div>
+                        <div class="box box-element">
+                            <a href="#close" class="remove badge badge-danger"><i class="fas fa-times"></i> re</a>
+                            <a href="#editv" class="edit badge badge-danger"><i class="fas fa-pencil-alt"></i> e</a>
+                            <span class="drag badge badge-default"><i class="fas fa-arrows-alt"></i> drag</span>
+                            <span class="configuration">
+                                <span class="btn-group btn-group-sm">
+                                    <a class="btn btn-default dropdown-toggle" data-toggle="dropdown" href="#">Size
+                                        <span class="caret"></span></a>
+                                    <div class="dropdown-menu">
+                                        <a href="#" class="dropdown-item" class="active" rel="">Default</a>
+                                        <a href="#" class="dropdown-item" class="" rel="btn-group-lg">Large</a>
+                                        <a href="#" class="dropdown-item" class="" rel="btn-group-md">Medium</a>
+                                        <a href="#" class="dropdown-item" class="" rel="btn-group-sm">Small</a>
+                                    </div>
+                                </span>
+                                <a class="btn btn-sm btn-secondary" href="#" rel="btn-group-vertical">Vertical</a>
+                                <span class="btn-group btn-group-sm">
+                                    <a class="btn btn-default dropdown-toggle" data-toggle="dropdown" href="#">Alignment 
+                                        <span class="caret"></span></a>
+                                    <div class="dropdown-menu">
+                                        <a href="#" class="dropdown-item" class="" rel="text-left">Left</a>
+                                        <a href="#" class="dropdown-item" class="" rel="text-center">Center</a>
+                                        <a href="#" class="dropdown-item" class="" rel="text-right">Right</a>
+                                        <a href="#" class="dropdown-item" class="" rel="text-normal">Nomal</a>
+                                        <a href="#" class="dropdown-item" class="" rel="text-sm-left">SM-Left</a>
+                                        <a href="#" class="dropdown-item" class="" rel="text-md-left">MD-Left</a>
+                                        <a href="#" class="dropdown-item" class="" rel="text-lg-left">LG-Left</a>
+                                        <a href="#" class="dropdown-item" class="" rel="text-xl-left">XL-Left</a>
+                                        <a href="#" class="dropdown-item" class="" rel="text-sm-center">SM-Center</a>
+                                        <a href="#" class="dropdown-item" class="" rel="text-md-center">MD-Center</a>
+                                        <a href="#" class="dropdown-item" class="" rel="text-lg-center">LG-Center</a>
+                                        <a href="#" class="dropdown-item" class="" rel="text-xl-center">XL-Center</a>
+                                        <a href="#" class="dropdown-item" class="" rel="text-sm-right">SM-Right</a>
+                                        <a href="#" class="dropdown-item" class="" rel="text-md-right">MD-Right</a>
+                                        <a href="#" class="dropdown-item" class="" rel="text-lg-right">LG-Right</a>
+                                        <a href="#" class="dropdown-item" class="" rel="text-xl-right">XL-Right</a>
+                                    </div>
+                                </span>
+                            </span>
+                            <div class="preview">Button Group</div>
+                            <div class="view">
+                                <div class="btn-group d-block" role="group">
+                                    <button class="btn btn-secondary" type="button">Left</button>
+                                    <button class="btn btn-secondary" type="button">Center</button>
+                                    <button class="btn btn-secondary" type="button">Right</button>
+                                    <button class="btn btn-secondary" type="button">Justify</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="box box-element d-none">
+                            <a href="#close" class="remove badge badge-danger"><i class="fas fa-times"></i> re</a>
+                            <a href="#editv" class="edit badge badge-danger"><i class="fas fa-pencil-alt"></i> e</a>
                             <span class="drag badge badge-default"><i class="fas fa-arrows-alt"></i> drag</span>
                             <span class="configuration">
                                 <span class="btn-group btn-group-sm">
@@ -746,26 +1028,7 @@
                                 <a href="#" class="btn btn-secondary" type="button" contenteditable="true">Button</a>
                             </div>
                         </div>
-                        <div class="box box-element">
-                            <a href="#close" class="remove badge badge-danger"><i class="fas fa-times"></i> remove</a>
-                            <span class="drag badge badge-default"><i class="fas fa-arrows-alt"></i> drag</span>
-                            <span class="configuration">
-                                <span class="btn-group btn-group-sm">
-                                    <a class="btn btn-default dropdown-toggle" data-toggle="dropdown" href="#">Styles
-                                        <span class="caret"></span></a>
-                                    <div class="dropdown-menu">
-                                        <a href="#" class="dropdown-item" class="active" rel="">Default</a>
-                                        <a href="#" class="dropdown-item" class="" rel="rounded">Rounded</a>
-                                        <a href="#" class="dropdown-item" class="" rel="rounded-circle">Circle</a>
-                                        <a href="#" class="dropdown-item" class="" rel="img-thumbnail">Thumbnail</a>
-                                    </div>
-                                </span>
-                            </span>
-                            <div class="preview">Image</div>
-                            <div class="view">
-                                <img alt="Bootstrap Image Preview" src="img/sports-q-c-140-140-3.jpg">
-                            </div>
-                        </div>
+                        
                     </li>
                 </ul>
 
@@ -783,34 +1046,10 @@
                         </div>
                     </li>
                     <li class="boxes" id="elmComponents">
+                        
                         <div class="box box-element">
-                            <a href="#close" class="remove badge badge-danger"><i class="fas fa-times"></i> remove</a>
-                            <span class="drag badge badge-default"><i class="fas fa-arrows-alt"></i> drag</span>
-                            <span class="configuration">
-                                <span class="btn-group btn-group-sm">
-                                    <a class="btn btn-default dropdown-toggle" data-toggle="dropdown" href="#">Size
-                                        <span class="caret"></span></a>
-                                    <div class="dropdown-menu">
-                                        <a href="#" class="dropdown-item" class="active" rel="">Default</a>
-                                        <a href="#" class="dropdown-item" class="" rel="btn-group-lg">Large</a>
-                                        <a href="#" class="dropdown-item" class="" rel="btn-group-md">Medium</a>
-                                        <a href="#" class="dropdown-item" class="" rel="btn-group-sm">Small</a>
-                                    </div>
-                                </span>
-                                <a class="btn btn-sm btn-secondary" href="#" rel="btn-group-vertical">Vertical</a>
-                            </span>
-                            <div class="preview">Button Group</div>
-                            <div class="view">
-                                <div class="btn-group" role="group">
-                                    <button class="btn btn-secondary" type="button">Left</button>
-                                    <button class="btn btn-secondary" type="button">Center</button>
-                                    <button class="btn btn-secondary" type="button">Right</button>
-                                    <button class="btn btn-secondary" type="button">Justify</button>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="box box-element">
-                            <a href="#close" class="remove badge badge-danger"><i class="fas fa-times"></i> remove</a>
+                            <a href="#close" class="remove badge badge-danger"><i class="fas fa-times"></i> re</a>
+                            <a href="#editv" class="edit badge badge-danger"><i class="fas fa-pencil-alt"></i> e</a>
                             <span class="drag badge badge-default"><i class="fas fa-arrows-alt"></i> drag</span>
                             <span class="configuration">
                                 <a class="btn btn-sm btn-secondary" href="#" rel="dropup">Dropup</a>
@@ -832,7 +1071,8 @@
                             </div>
                         </div>
                         <div class="box box-element">
-                            <a href="#close" class="remove badge badge-danger"><i class="fas fa-times"></i> remove</a>
+                            <a href="#close" class="remove badge badge-danger"><i class="fas fa-times"></i> re</a>
+                            <a href="#editv" class="edit badge badge-danger"><i class="fas fa-pencil-alt"></i> e</a>
                             <span class="drag badge badge-default"><i class="fas fa-arrows-alt"></i> drag</span>
                             <span class="configuration">
                                 <span class="btn-group btn-group-sm">
@@ -870,7 +1110,8 @@
                             </div>
                         </div>
                         <div class="box box-element">
-                            <a href="#close" class="remove badge badge-danger"><i class="fas fa-times"></i> remove</a>
+                            <a href="#close" class="remove badge badge-danger"><i class="fas fa-times"></i> re</a>
+                            <a href="#editv" class="edit badge badge-danger"><i class="fas fa-pencil-alt"></i> e</a>
                             <span class="drag badge badge-default"><i class="fas fa-arrows-alt"></i> drag</span>
                             <div class="preview">Breadcrumb</div>
                             <div class="view">
@@ -887,7 +1128,8 @@
                             </div>
                         </div>
                         <div class="box box-element">
-                            <a href="#close" class="remove badge badge-danger"><i class="fas fa-times"></i> remove</a>
+                            <a href="#close" class="remove badge badge-danger"><i class="fas fa-times"></i> re</a>
+                            <a href="#editv" class="edit badge badge-danger"><i class="fas fa-pencil-alt"></i> e</a>
                             <span class="drag badge badge-default"><i class="fas fa-arrows-alt"></i> drag</span>
                             <span class="configuration">
                                 <span class="btn-group btn-group-sm">
@@ -917,30 +1159,10 @@
                             </div>
                         </div>
                         <!-- In bootstrap 4 labels are replaced by badges -->
+                        
                         <div class="box box-element">
-                            <a href="#close" class="remove badge badge-danger"><i class="fas fa-times"></i> remove</a>
-                            <span class="drag badge badge-default"><i class="fas fa-arrows-alt"></i> drag</span>
-                            <span class="configuration">
-                                <span class="btn-group btn-group-sm">
-                                    <a class="btn btn-default dropdown-toggle" data-toggle="dropdown" href="#">Styles
-                                        <span class="caret"></span></a>
-                                    <div class="dropdown-menu">
-                                        <a href="#" class="dropdown-item" class="" rel="badge-default">Default</a>
-                                        <a href="#" class="dropdown-item" class="" rel="badge-primary">Primary</a>
-                                        <a href="#" class="dropdown-item" class="" rel="badge-success">Success</a>
-                                        <a href="#" class="dropdown-item" class="" rel="badge-info">Info</a>
-                                        <a href="#" class="dropdown-item" class="" rel="badge-warning">Warning</a>
-                                        <a href="#" class="dropdown-item" class="" rel="badge-danger">Danger</a>
-                                    </div>
-                                </span>
-                            </span>
-                            <div class="preview">Label</div>
-                            <div class="view">
-                                <span class="badge badge-default" contenteditable="true">Label</span>
-                            </div>
-                        </div>
-                        <div class="box box-element">
-                            <a href="#close" class="remove badge badge-danger"><i class="fas fa-times"></i> remove</a>
+                            <a href="#close" class="remove badge badge-danger"><i class="fas fa-times"></i> re</a>
+                            <a href="#editv" class="edit badge badge-danger"><i class="fas fa-pencil-alt"></i> e</a>
                             <span class="drag badge badge-default"><i class="fas fa-arrows-alt"></i> drag</span>
                             <span class="configuration">
                             </span>
@@ -962,7 +1184,8 @@
                             </div>
                         </div>
                         <div class="box box-element">
-                            <a href="#close" class="remove badge badge-danger"><i class="fas fa-times"></i> remove</a>
+                            <a href="#close" class="remove badge badge-danger"><i class="fas fa-times"></i> re</a>
+                            <a href="#editv" class="edit badge badge-danger"><i class="fas fa-pencil-alt"></i> e</a>
                             <span class="drag badge badge-default"><i class="fas fa-arrows-alt"></i> drag</span>
                             <span class="configuration">
                                 <a class="btn btn-sm btn-default" href="#" rel="card card-block">Well</a>
@@ -979,7 +1202,8 @@
                             </div>
                         </div>
                         <div class="box box-element">
-                            <a href="#close" class="remove badge badge-danger"><i class="fas fa-times"></i> remove</a>
+                            <a href="#close" class="remove badge badge-danger"><i class="fas fa-times"></i> re</a>
+                            <a href="#editv" class="edit badge badge-danger"><i class="fas fa-pencil-alt"></i> e</a>
                             <span class="drag badge badge-default"><i class="fas fa-arrows-alt"></i> drag</span>
                             <div class="preview">Page Header</div>
                             <div class="view">
@@ -989,22 +1213,11 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="box box-element">
-                            <a href="#close" class="remove badge badge-danger"><i class="fas fa-times"></i> remove</a>
-                            <span class="drag badge badge-default"><i class="fas fa-arrows-alt"></i> drag</span>
-                            <div class="preview">Group Text</div>
-                            <div class="view">
-                                <h2 contenteditable="true">Heading</h2>
-                                <p contenteditable="true">Donec id elit non mi porta gravida at eget metus. Fusce
-                                    dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum
-                                    massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec
-                                    sed odio dui.</p>
-                                <p><a class="btn" href="#" contenteditable="true">View details &raquo;</a></p>
-                            </div>
-                        </div>
+                        
                         <!-- In Bootstrap 4 thumbnails are replaced by cards -->
                         <div class="box box-element">
-                            <a href="#close" class="remove badge badge-danger"><i class="fas fa-times"></i> remove</a>
+                            <a href="#close" class="remove badge badge-danger"><i class="fas fa-times"></i> re</a>
+                            <a href="#editv" class="edit badge badge-danger"><i class="fas fa-pencil-alt"></i> e</a>
                             <span class="drag badge badge-default"><i class="fas fa-arrows-alt"></i> drag</span>
                             <div class="preview">Thumbnails</div>
                             <div class="view">
@@ -1057,7 +1270,8 @@
                             </div>
                         </div>
                         <div class="box box-element">
-                            <a href="#close" class="remove badge badge-danger"><i class="fas fa-times"></i> remove</a>
+                            <a href="#close" class="remove badge badge-danger"><i class="fas fa-times"></i> re</a>
+                            <a href="#editv" class="edit badge badge-danger"><i class="fas fa-pencil-alt"></i> e</a>
                             <span class="drag badge badge-default"><i class="fas fa-arrows-alt"></i> drag</span>
                             <span class="configuration">
 
@@ -1077,7 +1291,8 @@
                             </div>
                         </div>
                         <div class="box box-element">
-                            <a href="#close" class="remove badge badge-danger"><i class="fas fa-times"></i> remove</a>
+                            <a href="#close" class="remove badge badge-danger"><i class="fas fa-times"></i> re</a>
+                            <a href="#editv" class="edit badge badge-danger"><i class="fas fa-pencil-alt"></i> e</a>
                             <span class="drag badge badge-default"><i class="fas fa-arrows-alt"></i> drag</span>
                             <span class="configuration">
                             </span>
@@ -1107,7 +1322,8 @@
                             </div>
                         </div>
                         <div class="box box-element">
-                            <a href="#close" class="remove badge badge-danger"><i class="fas fa-times"></i> remove</a>
+                            <a href="#close" class="remove badge badge-danger"><i class="fas fa-times"></i> re</a>
+                            <a href="#editv" class="edit badge badge-danger"><i class="fas fa-pencil-alt"></i> e</a>
                             <span class="drag badge badge-default"><i class="fas fa-arrows-alt"></i> drag</span>
                             <span class="configuration">
                             </span>
@@ -1131,7 +1347,8 @@
                         </div>
                         <!-- In bootstrap 4 panels are replaced by cords -->
                         <div class="box box-element">
-                            <a href="#close" class="remove badge badge-danger"><i class="fas fa-times"></i> remove</a>
+                            <a href="#close" class="remove badge badge-danger"><i class="fas fa-times"></i> re</a>
+                            <a href="#editv" class="edit badge badge-danger"><i class="fas fa-pencil-alt"></i> e</a>
                             <span class="drag badge badge-default"><i class="fas fa-arrows-alt"></i> drag</span>
                             <span class="configuration">
                                 <span class="btn-group btn-group-sm">
@@ -1183,7 +1400,8 @@
                     </li>
                     <li class="boxes mute" id="elmJS">
                         <div class="box box-element">
-                            <a href="#close" class="remove badge badge-danger"><i class="fas fa-times"></i> remove</a>
+                            <a href="#close" class="remove badge badge-danger"><i class="fas fa-times"></i> re</a>
+                            <a href="#editv" class="edit badge badge-danger"><i class="fas fa-pencil-alt"></i> e</a>
                             <span class="drag badge badge-default"><i class="fas fa-arrows-alt"></i> drag</span>
                             <div class="preview">Modal</div>
                             <div class="view">
@@ -1218,7 +1436,8 @@
                             </div>
                         </div>
                         <div class="box box-element">
-                            <a href="#close" class="remove badge badge-danger"><i class="fas fa-times"></i> remove</a>
+                            <a href="#close" class="remove badge badge-danger"><i class="fas fa-times"></i> re</a>
+                            <a href="#editv" class="edit badge badge-danger"><i class="fas fa-pencil-alt"></i> e</a>
                             <span class="drag badge badge-default"><i class="fas fa-arrows-alt"></i> drag</span>
                             <span class="configuration">
                                 <span class="btn-group btn-group-sm">
@@ -1301,7 +1520,8 @@
                             </div>
                         </div>
                         <div class="box box-element">
-                            <a href="#close" class="remove badge badge-danger"><i class="fas fa-times"></i> remove</a>
+                            <a href="#close" class="remove badge badge-danger"><i class="fas fa-times"></i> re</a>
+                            <a href="#editv" class="edit badge badge-danger"><i class="fas fa-pencil-alt"></i> e</a>
                             <span class="drag badge badge-default"><i class="fas fa-arrows-alt"></i> drag</span>
                             <span class="configuration">
                             </span>
@@ -1327,7 +1547,8 @@
                             </div>
                         </div>
                         <div class="box box-element">
-                            <a href="#close" class="remove badge badge-danger"><i class="fas fa-times"></i> remove</a>
+                            <a href="#close" class="remove badge badge-danger"><i class="fas fa-times"></i> re</a>
+                            <a href="#editv" class="edit badge badge-danger"><i class="fas fa-pencil-alt"></i> e</a>
                             <span class="drag badge badge-default"><i class="fas fa-arrows-alt"></i> drag</span>
                             <span class="configuration">
                                 <span class="btn-group btn-group-sm">
@@ -1354,7 +1575,8 @@
                             </div>
                         </div>
                         <div class="box box-element">
-                            <a href="#close" class="remove badge badge-danger"><i class="fas fa-times"></i> remove</a>
+                            <a href="#close" class="remove badge badge-danger"><i class="fas fa-times"></i> re</a>
+                            <a href="#editv" class="edit badge badge-danger"><i class="fas fa-pencil-alt"></i> e</a>
                             <span class="drag badge badge-default"><i class="fas fa-arrows-alt"></i> drag</span>
                             <div class="preview">Collapse</div>
                             <div class="view">
@@ -1389,7 +1611,8 @@
                             </div>
                         </div>
                         <div class="box box-element">
-                            <a href="#close" class="remove badge badge-danger"><i class="fas fa-times"></i> remove</a>
+                            <a href="#close" class="remove badge badge-danger"><i class="fas fa-times"></i> re</a>
+                            <a href="#editv" class="edit badge badge-danger"><i class="fas fa-pencil-alt"></i> e</a>
                             <span class="drag badge badge-default"><i class="fas fa-arrows-alt"></i> drag</span>
                             <div class="preview">Carousel</div>
                             <div class="view">
@@ -1542,10 +1765,31 @@
             </div>
             <div class="previewview" style=" width: 100%; margin-top: 20px; "></div>
             <div class="powered-by col-xs-12 text-right">
-                Using <a href="http://getbootstrap.com" target="_blank">Bootstrap</a> 4.0.0
+                Using <a href="http://getbootstrap.com" target="_blank">Bootstrap</a> 4
             </div>
             <div id="download-layout">
                 <div class="container-fluid"></div>
+            </div>
+        </div>
+
+
+        <div class="modal fade" id="viewEditModal" tabindex="-1" aria-labelledby="viewEditModal" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="viewEditModal">Edit At</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                <textarea name="" id="" cols="30" rows="10"></textarea>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                  <button type="button" class="btn btn-primary" id="saveViewEdit">Save changes</button>
+                </div>
+              </div>
             </div>
         </div>
 

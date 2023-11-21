@@ -130,6 +130,34 @@ $(document).ready(function() {
 	$('body').on('click', '[data-toggle="modal"]', function(){
     	$($(this).data("target")+' .modal-content').load($(this).attr('href'));
     });
+    var atEdit;
+	$('body').on('click', '.edit', function(){
+    	var pr = $(this).closest('.box');
+        atEdit = pr;
+        var textFirst = $(pr).find('.view').html()
+        var view = $(pr).find('.view');
+        var textara = `<div class="form-group">
+        <label for="exampleFormControlTextarea1">Example textarea</label>
+        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3">`+textFirst+`</textarea>
+      </div>`;
+      //$('.view').html(textara);
+      textFirst =$.htmlClean(textFirst,{format:true});
+      $('#viewEditModal textarea').val(textFirst);
+        $('#viewEditModal').modal('show');
+        // $("#viewEditModal textarea").linedtextarea();
+    });
+    
+    $('#viewEditModal').on('shown.bs.modal', function () {
+        if($('#viewEditModal .linedwrap').length == 0){
+            $("#viewEditModal textarea").linedtextarea();    
+        }
+      })
+    $('body').on('click', '#saveViewEdit', function(){
+        var atText = $(atEdit).find('.view')
+        atText.html($('#viewEditModal textarea').val());
+        $('#viewEditModal').modal('hide');
+    })
+
 	
 	$('.nav-header').click(function(){
 		$('.sidebar-nav .boxes, .sidebar-nav .rows').hide();
@@ -343,7 +371,7 @@ function downloadLayoutSrc(isTextare) {
 
 	var downloadContent = $('#download-layout').children();
 
-	downloadContent.find('.preview, .configuration, .drag, .remove').remove();
+	downloadContent.find('.preview, .configuration, .drag, .remove, .edit ').remove();
 	downloadContent.find('.lyrow').addClass('removeClean');
 	downloadContent.find('.box-element').addClass('removeClean');
 
