@@ -1,0 +1,97 @@
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    <h4 class="modal-title">Download</h4>
+  </div>
+  <div class="modal-body downloadModal">
+      <div id="download-not-logged" style="display: none;"> 
+              <h4>Login</h4>
+      <form action="#" method="post" name="boxDownloadLoginForm" id="boxDownloadLoginForm" class="form-horizontal">
+              <div class="modal-form">
+        <div class="form-group">
+          <label class="control-label col-sm-4" for="login_email">Email address</label>
+          <div class="controls col-sm-8">
+            <input type="text" name="login[email]" class="form-control" id="login_email" />
+            <span id="email-download-error" class="help-inline"></span>
+            <span id="login-download-error" class="help-inline"></span>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="control-label col-sm-4" for="login_password">Password</label>
+          <div class="controls col-sm-8">
+            <input type="password" name="login[password]" class="form-control" id="login_password" />
+            <span id="password-download-error" class="help-inline"></span>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="controls col-sm-8 col-sm-offset-4">
+             <a class="forgot" href="/en/login/password-recovery-request">Forgot your password?</a>
+            <label class="checkbox">
+            <input type="checkbox" name="login[remember_me]" id="login_remember_me" /> Remember me</label>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="controls col-sm-8 col-sm-offset-4">
+            <button type="button" class="button" id="modal-download-sign-in-button">Sign in</button>
+         </div>
+        </div>
+      </div>
+  
+        <div class="form-group modal-btns">  
+  <!--
+          <p><a class="button btn-medium btn-info btn-block" href="/socialnetworks/authenticateWithSocial/provider/Facebook">Connect with Facebook!</a></p>
+          <p><a class="button btn-medium btn-info btn-block" href="/socialnetworks/authenticateWithSocial/provider/Twitter">Connect with Twitter!</a></p>
+          <p><a class="button btn-medium btn-info btn-block" href="/socialnetworks/authenticateWithSocial/provider/Google">Connect with Google!</a></p>
+  -->
+          <p><a class="button btn-medium btn-info btn-block" href="/en/register">Register with Email!</a></p>
+          <h5 class="text-center">or</h5>
+          <p><span class="button btn-medium btn-primary btn-block" id="continue-download-non-logged">Continue non Logged</span></p>
+        </div>
+      </form>
+      </div>
+    
+    <div id="download-logged" class="" >
+      <div class="alert alert-info">The <strong>.zip</strong> includes the directory structure, css, less and js.</div>
+      <p>This is the generated source, you can copy & paste it in our own HTML.</p>
+      <p><textarea class="code"></textarea></p>
+    </div>
+  </div>
+  
+  <div class="modal-footer">
+    <a class="button btn-ok " id="download" >Download .zip</a>
+    <a class="button btn-ok " id="downloadhtml" >Download .html only</a>
+    <button type="button" class="button btn-default" data-dismiss="modal">Close</button>
+  </div>
+  
+  <script type="text/javascript">
+      downloadLayoutSrc();
+      $('#modal-download-sign-in-button').click(function(event){
+          $('.help-inline').hide();
+          var form = $('#boxDownloadLoginForm');
+          var ajaxLoginUrl = '/login/ajaxLogin';
+          jQuery.ajax({
+       type : "post",
+       dataType : "json",
+       url : ajaxLoginUrl,
+       data : form.serialize(),
+       success: function(response) {
+           if(response.success){
+               $('#download-not-logged').hide();
+               $('#download').removeClass('hide');
+               $('#download').show();
+               $('#downloadhtml').removeClass('hide');
+               $('#downloadhtml').show();
+               $('#download-logged').removeClass('hide');
+             $('#download-logged').show();
+           }else {
+            if(response.errors && response.errors.length > 0){
+                $.each(response.errors, function(i, item) {
+              $('#'+item.field+'-download-error').html(item.error);
+              $('#'+item.field+'-download-error').show();
+                }); 
+          } 
+         }
+              }
+          });
+          return false;
+      });
+  </script>
