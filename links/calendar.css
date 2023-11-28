@@ -52,6 +52,7 @@
 
 .tb-calendar tr td.had {
     border-color: red;
+    background: bisque;
 }
 
 .list-calendar.limit {

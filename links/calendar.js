@@ -10,6 +10,7 @@ var daysOfMonth = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
 
 // Returns the day of week which month starts (eg 0 for Sunday, 1 for Monday, etc.)
 function getCalendarStart(dayOfWeek, currentDate) {
+  dayOfWeek = 1;//set view date at monday
   var date = currentDate - 1;
   var startOffset = (date % 7) - dayOfWeek;
   if (startOffset > 0) {

@@ -268,6 +268,9 @@ ul.drag-list{
     height: 40vh;
     overflow: auto;
 }
+.group-5-task >div{
+    padding-top: 15px;
+}
 
 
 /* nav collapse at size md */
@@ -293,6 +296,7 @@ ul.drag-list{
     .navbar-fixed-top {
         top: 0;
         border-width: 0 0 1px;
+        overflow: auto;
     }
 
     .navbar-collapse.collapse {

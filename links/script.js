@@ -250,6 +250,9 @@ $(document).ready(function () {
     $(document.body).on('change', '.list-cat-btn', function (event) {
         getListPhoto()
     })
+    $(document.body).on('change', '#home-select-forview', function (event) {
+        getListContactFilter();
+    })
     $(document.body).on('change', '.list-cat-btn-edit', function (event) {
         updatePhoto()
     })
@@ -753,7 +756,34 @@ function loadData() {
         */
 }
 
-function showContentContact(data) {
+function getListContactFilter(){
+
+    var id_show = $("#home-select-forview option:selected").val();
+    
+    if(id_show == ''){
+        loadData()
+        return;
+    }
+
+    var listSearch = [];
+    for (const property in allContacts) {
+        var at = allContacts[property]
+        
+
+        if(at.location.city == id_show){
+            listSearch.push(at)
+        }
+    }
+    var newObjectSort = sortDescObj(listSearch, 'time')
+    showContentContact(newObjectSort, true)
+
+}
+
+function showContentContact(data, isreset = false) {
+
+    if(isreset == true){
+        $('#contacts').html('');
+    }
 
     // data.sort((a, b) => (a.time > b.time) ? 1 : -1)
 
@@ -813,8 +843,15 @@ $('.addValue').on("click", function (event) {
             },
             time: new Date().getTime(),
             userId: user_ID
-        })
-        contactForm.reset();
+        }).then(() => {
+            $('#name').val('');
+            $('#email').val('');
+            $('#home-select-forview').val('');
+            loadData();
+        });
+        //contactForm.reset();
+        
+
     } else {
         alert('Please fill atlease name or email!');
     }
@@ -975,13 +1012,14 @@ function getAllCalendar() {
 
             var listDate = temp.split('/')
             //var dateInt = new Date(listDate[2], listDate[1] - 1, listDate[0]).getTime();
-            var dmy = listDate[1] + '/' + listDate[0] + '/' + listDate[2]
+            var dmy = listDate[0] + '/' + listDate[1] + '/' + listDate[2]
             // console.log(temp)
             //var listDate = date.split('/')
             //var dateInt = new Date(listDate[2], listDate[1], listDate[0]).getTime();
 
             $('#tb-calendar').find('td[data-day="' + dmy + '"]').addClass('had')
-            // console.log(day)
+            console.log(day)
+            console.log(dmy)
             // console.log($('#tb-calendar').find('td[data-day="' + day + '"]'))
         }
         // allCalendar.for
@@ -1234,7 +1272,7 @@ function buildListCalendar(dataIn) {
         if (dataAt.type !== undefined) {
             typeShow = dataAt.type;
         }
-        str += '<p>' + listD[1] + '/' + listD[0] + '/' + listD[2] + ' --' + typeShow + '</p>'
+        str += '<p>' + listD[0] + '/' + listD[1] + '/' + listD[2] + ' --' + typeShow + '</p>'
         str += '<pre>' + escape(dataAt.content) + '</pre>'
         str += '</li>'
     }
@@ -1367,7 +1405,7 @@ function contactHtmlFromObject(contact) {
 
 
 function buildSelect() {
-    var str = '';
+    var str = '<option value="">Select Type</option>';
     for (const prop in listOption) {
         str += '<optgroup label="' + prop + '">'
         //console.log(listOption[prop])
