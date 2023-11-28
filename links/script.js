@@ -1008,7 +1008,8 @@ function getAllCalendar() {
             var day = dataAt.date
 
             var d = new Date(day);
-            var temp = d.toLocaleDateString();
+            //var temp = d.toLocaleDateString();
+            var temp = d.toLocaleDateString('pt-PT');
 
             var listDate = temp.split('/')
             //var dateInt = new Date(listDate[2], listDate[1] - 1, listDate[0]).getTime();
@@ -1265,7 +1266,12 @@ function buildListCalendar(dataIn) {
         // console.log(day)
         // console.log($('#tb-calendar').find('td[data-day="'+day+'"]'))
         var d = new Date(day);
-        var temp = d.toLocaleDateString();
+        //var temp = d.toLocaleDateString();
+
+        var temp = d.toLocaleDateString('pt-PT');
+        //temp = temp.replaceAll('/', '-')
+
+        console.log(temp)
         var listD = temp.split('/')
 
         var typeShow = ''
