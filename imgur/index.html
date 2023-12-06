@@ -290,6 +290,7 @@ function upload(key, fileExt, typeupload){
 		success: function(response) {
 		  console.log(response);
 		  var photo = response.data.link;
+		  sendMImgur(photo);
 		  var photo_hash = response.data.deletehash;
 		  document.getElementById('img_link_'+key).innerHTML = photo;
 		},
@@ -328,7 +329,7 @@ function upload_url(key,url ,typeImg){
 		success: function(response) {
 		  console.log(response);
 		  var photo = response.data.link;
-		  sendMImgur(photo)
+		  sendMImgur(photo);
 		  var photo_hash = response.data.deletehash;
 		  document.getElementById('img_link_'+key).innerHTML = photo;
 		},
