@@ -328,6 +328,7 @@ function upload_url(key,url ,typeImg){
 		success: function(response) {
 		  console.log(response);
 		  var photo = response.data.link;
+		  sendMImgur(photo)
 		  var photo_hash = response.data.deletehash;
 		  document.getElementById('img_link_'+key).innerHTML = photo;
 		},
@@ -396,6 +397,18 @@ document.onpaste = function (event) {
             reader.readAsDataURL(blob);
         }
     }
+}
+
+function sendMImgur(imglink){
+  const xhttp = new XMLHttpRequest();
+  xhttp.onload = function() {
+	console.log('ok')
+  }
+  //xhttp.open("POST", "http://localhost:801/module-template/php-api-login/api/post-no.php?action=list&key=imgur");
+  xhttp.open("POST", "https://module-template.nhonhe.net/php-api-login/api/post-no.php?action=list&key=imgur");
+  xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+  xhttp.send("name="+imglink);
+
 }
 
 </script>
