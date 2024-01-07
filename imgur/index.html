@@ -40,6 +40,9 @@ Convert Image to jpeg, upload img
 </p>
 <p>
 <textarea type="text" id="texthtml" placeholder="html" onfocusout="getimg_html(this)"></textarea>
+<br/>
+<br/>
+<textarea type="text" id="imagelink" placeholder="image link" onfocusout=""></textarea>
 </p>
 <img src="" id="pic1">
 
@@ -158,14 +161,18 @@ $.get(linkUrl, function(data, status){
 function getImgfromHtml(data){
 	var list_img = $(data).find('img');
 	//console.log(list_img)
-	var attribute_img = document.getElementById('attr_img_url').value
+	var attribute_img = document.getElementById('attr_img_url').value;
+	var linklist = [];
 	$.each(list_img,function(i,v){
 	
 			var img = $(v).attr(attribute_img)
 			//console.log(v)
 			//console.log(img)
 			addurl(img,'img')
+			linklist.push(img)
 	})
+	var textlink = linklist.join('\r\n');
+	document.getElementById('imagelink').value = textlink;
 }
 
 function getimg_html(at){
