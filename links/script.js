@@ -131,6 +131,7 @@ $(document).ready(function () {
             getListSWOT()
         }
         if (atrHref == '#scrum') {
+
             getListScrum()
         }
         if (atrHref == '#tx') {
@@ -140,6 +141,17 @@ $(document).ready(function () {
             getListNotes()
         }
     })
+
+    window.onscroll = function() {myFunction()};
+    function myFunction() {
+        var header = document.getElementById("scaction");
+        var sticky = header.offsetTop+100;
+        if (window.pageYOffset > sticky) {
+          header.classList.add("sticky");
+        } else {
+          header.classList.remove("sticky");
+        }
+      }
 
 
     //function check back to website
