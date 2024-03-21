@@ -47,12 +47,16 @@
 }
 
 .tb-calendar tr td.at {
-    background-color: #d890bb;
+    background-color: #d890bb!important;
 }
 
 .tb-calendar tr td.had {
     border-color: red;
     background: bisque;
+}
+.tb-calendar tr td.had.today {
+    background: #7486a1;
+    color: white;
 }
 
 .list-calendar.limit {
