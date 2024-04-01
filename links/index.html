@@ -61,6 +61,7 @@
                         <li class=""><a href="#todo">Todo</a></li>
                         <li class=""><a href="#photo">Photo</a></li>
                         <li class=""><a href="#video">Video</a></li>
+                        <li class=""><a href="#ebook">Ebook</a></li>
                         <li class=""><a href="#note">Note</a></li>
                         <!-- <li class=""><a href="../600">600</a></li> -->
                         <!-- <li class=""><a href="../timedown" target="_blank">Time</a></li> -->
@@ -790,6 +791,89 @@
                             <!-- <div class="row">
                                 <button onclick="getListPhotoNext()">Next</button>
                             </div> -->
+                        </div>
+                    </div>
+                </div>
+				
+				<div id="ebook" class="hide v-m-content ebook">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <h3>Ebook</h3>
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-sm-4">
+							<label for="ebook-title-input">Title</label>
+                            <input type="text" class="form-control" id="ebook-title-input" required="" placeholder="Title">
+							<label for="" class="pt-2">Description</label>
+                            <input type="text" class="form-control" id="ebook-description-input" required="" placeholder="Description">
+							
+                        </div>
+                        <div class="form-group col-sm-4 basic-add">
+							<label for="">Category</label>
+                            <select name="basic-select" class="form-control basic-select">
+                            </select>
+                        </div>
+
+                        <div class="form-group col-sm-4">
+                            <label for="">Image Link</label>
+                            <input type="text" class="form-control" id="ebook-image-input" required="" placeholder="Title">
+							<label for="" class="pt-2">Link Ebook</label>
+                            <input type="text" class="form-control" id="ebook-file-input" required="" placeholder="Title">
+                        </div>
+                        <!-- <div class="form-group col-sm-3">
+                            <button id="addImage" class="form-control">Add image</button>
+                        </div> -->
+                    </div>
+                    <hr />
+                    <div class="row">
+                        <div class="col-sm-3 basic-view">
+                            <select name="basic-select" class="form-control basic-select" ></select>
+                        </div>
+                        <div class="col-sm-3">
+                            <p>List total: <span id="total-ebook"></span></p>
+                        </div>
+
+                    </div>
+                    <br>
+                    <div class="row">
+
+
+                        <div class="col-sm-6 ">
+                            <div class="row">
+                                <div class="list-image"></div>
+                            </div>
+                            <!-- <div class="row">
+                                <button onclick="getListPhotoNext()">Next</button>
+                            </div> -->
+                        </div>
+
+                        <div class="col-sm-6">
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <label for="">Edit category</label>
+                                    <select name="list-cat-btn-edit" class="form-control list-cat-btn-edit" id="list-cat-btn-edit"></select>
+                                </div>
+                                <div class="col-sm-4"><span id="ebook-time"></span>
+                                    <input id="edit-private-ebook" type="checkbox">
+                                    <label for="edit-private-ebook">is ebook hay</label>
+                                </div>
+								<div class="col-sm-5">
+									<label for="">Feel</label>
+                                    <input type="text" class="form-control" id="ebook-feel-input" required="" placeholder="Feel">
+                                </div>
+								<div class="col-sm-12">
+									<label for="">Feel</label>
+                                    <input type="text" class="form-control" id="ebook-feel-input" required="" placeholder="Feel">
+                                </div>
+                            </div>
+                            <br><br>
+                            <div class="row">
+                                <img class="img-responsive" id="image-img-ebook" src="https://i.imgur.com/mVJdgKk.png" alt="">
+                            </div>
+
+                            <br /><br><br></span><br>
                         </div>
                     </div>
                 </div>
