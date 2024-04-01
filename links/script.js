@@ -86,8 +86,27 @@ function changeDataAttribute(at, attribtue, value) {
     }
 }
 
+let idleTime = 0;
+setInterval(timerIncrement, 1000);
+//function check after 5minus
+function timerIncrement() {
+	if(user_ID !='' && !$('#my-ss-login-view').is(':visible')){
+		idleTime++;	
+	}
+   // console.log(idleTime)
+    if (idleTime > 300) { // 300 seconds = 5 minutes
+        // Call your function here
+        //console.log('No activity for 5 minutes');
+        idleTime = 0; // Reset idle time
+		showNeedEnterAfter5Minus();
+    }
+}
 
 $(document).ready(function () {
+	$(document).on('mousemove keydown', function() {
+		idleTime = 0;
+	});
+
     var height = $('.navbar-header').height();
     $('#start-content').css('margin-top', height);
     $('#myNavbar a').click(function () {
@@ -297,6 +316,16 @@ function showHideSessionLogin() {
         $('#my-ss-login-view').modal('hide');
         return true;
     }
+}
+function showNeedEnterAfter5Minus(){
+	var hash = glb_password_hash;
+    if(hash == ''){
+        //logout
+		signOut();
+        return true;
+    }
+	$('#my-ss-login-view').modal('show');
+	
 }
 
 //try active last click
