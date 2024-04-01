@@ -324,6 +324,7 @@ function showNeedEnterAfter5Minus(){
 		signOut();
         return true;
     }
+	sessionStorage.setItem("sessionLogin", 'false');
 	$('#my-ss-login-view').modal('show');
 	
 }
