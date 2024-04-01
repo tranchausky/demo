@@ -188,12 +188,22 @@
 
 #tx .list-drap-drop ul.drag-list,
 #scrum .list-drap-drop ul.drag-list{
-    overflow: auto;
-    height: calc(100% - 60px);
+    overflow: visible;
+    height: auto;
     padding: 5px;
     padding-bottom: 10px;
     min-height: 200px;
 }
+.sticky {
+    position: fixed;
+    top: 51px;
+    width: 1200px;
+    background: red;
+    z-index: 123;
+  }
+  .sticky + .list-div {
+    padding-top: 102px;
+  }
 #tx .list-drap-drop h3,
 #scrum .list-drap-drop h3{
     border-bottom: 2px dotted;

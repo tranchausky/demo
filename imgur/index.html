@@ -33,13 +33,16 @@ Convert Image to jpeg, upload img
 <br/>
 <!-- <input type="file" id="inputImg" accept="image/png, image/gif, image/jpeg,video/*" multiple> -->
 <input type="file" id="inputImg" accept="image/png, image/gif, image/jpeg" multiple>
-<p><input type="text" id="url" placeholder="image url" onfocusout="changeurl(this)"></p>
+<p><textarea type="text" id="url" placeholder="image url by \n or ," onfocusout="changeurl(this)"></textarea></p>
 <p>
 <input type="text" id="attr_img_url" placeholder="attribute image url" value="src">
 <input type="text" id="have_url" placeholder="url have img" onfocusout="getimg(this)" value="">
 </p>
 <p>
 <textarea type="text" id="texthtml" placeholder="html" onfocusout="getimg_html(this)"></textarea>
+<br/>
+<br/>
+<textarea type="text" id="imagelink" placeholder="image link" onfocusout=""></textarea>
 </p>
 <img src="" id="pic1">
 
@@ -67,6 +70,12 @@ Convert Image to jpeg, upload img
 </thead>
 </tbody>
 </table>
+</div>
+
+<br><br>
+<div>
+	<p>list link <button onclick="getListLink()">get list link</button></p>
+	<textarea name="" id="listlistimg" cols="30" rows="3" disabled></textarea>
 </div>
 
  <script src='https://code.jquery.com/jquery-2.2.4.min.js'></script>
@@ -158,14 +167,18 @@ $.get(linkUrl, function(data, status){
 function getImgfromHtml(data){
 	var list_img = $(data).find('img');
 	//console.log(list_img)
-	var attribute_img = document.getElementById('attr_img_url').value
+	var attribute_img = document.getElementById('attr_img_url').value;
+	var linklist = [];
 	$.each(list_img,function(i,v){
 	
 			var img = $(v).attr(attribute_img)
 			//console.log(v)
 			//console.log(img)
 			addurl(img,'img')
+			linklist.push(img)
 	})
+	var textlink = linklist.join('\r\n');
+	document.getElementById('imagelink').value = textlink;
 }
 
 function getimg_html(at){
@@ -176,9 +189,22 @@ getImgfromHtml(texthtml);
 function changeurl(at){
 	//console.log(at);
 	var linkUrl = document.getElementById('url').value;
+	const arrayphay = linkUrl.split(",");
+	const arraynew = linkUrl.split("\n");
+	if(arrayphay.length >= arraynew){
+		forEachLink(arrayphay);
+	}else{
+		forEachLink(arraynew);
+	}
 	//console.log(vl)
 	document.getElementById('url').value = '';
-	addurl(linkUrl,'url')
+	//addurl(linkUrl,'url')
+}
+function forEachLink(array){
+	array.forEach((item, index) => {
+		//console.log(`${index}: ${item}`);
+		addurl(item,'url')
+	});
 }
 function addurl(linkUrl, typeImg){
 	if(linkUrl == undefined){
@@ -412,9 +438,27 @@ function sendMImgur(imglink){
 
 }
 
+function getListLink(){
+	var list = $("td[id^=img_link_]");
+	var substr = 'imgur.com';
+	var listImgur =[];
+	$.each(list,function(index,val){
+		//console.log(index,val)
+		var html = $(val).html();
+		//console.log(html)
+		if(html.includes(substr)){
+			listImgur.push(html)
+		}
+	})
+	//console.log(listImgur)
+	var textlink = listImgur.join('\r\n');
+	document.getElementById('listlistimg').value = textlink;
+}
+
 </script>
 
 <br/>
+
 <pre>
 Chrome break CROS
 "C:\Program Files (x86)\Google\Chrome\Application\chrome.exe" --disable-web-security --disable-gpu --user-data-dir=C:/temp

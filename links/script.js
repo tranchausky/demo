@@ -131,6 +131,7 @@ $(document).ready(function () {
             getListSWOT()
         }
         if (atrHref == '#scrum') {
+
             getListScrum()
         }
         if (atrHref == '#tx') {
@@ -140,6 +141,17 @@ $(document).ready(function () {
             getListNotes()
         }
     })
+
+    window.onscroll = function() {myFunction()};
+    function myFunction() {
+        var header = document.getElementById("scaction");
+        var sticky = header.offsetTop+100;
+        if (window.pageYOffset > sticky) {
+          header.classList.add("sticky");
+        } else {
+          header.classList.remove("sticky");
+        }
+      }
 
 
     //function check back to website
@@ -1013,14 +1025,11 @@ function getAllCalendar() {
 
             var listDate = temp.split('/')
             //var dateInt = new Date(listDate[2], listDate[1] - 1, listDate[0]).getTime();
-            var dmy = listDate[0] + '/' + listDate[1] + '/' + listDate[2]
-            // console.log(temp)
+            var dmy = parseInt(listDate[0]) + '/' + parseInt(listDate[1]) + '/' + listDate[2]
             //var listDate = date.split('/')
             //var dateInt = new Date(listDate[2], listDate[1], listDate[0]).getTime();
 
             $('#tb-calendar').find('td[data-day="' + dmy + '"]').addClass('had')
-            console.log(day)
-            console.log(dmy)
             // console.log($('#tb-calendar').find('td[data-day="' + day + '"]'))
         }
         // allCalendar.for
@@ -1278,7 +1287,7 @@ function buildListCalendar(dataIn) {
         if (dataAt.type !== undefined) {
             typeShow = dataAt.type;
         }
-        str += '<p>' + listD[0] + '/' + listD[1] + '/' + listD[2] + ' --' + typeShow + '</p>'
+        str += '<p class="show-cl-detail" attr-dmn='+parseInt(listD[0])+'/'+parseInt(listD[1])+'/'+parseInt(listD[2])+'>' + listD[0] + '/' + listD[1] + '/' + listD[2] + ' --' + typeShow + '</p>'
         str += '<pre>' + escape(dataAt.content) + '</pre>'
         str += '</li>'
     }
@@ -2345,6 +2354,14 @@ function showPhotoPic(){
 }
 $('#image-img-photo').click(function(){
     showPhotoPic();
+});
+
+$("document").on('click', '.show-cl-detail', function() {
+// $('.show-cl-detail').click(function(){
+    var dmy = $(this).attr('attr-dmn')
+    // alert(123)
+    console.log(dmy)
+    $('td[data-day="'+dmy+'"]').trigger('click');
 });
 
 
