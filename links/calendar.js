@@ -13,7 +13,8 @@ function getCalendarStart(dayOfWeek, currentDate) {
   // console.log('dayOfWeek, currentDate');
   // console.log(dayOfWeek, currentDate);
   // dayOfWeek = 1;//set view date at monday
-  var date = currentDate - 1;
+  // var date = currentDate - 1;
+  var date = currentDate;
   var startOffset = (date % 7) - dayOfWeek;
   if (startOffset > 0) {
     startOffset -= 7;
