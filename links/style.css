@@ -132,7 +132,9 @@
 }
 
 .at-task label {
-    word-break: break-all;
+    word-break: break-word;
+    background: #e0c9c9;
+    display: inline;
 }
 
 .footer {

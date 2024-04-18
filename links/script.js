@@ -336,7 +336,7 @@ function tabClick() {
 }
 
 function addEventTodo(text, key) {
-    var str = '<div class="form-event" data-key="' + key + '">' +
+    var str = '<div class="form-event pb-2 d-flex" data-key="' + key + '">' +
         '<div class="col-sm-9 text">' +
         '<input type="text" class="form-control" value="' + text + '">' +
         '</div>' +
