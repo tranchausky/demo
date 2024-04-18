@@ -1930,11 +1930,11 @@ function buildListTodoNew(dataIn) {
         var dataAt = dataIn[key]
 
         str +=
-            '<div class="at-task" data-key="' + key + '">' +
+            '<div class="at-task pb-2 d-flex" data-key="' + key + '">' +
             '<div class="col-sm-9">' +
-            '<input type="checkbox" name="remember" />&nbsp;<label>' + dataAt.task + '</label>' +
+            '&nbsp;<label><input type="checkbox" name="remember" />' + dataAt.task + '</label>' +
             '</div>' +
-            '<div class="col-sm-3 event"><button class="btn btn-default edit">Edit</button></div>' +
+            '<div class="col-sm-3 event text-right"><button class="btn btn-default edit text-right">Edit</button></div>' +
             '</div>';
 
     }
@@ -1975,11 +1975,11 @@ function buildListTodoCompleted(dataIn) {
         var dataAt = dataIn[key]
 
         str +=
-            '<div class="at-task" data-key="' + key + '">' +
+            '<div class="at-task pb-2 d-flex" data-key="' + key + '">' +
             '<div class="col-sm-9">' +
-            '<input type="checkbox" name="remember" />&nbsp;<label> ' + dataAt.task + '</label>' +
+            '<label> <input type="checkbox" name="remember" />' + dataAt.task + '</label>' +
             '</div>' +
-            '<div class="col-sm-3 event"><button class="btn btn-default delete">Delete</button></div>' +
+            '<div class="col-sm-3 event text-right"><button class="btn btn-default delete">Delete</button></div>' +
             '</div>';
 
     }
