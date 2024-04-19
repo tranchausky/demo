@@ -87,9 +87,15 @@ function changeDataAttribute(at, attribtue, value) {
 }
 
 let idleTime = 0;
+console.log('runcheck 5minus')
 setInterval(timerIncrement, 1000);
 //function check after 5minus
 function timerIncrement() {
+    var isremember = localStorage.getItem('isremember');
+    if(isremember == 'true'){
+        return;
+    }
+
 	if(user_ID !='' && !$('#my-ss-login-view').is(':visible')){
 		idleTime++;	
 	}
