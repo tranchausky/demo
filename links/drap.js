@@ -3,8 +3,16 @@ $('.list-drap-drop li').arrangeable({
     dragSelector: '.drag-area'
   });
   
-$('#swot .drag-list *').click(function(){
+$('body').on('click', '#swot .title-swot-basic', function (event) {
+	$('#name1').val("");
+});
+
+$('body').on('click', '#swot ul.drag-list', function (event) {
+//$('#swot ul.drag-list *').click(function(){
+	// alert(123)
     // console.log($(this))
+    // console.log($(this).closest('.list-drap-drop'))
+
 	 var title = $(this).closest('.list-drap-drop').find('h3');
      $('.list-drap-drop h3').removeClass('title-select-swot');
      title.addClass('title-select-swot');
