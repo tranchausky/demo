@@ -1224,9 +1224,6 @@ function getLine(value){
     if(row<=3){
         row=3;
     }
-    if(row>7){
-        row=7;
-    }
     return row;
 }
 
