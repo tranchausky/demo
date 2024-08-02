@@ -132,6 +132,7 @@
 }
 .list-five-task li{
     white-space: pre-line;
+    word-wrap: break-word;
 }
 
 .at-task label {
