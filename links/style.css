@@ -130,6 +130,9 @@
     overflow: auto;
     height: 500px;
 }
+.list-five-task li{
+    white-space: pre-line;
+}
 
 .at-task label {
     word-break: break-word;
