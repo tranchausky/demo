@@ -1179,10 +1179,18 @@ function getFiveTaskToday() {
                 $('#add-task-id').val(key)
                 $('#add-task-1').val(element.one)
                 $('#add-task-1').attr('rows', getLine(element.one));
+
                 $('#add-task-2').val(element.two)
+                $('#add-task-2').attr('rows', getLine(element.two));
+
                 $('#add-task-3').val(element.three)
+                $('#add-task-3').attr('rows', getLine(element.three));
+
                 $('#add-task-4').val(element.four)
+                $('#add-task-4').attr('rows', getLine(element.four));
+
                 $('#add-task-5').val(element.five)
+                $('#add-task-5').attr('rows', getLine(element.five));
 
                 if (element.is_one) {
                     $("#check-task-1").attr('checked', 'checked')
