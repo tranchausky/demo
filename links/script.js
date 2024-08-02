@@ -1178,11 +1178,12 @@ function getFiveTaskToday() {
                 const element = dataReturn[key];
                 $('#add-task-id').val(key)
                 $('#add-task-1').val(element.one)
-                $('#add-task-1').val(element.one)
+                $('#add-task-1').attr('rows', getLine(element.one));
                 $('#add-task-2').val(element.two)
                 $('#add-task-3').val(element.three)
                 $('#add-task-4').val(element.four)
                 $('#add-task-5').val(element.five)
+
                 if (element.is_one) {
                     $("#check-task-1").attr('checked', 'checked')
                 }
@@ -1208,6 +1209,17 @@ function getFiveTaskToday() {
     }, function (errorObject) {
         console.log("The read failed: " + errorObject.code);
     });
+}
+
+function getLine(value){
+    var row= value.split('\n').length;
+    if(row<=3){
+        row=3;
+    }
+    if(row>7){
+        row=7;
+    }
+    return row;
 }
 
 function getFiveTaskOld() {

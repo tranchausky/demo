@@ -281,7 +281,47 @@ ul.drag-list{
     overflow: auto;
 }
 .group-5-task >div{
-    padding-top: 15px;
+    padding-top: 5px;
+}
+.group-5-task ol li {
+    position: relative;
+}
+
+
+.group-5-task ol li {
+    list-style: none;
+    padding-bottom: 10px;
+}
+.group-5-task ol li:nth-child(1) {
+    padding-top: 10px;
+}
+.group-5-task ol li::before {
+    position: absolute;
+    left: -25px;
+    top: 0;
+    color:#ff7306; /* Marker color */
+    font-size: 24px; /* Marker size */
+  }
+.group-5-task ol li:nth-child(1)::before {
+    content: '\278A';
+}
+.group-5-task ol li:nth-child(2)::before {
+    content: '\278B';
+}
+.group-5-task ol li:nth-child(3)::before {
+    content: '\278C';
+}
+.group-5-task ol li:nth-child(4)::before {
+    content: '\278D';
+}
+.group-5-task ol li:nth-child(5)::before {
+    content: '\278E';
+}
+.addVideo::before,
+.addValue::before,
+#add-five-task-today::before{
+    content: '\270D';
+    padding-right: 7px;
 }
 .d-flex{display: flex;}
 .p-1{padding:5px;}
