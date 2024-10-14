@@ -936,7 +936,7 @@ $('#video-input').on("focusout", function (event) {
 });
 $('.addVideo').on("click", function (event) {
     event.preventDefault();
-    if ($('#video-input').val() != '') {
+    if ($('#video-input').val() != '' &&  $('#video-input-title').val() != '') {
         var linkvideo = $('#video-input').val();
 
         var fullvideo = allVideo;
