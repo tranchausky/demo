@@ -262,9 +262,13 @@
     width: 90%;
 }
 #modal-Photo .modal-dialog{
-    width: 90%;
-    min-width: 200px;
-    max-width: 1100px;
+    min-width: 100px;
+    width: fit-content;
+    max-width: 98%;
+}
+#image_preview_photo_double{
+width: auto;
+max-width: 100%;
 }
 .list-drap-drop.drag-list .title{
     font-size: 15px;
