@@ -152,6 +152,14 @@ $(document).ready(function () {
             getListTodoCompleted()
             getListTodoNew()
         }
+        if (atrHref == '#goal') {
+            getListGoalCompleted()
+            getListGoalNew()
+        }
+        if (atrHref == '#habit') {
+            getListHabitCompleted()
+            getListHabitNew()
+        }
         if (atrHref == '#swot') {
             getListSWOT()
         }
@@ -251,6 +259,12 @@ $(document).ready(function () {
     $('#add-task').click(function () {
         pushTodo()
     })
+    $('#btn-add-goal').click(function () {
+        pushGoal()
+    })
+    $('#btn-add-habit').click(function () {
+        pushHabit()
+    })
 
     $(document.body).on('click', '.list-todo-new .edit', function (event) {
         var text = $(this).closest('.at-task').find('label').eq(0).text()
@@ -262,6 +276,31 @@ $(document).ready(function () {
         var text = $(this).closest('.form-event').find('input').eq(0).val()
         updateTodo(text, 'new', key);
     })
+
+    //goal
+    $(document.body).on('click', '.list-goal-new .edit_goal', function (event) {
+        var text = $(this).closest('.at-task').find('label').eq(0).text()
+        var key = $(this).closest('.at-task').attr('data-key')
+        $(this).closest('.at-task').after(addEventGoal(text, key))
+    })
+    $(document.body).on('click', '.list-goal-new .save_goal', function (event) {
+        var key = $(this).closest('.form-event').attr('data-key')
+        var text = $(this).closest('.form-event').find('input').eq(0).val()
+        updateGoal(text, {task:text}, key);
+    })
+    //habit
+    $(document.body).on('click', '.habit .edit_habit', function (event) {
+        var text = $(this).closest('.at-task').find('label').eq(0).text()
+        var key = $(this).closest('.at-task').attr('data-key')
+        $(this).closest('.at-task').after(addEventHabit(text, key))
+    })
+    $(document.body).on('click', '.habit .save_habit', function (event) {
+        var key = $(this).closest('.form-event').attr('data-key')
+        var text = $(this).closest('.form-event').find('input').eq(0).val()
+        updateHabit(text, {task:text}, key);
+    })
+    
+
     $(document.body).on('click', '.list-todo-new input[type="checkbox"]', function (event) {
         var isCheck = $(this).is(":checked");
         if (isCheck == true) {
@@ -276,6 +315,39 @@ $(document).ready(function () {
             updateTodo(allTaskComplete[key]['task'], 'new', key)
         }
     })
+
+    //goal
+    $(document.body).on('click', '.list-goal-new input[type="checkbox"]', function (event) {
+        var isCheck = $(this).is(":checked");
+        if (isCheck == true) {
+            var key = $(this).closest('.at-task').attr('data-key')
+            updateGoal(allGoalNew[key]['task'],{type:'good_old'}, key)
+        }
+    })
+    $(document.body).on('click', '.list-goal-completed input[type="checkbox"]', function (event) {
+        var isCheck = $(this).is(":checked");
+        if (isCheck == true) {
+            var key = $(this).closest('.at-task').attr('data-key')
+            updateGoal(allGoalComplete[key]['task'], {type:'good_old'}, key)
+        }
+    })
+
+    //hait
+    $(document.body).on('click', '.list-habit-good input[type="checkbox"]', function (event) {
+        var isCheck = $(this).is(":checked");
+        if (isCheck == true) {
+            var key = $(this).closest('.at-task').attr('data-key')
+            updateHabit(allHabitNew[key]['task'], {type:'good_old'}, key)
+        }
+    })
+    $(document.body).on('click', '.list-habit-bad input[type="checkbox"]', function (event) {
+        var isCheck = $(this).is(":checked");
+        if (isCheck == true) {
+            var key = $(this).closest('.at-task').attr('data-key')
+            updateHabit(allHabitComplete[key]['task'], {type:'bad_old'}, key)
+        }
+    })
+
 
     $(document.body).on('click', '.list-todo-completed .delete', function (event) {
         var text = $(this).closest('.at-task').find('label').eq(0).text()
@@ -348,6 +420,28 @@ function addEventTodo(text, key) {
         '</div>' +
         '<div class="col-sm-3">' +
         '<button class="btn btn-default save">Save</button>' +
+        '</div>' +
+        '</div>'
+    return str
+}
+function addEventGoal(text, key) {
+    var str = '<div class="form-event pb-2 d-flex" data-key="' + key + '">' +
+        '<div class="col-sm-9 text">' +
+        '<input type="text" class="form-control" value="' + text + '">' +
+        '</div>' +
+        '<div class="col-sm-3">' +
+        '<button class="btn btn-default save_goal">Save</button>' +
+        '</div>' +
+        '</div>'
+    return str
+}
+function addEventHabit(text, key) {
+    var str = '<div class="form-event pb-2 d-flex" data-key="' + key + '">' +
+        '<div class="col-sm-9 text">' +
+        '<input type="text" class="form-control" value="' + text + '">' +
+        '</div>' +
+        '<div class="col-sm-3">' +
+        '<button class="btn btn-default save_habit">Save</button>' +
         '</div>' +
         '</div>'
     return str
@@ -745,6 +839,10 @@ var allPhoto = {}
 var keyCalendar = '';
 var allTaskNew = {}
 var allTaskComplete = {}
+var allGoalNew = {}
+var allGoalComplete = {}
+var allHabitNew = {}
+var allHabitComplete = {}
 var allSWOT = {}
 var allCRUM = {}
 
@@ -1767,6 +1865,41 @@ function pushTodo() {
     })
     $('#add-todo').val('');
 }
+function pushGoal() {
+    var agoal = $('#add-goal').val();
+    var type = $('input[name="type-goal"]:checked').val();
+    if (agoal == '') {
+        return
+    }
+    goalRef = dbRef.ref('goals/' + user_ID)
+    console.log('add goal')
+    goalRef.push({
+        task: agoal,
+        type: type,
+        status: 'new',
+        time: new Date().getTime(),
+        userId: user_ID
+    })
+    $('#add-goal').val('');
+}
+function pushHabit() {
+    var ahabit = $('#add-habit').val();
+     var type = $('input[name="type-habit"]:checked').val();
+
+    if (ahabit == '') {
+        return
+    }
+    habitRef = dbRef.ref('habits/' + user_ID)
+
+    habitRef.push({
+        task: ahabit,
+        type: type,
+        status: 'new',
+        time: new Date().getTime(),
+        userId: user_ID
+    })
+    $('#add-habit').val('');
+}
 
 function updateTodo(todo, status, key) {
     todoRef = dbRef.ref('todos/' + user_ID + '/' + key)
@@ -1776,6 +1909,22 @@ function updateTodo(todo, status, key) {
         time: new Date().getTime(),
         userId: user_ID
     })
+}
+function updateGoal(todo, objupdate, key) {
+    goalRef = dbRef.ref('goals/' + user_ID + '/' + key)
+    objupdate.time = new Date().getTime();
+    goalRef.update(objupdate)
+}
+function updateHabit(todo, objupdate, key) {
+    habitRef = dbRef.ref('habits/' + user_ID + '/' + key)
+    objupdate.time = new Date().getTime();
+    // {
+    //     // task: todo,
+    //     type: type_old,
+    //     time: new Date().getTime(),
+    //     // userId: user_ID
+    // }
+    habitRef.update(objupdate)
 }
 
 function getListTodoNew() {
@@ -1797,6 +1946,67 @@ function getListTodoCompleted() {
         buildListTodoCompleted(newObjectSort)
     })
 }
+
+function getListGoalCompleted() {
+    goalRef = dbRef.ref('goals/' + user_ID)
+    goalRef.orderByChild('status').equalTo('completed').on("value", function (snapshot) {
+        //console.log(snapshot.val());
+        allGoalComplete = snapshot.val()
+        var newObjectSort = sortDescObj(allGoalComplete, 'time')
+        buildListGoalCompleted(newObjectSort)
+    })
+}
+function getListGoalNew() {
+    goalRef = dbRef.ref('goals/' + user_ID)
+    goalRef.orderByChild('status').equalTo('new').on("value", function (snapshot) {
+        // console.log(snapshot.val());
+        allGoalNew = snapshot.val()
+        var newObjectSort = sortDescObj(allGoalNew, 'time')
+        buildListGoalNew(newObjectSort)
+    })
+}
+
+// function getListGoalCompleted() {
+//     goalRef = dbRef.ref('goals/' + user_ID)
+//     goalRef.orderByChild('status').equalTo('completed').on("value", function (snapshot) {
+//         //console.log(snapshot.val());
+//         allGoalComplete = snapshot.val()
+//         var newObjectSort = sortDescObj(allGoalComplete, 'time')
+//         buildListGoalCompleted(newObjectSort)
+//     })
+// }
+
+//habit
+function getListHabitCompleted() {
+    habitRef = dbRef.ref('habits/' + user_ID)
+    //whereEqualTo("status", "new")
+    //where("status", "=", "new").
+    habitRef.orderByChild('type').equalTo('bad').on("value", function (snapshot) {
+        //console.log(snapshot.val());
+        allHabitComplete = snapshot.val()
+        var newObjectSort = sortDescObj(allHabitComplete, 'time')
+        buildListHabitCompleted(newObjectSort)
+    })
+}
+function getListHabitNew() {
+    habitRef = dbRef.ref('habits/' + user_ID)
+    habitRef.orderByChild('type').equalTo('good').on("value", function (snapshot) {
+        // console.log(snapshot.val());
+        allHabitNew = snapshot.val()
+        var newObjectSort = sortDescObj(allHabitNew, 'time')
+        buildListHabitNew(newObjectSort)
+    })
+}
+
+// function getListGoalCompleted() {
+//     habitRef = dbRef.ref('habits/' + user_ID)
+//     habitRef.orderByChild('status').equalTo('completed').on("value", function (snapshot) {
+//         //console.log(snapshot.val());
+//         allHabitComplete = snapshot.val()
+//         var newObjectSort = sortDescObj(allHabitComplete, 'time')
+//         buildListHabitCompleted(newObjectSort)
+//     })
+// }
 
 function getListSWOT() {
     //var listKey = ['s','w','o','t'];
@@ -1985,13 +2195,79 @@ function buildListTodoNew(dataIn) {
         str +=
             '<div class="at-task pb-2 d-flex" data-key="' + key + '">' +
             '<div class="col-sm-9">' +
-            '&nbsp;<label><input type="checkbox" name="remember" />' + dataAt.task + '</label>' +
+            '&nbsp;<input type="checkbox" name="remember" /> <label>' + dataAt.task + '</label>' +
             '</div>' +
             '<div class="col-sm-3 event text-right"><button class="btn btn-default edit text-right">Edit</button></div>' +
             '</div>';
 
     }
     $('.list-todo-new .list-group').html(str);
+}
+
+function buildListGoalNew(dataIn) {
+    var str = '';
+    for (var key in dataIn) {
+        var dataAt = dataIn[key]
+
+        str +=
+            '<div class="at-task pb-2 d-flex" data-key="' + key + '">' +
+            '<div class="col-sm-9">' +
+            '&nbsp;<input type="checkbox" name="remember" /> <label>' + dataAt.task + '</label>' +
+            '</div>' +
+            '<div class="col-sm-3 event text-right"><button class="btn btn-default edit_goal text-right">Edit</button></div>' +
+            '</div>';
+
+    }
+    $('.list-goal-new .list-group').html(str);
+}
+function buildListGoalCompleted(dataIn) {
+    var str = '';
+    for (var key in dataIn) {
+        var dataAt = dataIn[key]
+
+        str +=
+            '<div class="at-task pb-2 d-flex" data-key="' + key + '">' +
+            '<div class="col-sm-9">' +
+            ' <input type="checkbox" name="remember" /> <label>' + dataAt.task + '</label>' +
+            '</div>' +
+            '<div class="col-sm-3 event text-right"><button class="btn btn-default delete">Delete</button></div>' +
+            '</div>';
+
+    }
+    $('.list-goal-completed .list-group').html(str);
+}
+//habit
+function buildListHabitNew(dataIn) {
+    var str = '';
+    for (var key in dataIn) {
+        var dataAt = dataIn[key]
+
+        str +=
+            '<div class="at-task pb-2 d-flex" data-key="' + key + '">' +
+            '<div class="col-sm-9">' +
+            '&nbsp;<input type="checkbox" name="remember" /> <label>' + dataAt.task + '</label>' +
+            '</div>' +
+            '<div class="col-sm-3 event text-right"><button class="btn btn-default edit_habit text-right">Edit</button></div>' +
+            '</div>';
+
+    }
+    $('.list-habit-good .list-group').html(str);
+}
+function buildListHabitCompleted(dataIn) {
+    var str = '';
+    for (var key in dataIn) {
+        var dataAt = dataIn[key]
+
+        str +=
+            '<div class="at-task pb-2 d-flex" data-key="' + key + '">' +
+            '<div class="col-sm-9">' +
+            ' <input type="checkbox" name="remember" /> <label>' + dataAt.task + '</label>' +
+            '</div>' +
+            '<div class="col-sm-3 event text-right"><button class="btn btn-default edit_habit">Edit</button></div>' +
+            '</div>';
+
+    }
+    $('.list-habit-bad .list-group').html(str);
 }
 
 function buildListSwot(keySwot, dataIn) {
@@ -2030,7 +2306,7 @@ function buildListTodoCompleted(dataIn) {
         str +=
             '<div class="at-task pb-2 d-flex" data-key="' + key + '">' +
             '<div class="col-sm-9">' +
-            '<label> <input type="checkbox" name="remember" />' + dataAt.task + '</label>' +
+            ' <input type="checkbox" name="remember" /> <label>' + dataAt.task + '</label>' +
             '</div>' +
             '<div class="col-sm-3 event text-right"><button class="btn btn-default delete">Delete</button></div>' +
             '</div>';

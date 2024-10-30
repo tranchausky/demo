@@ -59,6 +59,8 @@
                         <li class=""><a href="#calendar">Calendar</a></li>
                         <li class=""><a href="#fivetask" style="text-decoration: line-through;">5 Task</a></li>
                         <li class=""><a href="#todo">Todo</a></li>
+                        <li class=""><a href="#goal">Goal</a></li>
+                        <li class=""><a href="#habit">Habit</a></li>
                         <li class=""><a href="#photo">Photo</a></li>
                         <li class=""><a href="#video">Video</a></li>
                         <li class=""><a href="#ebook">Ebook</a></li>
@@ -561,6 +563,172 @@
 
                                     </div>
 
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-3"></div>
+                    </div>
+                </div>
+                <div id="goal" class="hide v-m-content goal">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <h3>Goal </h3>
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-3"></div>
+                        <div class="col-sm-6">
+                            <div class="row p-2">
+                                <h3>Add Item</h3>
+                                <hr>
+                            </div>
+                            <div class="row p-2">
+                                <div class="form-group">
+                                    <div class="col-sm-10">
+                                        <input type="text" id="add-goal" class="form-control">
+                                        <label for=""><input type="radio" name="type-goal" id="good" value="one" checked>Week</label>
+                                        <label for=""><input type="radio" name="type-goal" id="bad" value="two">Month</label>
+                                        <label for=""><input type="radio" name="type-goal" id="bad" value="three">3 Month</label>
+                                        <label for=""><input type="radio" name="type-goal" id="bad" value="four">1 year</label>
+                                        <label for=""><input type="radio" name="type-goal" id="bad" value="five">5 year</label>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <button class="btn btn-default" id="btn-add-goal">Add</button>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="row p-2">
+                                <h3>Goal</h3>
+                                <hr>
+                            </div>
+                            <div class="row list-goal-new p-2">
+                                <div class="form-group">
+                                    <div class="list-group">
+                                        <div>
+                                            <div class="col-sm-9">
+                                                <label><input type="checkbox" name="remember"> asdf asdf asdf asdfas
+                                                    fasd asdf asdf</label>
+                                            </div>
+                                            <div class="col-sm-3">
+                                                <button class="btn btn-default">Edit</button>
+                                            </div>
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row p-2">
+                                <h3>COMPLETED</h3>
+                                <hr>
+                            </div>
+                            <div class="row p-2 list-goal-completed">
+                                <div class="form-group">
+                                    <div class="list-group">
+                                        <div>
+                                            <div class="col-sm-9">
+                                                <label><input type="checkbox" name="remember"> asdf asdf asdf asdfas
+                                                    fasd asdf asdf</label>
+                                            </div>
+                                            <div class="col-sm-3 enent">
+                                                <button class="btn btn-default">Edit</button>
+                                                <button class="btn btn-default">Delete</button>
+                                            </div>
+                                        </div>
+                                        <div class="form-event">
+                                            <div class="col-sm-9 text">
+                                                <input type="text" class="form-control">
+                                            </div>
+                                            <div class="col-sm-3">
+                                                <button class="btn btn-default">Save</button>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-3"></div>
+                    </div>
+                </div>
+                <div id="habit" class="hide v-m-content habit">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <h3>habit </h3>
+                        </div>
+                
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-3"></div>
+                        <div class="col-sm-6">
+                            <div class="row p-2">
+                                <h3>Add Item</h3>
+                                <hr>
+                            </div>
+                            <div class="row p-2">
+                                <div class="form-group">
+                                    <div class="col-sm-10">
+                                        <input type="text" id="add-habit" class="form-control">
+
+                                        <label for=""><input type="radio" name="type-habit" id="good" value="good" checked>good</label>
+                                        <label for=""><input type="radio" name="type-habit" id="bad" value="bad">bad</label>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <button class="btn btn-default" id="btn-add-habit">Add</button>
+                                    </div>
+                
+                                </div>
+                            </div>
+                            <div class="row p-2">
+                                <h3>Good</h3>
+                                <hr>
+                            </div>
+                            <div class="row list-habit-good p-2">
+                                <div class="form-group">
+                                    <div class="list-group">
+                                        <!-- <div>
+                                            <div class="col-sm-9">
+                                                <label><input type="checkbox" name="remember"> asdf asdf asdf asdfas
+                                                    fasd asdf asdf</label>
+                                            </div>
+                                            <div class="col-sm-3">
+                                                <button class="btn btn-default">Edit</button>
+                                            </div>
+                                        </div> -->
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row p-2">
+                                <h3>Bad</h3>
+                                <hr>
+                            </div>
+                            <div class="row p-2 list-habit-bad">
+                                <div class="form-group">
+                                    <div class="list-group">
+                                        <!-- <div>
+                                            <div class="col-sm-9">
+                                                <label><input type="checkbox" name="remember"> asdf asdf asdf asdfas
+                                                    fasd asdf asdf</label>
+                                            </div>
+                                            <div class="col-sm-3 enent">
+                                                <button class="btn btn-default">Edit</button>
+                                                <button class="btn btn-default">Delete</button>
+                                            </div>
+                                        </div>
+                                        <div class="form-event">
+                                            <div class="col-sm-9 text">
+                                                <input type="text" class="form-control">
+                                            </div>
+                                            <div class="col-sm-3">
+                                                <button class="btn btn-default">Save</button>
+                                            </div>
+                                        </div>
+                 -->
+                                    </div>
+                
                                 </div>
                             </div>
                         </div>
