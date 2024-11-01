@@ -380,6 +380,10 @@ $(document).ready(function () {
     $(document.body).on('change', '#edit-private-photo', function (event) {
         updatePhoto()
     })
+	$(document.body).on('change', '#list-cat-btn-video', function (event) {
+        //updateVideo()
+		getListVideo();
+    })
 
 
 });
@@ -488,7 +492,7 @@ function changeVideo(videoUrl, cat_id, key) {
     $('#video-iframe').html(str);
 }
 
-function changeLinkVideo(videId, videoUrl, key) {
+function changeLinkVideo(videId, videoUrl, key, cat_id) {
     // $('#image-img-photo').attr('src', link)
     // $('#image-img-photo').attr('key-id', key)
     // var d = new Date(allPhoto[key].time);
@@ -498,7 +502,7 @@ function changeLinkVideo(videId, videoUrl, key) {
     //     $('#edit-private-photo').prop('checked', true);
     // }
     // $('#photo-time').html(d.toLocaleString())
-    // $('.list-cat-btn-edit').html('<option value="">All</option>' + buildSelectPhotoCat(cat_id))
+     $('.list-cat-btn-edit').html('<option value="">All</option>' + buildSelectVideoCat(cat_id))
     var timeShow = allVideo[key].time;
     $('#video-time').html(intToTime(timeShow));
     $('#id_video_now').attr('attr-video', key);
@@ -604,6 +608,7 @@ var listOptionPhoto = {
 }
 
 var listOptionVideo = {
+    0: 'Default',
     1: 'Gym',
     2: 'Learning',
     3: 'Skill',
@@ -1055,6 +1060,7 @@ $('.addVideo').on("click", function (event) {
             alert('Duplicate added video!');
             return;
         }
+		
 
         var data = {};
         data.url = $('#video-input').val();
@@ -1662,7 +1668,8 @@ function pushPhoto(image) {
 
 function pushVideo(data) {
     var is_show = $('#img_is_show_video').is(':checked');
-    var id_cat = $(".list-select-option-video option:selected").val();
+    //var id_cat = $(".list-select-option-video option:selected").val();
+	var id_cat = $('#option-video').val();
     var videoId = YouTubeGetID(data.url);
     // alert(videoId)
     if (videoId == '') {
@@ -1726,6 +1733,27 @@ function getListPhoto() {
         $('#photo .list-image').html(str);
         if (snapshot.val() != null)
             lastTimePhoto = newObjectSort[Object.keys(newObjectSort)[Object.keys(newObjectSort).length - 1]].time
+    })
+}
+
+function getListVideo() {
+    videoRef = dbRef.ref('videos/' + user_ID)
+    var id_cat_show = $(".list-cat-btn-video option:selected").val();
+    var query = videoRef.limitToLast(9999);
+
+    if (id_cat_show != '') {
+        query = videoRef.orderByChild("id_cat").equalTo(id_cat_show)
+    }
+    query.on("value", function (snapshot) {
+        //videoRef.on("value", function(snapshot) {
+        // console.log(snapshot.val());
+        allVideo = snapshot.val()
+        var newObjectSort = sortDescObj(allVideo, 'time')
+        var str = buildListVideo(newObjectSort)
+        $('#video .list-image').html(str);
+        //$('#photo .list-image').html(str);
+        //if (snapshot.val() != null)
+        //    lastTimePhoto = newObjectSort[Object.keys(newObjectSort)[Object.keys(newObjectSort).length - 1]].time
     })
 }
 
@@ -1793,6 +1821,19 @@ function updatePhoto() {
         userId: user_ID
     })
 }
+function updateVideo() {
+    var id_cat_new = $(".list-cat-btn-video option:selected").val();
+    //var is_show_new = $('#edit-private-photo').is(':checked');
+    //var key = $("#image-img-photo").attr('key-id');
+    photoRef = dbRef.ref('photos/' + user_ID + '/' + key)
+    photoRef.update({
+        //is_show: is_show_new,
+        //pic: allPhoto[key]['pic'],
+        id_cat: id_cat_new,
+        time: new Date().getTime(),
+        userId: user_ID
+    })
+}
 
 function buildListPhoto(dataIn) {
     lengthSize = Object.keys(dataIn).length;
@@ -1825,7 +1866,7 @@ function buildListVideo(dataIn) {
         let domain = getDomain(dataAt.url);
 
         if (dataAt.is_show == false && typeof dataAt.videId != undefined && domain == 'youtube.com') {
-            str += '<div class="col-sm-3 col-xs-6"><img class="img-thumbnail" onclick="changeLinkVideo(&apos;' + dataAt.videId + '&apos;,&apos;' + dataAt.url + '&apos;,&apos;' + key + '&apos;)" str-big="' + dataAt.url + '" src="https://i.ytimg.com/vi/' + dataAt.videId + '/default.jpg" alt="" title="' + dataAt.title + '"><p class="hide">' + dataAt.title + '</p></div>'
+            str += '<div class="col-sm-3 col-xs-6"><img class="img-thumbnail" onclick="changeLinkVideo(&apos;' + dataAt.videId + '&apos;,&apos;' + dataAt.url + '&apos;,&apos;' + key + '&apos;,&apos;' + dataAt.id_cat + '&apos;)" str-big="' + dataAt.url + '" src="https://i.ytimg.com/vi/' + dataAt.videId + '/default.jpg" alt="" title="' + dataAt.title + '"><p class="hide">' + dataAt.title + '</p></div>'
             str += '<div class="col-sm-3 col-xs-6"><small>' + dataAt.title + '</small></div>';
         } else {
             try {
@@ -2266,7 +2307,7 @@ function buildListGoalCompleted(dataIn) {
         str +=
             '<div class="at-task pb-2 d-flex" data-key="' + key + '">' +
             '<div class="col-sm-9">' +
-            ' <input type="checkbox" name="remember" /> <label>' + dataAt.task + '</label>' +
+            ' <label>' + dataAt.task + '</label>' +
             '</div>' +
             '<div class="col-sm-3 event text-right"><button class="btn btn-default delete">Delete</button></div>' +
             '</div>';

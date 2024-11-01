@@ -351,6 +351,7 @@ ul.drag-list{
 .pb-3{
     padding-bottom: 15px;
 }
+.d-none{display:none;}
 
 
 .edit_view,.iconbs{
