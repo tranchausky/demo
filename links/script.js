@@ -279,6 +279,9 @@ $(document).ready(function () {
 
     //goal
     $(document.body).on('click', '.list-goal-new .edit_goal', function (event) {
+		if($(this).closest('.list-group').find('.form-event').length>0){
+			return;
+		}
         var text = $(this).closest('.at-task').find('label').eq(0).text()
         var key = $(this).closest('.at-task').attr('data-key')
         $(this).closest('.at-task').after(addEventGoal(text, key))
@@ -290,6 +293,9 @@ $(document).ready(function () {
     })
     //habit
     $(document.body).on('click', '.habit .edit_habit', function (event) {
+		if($(this).closest('.list-group').find('.form-event').length>0){
+			return;
+		}
         var text = $(this).closest('.at-task').find('label').eq(0).text()
         var key = $(this).closest('.at-task').attr('data-key')
         $(this).closest('.at-task').after(addEventHabit(text, key))
@@ -321,7 +327,7 @@ $(document).ready(function () {
         var isCheck = $(this).is(":checked");
         if (isCheck == true) {
             var key = $(this).closest('.at-task').attr('data-key')
-            updateGoal(allGoalNew[key]['task'],{type:'good_old'}, key)
+            updateGoal(allGoalNew[key]['task'],{'status':'completed'}, key)
         }
     })
     $(document.body).on('click', '.list-goal-completed input[type="checkbox"]', function (event) {
@@ -331,21 +337,27 @@ $(document).ready(function () {
             updateGoal(allGoalComplete[key]['task'], {type:'good_old'}, key)
         }
     })
+	$(document.body).on('click', '.list-goal-completed .delete', function (event) {
+        var text = $(this).closest('.at-task').find('label').eq(0).text()
+        var key = $(this).closest('.at-task').attr('data-key')
+        updateGoal(allGoalComplete[key]['task'], {'status':'delete'}, key)
+    })
 
     //hait
-    $(document.body).on('click', '.list-habit-good input[type="checkbox"]', function (event) {
-        var isCheck = $(this).is(":checked");
-        if (isCheck == true) {
+    $(document.body).on('click', '.list-habit-good .remove-habit', function (event) {
+		
+        // var isCheck = $(this).is(":checked");
+        // if (isCheck == true) {
             var key = $(this).closest('.at-task').attr('data-key')
             updateHabit(allHabitNew[key]['task'], {type:'good_old'}, key)
-        }
+        // }
     })
-    $(document.body).on('click', '.list-habit-bad input[type="checkbox"]', function (event) {
-        var isCheck = $(this).is(":checked");
-        if (isCheck == true) {
+    $(document.body).on('click', '.list-habit-bad .remove-habit', function (event) {
+        // var isCheck = $(this).is(":checked");
+        // if (isCheck == true) {
             var key = $(this).closest('.at-task').attr('data-key')
             updateHabit(allHabitComplete[key]['task'], {type:'bad_old'}, key)
-        }
+        // }
     })
 
 
@@ -426,11 +438,11 @@ function addEventTodo(text, key) {
 }
 function addEventGoal(text, key) {
     var str = '<div class="form-event pb-2 d-flex" data-key="' + key + '">' +
-        '<div class="col-sm-9 text">' +
+        '<div class="col-sm-10 view-a text">' +
         '<input type="text" class="form-control" value="' + text + '">' +
         '</div>' +
-        '<div class="col-sm-3">' +
-        '<button class="btn btn-default save_goal">Save</button>' +
+        '<div class="col-sm-2 event">' +
+        '<button class="btn btn-default save_goal save_view iconbs"></button>' +
         '</div>' +
         '</div>'
     return str
@@ -2205,20 +2217,46 @@ function buildListTodoNew(dataIn) {
 }
 
 function buildListGoalNew(dataIn) {
-    var str = '';
+    var str_1 = '';
+    var str_2 = '';
+    var str_3 = '';
+    var str_4 = '';
+    var str_5 = '';
+    var str_temp = '';
     for (var key in dataIn) {
-        var dataAt = dataIn[key]
-
-        str +=
+		
+        var dataAt = dataIn[key];
+		str_temp =
             '<div class="at-task pb-2 d-flex" data-key="' + key + '">' +
-            '<div class="col-sm-9">' +
+            '<div class="col-sm-10 view-a">' +
             '&nbsp;<input type="checkbox" name="remember" /> <label>' + dataAt.task + '</label>' +
             '</div>' +
-            '<div class="col-sm-3 event text-right"><button class="btn btn-default edit_goal text-right">Edit</button></div>' +
+            '<div class="col-sm-2 event text-right"><button class="btn btn-default edit_goal text-right"><span class="edit_view"></span></button></div>' +
             '</div>';
+		switch (dataAt.type){
+			case "one":
+				str_1 += str_temp;
+				break;
+			case "two":
+				str_2 += str_temp;
+				break;
+			case "three":
+				str_3 += str_temp;
+				break;
+			case "four":
+				str_4 += str_temp;
+				break;
+			default:
+				str_5 += str_temp;
+				break;
+        }
 
     }
-    $('.list-goal-new .list-group').html(str);
+    $('.list-goal-new .list-group.goal_one').html(str_1);
+    $('.list-goal-new .list-group.goal_two').html(str_2);
+    $('.list-goal-new .list-group.goal_three').html(str_3);
+    $('.list-goal-new .list-group.goal_four').html(str_4);
+    $('.list-goal-new .list-group.goal_five').html(str_5);
 }
 function buildListGoalCompleted(dataIn) {
     var str = '';
@@ -2244,10 +2282,10 @@ function buildListHabitNew(dataIn) {
 
         str +=
             '<div class="at-task pb-2 d-flex" data-key="' + key + '">' +
-            '<div class="col-sm-9">' +
-            '&nbsp;<input type="checkbox" name="remember" /> <label>' + dataAt.task + '</label>' +
+            '<div class="col-sm-9 view-habit-detail">' +
+            '&nbsp;<input type="checkbox" name="remember" id="habit'+key+'"/><button class="remove-habit" for="habit'+key+'"></button> <label>' + dataAt.task + '</label>' +
             '</div>' +
-            '<div class="col-sm-3 event text-right"><button class="btn btn-default edit_habit text-right">Edit</button></div>' +
+            '<div class="col-sm-3 event text-right"><button class="btn btn-default edit_habit text-right"><span class="edit_view"></span></button></div>' +
             '</div>';
 
     }
@@ -2260,10 +2298,10 @@ function buildListHabitCompleted(dataIn) {
 
         str +=
             '<div class="at-task pb-2 d-flex" data-key="' + key + '">' +
-            '<div class="col-sm-9">' +
-            ' <input type="checkbox" name="remember" /> <label>' + dataAt.task + '</label>' +
+            '<div class="col-sm-9 view-habit-detail">' +
+            '&nbsp;<input type="checkbox" name="remember" id="habit'+key+'"/><button class="remove-habit" for="habit'+key+'"></button> <label>' + dataAt.task + '</label>' +
             '</div>' +
-            '<div class="col-sm-3 event text-right"><button class="btn btn-default edit_habit">Edit</button></div>' +
+            '<div class="col-sm-3 event text-right"><button class="btn btn-default edit_habit"><span class="edit_view"></span></button></div>' +
             '</div>';
 
     }
