@@ -624,7 +624,7 @@ var listOptionPhoto = {
 }
 
 var listOptionVideo = {
-    0: 'Default',
+    0: 'Basic',
     1: 'Gym',
     2: 'Learning',
     3: 'Skill',
