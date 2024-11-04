@@ -145,8 +145,10 @@ $(document).ready(function () {
         }
         if (atrHref == '#video') {
             $('.list-select-option-video').html(buildSelectVideoCat(''))
-            $('.list-cat-btn-video').html('<option value="">All</option>' + buildSelectVideoCat(''))
-            getListVideo()
+            $('.list-cat-btn-video').html('<option value="">All</option>' + buildSelectVideoCat(''));
+			buildSelectToBtnBasic('#list-cat-btn-video','#buttonListVideo');
+            getListVideo('');
+			
         }
         if (atrHref == '#todo') {
             getListTodoCompleted()
@@ -174,6 +176,7 @@ $(document).ready(function () {
             getListNotes()
         }
     })
+	
 
     window.onscroll = function() {myFunction()};
     function myFunction() {
@@ -371,18 +374,28 @@ $(document).ready(function () {
     $(document.body).on('change', '.list-cat-btn', function (event) {
         getListPhoto()
     })
-    $(document.body).on('change', '#home-select-forview', function (event) {
-        getListContactFilter();
+    //$(document.body).on('change', '#home-select-forview', function (event) {
+        //getListContactFilter();
+    //})
+	$(document.body).on('click', '#buttonListLink li button', function (event) {
+		$('#buttonListLink li button').removeClass('active');
+		$(this).addClass('active');
+		var value= $(this).attr('value');
+		getListContactFilter(value);
+        //getListContactFilter();
     })
-    $(document.body).on('change', '.list-cat-btn-edit', function (event) {
-        updatePhoto()
+    $(document.body).on('change', '#list-cat-btn-video-edit', function (event) {
+        updateVideo()
     })
     $(document.body).on('change', '#edit-private-photo', function (event) {
         updatePhoto()
     })
-	$(document.body).on('change', '#list-cat-btn-video', function (event) {
-        //updateVideo()
-		getListVideo();
+	//$(document.body).on('change', '#list-cat-btn-video', function (event) {
+	$(document.body).on('click', '#buttonListVideo li button', function (event) {
+		$('#buttonListVideo li button').removeClass('active');
+		$(this).addClass('active');
+		var value= $(this).attr('value');
+		getListVideo(value);
     })
 
 
@@ -502,10 +515,10 @@ function changeLinkVideo(videId, videoUrl, key, cat_id) {
     //     $('#edit-private-photo').prop('checked', true);
     // }
     // $('#photo-time').html(d.toLocaleString())
-     $('.list-cat-btn-edit').html('<option value="">All</option>' + buildSelectVideoCat(cat_id))
+     $('#list-cat-btn-video-edit').html('<option value="">All</option>' + buildSelectVideoCat(cat_id))
     var timeShow = allVideo[key].time;
     $('#video-time').html(intToTime(timeShow));
-    $('#id_video_now').attr('attr-video', key);
+    $('#id_video_now').attr('key-id', key);
 
     var str = '<p><a href="' + videoUrl + '">Link video</a></p><iframe src="https://www.youtube.com/embed/' + videId + '" width="100%" height="400px" allowfullscreen></iframe>';
     $('#video-iframe').html(str);
@@ -518,7 +531,7 @@ function changeVideoBase64(videId, videoUrl, key) {
 }
 
 function deleteVideo() {
-    var idKey = $('#id_video_now').attr('attr-video');
+    var idKey = $('#id_video_now').attr('key-id');
     if (idKey == null) {
         return;
     }
@@ -566,6 +579,9 @@ function checkDetailCalendar(at) {
 
 
 var listOption = {};
+listOption.default = {
+	"": 'Default',
+}
 listOption.note = {
     3.0: 'Different',
     3.1: 'Video/Movie',
@@ -616,6 +632,7 @@ var listOptionVideo = {
     5: 'Movie',
     6: 'Entertaiment',
     7: 'Different',
+    8: 'FAVORIS',
 }
 
 
@@ -919,12 +936,13 @@ function loadData() {
         */
 }
 
-function getListContactFilter(){
+function getListContactFilter(id_show){
 
-    var id_show = $("#home-select-forview option:selected").val();
+    //var id_show = $("#home-select-forview option:selected").val();
     
     if(id_show == ''){
-        loadData()
+		$('#contacts').html('');
+        loadData();
         return;
     }
 
@@ -1589,7 +1607,7 @@ function contactHtmlFromObject(contact) {
 
 
 function buildSelect() {
-    var str = '<option value="">Select Type</option>';
+    var str = '';
     for (const prop in listOption) {
         str += '<optgroup label="' + prop + '">'
         //console.log(listOption[prop])
@@ -1601,7 +1619,61 @@ function buildSelect() {
     }
     //str += '</select>';
     //console.log(str)
-    $('.list-select-option').html(str)
+    $('.list-select-option').html(str);
+	buildSelectToBtn();
+}
+
+
+function buildSelectToBtnBasic(atSelect,atView){
+	const $buttonList = $(atView);
+	$(atSelect+" option").each(function() {
+		const optionText = $(this).text();
+		const optionValue = $(this).val();
+
+		// Create li and button elements
+		const $li = $("<li>");
+		const $button = $("<button>")
+			.text(optionText)
+			.val(optionValue)
+			.on("click", function() {
+				console.log("Button clicked:", $(this).val());
+			});
+
+		// Append button to li, and li to ul
+		$li.append($button);
+		$buttonList.append($li);
+	});
+}
+function buildSelectToBtn(){
+	const $buttonList = $("#buttonListLink");
+
+    // Iterate through each optgroup in the select element
+    $("#home-select-forview optgroup").each(function() {
+        const groupLabel = $(this).attr("label");
+
+        // Create an li element for the optgroup label
+        const $groupHeader = $("<li>").text(groupLabel).addClass("group-header");
+        $buttonList.append($groupHeader);
+
+        // Iterate through each option within the current optgroup
+        $(this).find("option").each(function() {
+            const optionText = $(this).text();
+            const optionValue = $(this).val();
+
+            // Create button within li
+            const $li = $("<li>");
+            const $button = $("<button>")
+                .text(optionText)
+                .val(optionValue)
+                .on("click", function() {
+                    console.log("Button clicked:", $(this).val());
+                });
+
+            // Append button to li, and li to ul
+            $li.append($button);
+            $buttonList.append($li);
+        });
+    });
 }
 
 function buildSelectPhotoCat(key) {
@@ -1735,7 +1807,7 @@ function getListPhoto() {
             lastTimePhoto = newObjectSort[Object.keys(newObjectSort)[Object.keys(newObjectSort).length - 1]].time
     })
 }
-
+/*
 function getListVideo() {
     videoRef = dbRef.ref('videos/' + user_ID)
     var id_cat_show = $(".list-cat-btn-video option:selected").val();
@@ -1756,17 +1828,20 @@ function getListVideo() {
         //    lastTimePhoto = newObjectSort[Object.keys(newObjectSort)[Object.keys(newObjectSort).length - 1]].time
     })
 }
+*/
 
 var lastTimeVideo = ''
 
-function getListVideo() {
+function getListVideo(id_cat_show) {
     videoRef = dbRef.ref('videos/' + user_ID)
-    var id_cat_show = $(".list-cat-btn-video option:selected").val();
+    //var id_cat_show = $(".list-cat-btn-video option:selected").val();
     var query = videoRef.limitToLast(9999);
 
     if (id_cat_show != '') {
         query = videoRef.orderByChild("id_cat").equalTo(id_cat_show)
-    }
+    }else{
+		query = videoRef
+	}
     query.on("value", function (snapshot) {
         //photoRef.on("value", function(snapshot) {
         // console.log(snapshot.val());
@@ -1822,11 +1897,10 @@ function updatePhoto() {
     })
 }
 function updateVideo() {
-    var id_cat_new = $(".list-cat-btn-video option:selected").val();
-    //var is_show_new = $('#edit-private-photo').is(':checked');
-    //var key = $("#image-img-photo").attr('key-id');
-    photoRef = dbRef.ref('photos/' + user_ID + '/' + key)
-    photoRef.update({
+    var id_cat_new = $("#list-cat-btn-video-edit option:selected").val();
+    var key = $("#id_video_now").attr('key-id');
+	videoRef = dbRef.ref('videos/' + user_ID+ '/' + key)
+    videoRef.update({
         //is_show: is_show_new,
         //pic: allPhoto[key]['pic'],
         id_cat: id_cat_new,

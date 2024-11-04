@@ -166,13 +166,15 @@
 
                         </div>
                         <div class="col-sm-6">
-                            <p>List Length <span id="size-list"></span></p>
-                            <select name="city" id="home-select-forview" class="form-control list-select-option">
+                            
+                            <select name="city" id="home-select-forview" class="form-control list-select-option d-none">
                                 <optgroup label="Working">
                                     <option value="1">Working</option>
                                     <option value="saab">Saab</option>
                                 </optgroup>
                             </select>
+							<ul id="buttonListLink" class="button-list-view"></ul>
+							<p>List Length <span id="size-list"></span></p>
                             <p id="nextPage" onclick="getNextPage()">last</p>
                             <ul id="contacts" class="contact list-group">
                                 <!-- Contact Object li.list-group-item.contact will be added here by js -->
@@ -993,10 +995,12 @@
                     </div>
                     <hr />
                     <div class="row">
-                        <div class="col-sm-3">
-                            <select name="list-cat-btn-video" class="form-control list-cat-btn-video" id="list-cat-btn-video"></select>
+                        <div class="col-sm-6">
+                            <select name="list-cat-btn-video" class="form-control list-cat-btn-video d-none" id="list-cat-btn-video"></select>
+							
+							<ul id="buttonListVideo" class="button-list-view"></ul>
                         </div>
-                        <div class="col-sm-3">
+                        <div class="col-sm-6">
                             <p>List total: <span id="total-video"></span></p>
                         </div>
                     </div>
@@ -1008,7 +1012,7 @@
                             <div class="row">
                                 <div class="col-sm-6 col-lg-4">
                                     <label for="">Edit category Video</label>
-                                    <select name="list-cat-btn-edit" class="form-control list-cat-btn-edit" id="list-cat-btn-video-edit"></select>
+                                    <select name="list-cat-btn-edit-video" class="form-control list-cat-btn-edit-video" id="list-cat-btn-video-edit"></select>
                                 </div>
                                 <div class="col-sm-6 col-lg-3 d-none">
                                     <input id="edit-private-video" type="checkbox">
@@ -1021,9 +1025,10 @@
                                     <span id="video-time"></span>
                                 </div>
 
-                                <!-- <div class="col-sm-6 col-lg-3">
-                                    <button class="btn" onclick="deleteVideo()" id="id_video_now" attr-video="">Delete</button>
-                                </div> -->
+                                <div class="col-sm-6 col-lg-3">
+                                    <!-- <button class="btn" onclick="deleteVideo()" >Delete</button> -->
+									<input type="hidden" id="id_video_now" key-id="">
+                                </div>
                             </div>
                             <br><br>
                             <div class="row">
