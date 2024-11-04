@@ -387,6 +387,12 @@ $(document).ready(function () {
     $(document.body).on('change', '#list-cat-btn-video-edit', function (event) {
         updateVideo()
     })
+	$(document.body).on('change', '#sort-video', function (event) {
+        changeSortVideo();
+    });
+	$(document.body).on('change', '#sort-contacts', function (event) {
+        changeSortContacts(allContacts);
+    });
     $(document.body).on('change', '#edit-private-photo', function (event) {
         updatePhoto()
     })
@@ -883,6 +889,28 @@ var allCRUM = {}
 var videoRef = null;
 var allVideo = {};
 
+function sortDescObj(list, key, order = 'desc') {
+    if (list == null || typeof list !== 'object' || Object.keys(list).length === 0) {
+        return null;
+    }
+
+    // Sorting keys based on the specified order
+    var sortedKeys = Object.keys(list).sort(function (a, b) {
+        if (order === 'asc') {
+            return list[a][key] > list[b][key] ? 1 : -1;
+        } else {
+            return list[a][key] > list[b][key] ? -1 : 1;
+        }
+    });
+
+    // Creating a new sorted object
+    var newObjectSort = {};
+    for (let index = 0; index < sortedKeys.length; index++) {
+        newObjectSort[sortedKeys[index]] = list[sortedKeys[index]];
+    }
+    return newObjectSort;
+}
+/*
 function sortDescObj(list, key) {
     if (list == null || list == [] || list == {}) {
         return null
@@ -899,6 +927,7 @@ function sortDescObj(list, key) {
     }
     return newObjectSort
 }
+*/
 
 function loadData() {
     //load older conatcts as well as any newly added one...
@@ -911,8 +940,10 @@ function loadData() {
     contactsRef.orderByChild('time').on("value", function (snapshot) {
 
         allContacts = snapshot.val()
-        var newObjectSort = sortDescObj(allContacts, 'time')
-        showContentContact(newObjectSort)
+		console.log(allContacts)
+		changeSortContacts(allContacts);
+        //var newObjectSort = sortDescObj(allContacts, 'time')
+        //showContentContact(newObjectSort)
     }, function (errorObject) {
         console.log("The read failed: " + errorObject.code);
     });
@@ -955,16 +986,31 @@ function getListContactFilter(id_show){
             listSearch.push(at)
         }
     }
-    var newObjectSort = sortDescObj(listSearch, 'time')
-    showContentContact(newObjectSort, true)
+	changeSortContacts(listSearch);
+   // var newObjectSort = sortDescObj(listSearch, 'time')
+	//console.log(newObjectSort)
+    
 
 }
+function changeSortContacts(allData){
+	var stypeSort = $("#sort-contacts option:selected").val();
+	var arrSort = stypeSort.split("_");
+	var newObjectSort = sortDescObj(allData, arrSort[0], arrSort[1]);
+	//var str = buildListVideo(newObjectSort)
+	var str = getContentContact(newObjectSort, true);
+	$('#contacts').html(str);
+}
 
-function showContentContact(data, isreset = false) {
+function getContentContact(data, isreset = false) {
 
+	$('#size-list').html(0);
+	
     if(isreset == true){
         $('#contacts').html('');
     }
+	if(data == null){
+		return;
+	}
 
     // data.sort((a, b) => (a.time > b.time) ? 1 : -1)
 
@@ -973,9 +1019,12 @@ function showContentContact(data, isreset = false) {
     // lengthSize++
     lengthSize = Object.keys(data).length
     $('#size-list').html(lengthSize)
+	var str = "";
     for (var key in data) {
-        $('#contacts').append(contactHtmlFromObject(data[key]));
+        //$('#contacts').append(contactHtmlFromObject(data[key]));
+		str += contactHtmlFromObject(data[key]);
     }
+	return str;
 }
 
 function getNextPage() {
@@ -1846,14 +1895,23 @@ function getListVideo(id_cat_show) {
         //photoRef.on("value", function(snapshot) {
         // console.log(snapshot.val());
         // return;
-        allVideo = snapshot.val()
-        // console.log(allVideo)
-        var newObjectSort = sortDescObj(allVideo, 'time')
-        var str = buildListVideo(newObjectSort)
-        $('#video .list-image').html(str);
-        // if (snapshot.val() != null)
-        //     lastTimeVideo = newObjectSort[Object.keys(newObjectSort)[Object.keys(newObjectSort).length - 1]].time
+        allVideo = snapshot.val();
+		changeSortVideo();
+		
+        //console.log(JSON.stringify(allVideo))
+		//var typeSort = $("#sort-video option:selected").val();
+        //var newObjectSort = sortDescObj(allVideo, typeSort)
+        //var str = buildListVideo(newObjectSort)
+        //$('#video .list-image').html(str);
+        
     })
+}
+function changeSortVideo(){
+	var stypeSort = $("#sort-video option:selected").val();
+	var arrSort = stypeSort.split("_");
+	var newObjectSort = sortDescObj(allVideo, arrSort[0], arrSort[1]);
+	var str = buildListVideo(newObjectSort)
+	$('#video .list-image').html(str);
 }
 
 function getListPhotoNext() {
@@ -1926,6 +1984,7 @@ function buildListPhoto(dataIn) {
 }
 
 function buildListVideo(dataIn) {
+	$('#total-video').html(0);
     if (dataIn == null) {
         console.log('No have video')
         return '';

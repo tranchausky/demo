@@ -176,10 +176,19 @@
 							<ul id="buttonListLink" class="button-list-view"></ul>
 							<p>List Length <span id="size-list"></span></p>
                             <p id="nextPage" onclick="getNextPage()">last</p>
-                            <ul id="contacts" class="contact list-group">
-                                <!-- Contact Object li.list-group-item.contact will be added here by js -->
-                            </ul>
+							<div class="p-1">
+								<select id="sort-contacts" class="select-sort">
+									<option value="time_desc">Sort by date update first</option>
+									<option value="time_asc">Sort by date update last</option>
+									<option value="name_asc">Sort by name first</option>
+									<option value="name_desc">Sort by name last</option>
+								</select>
+							</div>
+							<ul id="contacts" class="contact list-group">
+								<!-- Contact Object li.list-group-item.contact will be added here by js -->
+							</ul>
 
+							
                         </div>
                     </div>
                 </div>
@@ -1004,7 +1013,6 @@
                             <p>List total: <span id="total-video"></span></p>
                         </div>
                     </div>
-                    <br>
                     <div class="row">
 
 
@@ -1040,6 +1048,16 @@
                         </div>
 
                         <div class="col-sm-6 col-sm-pull-6">
+							<div class="row p-1">
+								<div class="col-sm-12">
+									<select id="sort-video" class="select-sort">
+										<option value="time_desc">Sort by date update first</option>
+										<option value="time_asc">Sort by date update last</option>
+										<option value="title_asc">Sort by name first</option>
+										<option value="title_desc">Sort by name last</option>
+									</select>
+								</div>
+							</div>
                             <div class="row">
                                 <div class="list-image"></div>
                             </div>
