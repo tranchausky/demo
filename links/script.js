@@ -393,6 +393,9 @@ $(document).ready(function () {
 	$(document.body).on('change', '#sort-contacts', function (event) {
         changeSortContacts(allContacts);
     });
+	$(document.body).on('change', '#sort-todo', function (event) {
+        changeSortTodo('.list-todo-new .list-group','#sort-todo',allTaskNew);
+    });
     $(document.body).on('change', '#edit-private-photo', function (event) {
         updatePhoto()
     })
@@ -820,7 +823,7 @@ auth.onAuthStateChanged((firebaseUser) => {
 });
 
 function loadMoreAfterLogin(){
-    loadData();
+    //loadData();
     buildSelect();
     tabClick();
 }
@@ -2117,11 +2120,23 @@ function updateHabit(todo, objupdate, key) {
 function getListTodoNew() {
     todoRef = dbRef.ref('todos/' + user_ID)
     todoRef.orderByChild('status').equalTo('new').on("value", function (snapshot) {
-        // console.log(snapshot.val());
+        //console.log(snapshot.val());
         allTaskNew = snapshot.val()
         var newObjectSort = sortDescObj(allTaskNew, 'time')
-        buildListTodoNew(newObjectSort)
+        //buildListTodoNew(newObjectSort)
+        changeSortTodo('.list-todo-new .list-group','#sort-todo',newObjectSort)
     })
+}
+
+//atShow .list-todo-new .list-group
+//atSelect #sort-todo
+function changeSortTodo(atShow, atSelect, allObj){
+	var stypeSort = $(atSelect+" option:selected").val();
+	var arrSort = stypeSort.split("_");
+	var newObjectSort = sortDescObj(allObj, arrSort[0], arrSort[1]);
+	var str = buildListTodo(newObjectSort)
+	//$('#video .list-image').html(str);
+	$(atShow).html(str);
 }
 
 function getListTodoCompleted() {
@@ -2373,6 +2388,22 @@ function intToTime(value) {
     var format1 = myDate.toLocaleString();
     return format1;
 }
+function buildListTodo(dataIn) {
+    var str = '';
+    for (var key in dataIn) {
+        var dataAt = dataIn[key]
+
+        str +=
+            '<div class="at-task pb-2 d-flex" data-key="' + key + '">' +
+            '<div class="col-sm-9">' +
+            '&nbsp;<input type="checkbox" name="todo-checkbox" title="click to Completed"/> <label>' + dataAt.task + '</label>' +
+            '</div>' +
+            '<div class="col-sm-3 event text-right"><button class="btn btn-default edit text-right">Edit</button></div>' +
+            '</div>';
+
+    }
+    return str;
+}
 
 function buildListTodoNew(dataIn) {
     var str = '';
@@ -2519,7 +2550,7 @@ function buildListTodoCompleted(dataIn) {
         str +=
             '<div class="at-task pb-2 d-flex" data-key="' + key + '">' +
             '<div class="col-sm-9">' +
-            ' <input type="checkbox" name="remember" /> <label>' + dataAt.task + '</label>' +
+            ' <input type="checkbox" name="todo-completed" title="click to Todo"/> <label>' + dataAt.task + '</label>' +
             '</div>' +
             '<div class="col-sm-3 event text-right"><button class="btn btn-default delete">Delete</button></div>' +
             '</div>';
