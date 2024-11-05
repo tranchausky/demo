@@ -587,6 +587,7 @@ function checkDetailCalendar(at) {
 var listOption = {};
 listOption.default = {
 	"": 'Default',
+	0.1: 'FAVORIS',
 }
 listOption.note = {
     3.0: 'Different',

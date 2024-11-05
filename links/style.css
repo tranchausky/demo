@@ -342,7 +342,6 @@ ul.drag-list{
 .button-list-view .group-header {
     grid-column: span 5; /* Make the group header span across two columns */
     font-weight: bold;
-    margin-top: 10px;
     list-style: none;
 }
 .button-list-view .active{background: bisque;}
@@ -525,5 +524,6 @@ ul.drag-list{
     .forms-out #swot .event-action-swot{
         display: block!important;
     }
+	.button-list-view{grid-template-columns: 1fr 1fr 1fr 1fr;}
 }
 
