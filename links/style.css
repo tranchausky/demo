@@ -135,9 +135,15 @@
     word-wrap: break-word;
 }
 
+.todo .list-todo-new .at-task label {
+	background: yellow;
+}
+.todo .list-todo-completed .at-task label {
+	background: #e0c9c9;
+}
 .todo .at-task label {
     word-break: break-word;
-    background: #e0c9c9;
+    
     display: inline;
 }
 
