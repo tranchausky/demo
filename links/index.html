@@ -475,19 +475,38 @@
 
                     </div>
                     <div class="row">
-                        <div class="col-sm-3"></div>
-                        <div class="col-sm-6">
+                        <div class="col-sm-2"></div>
+                        <div class="col-sm-8">
                             <div class="row p-2">
-                                <h3>Add Item</h3>
+                                <h3>Add a Todo</h3>
                                 <hr>
                             </div>
                             <div class="row p-2">
                                 <div class="form-group">
-                                    <div class="col-sm-10">
+                                    <div class="col-sm-6">
                                         <input type="text" id="add-todo" class="form-control">
                                     </div>
-                                    <div class="col-sm-2">
+									<div class="col-sm-3">
+                                        <select class="form-control" id="select-todo-priority">
+											<option value="">Select Priority</option>
+											<option value="low">Low</option>
+											<option value="medium">Medium</option>
+											<option value="high">High</option>
+											<option value="urgent">Urgent</option>
+										</select>
+                                    </div>
+									<div class="col-sm-2">
+                                        <select class="form-control" id="select-todo-day">
+											<option value="">Select day</option>
+											<option value="morning">Morning</option>
+											<option value="afternoon">Afternoon</option>
+											<option value="evening">Evening</option>
+											<option value="night">Night</option>
+										</select>
+                                    </div>
+                                    <div class="col-sm-1">
                                         <button class="btn btn-default" id="add-task">Add</button>
+                                        <button class="btn btn-default" id="save-task" style="display: none;">Save</button>
                                     </div>
 
                                 </div>

@@ -132,6 +132,9 @@ $(document).ready(function () {
         $('#myNavbar li').removeClass('active');
         $(this).closest('li').addClass('active');
 
+		if (atrHref == '#homepage') {
+            loadData();
+        }
         if (atrHref == '#calendar') {
             getAllCalendar()
         }
@@ -270,14 +273,36 @@ $(document).ready(function () {
     })
 
     $(document.body).on('click', '.list-todo-new .edit', function (event) {
+		$('.list-todo-new .edit').removeClass('editnow');
+		$(this).addClass('editnow');
         var text = $(this).closest('.at-task').find('label').eq(0).text()
-        var key = $(this).closest('.at-task').attr('data-key')
-        $(this).closest('.at-task').after(addEventTodo(text, key))
+        var key = $(this).closest('.at-task').attr('data-key');
+        $(this).closest('.at-task').after(addEventTodo(text, key));
     })
-    $(document.body).on('click', '.list-todo-new .save', function (event) {
-        var key = $(this).closest('.form-event').attr('data-key')
-        var text = $(this).closest('.form-event').find('input').eq(0).val()
-        updateTodo(text, 'new', key);
+    // $(document.body).on('click', '.list-todo-new .save', function (event) {
+        // var key = $(this).closest('.form-event').attr('data-key')
+        // var text = $(this).closest('.form-event').find('input').eq(0).val()
+        // updateTodo(text, 'new', key);
+    // })
+	$(document.body).on('click', '#save-task', function (event) {
+        var key = $('#save-task').attr('idedit');
+        var todo = $('#add-todo').val();
+		var todo_priority = $('#select-todo-priority').val();
+		var todo_day = $('#select-todo-day').val();
+		var obj ={
+			day:todo_day,
+			priority:todo_priority,
+			task:todo
+		}
+        updateTodo(obj, key);
+		
+		$('#save-task').attr('idedit','');
+		$('#save-task').hide();
+		$('#add-task').show();
+		$('#add-todo').val('');
+		$('#select-todo-priority').val('');
+		$('#select-todo-day').val('');
+		
     })
 
     //goal
@@ -314,14 +339,16 @@ $(document).ready(function () {
         var isCheck = $(this).is(":checked");
         if (isCheck == true) {
             var key = $(this).closest('.at-task').attr('data-key')
-            updateTodo(allTaskNew[key]['task'], 'completed', key)
+            //updateTodo(allTaskNew[key]['task'], 'completed', key)
+			updateTodo({status:'completed',task:allTaskNew[key]['task']}, key)
         }
     })
     $(document.body).on('click', '.list-todo-completed input[type="checkbox"]', function (event) {
         var isCheck = $(this).is(":checked");
         if (isCheck == true) {
             var key = $(this).closest('.at-task').attr('data-key')
-            updateTodo(allTaskComplete[key]['task'], 'new', key)
+            //updateTodo(allTaskComplete[key]['task'], 'new', key)
+			updateTodo({status:'new',task:allTaskComplete[key]['task']}, key)
         }
     })
 
@@ -367,7 +394,8 @@ $(document).ready(function () {
     $(document.body).on('click', '.list-todo-completed .delete', function (event) {
         var text = $(this).closest('.at-task').find('label').eq(0).text()
         var key = $(this).closest('.at-task').attr('data-key')
-        updateTodo(allTaskComplete[key]['task'], 'delete', key)
+        //updateTodo(allTaskComplete[key]['task'], 'delete', key)
+        updateTodo({status:'delete',task:allTaskComplete[key]['task']}, key)
     })
 
 
@@ -452,6 +480,20 @@ function tabClick() {
 }
 
 function addEventTodo(text, key) {
+	console.log(text, key)
+	console.log(allTaskNew[key])
+	
+	var atTodo = allTaskNew[key];
+	
+	$('#save-task').attr('idedit',key);
+	$('#save-task').show();
+	$('#add-task').hide();
+	$('#add-todo').val(text);
+	$('#select-todo-priority').val(atTodo.priority);
+	$('#select-todo-day').val(atTodo.day);
+	
+	return;
+	
     var str = '<div class="form-event pb-2 d-flex" data-key="' + key + '">' +
         '<div class="col-sm-9 text">' +
         '<input type="text" class="form-control" value="' + text + '">' +
@@ -935,7 +977,6 @@ function sortDescObj(list, key) {
 
 function loadData() {
     //load older conatcts as well as any newly added one...
-
     var previousLastKey = ''
     contactsRef = dbRef.ref('contacts/' + user_ID)
     // ".indexOn": ["time"],
@@ -944,7 +985,7 @@ function loadData() {
     contactsRef.orderByChild('time').on("value", function (snapshot) {
 
         allContacts = snapshot.val()
-		console.log(allContacts)
+		//console.log(allContacts)
 		changeSortContacts(allContacts);
         //var newObjectSort = sortDescObj(allContacts, 'time')
         //showContentContact(newObjectSort)
@@ -997,6 +1038,7 @@ function getListContactFilter(id_show){
 
 }
 function changeSortContacts(allData){
+	//console.log(allData)
 	var stypeSort = $("#sort-contacts option:selected").val();
 	var arrSort = stypeSort.split("_");
 	var newObjectSort = sortDescObj(allData, arrSort[0], arrSort[1]);
@@ -2042,6 +2084,8 @@ new Imgur({
 
 function pushTodo() {
     var todo = $('#add-todo').val();
+    var todo_priority = $('#select-todo-priority').val();
+    var todo_day = $('#select-todo-day').val();
     if (todo == '') {
         return
     }
@@ -2049,11 +2093,15 @@ function pushTodo() {
 
     todoRef.push({
         task: todo,
+        day: todo_day,
+        priority: todo_priority,
         status: 'new',
         time: new Date().getTime(),
         userId: user_ID
     })
     $('#add-todo').val('');
+    $('#select-todo-priority').val('');
+    $('#select-todo-day').val('');
 }
 function pushGoal() {
     var agoal = $('#add-goal').val();
@@ -2091,14 +2139,18 @@ function pushHabit() {
     $('#add-habit').val('');
 }
 
-function updateTodo(todo, status, key) {
+function updateTodo(objUpdate, key) {
     todoRef = dbRef.ref('todos/' + user_ID + '/' + key)
-    todoRef.update({
+	objUpdate.time = new Date().getTime();
+    todoRef.update(objUpdate);
+	/*
+	todoRef.update({
         task: todo,
         status: status,
         time: new Date().getTime(),
         userId: user_ID
     })
+	*/
 }
 function updateGoal(todo, objupdate, key) {
     goalRef = dbRef.ref('goals/' + user_ID + '/' + key)
@@ -2392,17 +2444,60 @@ function buildListTodo(dataIn) {
     var str = '';
     for (var key in dataIn) {
         var dataAt = dataIn[key]
+		
+		var objPD = buildPriority_Day(dataAt);
 
         str +=
             '<div class="at-task pb-2 d-flex" data-key="' + key + '">' +
             '<div class="col-sm-9">' +
-            '&nbsp;<input type="checkbox" name="todo-checkbox" title="click to Completed"/> <label>' + dataAt.task + '</label>' +
+            '&nbsp; '+objPD.pri+' '+objPD.day+' <input type="checkbox" name="todo-checkbox" title="click to Completed"/> <label>' + dataAt.task + '</label>' +
             '</div>' +
             '<div class="col-sm-3 event text-right"><button class="btn btn-default edit text-right">Edit</button></div>' +
             '</div>';
 
     }
     return str;
+}
+function buildPriority_Day(obj){
+	var priority = obj.priority
+	var day = obj.day
+	var objReturn = {
+		pri:"",
+		day:""
+	}
+	switch(priority){
+		case "low":
+			objReturn.pri = '<b title="low">&#9823;</b>';
+			break;
+		case "medium":
+			objReturn.pri = '<b title="medium">&#9820;</b>';
+			break;
+		case "high":
+			objReturn.pri = '<b title="high">&#9822;</b>';
+			break;
+		case "urgent":
+			objReturn.pri = '<b title="urgent">&#9821;</b>';
+			break;
+		default:
+			break;
+	}
+	switch(day){
+		case "morning":
+			objReturn.day = '<b title="morning">&#10023;</b>';
+			break;
+		case "afternoon":
+			objReturn.day = '<b title="afternoon">&#10025;</b>';
+			break;
+		case "evening":
+			objReturn.day = '<b title="evening">&#10027;</b>';
+			break;
+		case "night":
+			objReturn.day = '<b title="night">&#10029;</b>';
+			break;
+		default:
+			break;
+	}
+	return objReturn;
 }
 
 function buildListTodoNew(dataIn) {
