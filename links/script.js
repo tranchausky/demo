@@ -2641,11 +2641,12 @@ function buildListTodoCompleted(dataIn) {
     var str = '';
     for (var key in dataIn) {
         var dataAt = dataIn[key]
+		var objPD = buildPriority_Day(dataAt);
 
         str +=
             '<div class="at-task pb-2 d-flex" data-key="' + key + '">' +
             '<div class="col-sm-9">' +
-            ' <input type="checkbox" name="todo-completed" title="click to Todo"/> <label>' + dataAt.task + '</label>' +
+            '  '+objPD.pri+'<input type="checkbox" name="todo-completed" title="click to Todo"/> <label>' + dataAt.task + '</label>' +
             '</div>' +
             '<div class="col-sm-3 event text-right"><button class="btn btn-default delete">Delete</button></div>' +
             '</div>';
