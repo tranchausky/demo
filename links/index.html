@@ -52,19 +52,26 @@
                 </div>
                 <div class="collapse navbar-collapse" id="myNavbar">
                     <ul class="nav navbar-nav">
-                        <li class="active"><a href="#homepage">Home</a></li>
-                        <li><a href="#swot">SMART</a></li>
-                        <li><a href="#scrum">Scrum</a></li>
-                        <li><a href="#tx">TX</a></li>
+                        <li class=""><a href="#homepage">Home</a></li>
                         <li class=""><a href="#calendar">Calendar</a></li>
-                        <li class=""><a href="#fivetask" style="text-decoration: line-through;">5 Task</a></li>
-                        <li class=""><a href="#todo">Todo</a></li>
-                        <li class=""><a href="#goal">Goal</a></li>
-                        <li class=""><a href="#habit">Habit</a></li>
                         <li class=""><a href="#photo">Photo</a></li>
                         <li class=""><a href="#video">Video</a></li>
                         <li class=""><a href="#ebook">Ebook</a></li>
                         <li class=""><a href="#note">Note</a></li>
+						<li class="active"><a href="#todo">Todo</a></li>
+						<li class="dropdown">
+						  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Life <span class="caret"></span></a>
+						  <ul class="dropdown-menu">
+							<li class=""><a href="#maxim">Maxim</a></li>
+							<li class=""><a href="#goal">Goal</a></li>
+							<li class=""><a href="#fivetask" style="text-decoration: line-through;">5 Task</a></li>
+							<li><a href="#scrum">Scrum</a></li>
+							<li role="separator" class="divider"></li>
+							<li><a href="#swot">SMART</a></li>
+							<li><a href="#tx">TX</a></li>
+							<li class=""><a href="#habit">Habit</a></li>
+						  </ul>
+						</li>
                         <!-- <li class=""><a href="../600">600</a></li> -->
                         <!-- <li class=""><a href="../timedown" target="_blank">Time</a></li> -->
                         <li class=""><a href="#"><span id="minutes">00</span>:<span id="seconds">00</span></a></li>
@@ -529,7 +536,7 @@
                                     <div class="list-group">
                                         <div>
                                             <div class="col-sm-9">
-                                                <label><input type="checkbox" name="remember"> temp-demo</label>
+                                                <label><input type="checkbox" name="remember"> Todo is life</label>
                                             </div>
                                             <div class="col-sm-3">
                                                 <button class="btn btn-default">Edit</button>
@@ -543,6 +550,110 @@
                                 <hr>
                             </div>
                             <div class="row p-2 list-todo-completed">
+                                <div class="form-group">
+                                    <div class="list-group">
+                                        <div>
+                                            <div class="col-sm-9">
+                                                <label><input type="checkbox" name="remember"> temp</label>
+                                            </div>
+                                            <div class="col-sm-3 enent">
+                                                <button class="btn btn-default">Edit</button>
+                                                <button class="btn btn-default">Delete</button>
+                                            </div>
+                                        </div>
+                                        <div class="form-event">
+                                            <div class="col-sm-9 text">
+                                                <input type="text" class="form-control">
+                                            </div>
+                                            <div class="col-sm-3">
+                                                <button class="btn btn-default">Save</button>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-3"></div>
+                    </div>
+                </div>
+				<div id="maxim" class="hide v-m-content maxim">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <h3>maxim </h3>
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-2"></div>
+                        <div class="col-sm-8">
+                            <div class="row p-2">
+                                <h3>Add a maxim</h3>
+                                <hr>
+                            </div>
+                            <div class="row p-2">
+                                <div class="form-group">
+                                    <div class="col-sm-6">
+                                        <input type="text" id="add-maxim" class="form-control">
+                                    </div>
+									<div class="col-sm-3">
+                                        <select class="form-control" id="select-maxim-priority">
+											<option value="">Select Priority</option>
+											<option value="low">Low</option>
+											<option value="medium">Medium</option>
+											<option value="high">High</option>
+											<option value="urgent">Urgent</option>
+										</select>
+                                    </div>
+									<div class="col-sm-2 d-none">
+                                        <select class="form-control" id="select-maxim-day">
+											<option value="">Select day</option>
+											<option value="morning">Morning</option>
+											<option value="afternoon">Afternoon</option>
+											<option value="evening">Evening</option>
+											<option value="night">Night</option>
+										</select>
+                                    </div>
+                                    <div class="col-sm-1">
+                                        <button class="btn btn-default" id="addbtn-maxim">Add</button>
+                                        <button class="btn btn-default" id="save-maxim" style="display: none;">Save</button>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="row p-2">
+                                <h3>maxim</h3>
+                                <hr>
+								<div class="col-sm-12 text-right">
+									<select id="sort-maxim" class="select-sort">
+										<option value="time_desc">Sort by date update first</option>
+										<option value="time_asc">Sort by date update last</option>
+										<option value="task_asc">Sort by name first</option>
+										<option value="task_desc">Sort by name last</option>
+									</select>
+								</div>
+                            </div>
+							
+                            <div class="row list-maxim-new p-2">
+                                <div class="form-group">
+                                    <div class="list-group">
+                                        <div>
+                                            <div class="col-sm-9">
+                                                <label><input type="checkbox" name="remember"> temp-demo</label>
+                                            </div>
+                                            <div class="col-sm-3">
+                                                <button class="btn btn-default">Edit</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row p-2">
+                                <h3>COMPLETED</h3>
+                                <hr>
+                            </div>
+                            <div class="row p-2 list-maxim-completed">
                                 <div class="form-group">
                                     <div class="list-group">
                                         <div>

@@ -131,6 +131,7 @@ $(document).ready(function () {
 
         $('#myNavbar li').removeClass('active');
         $(this).closest('li').addClass('active');
+        $(this).closest('.dropdown').addClass('active');
 
 		if (atrHref == '#homepage') {
             loadData();
@@ -156,6 +157,10 @@ $(document).ready(function () {
         if (atrHref == '#todo') {
             getListTodoCompleted()
             getListTodoNew()
+        }
+		if (atrHref == '#maxim') {
+            getListMaximCompleted()
+            getListMaximNew()
         }
         if (atrHref == '#goal') {
             getListGoalCompleted()
@@ -265,6 +270,9 @@ $(document).ready(function () {
     $('#add-task').click(function () {
         pushTodo()
     })
+	$('#addbtn-maxim').click(function () {
+        pushMaxim()
+    })
     $('#btn-add-goal').click(function () {
         pushGoal()
     })
@@ -279,6 +287,15 @@ $(document).ready(function () {
         var key = $(this).closest('.at-task').attr('data-key');
         $(this).closest('.at-task').after(addEventTodo(text, key));
     })
+	
+	$(document.body).on('click', '.list-maxim-new .edit', function (event) {
+		$('.list-maxim-new .edit').removeClass('editnow');
+		$(this).addClass('editnow');
+        var text = $(this).closest('.at-task').find('label').eq(0).text()
+        var key = $(this).closest('.at-task').attr('data-key');
+        $(this).closest('.at-task').after(addEventMaxim(text, key));
+    })
+	
     // $(document.body).on('click', '.list-todo-new .save', function (event) {
         // var key = $(this).closest('.form-event').attr('data-key')
         // var text = $(this).closest('.form-event').find('input').eq(0).val()
@@ -302,6 +319,27 @@ $(document).ready(function () {
 		$('#add-todo').val('');
 		$('#select-todo-priority').val('');
 		$('#select-todo-day').val('');
+		
+    })
+	
+	$(document.body).on('click', '#save-maxim', function (event) {
+        var key = $('#save-maxim').attr('idedit');
+        var maxim = $('#add-maxim').val();
+		var todo_priority = $('#select-maxim-priority').val();
+		// var todo_day = $('#select-maxim-day').val();
+		var obj ={
+			// day:todo_day,
+			priority:todo_priority,
+			task:maxim
+		}
+        updateMaxim(obj, key);
+		
+		$('#save-maxim').attr('idedit','');
+		$('#save-maxim').hide();
+		$('#addbtn-maxim').show();
+		$('#add-maxim').val('');
+		$('#select-maxim-priority').val('');
+		// $('#select-maxim-day').val('');
 		
     })
 
@@ -351,6 +389,22 @@ $(document).ready(function () {
 			updateTodo({status:'new',task:allTaskComplete[key]['task']}, key)
         }
     })
+	
+	//maxim
+	$(document.body).on('click', '.list-maxim-new input[type="checkbox"]', function (event) {
+        var isCheck = $(this).is(":checked");
+        if (isCheck == true) {
+            var key = $(this).closest('.at-task').attr('data-key')
+			updateMaxim({status:'completed',task:allMaximNew[key]['task']}, key)
+        }
+    })
+    $(document.body).on('click', '.list-maxim-completed input[type="checkbox"]', function (event) {
+        var isCheck = $(this).is(":checked");
+        if (isCheck == true) {
+            var key = $(this).closest('.at-task').attr('data-key')
+			updateMaxim({status:'new',task:allMaximComplete[key]['task']}, key)
+        }
+    })
 
     //goal
     $(document.body).on('click', '.list-goal-new input[type="checkbox"]', function (event) {
@@ -397,6 +451,13 @@ $(document).ready(function () {
         //updateTodo(allTaskComplete[key]['task'], 'delete', key)
         updateTodo({status:'delete',task:allTaskComplete[key]['task']}, key)
     })
+	
+	$(document.body).on('click', '.list-maxim-completed .delete', function (event) {
+        var text = $(this).closest('.at-task').find('label').eq(0).text()
+        var key = $(this).closest('.at-task').attr('data-key')
+        //updateTodo(allTaskComplete[key]['task'], 'delete', key)
+        updateMaxim({status:'delete',task:allMaximComplete[key]['task']}, key)
+    })
 
 
     $(document.body).on('change', '.list-cat-btn', function (event) {
@@ -423,6 +484,9 @@ $(document).ready(function () {
     });
 	$(document.body).on('change', '#sort-todo', function (event) {
         changeSortTodo('.list-todo-new .list-group','#sort-todo',allTaskNew);
+    });
+	$(document.body).on('change', '#sort-maxim', function (event) {
+        changeSortTodo('.list-maxim-new .list-group','#sort-maxim',allMaximNew);
     });
     $(document.body).on('change', '#edit-private-photo', function (event) {
         updatePhoto()
@@ -503,6 +567,21 @@ function addEventTodo(text, key) {
         '</div>' +
         '</div>'
     return str
+}
+
+function addEventMaxim(text, key) {
+	console.log(text, key)
+	console.log(allMaximNew[key])
+	
+	var atMaxim = allMaximNew[key];
+	
+	$('#save-maxim').attr('idedit',key).show();
+	$('#addbtn-maxim').hide();
+	$('#add-maxim').val(text);
+	$('#select-maxim-priority').val(atMaxim.priority);
+	// $('#select-todo-day').val(atMaxim.day);
+	
+	return;
 }
 function addEventGoal(text, key) {
     var str = '<div class="form-event pb-2 d-flex" data-key="' + key + '">' +
@@ -834,7 +913,8 @@ const authenticate = (email, password) => {
 const showHomepage = () => {
     document.querySelector("#registration-page").classList.add("hide");
     document.querySelector("#login-page").classList.add("hide");
-    document.querySelector("#homepage").classList.remove("hide");
+    //document.querySelector("#todo").classList.remove("hide");
+	$('a[href="#todo"]').click();
     // document.querySelector(".show-signout").classList.remove("hide");
     $('.show-signout').show()
 };
@@ -854,13 +934,12 @@ const signOut = () => {
 auth.onAuthStateChanged((firebaseUser) => {
 
     if (firebaseUser) {
-        showHomepage();
         user_ID = firebaseUser.uid
         // $('#email_login').html(firebaseUser.email)
         $('#iduser').html(firebaseUser.email)
         $('.show-signout a').attr('title', firebaseUser.email)
         getSettingUser();
-        
+        showHomepage();
     }
 });
 
@@ -925,6 +1004,8 @@ var allPhoto = {}
 var keyCalendar = '';
 var allTaskNew = {}
 var allTaskComplete = {}
+var allMaximNew = {}
+var allMaximComplete = {}
 var allGoalNew = {}
 var allGoalComplete = {}
 var allHabitNew = {}
@@ -2103,6 +2184,27 @@ function pushTodo() {
     $('#select-todo-priority').val('');
     $('#select-todo-day').val('');
 }
+function pushMaxim() {
+    var maxim = $('#add-maxim').val();
+    var maxim_priority = $('#select-maxim-priority').val();
+    // var todo_day = $('#select-todo-day').val();
+    if (todo == '') {
+        return
+    }
+    maximRef = dbRef.ref('maxims/' + user_ID)
+
+    maximRef.push({
+        task: maxim,
+        // day: todo_day,
+        priority: maxim_priority,
+        status: 'new',
+        time: new Date().getTime(),
+        userId: user_ID
+    })
+    $('#add-maxim').val('');
+    $('#select-maxim-priority').val('');
+    // $('#select-todo-day').val('');
+}
 function pushGoal() {
     var agoal = $('#add-goal').val();
     var type = $('input[name="type-goal"]:checked').val();
@@ -2152,6 +2254,11 @@ function updateTodo(objUpdate, key) {
     })
 	*/
 }
+function updateMaxim(objUpdate, key) {
+    maximRef = dbRef.ref('maxims/' + user_ID + '/' + key)
+	objUpdate.time = new Date().getTime();
+    maximRef.update(objUpdate);
+}
 function updateGoal(todo, objupdate, key) {
     goalRef = dbRef.ref('goals/' + user_ID + '/' + key)
     objupdate.time = new Date().getTime();
@@ -2180,13 +2287,24 @@ function getListTodoNew() {
     })
 }
 
+function getListMaximNew() {
+    maximRef = dbRef.ref('maxims/' + user_ID)
+    maximRef.orderByChild('status').equalTo('new').on("value", function (snapshot) {
+        //console.log(snapshot.val());
+        allMaximNew = snapshot.val()
+        var newObjectSort = sortDescObj(allMaximNew, 'time')
+        //buildListTodoNew(newObjectSort)
+        changeSortTodo('.list-maxim-new .list-group','#sort-maxim',newObjectSort)
+    })
+}
+
 //atShow .list-todo-new .list-group
 //atSelect #sort-todo
 function changeSortTodo(atShow, atSelect, allObj){
 	var stypeSort = $(atSelect+" option:selected").val();
 	var arrSort = stypeSort.split("_");
 	var newObjectSort = sortDescObj(allObj, arrSort[0], arrSort[1]);
-	var str = buildListTodo(newObjectSort)
+	var str = buildListTodo(newObjectSort,'todo')
 	//$('#video .list-image').html(str);
 	$(atShow).html(str);
 }
@@ -2198,6 +2316,15 @@ function getListTodoCompleted() {
         allTaskComplete = snapshot.val()
         var newObjectSort = sortDescObj(allTaskComplete, 'time')
         buildListTodoCompleted(newObjectSort)
+    })
+}
+function getListMaximCompleted() {
+    maximRef = dbRef.ref('maxims/' + user_ID)
+    maximRef.orderByChild('status').equalTo('completed').on("value", function (snapshot) {
+        //console.log(snapshot.val());
+        allMaximComplete = snapshot.val()
+        var newObjectSort = sortDescObj(allMaximComplete, 'time')
+        buildListMaximCompleted(newObjectSort)
     })
 }
 
@@ -2440,7 +2567,7 @@ function intToTime(value) {
     var format1 = myDate.toLocaleString();
     return format1;
 }
-function buildListTodo(dataIn) {
+function buildListTodo(dataIn,type_view) {
     var str = '';
     for (var key in dataIn) {
         var dataAt = dataIn[key]
@@ -2449,9 +2576,9 @@ function buildListTodo(dataIn) {
         str +=
             '<div class="at-task pb-2 d-flex" data-key="' + key + '">' +
             '<div class="col-sm-9">' +
-            '&nbsp; '+objPD.pri+' '+objPD.day+' <input type="checkbox" name="todo-checkbox" title="click to Completed"/> <label>' + dataAt.task + '</label>' +
+            '&nbsp; '+objPD.pri+' '+objPD.day+' <input type="checkbox" name="'+type_view+'-checkbox" title="click to Completed"/> <label>' + dataAt.task + '</label>' +
             '</div>' +
-            '<div class="col-sm-3 event text-right"><button class="btn btn-default edit text-right">Edit</button></div>' +
+            '<div class="col-sm-3 event text-right"><button class="btn btn-default edit '+type_view+' text-right">Edit</button></div>' +
             '</div>';
 
     }
@@ -2652,6 +2779,24 @@ function buildListTodoCompleted(dataIn) {
 
     }
     $('.list-todo-completed .list-group').html(str);
+}
+
+function buildListMaximCompleted(dataIn) {
+    var str = '';
+    for (var key in dataIn) {
+        var dataAt = dataIn[key]
+		var objPD = buildPriority_Day(dataAt);
+
+        str +=
+            '<div class="at-task pb-2 d-flex" data-key="' + key + '">' +
+            '<div class="col-sm-9">' +
+            '  <b class="iconbs">&#10084;</b>'+objPD.pri+'<input type="checkbox" name="maxim-completed" title="click to maxim"/> <label>' + dataAt.task + '</label>' +
+            '</div>' +
+            '<div class="col-sm-3 event text-right"><button class="btn btn-default delete">Delete</button></div>' +
+            '</div>';
+
+    }
+    $('.list-maxim-completed .list-group').html(str);
 }
 
 
