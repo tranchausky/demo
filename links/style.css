@@ -70,6 +70,7 @@
 .form-event .text {
     padding-left: 31px;
 }
+input[type="checkbox"]:hover{cursor:pointer}
 
 .list-image div img {
     max-height: 90px;

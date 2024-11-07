@@ -325,6 +325,10 @@ $(document).ready(function () {
 	$(document.body).on('click', '#save-maxim', function (event) {
         var key = $('#save-maxim').attr('idedit');
         var maxim = $('#add-maxim').val();
+		if(maxim==""){
+			alert('Not empty');
+			return;
+		}
 		var todo_priority = $('#select-maxim-priority').val();
 		// var todo_day = $('#select-maxim-day').val();
 		var obj ={
@@ -2185,12 +2189,14 @@ function pushTodo() {
     $('#select-todo-day').val('');
 }
 function pushMaxim() {
-    var maxim = $('#add-maxim').val();
+    
     var maxim_priority = $('#select-maxim-priority').val();
     // var todo_day = $('#select-todo-day').val();
-    if (todo == '') {
-        return
-    }
+    var maxim = $('#add-maxim').val();
+	if(maxim==""){
+		alert('Not empty');
+		return;
+	}
     maximRef = dbRef.ref('maxims/' + user_ID)
 
     maximRef.push({
