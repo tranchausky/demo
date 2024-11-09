@@ -1542,7 +1542,8 @@
     <script>
         //$(function() {
 
-        $('.navbar-nav>li>a').on('click', function() {
+        $('.navbar-nav li>a').on('click', function() {
+			if($(this).hasClass('dropdown-toggle'))return;
             $('.navbar-collapse').collapse('hide');
         });
 
