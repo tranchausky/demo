@@ -2870,11 +2870,7 @@ function buildListTodoCompleted(dataIn) {
             '<div class="col-sm-9">' +
             '  <b class="iconbs">&#10084;</b>'+objPD.pri+'<input type="checkbox" name="todo-completed" title="click to Todo"/> <label>' + dataAt.task + '</label>' +
             '</div>' +
-<<<<<<< HEAD
-            '<div class="col-sm-3 event text-right"><button class="btn btn-default delete">To Calendar</button></div>' +
-=======
-            '<div class="col-sm-3 event todo-completed text-right"><button class="btn btn-default delete">Delete</button></div>' +
->>>>>>> a65617669d535d087c8d68222e73bf45ed64d697
+            '<div class="col-sm-3 event todo-completed text-right"><button class="btn btn-default delete">To Calendar</button></div>' +
             '</div>';
 
     }
