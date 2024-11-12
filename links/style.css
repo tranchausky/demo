@@ -347,20 +347,19 @@ ul.drag-list{
 }
 
 .button-list-view {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr; /* Five equal-width columns */
-    gap: 5px; /* Space between items */
+    display: block;
     list-style: none; /* Remove default list styling */
     padding: 0;
-    width: 200px;
 }
+.button-list-view button{margin-bottom:10px;}
 
 .button-list-view li {
     /* margin: 5px 0; */
+	padding-left: 10px; display: inline;
 }
 
 .button-list-view .group-header {
-    grid-column: span 5; /* Make the group header span across two columns */
+	display: block;
     font-weight: bold;
     list-style: none;
 }
@@ -542,6 +541,5 @@ ul.drag-list{
     .forms-out #swot .event-action-swot{
         display: block!important;
     }
-	.button-list-view{grid-template-columns: 1fr 1fr 1fr 1fr;}
 }
 

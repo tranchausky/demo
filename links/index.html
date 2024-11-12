@@ -506,13 +506,25 @@
 											<option value="urgent">Urgent</option>
 										</select>
                                     </div>
-									<div class="col-sm-2 pb-2">
+									<div class="col-sm-2 pb-2 d-none">
                                         <select class="form-control" id="select-todo-day">
 											<option value="">Select day</option>
 											<option value="morning">Morning</option>
 											<option value="afternoon">Afternoon</option>
 											<option value="evening">Evening</option>
 											<option value="night">Night</option>
+										</select>
+                                    </div>
+									<div class="col-sm-2 pb-2">
+                                        <select class="form-control" id="select-todo-for">
+											<option value="">Loại todo</option>
+											<option value="feature">Tương Lai</option>
+											<option value="money">Tiền</option>
+											<option value="quanhe">Quan hệ</option>
+											<option value="learn">Học tập</option>
+											<option value="family">Gia đình</option>
+											<option value="work">Công Việc</option>
+											<option value="ranh">Rảnh</option>
 										</select>
                                     </div>
                                     <div class="col-sm-1 pb-2">
@@ -1130,7 +1142,7 @@
 								</div>
 							</div>
                             <div class="row">
-                                <div class="col-sm-6 col-lg-4">
+                                <div class="col-sm-12 col-lg-4">
                                     <label for="">Edit category Video</label>
                                     <select name="list-cat-btn-edit-video" class="form-control list-cat-btn-edit-video" id="list-cat-btn-video-edit"></select>
                                 </div>
@@ -1161,7 +1173,7 @@
 
                         <div class="col-sm-6 col-sm-pull-6">
 							<div class="row">
-								<div class="col-sm-6">
+								<div class="col-sm-12">
 									<select name="list-cat-btn-video" class="form-control list-cat-btn-video d-none" id="list-cat-btn-video"></select>
 									
 									<ul id="buttonListVideo" class="button-list-view"></ul>

@@ -327,8 +327,10 @@ $(document).ready(function () {
         var todo = $('#add-todo').val();
 		var todo_priority = $('#select-todo-priority').val();
 		var todo_day = $('#select-todo-day').val();
+		var todo_for = $('#select-todo-for').val();
 		var obj ={
 			day:todo_day,
+			fors:todo_for,
 			priority:todo_priority,
 			task:todo
 		}
@@ -340,6 +342,7 @@ $(document).ready(function () {
 		$('#add-todo').val('');
 		$('#select-todo-priority').val('');
 		$('#select-todo-day').val('');
+		$('#select-todo-for').val('');
 		
     })
 	
@@ -601,6 +604,7 @@ function addEventTodo(text, key) {
 	$('#add-todo').val(text);
 	$('#select-todo-priority').val(atTodo.priority);
 	$('#select-todo-day').val(atTodo.day);
+	$('#select-todo-for').val(atTodo.fors);
 	
 	return;
 	
@@ -625,7 +629,6 @@ function addEventMaxim(text, key) {
 	$('#addbtn-maxim').hide();
 	$('#add-maxim').val(text);
 	$('#select-maxim-priority').val(atMaxim.priority);
-	// $('#select-todo-day').val(atMaxim.day);
 	
 	return;
 }
@@ -2253,6 +2256,7 @@ function pushTodo() {
     var todo = $('#add-todo').val();
     var todo_priority = $('#select-todo-priority').val();
     var todo_day = $('#select-todo-day').val();
+    var todo_for = $('#select-todo-for').val();
     if (todo == '') {
         return
     }
@@ -2261,6 +2265,7 @@ function pushTodo() {
     todoRef.push({
         task: todo,
         day: todo_day,
+        fors: todo_for,
         priority: todo_priority,
         status: 'new',
         time: new Date().getTime(),
@@ -2269,11 +2274,11 @@ function pushTodo() {
     $('#add-todo').val('');
     $('#select-todo-priority').val('');
     $('#select-todo-day').val('');
+    $('#select-todo-for').val('');
 }
 function pushMaxim() {
     
     var maxim_priority = $('#select-maxim-priority').val();
-    // var todo_day = $('#select-todo-day').val();
     var maxim = $('#add-maxim').val();
 	if(maxim==""){
 		alert('Not empty');
@@ -2291,7 +2296,6 @@ function pushMaxim() {
     })
     $('#add-maxim').val('');
     $('#select-maxim-priority').val('');
-    // $('#select-todo-day').val('');
 }
 function pushGoal() {
     var agoal = $('#add-goal').val();
@@ -2669,7 +2673,7 @@ function buildListTodo(dataIn,type_view) {
         str +=
             '<div class="at-task pb-2 d-flex" data-key="' + key + '">' +
             '<div class="col-sm-9">' +
-            '&nbsp; '+objPD.pri+' '+objPD.day+' <input type="checkbox" name="'+type_view+'-checkbox" title="click to Completed"/> <label>' + dataAt.task + '</label>' +
+            '&nbsp; '+objPD.pri+' '+objPD.day+' <input type="checkbox" name="'+type_view+'-checkbox" title="click to Completed"/>'+' '+objPD.fors+' <label>' + dataAt.task + '</label>' +
             '</div>' +
             '<div class="col-sm-3 event todo text-right"><button class="btn btn-default edit '+type_view+' text-right">Edit</button></div>' +
             '</div>';
@@ -2680,9 +2684,11 @@ function buildListTodo(dataIn,type_view) {
 function buildPriority_Day(obj){
 	var priority = obj.priority
 	var day = obj.day
+	var fors = obj.fors
 	var objReturn = {
 		pri:"",
-		day:""
+		day:"",
+		fors:""
 	}
 	switch(priority){
 		case "low":
@@ -2712,6 +2718,31 @@ function buildPriority_Day(obj){
 			break;
 		case "night":
 			objReturn.day = '<b title="night">Ni</b>';
+			break;
+		default:
+			break;
+	}
+	switch(fors){
+		case "feature":
+			objReturn.fors = '<sup title="'+fors+'">Feauture</sup>';
+			break;
+		case "money":
+			objReturn.fors = '<sup title="'+fors+'">Money</sup>';
+			break;
+		case "quanhe":
+			objReturn.fors = '<sup title="'+fors+'">quanhe</sup>';
+			break;
+		case "learn":
+			objReturn.fors = '<sup title="'+fors+'">learn</sup>';
+			break;
+		case "family":
+			objReturn.fors = '<sup title="'+fors+'">family</sup>';
+			break;
+		case "work":
+			objReturn.fors = '<sup title="'+fors+'">work</sup>';
+			break;
+		case "ranh":
+			objReturn.fors = '<sup title="'+fors+'">ranh</sup>';
 			break;
 		default:
 			break;
@@ -2868,7 +2899,7 @@ function buildListTodoCompleted(dataIn) {
         str +=
             '<div class="at-task pb-2 d-flex" data-key="' + key + '">' +
             '<div class="col-sm-9">' +
-            '  <b class="iconbs">&#10084;</b>'+objPD.pri+'<input type="checkbox" name="todo-completed" title="click to Todo"/> <label>' + dataAt.task + '</label>' +
+            '  <b class="iconbs">&#10084;</b>'+objPD.pri+'<input type="checkbox" name="todo-completed" title="click to Todo"/>'+objPD.fors+' <label>' + dataAt.task + '</label>' +
             '</div>' +
             '<div class="col-sm-3 event todo-completed text-right"><button class="btn btn-default delete">To Calendar</button></div>' +
             '</div>';
