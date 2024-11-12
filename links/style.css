@@ -63,7 +63,9 @@ hr{margin: 0;margin-bottom: 10px;}
 }
 
 .list-maxim-completed .list-group,.list-maxim-new .list-group,
-.list-todo-completed .list-group,.list-todo-new .list-group {
+.list-todo-completed .list-group
+/* .list-todo-new .list-group */
+ {
     max-height: 300px;
     overflow: auto;
 }
