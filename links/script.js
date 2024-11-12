@@ -453,7 +453,17 @@ $(document).ready(function () {
         var text = $(this).closest('.at-task').find('label').eq(0).text()
         var key = $(this).closest('.at-task').attr('data-key')
         //updateTodo(allTaskComplete[key]['task'], 'delete', key)
-        updateTodo({status:'delete',task:allTaskComplete[key]['task']}, key)
+        //updateTodo({status:'delete',task:allTaskComplete[key]['task']}, key);
+
+		var calendObj = {
+			day:getDateTimeToday('/'),
+			type:"Todo",
+			content:'Todo done: '+text,
+			
+		};
+		addOrUpdateContentForCalendar(calendObj);
+		
+		deleteTodoId(key);
     })
 	
 	$(document.body).on('click', '.list-maxim-completed .delete', function (event) {
@@ -690,15 +700,16 @@ function checkDetailCalendar(at) {
     // console.log($(this).attr('data-day'))
     // alert(attrDate)
     $('#date-at').val(attrDate)
-    getCalendarDate(attrDate)
+    getCalendarDate(attrDate,function(dataCB){
+		console.log(dataCB)
+	})
     if ($(at).hasClass('had')) {
         $('#btnAddCalen').hide()
         $('#btnUpdateCalen').show()
 
         var listDate = attrDate.split('/')
         var dateInt = new Date(listDate[2], listDate[1] - 1, listDate[0]).getTime();
-        console.log('dateInt')
-        //console.log(dateInt)
+
         var temp = returnDateDatainALl(dateInt)
         keyCalendar = temp[1]
         $('#date-content').val(temp[0].content)
@@ -709,6 +720,46 @@ function checkDetailCalendar(at) {
         $('#btnUpdateCalen').hide()
         $('#date-content').val('')
     }
+}
+
+function addOrUpdateContentForCalendar(objectIn){
+	var dateDMY = objectIn.day;
+	getCalendarDate(dateDMY,function(dataCB){
+		
+		var listDate = dateDMY.split('/')
+		var dateInt = new Date(listDate[2], listDate[1] - 1, listDate[0]).getTime();
+
+		//console.log(dateInt)
+		//console.log(type_date)
+		//console.log(content)
+		
+		
+		var ObjectChange = {};
+		ObjectChange.date = dateInt;
+		ObjectChange.content = objectIn.content;
+		ObjectChange.time = new Date().getTime();
+		ObjectChange.userId = user_ID;
+		if(typeof objectIn.type != undefined ){
+			ObjectChange.type = objectIn.type;
+		}
+
+		if(dataCB != null){
+			//update
+			console.log('update')
+			const firstKey = Object.keys(dataCB)[0];
+			const firstValue = dataCB[firstKey];
+			
+			calendarsRef = dbRef.ref('calendars/' + user_ID + "/" + firstKey)
+			ObjectChange.content = firstValue.content +'\n'+ ObjectChange.content;
+			calendarsRef.update(ObjectChange)
+			
+		}else{
+			//add
+			console.log('add')
+			calendarsRef = dbRef.ref('calendars/' + user_ID)
+			calendarsRef.push(ObjectChange)
+		}
+	})
 }
 
 
@@ -1295,6 +1346,10 @@ function addCalendar() {
     var listDate = date.split('/')
     var dateInt = new Date(listDate[2], listDate[1] - 1, listDate[0]).getTime();
 
+	console.log(dateInt)
+	console.log(type_date)
+	console.log(content)
+	
     calendarsRef.push({
         date: dateInt,
         type: type_date,
@@ -1458,10 +1513,11 @@ function updateFiveTaskToday() {
     })
 }
 
-function getDateTimeToday() {
+function getDateTimeToday(formart = '-') {
     const d = new Date() // today, now
     var datetoday = d.toLocaleDateString('pt-PT');
-    datetoday = datetoday.replaceAll('/', '-')
+    //datetoday = datetoday.replaceAll('/', '-')
+    datetoday = datetoday.replaceAll('/', formart)
     //console.log(datetoday) // 17-06-2021
     return datetoday;
 }
@@ -1647,7 +1703,6 @@ function buildListCalendar(dataIn) {
         var temp = d.toLocaleDateString('pt-PT');
         //temp = temp.replaceAll('/', '-')
 
-        console.log(temp)
         var listD = temp.split('/')
 
         var typeShow = ''
@@ -1727,28 +1782,21 @@ function returnDateDatainALl(inDay) {
     }
 }
 
-function getCalendarDate(date) {
+function getCalendarDate(dateDMY, callback) {
     //getAllCalendar()
-    return
-    if (date == undefined) return
-    $('#date-content').val()
+    //return
+    if (dateDMY == undefined) return
+    //$('#date-content').val()
     calendarsRef = dbRef.ref('calendars/' + user_ID)
+	
+	var listDate = dateDMY.split('/')
+	var dateInt = new Date(listDate[2], listDate[1] - 1, listDate[0]).getTime();
 
-    //calendarsRef.orderByChild('date').equalTo(date).limitToFirst(1).on("child_added", function (snap) {
-    calendarsRef.on("child_added", function (snap) {
-        //alert(1)
-        // console.log("added", snap.key, snap.val());
-        //  console.log(snap.val())
-        // lengthSize++
-        // console.log(lengthSize)
-        // $('#size-list').html(lengthSize)
-        // $('#contacts').append(contactHtmlFromObject(snap.val()));
-        // last_Key = snap.key
-        // last = data
+    calendarsRef.orderByChild('date').equalTo(dateInt).limitToFirst(1).once("value", function (snap) {
         var data = snap.val()
-        $('#date-content').text(data.content)
-
+		callback(data);
     })
+	//callback({})
     // calendarsRef.off('value', function () {
     //     alert('2')
     // });
@@ -2259,6 +2307,8 @@ function updateTodo(objUpdate, key) {
         userId: user_ID
     })
 	*/
+	
+	//move to caladar if todo delete
 }
 function updateMaxim(objUpdate, key) {
     maximRef = dbRef.ref('maxims/' + user_ID + '/' + key)
@@ -2780,7 +2830,7 @@ function buildListTodoCompleted(dataIn) {
             '<div class="col-sm-9">' +
             '  <b class="iconbs">&#10084;</b>'+objPD.pri+'<input type="checkbox" name="todo-completed" title="click to Todo"/> <label>' + dataAt.task + '</label>' +
             '</div>' +
-            '<div class="col-sm-3 event text-right"><button class="btn btn-default delete">Delete</button></div>' +
+            '<div class="col-sm-3 event text-right"><button class="btn btn-default delete">To Calendar</button></div>' +
             '</div>';
 
     }
@@ -3020,6 +3070,17 @@ function deleteScrum() {
     swoftRef.remove();
 }
 //deleteScrum
+
+function deleteTodoId(idKey){
+	var atRef = dbRef.ref('todos/' + user_ID + '/' + idKey)
+    atRef.remove()
+	  .then(() => {
+		console.log("Data removed successfully.");
+	  })
+	  .catch((error) => {
+		console.error("Remove failed: ", error.message);
+	  });
+}
 
 //Good_Bad Start
 
