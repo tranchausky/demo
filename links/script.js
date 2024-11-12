@@ -2262,6 +2262,7 @@ function buildListVideo(dataIn) {
                 str += '<div class="col-sm-3 col-xs-6"><small>' + dataAt.title + '</small></div>';
             } catch (error) {
                 console.log(error);
+                console.log(dataAt);
             }
         }
 
