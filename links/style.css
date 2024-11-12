@@ -410,6 +410,7 @@ ul.drag-list{
 .list-goal-new .at-task >div.event, .list-goal-new .form-event >div.event{padding:0px}
 .list-goal-new .form-event >div.event{padding-left:6px}
 .list-goal-new .form-event >div.event button{padding:0px}
+.list-goal-new .view-a{width: calc(100% - 30px);}
 .goal-hr{margin-bottom:3px;}
  
 
