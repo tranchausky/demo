@@ -139,7 +139,7 @@
                             <h3>Add new <sup id="iduser"></sup></h3>
                             
                         </div>
-                        <div class="col-sm-6">
+                        <div class="col-sm-6 bg-info pt-2 pb-2">
                             <form method="post" name="contactForm">
                                 <div class="form-group">
                                     <label for="name">Name</label>
@@ -184,7 +184,7 @@
 							<p>List Length <span id="size-list"></span></p>
                             <p id="nextPage" onclick="getNextPage()">last</p>
 							<div class="p-1">
-								<select id="sort-contacts" class="select-sort">
+								<select id="sort-contacts" class="select-sort form-control">
 									<option value="time_desc">Sort by date update first</option>
 									<option value="time_asc">Sort by date update last</option>
 									<option value="name_asc">Sort by name first</option>
@@ -206,16 +206,24 @@
                         <!-- <div class="col-sm-12">
                             <h3>Update data </h3>
                         </div> -->
-                        <div class="row pt-2 event-action-swot" style="display: flex;">
-                            <div class="" style="width: auto;">
-                                <button type="submit" class="btn btn-primary" onclick="addSWOT()">Add</button>
-                                <button type="submit" class="btn btn-primary" onclick="editSwot()">Edit</button>
-                                <button type="submit" class="btn btn-primary" onclick="deleteSwot()">Delete</button>
-                            </div>
-                            <div class="" style="width: auto;min-width: 70%;">
-                                <input type="text" class="form-control" id="name1" required="" placeholder="Enter name">
-                               
-                            </div>
+                        <div class="row pt-2 event-action-swot " style="display: flex;">
+							<div class="col-sm-3 bg-info pt-2">
+								<div class="form-group">
+									<div class="" style="width: auto;">
+										<button type="submit" class="btn btn-primary" onclick="addSWOT()">Add</button>
+										<button type="submit" class="btn btn-primary" onclick="editSwot()">Edit</button>
+										<button type="submit" class="btn btn-primary" onclick="deleteSwot()">Delete</button>
+									</div>
+								</div>
+							</div>
+							<div class="col-sm-9 bg-info pt-2">
+								<div class="form-group">
+									<div class="" style="">
+										<input type="text" class="form-control" id="name1" required="" placeholder="Enter name">
+									</div>
+								</div>
+							</div>
+							
                         </div>
                         <div class="row">
                             <div class="col-md-6 none">
@@ -279,7 +287,7 @@
                         </div> -->
                         <div class="row pt-2">
                             <div class="col-md-12">
-                                <div class="row list-action" id="scaction">
+                                <div class="row list-action bg-info" id="scaction">
                                     <div class="col-sm-3 event">
                                         <button type="submit" class="btn btn-primary" onclick="addScrum()">Add</button>
                                         <button type="submit" class="btn btn-primary" onclick="editScrum()">Edit</button>
@@ -357,7 +365,7 @@
 
                     <div class="container-flux">
                         <div class="row pt-2">
-                            <div class="col-md-12">
+                            <div class="col-md-12 bg-info">
                                 <div class="row list-action">
                                     <div class="col-sm-3 event">
                                         <button type="submit" class="btn btn-primary" onclick="addTx()">Add</button>
@@ -447,7 +455,7 @@
                                     <li></li>
                                 </ul>
                             </div>
-                            <div class="row calendar-event none">
+                            <div class="row calendar-event bg-info p-2 none">
                                 <div class="form-group">
                                     <label for="date-at">Date</label>
                                     <input type="text" id="date-at" class="form-control" readonly>
@@ -465,9 +473,9 @@
                                     <label for="email">Text</label>
                                     <textarea type="text" class="form-control" id="date-content" required="" placeholder="Enter Content" rows="5"></textarea>
                                 </div>
-                                <button id="btnAddCalen" class="none" onclick="addCalendar()">Add data</button>
-                                <button id="btnUpdateCalen" class="none" onclick="updateCalendar()">Update data</button>
-                                <button id="btnCancelCalen" onclick="hideEventCalendar()">Cancel</button>
+                                <button id="btnAddCalen" class="none btn btn-default" onclick="addCalendar()">Add data</button>
+                                <button id="btnUpdateCalen" class="none btn btn-default" onclick="updateCalendar()">Update data</button>
+                                <button id="btnCancelCalen" class="btn btn-default" onclick="hideEventCalendar()">Cancel</button>
 
                             </div>
 
@@ -475,25 +483,20 @@
                     </div>
                 </div>
                 <div id="todo" class="hide v-m-content todo">
+                    
                     <div class="row">
-                        <div class="col-sm-12">
-                            <h3>Todo </h3>
-                        </div>
-
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-2"></div>
-                        <div class="col-sm-8">
-                            <div class="row p-2">
+                        <div class="col-sm-1"></div>
+                        <div class="col-sm-10">
+                            <div class="">
                                 <h3>Add a Todo</h3>
                                 <hr>
                             </div>
-                            <div class="row p-2">
+                            <div class="row bg-info pt-2">
                                 <div class="form-group">
-                                    <div class="col-sm-6">
+                                    <div class="col-sm-6 pb-2">
                                         <input type="text" id="add-todo" class="form-control">
                                     </div>
-									<div class="col-sm-3">
+									<div class="col-sm-3 pb-2">
                                         <select class="form-control" id="select-todo-priority">
 											<option value="">Select Priority</option>
 											<option value="low">Low</option>
@@ -502,7 +505,7 @@
 											<option value="urgent">Urgent</option>
 										</select>
                                     </div>
-									<div class="col-sm-2">
+									<div class="col-sm-2 pb-2">
                                         <select class="form-control" id="select-todo-day">
 											<option value="">Select day</option>
 											<option value="morning">Morning</option>
@@ -511,7 +514,7 @@
 											<option value="night">Night</option>
 										</select>
                                     </div>
-                                    <div class="col-sm-1">
+                                    <div class="col-sm-1 pb-2">
                                         <button class="btn btn-default" id="add-task">Add</button>
                                         <button class="btn btn-default" id="save-task" style="display: none;">Save</button>
                                     </div>
@@ -519,18 +522,29 @@
                                 </div>
                             </div>
                             <div class="row p-2">
-                                <h3>TODO</h3>
+                                <h4>TODO</h4>
                                 <hr>
-								<div class="col-sm-12 text-right">
-									<select id="sort-todo" class="select-sort">
+								
+                            </div>
+							<div class="row">
+								<div class="col-sm-5"></div>
+								<div class="col-sm-2 pb-2">
+									<button onClick="sortTodoPriority(this)" class="btn btn-default">Sort Priority</button>
+								</div>
+								<div class="col-sm-5 pb-2">
+									
+									<select id="sort-todo" class="select-sort form-control">
 										<option value="time_desc">Sort by date update first</option>
 										<option value="time_asc">Sort by date update last</option>
 										<option value="task_asc">Sort by name first</option>
 										<option value="task_desc">Sort by name last</option>
+										<option value="priority_desc">Sort by priority last</option>
+										<option value="priority_asc">Sort by priority first</option>
+										<option value="day_desc">Sort by day last</option>
+										<option value="day_asc">Sort by day first</option>
 									</select>
 								</div>
-                            </div>
-							
+							</div>
                             <div class="row list-todo-new p-2">
                                 <div class="form-group">
                                     <div class="list-group">
@@ -546,7 +560,7 @@
                                 </div>
                             </div>
                             <div class="row p-2">
-                                <h3>COMPLETED</h3>
+                                <h4>COMPLETED</h4>
                                 <hr>
                             </div>
                             <div class="row p-2 list-todo-completed">
@@ -579,12 +593,7 @@
                     </div>
                 </div>
 				<div id="maxim" class="hide v-m-content maxim">
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <h3>maxim </h3>
-                        </div>
-
-                    </div>
+                    
                     <div class="row">
                         <div class="col-sm-2"></div>
                         <div class="col-sm-8">
@@ -592,12 +601,12 @@
                                 <h3>Add a maxim</h3>
                                 <hr>
                             </div>
-                            <div class="row p-2">
+                            <div class="row  bg-info p-2">
                                 <div class="form-group">
-                                    <div class="col-sm-6">
+                                    <div class="col-sm-6 pb-2">
                                         <input type="text" id="add-maxim" class="form-control">
                                     </div>
-									<div class="col-sm-3">
+									<div class="col-sm-3 pb-2">
                                         <select class="form-control" id="select-maxim-priority">
 											<option value="">Select Priority</option>
 											<option value="low">Low</option>
@@ -606,7 +615,7 @@
 											<option value="urgent">Urgent</option>
 										</select>
                                     </div>
-									<div class="col-sm-2 d-none">
+									<div class="col-sm-2 pb-2 d-none">
                                         <select class="form-control" id="select-maxim-day">
 											<option value="">Select day</option>
 											<option value="morning">Morning</option>
@@ -615,7 +624,7 @@
 											<option value="night">Night</option>
 										</select>
                                     </div>
-                                    <div class="col-sm-1">
+                                    <div class="col-sm-1 pb-2">
                                         <button class="btn btn-default" id="addbtn-maxim">Add</button>
                                         <button class="btn btn-default" id="save-maxim" style="display: none;">Save</button>
                                     </div>
@@ -625,8 +634,9 @@
                             <div class="row p-2">
                                 <h3>maxim</h3>
                                 <hr>
-								<div class="col-sm-12 text-right">
-									<select id="sort-maxim" class="select-sort">
+								<div class="col-sm-6"></div>
+								<div class="col-sm-6 text-right">
+									<select id="sort-maxim" class="select-sort form-control">
 										<option value="time_desc">Sort by date update first</option>
 										<option value="time_asc">Sort by date update last</option>
 										<option value="task_asc">Sort by name first</option>
@@ -697,7 +707,7 @@
                                 <h3>Add Goal <span class="iconbs">&#9879;</span></h3>
                                 <hr>
                             </div>
-                            <div class="row p-2">
+                            <div class="row bg-info p-2">
                                 <div class="form-group">
                                     <div class="col-sm-10">
                                         <input type="text" id="add-goal" class="form-control">
@@ -840,7 +850,7 @@
                                 <h3>Add a Habit</h3>
                                 <hr>
                             </div>
-                            <div class="row p-2 list-action-add">
+                            <div class="row p-2 list-action-add bg-info">
                                 <div class="form-group">
                                     <div class="col-sm-10">
                                         <input type="text" id="add-habit" class="form-control">
@@ -919,11 +929,11 @@
                     <div class="row">
                         <div class="col-sm-3"></div>
                         <div class="col-sm-6">
-                            <div class="row">
+                            <div class="">
                                 <h3>To day</h3>
                                 <hr style="margin: 0;">
                             </div>
-                            <div class="row">
+                            <div class="bg-info pt-2 pb-2 pl-2">
                                 <div class="form-group group-5-task">
                                     <ol>
                                         <li class="row">
@@ -979,11 +989,11 @@
                             </div>
 
 
-                            <div class="row">
+                            <div class="">
                                 <h3>Last Task (work or n't work)</h3>
                                 <hr>
                             </div>
-                            <div class="row list-five-task" id="list-five-task">
+                            <div class=" list-five-task" id="list-five-task">
 
                             </div>
                             <br/>
@@ -1001,7 +1011,7 @@
                         </div>
 
                     </div>
-                    <div class="row">
+                    <div class="row bg-info pt-2">
                         <div class="form-group col-sm-4">
                             <!-- <input type="file" class="form-control"> -->
                             <div class="dropzone"></div>
@@ -1072,21 +1082,22 @@
 
                     </div>
                     <div class="row">
-                        <div class="col-sm-6">
+                        <div class="col-sm-12">
 							<form method="post" name="videoForm">
-								<div class="form-group col-sm-12">
+								<div class="form-group bg-info pt-2 pb-2 col-sm-4">
 									<label for="video">Name</label>
 									<input type="text" class="form-control" id="video-input" required="" placeholder="Enter youtube url or iframe">
 									<br/>
 									<input type="text" class="form-control" id="video-input-title" required="" placeholder="title">
 								</div>
-								<div class="form-group col-sm-6">
+								<div class="form-group bg-info pt-2 pb-2 col-sm-4">
+								<label for="video">Select category video</label>
 									<select name="option-video" id="option-video" class="form-control list-select-option-video">
 									</select>
-								</div>
-								<div class="form-group col-sm-12">
+									<br>
 									<button type="submit" class="btn btn-primary addVideo">Submit</button>
 								</div>
+								
 							</form>
 						</div>
                     </div>
@@ -1156,8 +1167,9 @@
 								</div>
 							</div>
 							<div class="row p-1">
+
 								<div class="col-sm-12">
-									<select id="sort-video" class="select-sort">
+									<select id="sort-video" class="select-sort form-control">
 										<option value="time_desc">Sort by date update first</option>
 										<option value="time_asc">Sort by date update last</option>
 										<option value="title_asc">Sort by name first</option>
@@ -1182,7 +1194,7 @@
                         </div>
 
                     </div>
-                    <div class="row">
+                    <div class="row bg-info pt-2">
                         <div class="form-group col-sm-4">
 							<label for="ebook-title-input">Title</label>
                             <input type="text" class="form-control" id="ebook-title-input" required="" placeholder="Title">

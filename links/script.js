@@ -108,7 +108,26 @@ function timerIncrement() {
     }
 }
 
+function lazyLoad() {
+    console.log('ryb')
+    $('.lazy').each(function() {
+      const img = $(this);
+
+      // Check if image is in the viewport
+      if (img.offset().top < $(window).scrollTop() + $(window).height()) {
+        // Set the src attribute to start loading the image
+        img.attr('src', img.data('src'));
+
+        // Remove the 'lazy' class to prevent re-loading
+        img.removeClass('lazy');
+      }
+    });
+  }
+
 $(document).ready(function () {
+
+    $('.list-image').on('scroll', lazyLoad);
+
 	$(document).on('mousemove keydown', function() {
 		idleTime = 0;
 	});
@@ -286,6 +305,7 @@ $(document).ready(function () {
         var text = $(this).closest('.at-task').find('label').eq(0).text()
         var key = $(this).closest('.at-task').attr('data-key');
         $(this).closest('.at-task').after(addEventTodo(text, key));
+		document.getElementById('todo').scrollIntoView();
     })
 	
 	$(document.body).on('click', '.list-maxim-new .edit', function (event) {
@@ -294,6 +314,7 @@ $(document).ready(function () {
         var text = $(this).closest('.at-task').find('label').eq(0).text()
         var key = $(this).closest('.at-task').attr('data-key');
         $(this).closest('.at-task').after(addEventMaxim(text, key));
+		document.getElementById('maxim').scrollIntoView();
     })
 	
     // $(document.body).on('click', '.list-todo-new .save', function (event) {
@@ -422,7 +443,7 @@ $(document).ready(function () {
         var isCheck = $(this).is(":checked");
         if (isCheck == true) {
             var key = $(this).closest('.at-task').attr('data-key')
-            updateGoal(allGoalComplete[key]['task'], {type:'good_old'}, key)
+            updateGoal(allGoalComplete[key]['task'], {status:'new'}, key)
         }
     })
 	$(document.body).on('click', '.list-goal-completed .delete', function (event) {
@@ -505,6 +526,17 @@ $(document).ready(function () {
 
 
 });
+function sortTodoPriority(at){
+	var isTrue = $(this).attr('is_desc');
+	var typesort = 'priority_desc';
+	if(isTrue!=true){
+		typesort = 'priority_asc';
+		$(this).attr('is_desc',true);
+	}else{
+		$(this).attr('is_desc',false);
+	}
+	changeSortTodoWithType('.list-todo-new .list-group',typesort,allTaskNew);
+}
 
 function showHideSessionLogin() {
 
@@ -1983,6 +2015,7 @@ function getListPhoto() {
         var newObjectSort = sortDescObj(allPhoto, 'time')
         var str = buildListPhoto(newObjectSort)
         $('#photo .list-image').html(str);
+        lazyLoad();
         if (snapshot.val() != null)
             lastTimePhoto = newObjectSort[Object.keys(newObjectSort)[Object.keys(newObjectSort).length - 1]].time
     })
@@ -2043,6 +2076,7 @@ function changeSortVideo(){
 	var newObjectSort = sortDescObj(allVideo, arrSort[0], arrSort[1]);
 	var str = buildListVideo(newObjectSort)
 	$('#video .list-image').html(str);
+    lazyLoad();
 }
 
 function getListPhotoNext() {
@@ -2106,7 +2140,7 @@ function buildListPhoto(dataIn) {
     for (var key in dataIn) {
         var dataAt = dataIn[key]
         if (dataAt.is_show == false) {
-            str += '<div class="col-sm-3 col-xs-4"><img class="img-thumbnail" onclick="changeLinkImage(&apos;' + dataAt.pic + '&apos;,&apos;' + dataAt.id_cat + '&apos;,&apos;' + key + '&apos;)" str-big="' + dataAt.pic + '" src="' + getThump(dataAt.pic) + '" alt=""></div>'
+            str += '<div class="col-sm-3 col-xs-4"><img class="img-thumbnail lazy" onclick="changeLinkImage(&apos;' + dataAt.pic + '&apos;,&apos;' + dataAt.id_cat + '&apos;,&apos;' + key + '&apos;)" str-big="' + dataAt.pic + '" data-src="' + getThump(dataAt.pic) + '" alt=""></div>'
         } else {
             str += '<div class="col-sm-3 col-xs-4"><img class="img-thumbnail hiden" onclick="changeLinkImage(&apos;' + dataAt.pic + '&apos;,&apos;' + dataAt.id_cat + '&apos;,&apos;' + key + '&apos;)" str-big="' + dataAt.pic + '" src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs%3D" alt=""></div>'
         }
@@ -2130,7 +2164,7 @@ function buildListVideo(dataIn) {
         let domain = getDomain(dataAt.url);
 
         if (dataAt.is_show == false && typeof dataAt.videId != undefined && domain == 'youtube.com') {
-            str += '<div class="col-sm-3 col-xs-6"><img class="img-thumbnail" onclick="changeLinkVideo(&apos;' + dataAt.videId + '&apos;,&apos;' + dataAt.url + '&apos;,&apos;' + key + '&apos;,&apos;' + dataAt.id_cat + '&apos;)" str-big="' + dataAt.url + '" src="https://i.ytimg.com/vi/' + dataAt.videId + '/default.jpg" alt="" title="' + dataAt.title + '"><p class="hide">' + dataAt.title + '</p></div>'
+            str += '<div class="col-sm-3 col-xs-6"><img class="img-thumbnail lazy" onclick="changeLinkVideo(&apos;' + dataAt.videId + '&apos;,&apos;' + dataAt.url + '&apos;,&apos;' + key + '&apos;,&apos;' + dataAt.id_cat + '&apos;)" str-big="' + dataAt.url + '" data-src="https://i.ytimg.com/vi/' + dataAt.videId + '/default.jpg" src="https://i.imgur.com/zHOHgOM.png" alt="" title="' + dataAt.title + '"><p class="hide">' + dataAt.title + '</p></div>'
             str += '<div class="col-sm-3 col-xs-6"><small>' + dataAt.title + '</small></div>';
         } else {
             try {
@@ -2308,10 +2342,13 @@ function getListMaximNew() {
 //atSelect #sort-todo
 function changeSortTodo(atShow, atSelect, allObj){
 	var stypeSort = $(atSelect+" option:selected").val();
+	changeSortTodoWithType(atShow, stypeSort, allObj)
+	
+}
+function changeSortTodoWithType(atShow, stypeSort, allObj){
 	var arrSort = stypeSort.split("_");
 	var newObjectSort = sortDescObj(allObj, arrSort[0], arrSort[1]);
 	var str = buildListTodo(newObjectSort,'todo')
-	//$('#video .list-image').html(str);
 	$(atShow).html(str);
 }
 
@@ -2584,7 +2621,7 @@ function buildListTodo(dataIn,type_view) {
             '<div class="col-sm-9">' +
             '&nbsp; '+objPD.pri+' '+objPD.day+' <input type="checkbox" name="'+type_view+'-checkbox" title="click to Completed"/> <label>' + dataAt.task + '</label>' +
             '</div>' +
-            '<div class="col-sm-3 event text-right"><button class="btn btn-default edit '+type_view+' text-right">Edit</button></div>' +
+            '<div class="col-sm-3 event todo text-right"><button class="btn btn-default edit '+type_view+' text-right">Edit</button></div>' +
             '</div>';
 
     }
@@ -2615,16 +2652,16 @@ function buildPriority_Day(obj){
 	}
 	switch(day){
 		case "morning":
-			objReturn.day = '<b title="morning">&#10023;</b>';
+			objReturn.day = '<b title="morning">Mo</b>';
 			break;
 		case "afternoon":
-			objReturn.day = '<b title="afternoon">&#10025;</b>';
+			objReturn.day = '<b title="afternoon">Af</b>';
 			break;
 		case "evening":
-			objReturn.day = '<b title="evening">&#10027;</b>';
+			objReturn.day = '<b title="evening">Ev</b>';
 			break;
 		case "night":
-			objReturn.day = '<b title="night">&#10029;</b>';
+			objReturn.day = '<b title="night">Ni</b>';
 			break;
 		default:
 			break;
@@ -2642,7 +2679,7 @@ function buildListTodoNew(dataIn) {
             '<div class="col-sm-9">' +
             '&nbsp;<input type="checkbox" name="remember" /> <label>' + dataAt.task + '</label>' +
             '</div>' +
-            '<div class="col-sm-3 event text-right"><button class="btn btn-default edit text-right">Edit</button></div>' +
+            '<div class="col-sm-3 event todonew text-right"><button class="btn btn-default edit text-right">Edit</button></div>' +
             '</div>';
 
     }
@@ -2695,13 +2732,16 @@ function buildListGoalCompleted(dataIn) {
     var str = '';
     for (var key in dataIn) {
         var dataAt = dataIn[key]
+        console.log(dataAt)
 
+        var typeGoal = getLableOfRadioChecked('type-goal',dataAt.type);
         str +=
             '<div class="at-task pb-2 d-flex" data-key="' + key + '">' +
             '<div class="col-sm-9">' +
-            ' <label>' + dataAt.task + '</label>' +
+            '<input type="checkbox" name="check-goal-completed" id="goal-comple-'+key+'"/>'+
+            ' <label>' + dataAt.task + '</label><sup>'+typeGoal+'</sup>' +
             '</div>' +
-            '<div class="col-sm-3 event text-right"><button class="btn btn-default delete">Delete</button></div>' +
+            '<div class="col-sm-3 event goal-completed text-right"><button class="btn btn-default delete">Delete</button></div>' +
             '</div>';
 
     }
@@ -2718,7 +2758,7 @@ function buildListHabitNew(dataIn) {
             '<div class="col-sm-9 view-habit-detail">' +
             '&nbsp;<input type="checkbox" name="remember" id="habit'+key+'"/><button class="remove-habit" for="habit'+key+'"></button> <label>' + dataAt.task + '</label>' +
             '</div>' +
-            '<div class="col-sm-3 event text-right"><button class="btn btn-default edit_habit text-right"><span class="edit_view"></span></button></div>' +
+            '<div class="col-sm-3 event habit-new text-right"><button class="btn btn-default edit_habit text-right"><span class="edit_view"></span></button></div>' +
             '</div>';
 
     }
@@ -2734,7 +2774,7 @@ function buildListHabitCompleted(dataIn) {
             '<div class="col-sm-9 view-habit-detail">' +
             '&nbsp;<input type="checkbox" name="remember" id="habit'+key+'"/><button class="remove-habit" for="habit'+key+'"></button> <label>' + dataAt.task + '</label>' +
             '</div>' +
-            '<div class="col-sm-3 event text-right"><button class="btn btn-default edit_habit"><span class="edit_view"></span></button></div>' +
+            '<div class="col-sm-3 event habit-completed text-right"><button class="btn btn-default edit_habit"><span class="edit_view"></span></button></div>' +
             '</div>';
 
     }
@@ -2780,7 +2820,7 @@ function buildListTodoCompleted(dataIn) {
             '<div class="col-sm-9">' +
             '  <b class="iconbs">&#10084;</b>'+objPD.pri+'<input type="checkbox" name="todo-completed" title="click to Todo"/> <label>' + dataAt.task + '</label>' +
             '</div>' +
-            '<div class="col-sm-3 event text-right"><button class="btn btn-default delete">Delete</button></div>' +
+            '<div class="col-sm-3 event todo-completed text-right"><button class="btn btn-default delete">Delete</button></div>' +
             '</div>';
 
     }
@@ -2798,7 +2838,7 @@ function buildListMaximCompleted(dataIn) {
             '<div class="col-sm-9">' +
             '  <b class="iconbs">&#10084;</b>'+objPD.pri+'<input type="checkbox" name="maxim-completed" title="click to maxim"/> <label>' + dataAt.task + '</label>' +
             '</div>' +
-            '<div class="col-sm-3 event text-right"><button class="btn btn-default delete">Delete</button></div>' +
+            '<div class="col-sm-3 event maxim-completed text-right"><button class="btn btn-default delete">Delete</button></div>' +
             '</div>';
 
     }
@@ -3330,5 +3370,20 @@ function run_time() {
         setTimeout(run_time, timeAutoNoti); // try again in 3000 milliseconds
     }
 }
+
+function getLableOfRadioChecked(atName, value = "") {
+    var checkedRadio = $('input[name="'+atName+'"][type="radio"]:checked');
+    var labelText = $(`label[for="${checkedRadio.attr('id')}"]`).text();
+    if(value !== ""){
+        checkedRadio = $('input[name="'+atName+'"][type="radio"][value="' + value + '"]');
+        labelText = $(`label[for="${checkedRadio.attr('id')}"]`).text();
+    }
+    // Find the radio input with the specified value
+    // const radio = $('input[type="radio"][name="type-goal"][value="' + value + '"]');
+  
+    // Check if an element was found, then return its name
+    return labelText;
+}
+
 console.log('Run task 5minus');
 setTimeout(run_time, timeAutoNoti);
