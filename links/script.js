@@ -1216,6 +1216,10 @@ function changeSortContacts(allData){
 	//var str = buildListVideo(newObjectSort)
 	var str = getContentContact(newObjectSort, true);
 	$('#contacts').html(str);
+	
+	var listObjectNumberCat = countNumberCategoryMulti(newObjectSort, 'location','city');
+	showNumberToList(listObjectNumberCat,'#buttonListLink')
+	
 }
 
 function getContentContact(data, isreset = false) {
@@ -1897,6 +1901,7 @@ function buildSelectToBtnBasic(atSelect,atView){
 		const $li = $("<li>");
 		const $button = $("<button>")
 			.text(optionText)
+			.attr("data-name", optionText)
 			.val(optionValue)
 			.on("click", function() {
 				console.log("Button clicked:", $(this).val());
@@ -1928,6 +1933,7 @@ function buildSelectToBtn(){
             const $button = $("<button>")
                 .text(optionText)
                 .val(optionValue)
+                .attr("data-name", optionText)
                 .on("click", function() {
                     console.log("Button clicked:", $(this).val());
                 });
@@ -2125,9 +2131,42 @@ function changeSortVideo(){
 	var stypeSort = $("#sort-video option:selected").val();
 	var arrSort = stypeSort.split("_");
 	var newObjectSort = sortDescObj(allVideo, arrSort[0], arrSort[1]);
+
+	var listObjectNumberCat = countNumberCategory(newObjectSort, 'id_cat');
+	console.log('listObjectNumberCat')
+	console.log(listObjectNumberCat)
+	showNumberToList(listObjectNumberCat,'#buttonListVideo')
 	var str = buildListVideo(newObjectSort)
 	$('#video .list-image').html(str);
     lazyLoad();
+}
+
+function showNumberToList(data,atIdSelect){
+	for (const item in data) {
+		var oldhtml = $(atIdSelect).find('button[value="'+item+'"]').attr('data-name');
+		$(atIdSelect).find('button[value="'+item+'"]').html(oldhtml+'('+data[item]+')');
+	}
+}
+
+function countNumberCategory(data, keyName){
+	const countByTypeCategory = {};
+
+	// Loop through each nested object
+	for (const item in data) {
+		const typeCategory = data[item][keyName];
+		countByTypeCategory[typeCategory] = (countByTypeCategory[typeCategory] || 0) + 1;
+	}
+	return countByTypeCategory;
+}
+function countNumberCategoryMulti(data, keyName, key2){
+	const countByTypeCategory = {};
+
+	// Loop through each nested object
+	for (const item in data) {
+		const typeCategory = data[item][keyName][key2];
+		countByTypeCategory[typeCategory] = (countByTypeCategory[typeCategory] || 0) + 1;
+	}
+	return countByTypeCategory;
 }
 
 function getListPhotoNext() {
