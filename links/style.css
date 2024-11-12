@@ -345,6 +345,7 @@ ul.drag-list{
 .group-5-task ol li:nth-child(5)::before {
     content: '\278E';
 }
+.show-cl-detail{padding-top:10px;font-weight:bold;}
 
 .button-list-view {
     display: block;
