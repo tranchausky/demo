@@ -2731,8 +2731,8 @@ function buildListTodo(dataIn,type_view) {
 
         str +=
             '<div class="at-task pb-2 d-flex" data-key="' + key + '">' +
-            '<div class="col-sm-9">' +
-            '&nbsp; '+objPD.pri+' '+objPD.day+' <input type="checkbox" name="'+type_view+'-checkbox" title="click to Completed"/>'+' '+objPD.fors+' <label>' + dataAt.task + '</label>' +
+            '<div class="col-sm-9">' +' <input type="checkbox" name="'+type_view+'-checkbox" title="click to Completed"/>'+' '+
+            '&nbsp; '+objPD.pri+' '+objPD.day+objPD.fors+' <label>' + dataAt.task + '</label>' +
             '</div>' +
             '<div class="col-sm-3 event todo text-right"><button class="btn btn-default edit '+type_view+' text-right">Edit</button></div>' +
             '</div>';
@@ -2957,8 +2957,8 @@ function buildListTodoCompleted(dataIn) {
 
         str +=
             '<div class="at-task pb-2 d-flex" data-key="' + key + '">' +
-            '<div class="col-sm-9">' +
-            '  <b class="iconbs">&#10084;</b>'+objPD.pri+'<input type="checkbox" name="todo-completed" title="click to Todo"/>'+objPD.fors+' <label>' + dataAt.task + '</label>' +
+            '<div class="col-sm-9">' +'<input type="checkbox" name="todo-completed" title="click to Todo"/>'+
+            '  <b class="iconbs">&#10084;</b>'+objPD.pri+objPD.fors+' <label>' + dataAt.task + '</label>' +
             '</div>' +
             '<div class="col-sm-3 event todo-completed text-right"><button class="btn btn-default delete">To Calendar</button></div>' +
             '</div>';
