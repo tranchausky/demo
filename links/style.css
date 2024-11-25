@@ -134,6 +134,7 @@ input[type="checkbox"]:hover{cursor:pointer}
                                   supported by Chrome, Edge, Opera and Firefox */
 }
 
+.btn.active.focus, .btn.active:focus, .btn.focus, .btn:active.focus, .btn:active:focus, .btn:focus{outline: 0px auto -webkit-focus-ring-color;}
 .s-task.true {
     color: green;
 }
@@ -150,6 +151,7 @@ input[type="checkbox"]:hover{cursor:pointer}
 .todo .list-todo-new .at-task label {
 	background: yellow;
 }
+.todo .asc{background: #ce4300; color: white;}
 .list-todo-new .list-group{counter-reset: div-counter;}
 
 .list-todo-new .list-group >div{

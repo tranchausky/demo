@@ -561,9 +561,12 @@ function sortTodoPriority(at){
 	if(isTrue!=true){
 		typesort = 'priority_asc';
 		$(this).attr('is_desc',true);
+		$(at).removeClass('asc');
 	}else{
 		$(this).attr('is_desc',false);
+		$(at).addClass('asc');
 	}
+	
 	changeSortTodoWithType('.list-todo-new .list-group',typesort,allTaskNew);
 }
 
