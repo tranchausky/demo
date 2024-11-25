@@ -150,6 +150,21 @@ input[type="checkbox"]:hover{cursor:pointer}
 .todo .list-todo-new .at-task label {
 	background: yellow;
 }
+.list-todo-new .list-group{counter-reset: div-counter;}
+
+.list-todo-new .list-group >div{
+	counter-increment: div-counter;
+	/* margin-bottom: 10px; */
+	/* padding: 10px; */
+	/* border: 1px solid #ccc; */
+	position: relative;
+}
+.list-todo-new .list-group >div::before{
+	 content: counter(div-counter) "."; /* Use the counter value */
+	position: absolute;
+	/* left: -30px; */
+	font-weight: bold;
+}
 .todo .list-todo-completed .at-task label {
 	background: #e0c9c9;
 }
@@ -158,7 +173,6 @@ input[type="checkbox"]:hover{cursor:pointer}
     
     display: inline;
 }
-
 .footer {
     font-size: 11px;
 }

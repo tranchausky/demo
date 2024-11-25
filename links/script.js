@@ -537,8 +537,24 @@ $(document).ready(function () {
 		getListVideo(value);
     })
 
-
+	changeTodoToTextArea();
 });
+
+function changeTodoToTextArea(){
+	if(window.innerWidth < 768){
+		$('#add-todo').replaceWith(function () {
+			return $('<textarea>')
+				.attr({
+					id: this.id,
+					name: this.name,
+					placeholder: $(this).attr('placeholder')
+				})
+				.addClass($(this).attr('class'))
+				.val($(this).val());
+		});
+	}
+}
+
 function sortTodoPriority(at){
 	var isTrue = $(this).attr('is_desc');
 	var typesort = 'priority_desc';
@@ -3482,6 +3498,7 @@ function shuffle(array) {
   
     return array;
   }
+
 
 function checkIsDoneNotEmpty(task,isTaskDone){
     if(isTaskDone == true){
