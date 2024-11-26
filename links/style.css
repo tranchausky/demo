@@ -169,9 +169,11 @@ sup{text-transform: capitalize;}
 	/* left: -30px; */
 	font-weight: bold;
 }
+
 .todo .list-todo-completed .at-task label {
 	background: #e0c9c9;
 }
+.todo .list-todo-new .dayli label{background: #e1e10a;}
 .todo .at-task label {
     word-break: break-word;
     

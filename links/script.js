@@ -2808,7 +2808,7 @@ function buildListTodo(dataIn,type_view) {
 		var objPD = buildPriority_Day(dataAt);
 
         str +=
-            '<div class="at-task pb-2 d-flex" data-key="' + key + '">' +
+            '<div class="at-task pb-2 d-flex '+dataAt.fors+'" data-key="' + key + '">' +
             '<div class="col-sm-9">' +' <input type="checkbox" name="'+type_view+'-checkbox" title="click to Completed"/>'+' '+
             '&nbsp; '+objPD.pri+' '+objPD.day+objPD.fors+' <label>' + dataAt.task + '</label>' +
             '</div>' +
