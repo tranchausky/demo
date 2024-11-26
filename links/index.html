@@ -517,7 +517,8 @@
                                     </div>
 									<div class="col-sm-2 pb-2">
                                         <select class="form-control" id="select-todo-for">
-											<option value="">Loại todo</option>
+											<option value="">Select todo</option>
+											<option value="dayli">Mỗi Ngày</option>
 											<option value="health">Sức Khỏe</option>
 											<option value="feature">Tương Lai</option>
 											<option value="money">Tiền</option>
@@ -541,9 +542,10 @@
 								
                             </div>
 							<div class="row">
-								<div class="col-sm-5"></div>
-								<div class="col-sm-2 pb-2">
-									<button onClick="sortTodoPriority(this)" class="btn btn-default">Sort Priority</button>
+								<div class="col-sm-3"></div>
+								<div class="col-sm-4 pb-2">
+									<button onClick="sortTodoPriority(this)" id="sortTodoPriority" class="btn btn-default">Sort Priority</button>
+									<button onClick="setTodoToday(this)" id="setTodoToday" is_today="false" class="btn btn-default">Mỗi Ngày</button>
 								</div>
 								<div class="col-sm-5 pb-2">
 									

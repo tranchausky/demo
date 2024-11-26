@@ -406,7 +406,8 @@ $(document).ready(function () {
         if (isCheck == true) {
             var key = $(this).closest('.at-task').attr('data-key')
             //updateTodo(allTaskNew[key]['task'], 'completed', key)
-			updateTodo({status:'completed',task:allTaskNew[key]['task']}, key)
+			updateTodo({status:'completed',task:allTaskNew[key]['task']}, key);
+			viewTypeTodoNew();
         }
     })
     $(document.body).on('click', '.list-todo-completed input[type="checkbox"]', function (event) {
@@ -555,7 +556,37 @@ function changeTodoToTextArea(){
 	}
 }
 
+function setTodoToday(at){
+	$('#sortTodoPriority').attr('is_desc','false');
+	$('#sortTodoPriority').removeClass('asc');
+	
+	//var todaykey = 'dayli';
+	var isTrue = $(at).attr('is_today');
+	console.log(isTrue)
+	if(isTrue!='false'){
+		console.log('run 1')
+		$(at).attr('is_today','false');
+		$(at).removeClass('asc');
+	}else{
+		console.log(at)
+		console.log('run 2')
+		$(at).attr('is_today','true');
+		$(at).addClass('asc');
+	}
+	viewTypeTodoNew();
+}
+function viewTypeTodoNew(){
+	if($('#setTodoToday').attr('is_today') == "true"){
+		viewToDoWithType('.list-todo-new .list-group','dayli',allTaskNew);
+	}else{
+		//changeSortTodoWithType('.list-todo-new .list-group','priority_desc',allTaskNew);
+		changeSortTodo('.list-todo-new .list-group','#sort-todo',allTaskNew);
+	}
+}
+
 function sortTodoPriority(at){
+	$('#setTodoToday').attr('is_today','false');
+	$('#setTodoToday').removeClass('asc');
 	var isTrue = $(this).attr('is_desc');
 	var typesort = 'priority_desc';
 	if(isTrue!=true){
@@ -621,9 +652,27 @@ function addEventTodo(text, key) {
 	$('#save-task').show();
 	$('#add-task').hide();
 	$('#add-todo').val(text);
-	$('#select-todo-priority').val(atTodo.priority);
-	$('#select-todo-day').val(atTodo.day);
-	$('#select-todo-for').val(atTodo.fors);
+	console.log(atTodo)
+	if(atTodo && typeof atTodo.priority != "undefined"){
+		$('#select-todo-priority').val(atTodo.priority);	
+	}else{
+		$('#select-todo-priority').val("");
+	}
+	
+
+	if(atTodo && typeof atTodo.day != "undefined"){
+		$('#select-todo-day').val(atTodo.day);
+	}else{
+		$('#select-todo-day').val("");
+	}
+	
+		if(atTodo && typeof atTodo.fors != "undefined"){
+		$('#select-todo-for').val(atTodo.fors);	
+	}else{
+		$('#select-todo-for').val("");
+	}
+	
+	
 	
 	return;
 	
@@ -1146,6 +1195,26 @@ function sortDescObj(list, key, order = 'desc') {
     }
     return newObjectSort;
 }
+
+function onlyWithKeyObj(obj,key, value) {
+if (typeof obj === "object" && obj !== null) {
+        const filteredObj = {};
+
+        // Iterate over the object's keys
+        for (const [k, v] of Object.entries(obj)) {
+            // If the value is an object, check if the key matches and the value is equal to the specified value
+            if (v[key] === value) {
+                filteredObj[k] = v;
+            }
+        }
+
+        // Return filtered object, or null if no properties match
+        return Object.keys(filteredObj).length > 0 ? filteredObj : null;
+    }
+    return null;
+}
+
+
 /*
 function sortDescObj(list, key) {
     if (list == null || list == [] || list == {}) {
@@ -2465,6 +2534,15 @@ function changeSortTodoWithType(atShow, stypeSort, allObj){
 	$(atShow).html(str);
 }
 
+function viewToDoWithType(atShow, keyfilter, allObj){
+	//var arrSort = stypeSort.split("_");
+	console.log(allObj)
+	var newObjectSort = onlyWithKeyObj(allObj,'fors', keyfilter);
+	console.log(newObjectSort)
+	var str = buildListTodo(newObjectSort,'todo')
+	$(atShow).html(str);
+}
+
 function getListTodoCompleted() {
     todoRef = dbRef.ref('todos/' + user_ID)
     todoRef.orderByChild('status').equalTo('completed').on("value", function (snapshot) {
@@ -2781,31 +2859,13 @@ function buildPriority_Day(obj){
 		default:
 			break;
 	}
-	switch(fors){
-		case "feature":
-			objReturn.fors = '<sup title="'+fors+'">Feauture</sup>';
-			break;
-		case "money":
-			objReturn.fors = '<sup title="'+fors+'">Money</sup>';
-			break;
-		case "quanhe":
-			objReturn.fors = '<sup title="'+fors+'">quanhe</sup>';
-			break;
-		case "learn":
-			objReturn.fors = '<sup title="'+fors+'">learn</sup>';
-			break;
-		case "family":
-			objReturn.fors = '<sup title="'+fors+'">family</sup>';
-			break;
-		case "work":
-			objReturn.fors = '<sup title="'+fors+'">work</sup>';
-			break;
-		case "ranh":
-			objReturn.fors = '<sup title="'+fors+'">ranh</sup>';
-			break;
-		default:
-			break;
+	
+	if(typeof fors != "undefined"){
+		objReturn.fors = '<sup title="'+fors+'">'+fors+'</sup>';
+	}else{
+		objReturn.fors = '';
 	}
+	
 	return objReturn;
 }
 
@@ -2950,18 +3010,24 @@ function updateKeySwot() {
 }
 
 function buildListTodoCompleted(dataIn) {
+	var typeNoToCalendar = "dayli";
     var str = '';
     for (var key in dataIn) {
         var dataAt = dataIn[key]
 		var objPD = buildPriority_Day(dataAt);
-
+		toCalanDar = '';
+		console.log(dataAt.fors)
+		if(dataAt.fors !== typeNoToCalendar){
+			toCalanDar = '<button class="btn btn-default delete">To Calendar</button>';
+		}
+		
         str +=
-            '<div class="at-task pb-2 d-flex" data-key="' + key + '">' +
+            '<div class="at-task mb-2 d-flex" data-key="' + key + '">' +
             '<div class="col-sm-9">' +'<input type="checkbox" name="todo-completed" title="click to Todo"/>'+
             '  <b class="iconbs">&#10084;</b>'+objPD.pri+objPD.fors+' <label>' + dataAt.task + '</label>' +
             '</div>' +
-            '<div class="col-sm-3 event todo-completed text-right"><button class="btn btn-default delete">To Calendar</button></div>' +
-            '</div>';
+            '<div class="col-sm-3 event todo-completed text-right">' +toCalanDar+
+            '</div></div>';
 
     }
     $('.list-todo-completed .list-group').html(str);
