@@ -910,6 +910,9 @@ var listOptionPhoto = {
     9: 'People',
     10: 'Month',
     11: 'Year',
+    12: 'Art',
+    13: 'Learning',
+    14: 'Funny',
 }
 
 var listOptionVideo = {
