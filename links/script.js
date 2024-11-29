@@ -638,8 +638,34 @@ function showNeedEnterAfter5Minus(){
 
 //try active last click
 function tabClick() {
-    var tag = window.location.hash;
-    $('a[href="' + tag + '"]').click();
+	var listTag = getLinkHasUrl();
+	if(listTag[0]){
+		$('a[href="' + listTag[0] + '"]').click();	
+	}
+	//if(listTag[0] == "#note"){
+		//var key1 = listTag[1];
+		//var key2 = listTag[2];
+		//console.log(key1)
+		//console.log(key2)
+	//}
+}
+function getLinkHasUrl(){
+	var tag = window.location.hash;
+	var listTag = tag.split('/');
+	return listTag;
+}
+function buildLinkNote(key1,key2){
+	var domainAndAt = window.location.origin + window.location.pathname;
+	var atHas = "#note";
+	if(key1){
+		atHas += '/'+key1;
+	}
+	if(key2){
+		atHas += '/'+key2;
+	}
+	var linkResult = domainAndAt+atHas;
+	//console.log(linkResult);
+	history.pushState(null, null, linkResult);
 }
 
 function addEventTodo(text, key) {
