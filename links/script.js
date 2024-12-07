@@ -1364,7 +1364,7 @@ function getContentContact(data, isreset = false) {
 	var str = "";
     for (var key in data) {
         //$('#contacts').append(contactHtmlFromObject(data[key]));
-		str += contactHtmlFromObject(data[key]);
+		str += contactHtmlFromObject(data[key], key);
     }
 	return str;
 }
@@ -1402,9 +1402,40 @@ function prevPage(first) {
 }
 
 //save contact
+$('.editValue').on("click", function (event) {
+    event.preventDefault();
+    
+    var key = $('.editValue').attr('data-key');
+    //contactsRef = dbRef.ref('contacts/' + user_ID)
+    contactsRef = dbRef.ref('contacts/' + user_ID + '/' + key)
+
+    contactsRef.update({
+        name: $('#name').val().replace(/<[^>]*>/ig, ""),
+        email: $('#email').val().replace(/<[^>]*>/ig, ""),
+        location: {
+            city: $('#city').val().replace(/<[^>]*>/ig, ""),
+            state: $('#state').val().replace(/<[^>]*>/ig, ""),
+            zip: $('#zip').val().replace(/<[^>]*>/ig, "")
+        },
+        time: new Date().getTime(),
+    }).then(() => {
+        $('#name').val('');
+        $('#email').val('');
+        // $('#home-select-forview').val('');
+        // loadData();
+        $('#city').val('');
+        $('#state').val('');
+        $('#zip').val('');
+    });
+
+    $('.addValue').show();
+    $('.editValue').hide();
+
+});
 $('.addValue').on("click", function (event) {
     event.preventDefault();
-    if ($('#name').val() != '' || $('#email').val() != '') {
+    if ($('#name').val() != '' && $('#email').val() != '') {
+        contactsRef = dbRef.ref('contacts/' + user_ID)
         contactsRef.push({
             name: $('#name').val().replace(/<[^>]*>/ig, ""),
             email: $('#email').val().replace(/<[^>]*>/ig, ""),
@@ -1419,7 +1450,8 @@ $('.addValue').on("click", function (event) {
             $('#name').val('');
             $('#email').val('');
             $('#home-select-forview').val('');
-            loadData();
+            // loadData();
+            console.log('ad dome')
         });
         //contactForm.reset();
         
@@ -1962,8 +1994,35 @@ function getCalendarDate(dateDMY, callback) {
     // });
 }
 
+function edithome(key){
+    console.log('edit at')
+    console.log(key)
+    var atNow = allContacts[key];
+    console.log(atNow)
+    console.log(atNow.email)
+
+    // name: $('#name').val().replace(/<[^>]*>/ig, ""),
+    //         email: $('#email').val().replace(/<[^>]*>/ig, ""),
+    //         location: {
+    //             city: $('#city').val().replace(/<[^>]*>/ig, ""),
+    //             state: $('#state').val().replace(/<[^>]*>/ig, ""),
+    //             zip: $('#zip').val().replace(/<[^>]*>/ig, "")
+    //         },
+    //         time: new Date().getTime(),
+    //         userId: user_ID
+    $('#name').val(atNow.name);
+    $('#email').val(atNow.email);
+    $('#city').val(atNow.location.city);
+    $('#state').val(atNow.location.state);
+    $('#zip').val(atNow.location.zip);
+
+    $('.editValue').attr('data-key',key);
+
+    $('.addValue').hide();
+    $('.editValue').show();
+}
 //prepare conatct object's HTML
-function contactHtmlFromObject(contact) {
+function contactHtmlFromObject(contact, key) {
     // console.log(contact);
     var html = '';
     html += '<li class="list-group-item contact">';
@@ -1971,7 +2030,7 @@ function contactHtmlFromObject(contact) {
     if (contact.name != '') {
         html += '<p class="lead">' + contact.name + '</p>';
     }
-    html += '<p><a href="' + contact.email + '" target="_blank" title="' + contact.email + '">' + contact.email + '</a></p>';
+    html += '<p><a href="' + contact.email + '" target="_blank" title="' + contact.email + '">' + contact.email + '</a><button onclick="edithome(&#39;'+key+'&#39;)">Edit</button></p>';
     var textSelect = ''
     if (contact.location != undefined) {
         textSelect = filterSelect(contact.location.city, listOption)
