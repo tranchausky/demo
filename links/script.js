@@ -1994,6 +1994,95 @@ function getCalendarDate(dateDMY, callback) {
     // });
 }
 
+function searchInData(data, searchTerm) {
+    return data.filter(item => {
+        return Object.values(item).some(innerObj => {
+            return searchObject(innerObj, searchTerm);
+        });
+    });
+}
+
+function searchObject(obj, searchTerm) {
+    // Check if any value in the object contains the searchTerm
+    return Object.values(obj).some(value => {
+        if (typeof value === 'object' && value !== null) {
+            return searchObject(value, searchTerm); // Recurse if it's an object
+        }
+        return String(value).toLowerCase().includes(searchTerm.toLowerCase()); // Case-insensitive search
+    });
+}
+
+
+function searchObject(data, searchTerm) {
+    // Iterate through each entry in the object
+    const result = Object.entries(data)
+        .filter(([key, value]) => {
+            // Search for the term in all values of the object
+            return Object.values(value).some(innerValue => {
+                if (typeof innerValue === 'object' && innerValue !== null) {
+                    // If it's an object (like 'location'), check its properties
+                    return Object.values(innerValue).some(innerObjValue =>
+                        String(innerObjValue).toLowerCase().includes(searchTerm.toLowerCase())
+                    );
+                }
+                // If it's a primitive value (like 'email', 'name', etc.), check the value directly
+                return String(innerValue).toLowerCase().includes(searchTerm.toLowerCase());
+            });
+        })
+        .reduce((acc, [key, value]) => {
+            // Rebuild the object with the matching entries
+            acc[key] = value;
+            return acc;
+        }, {});
+
+    return result;
+}
+
+const searchInput = document.getElementById("searchhome");
+const clearButton = document.getElementById("clearButton");
+clearButton.addEventListener("click", function() {
+    // Clear the input field when the button is clicked
+    searchInput.value = "";
+    $('#clearButton').hide();
+});
+function changeSearch() {
+    const input = document.getElementById("searchhome").value.toLowerCase();
+    // const resultsDiv = document.getElementById("results");
+    // resultsDiv.innerHTML = ""; // Clear previous results
+
+    // console.log(allContacts)
+    // console.log(JSON.stringify(allContacts))
+
+    // Filter data based on input
+    // const filteredData = allContacts.filter(item => item.name.toLowerCase().includes(input));
+    // console.log(filteredData)
+
+    if(input == ''){
+        $('#clearButton').hide();
+        return loadData();
+    }
+    $('#clearButton').show();
+
+    // Example Usage
+    const searchTerm = input;
+    const filteredData = searchObject(allContacts, searchTerm);
+    console.log(filteredData);
+
+    var str = getContentContact(filteredData, true);
+	$('#contacts').html(str);
+
+    // Display the results
+    // if (filteredData.length > 0) {
+    //     filteredData.forEach(item => {
+    //         const resultItem = document.createElement("div");
+    //         resultItem.textContent = `${item.id}: ${item.name}`;
+    //         resultsDiv.appendChild(resultItem);
+    //     });
+    // } else {
+    //     resultsDiv.textContent = "No results found.";
+    // }
+}
+
 function edithome(key){
     console.log('edit at')
     console.log(key)
