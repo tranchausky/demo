@@ -2044,6 +2044,7 @@ clearButton.addEventListener("click", function() {
     // Clear the input field when the button is clicked
     searchInput.value = "";
     $('#clearButton').hide();
+    loadData();
 });
 function changeSearch() {
     const input = document.getElementById("searchhome").value.toLowerCase();
