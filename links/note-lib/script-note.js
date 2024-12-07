@@ -150,7 +150,8 @@ function change_note_cat(ischange){
     glb_link_note_current = main_key + user_ID;
     getNoteListCategory();
 }
-
+var isFirstSetCatNote = true;
+var isFirstSetDetailNote = true;
 function getNoteListCategory() {
     // console.log('note-list-cat')
     
@@ -187,14 +188,28 @@ function getNoteListCategory() {
             index++;
         }
         if ($('#split-0 .list li').length > 0) {
-            const myTimeout = setTimeout(function(){
-                $('#split-0 .list li').eq(0).trigger('click');
-            }, 500);
+			if(isFirstSetCatNote == true){
+				var infoLink = getLinkHasUrl();
+				
+				if(infoLink[1]){
+					$('.list-category-note li[data-id="'+infoLink[1]+'"]').trigger('click');
+				}else{
+					//trigger default check first
+					const myTimeout = setTimeout(function(){
+						$('#split-0 .list li').eq(0).trigger('click');
+					}, 500);
+				}
+				if(infoLink[2]){
+					idLastClickDetail= infoLink[2]
+				}
+				isFirstSetCatNote = false;
+			}
+            
             
         }
         setTotalFooter1(Object.keys(newObjectSort).length);
-        focus_category_reload(last_select_note_cat);
-        last_select_note_cat = 0;
+        //focus_category_reload(last_select_note_cat);
+        //last_select_note_cat = 0;
     });
 }
 
@@ -690,11 +705,13 @@ function event1_delete() {
 }
 
 function event1_click(at) {
-    // console.log(at)
+    
     $('.list-history li').removeClass('active');
 
     var id = at.getAttribute('data-id');
     idCategory_selected = id;
+	//console.log(id)
+	buildLinkNote(id,"")
     getNoteListPost(id);
 
     // hideShowLoadingEditor(1);
@@ -836,6 +853,7 @@ var li2_index = 0;
 function event2_click(at) {
 
     var id = at.getAttribute('data-id');
+	buildLinkNote(idCategory_selected,id)
 
     var listItem = $('li[data-id="'+id+'"]');
     li2_index = $( "#split-1 .list li" ).index( listItem );

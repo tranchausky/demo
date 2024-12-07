@@ -39,6 +39,8 @@ hr{margin: 0;margin-bottom: 10px;}
 .pl-2{padding-left: 8px;}
 .pr-2{padding-right: 8px;}
 
+.mb-2{margin-bottom: 8px;}
+
 .right {
     float: right;
 }
@@ -133,7 +135,7 @@ input[type="checkbox"]:hover{cursor:pointer}
     /* Non-prefixed version, currently
                                   supported by Chrome, Edge, Opera and Firefox */
 }
-
+sup{text-transform: capitalize;}
 .btn.active.focus, .btn.active:focus, .btn.focus, .btn:active.focus, .btn:active:focus, .btn:focus{outline: 0px auto -webkit-focus-ring-color;}
 .s-task.true {
     color: green;
@@ -167,13 +169,18 @@ input[type="checkbox"]:hover{cursor:pointer}
 	/* left: -30px; */
 	font-weight: bold;
 }
+
 .todo .list-todo-completed .at-task label {
 	background: #e0c9c9;
 }
+.todo .list-todo-new .dayli label{background: #e1e10a;}
 .todo .at-task label {
     word-break: break-word;
     
     display: inline;
+}
+.list-todo-completed .at-task{
+	border-bottom: 1px solid #80808024;
 }
 .footer {
     font-size: 11px;
