@@ -821,6 +821,10 @@ var listOption = {};
 listOption.default = {
 	"": 'Default',
 	0.1: 'FAVORIS',
+	0.2: 'isBest',
+	0.3: 'My Web',
+	0.4: 'My Demo',
+	0.5: 'They Web',
 }
 listOption.note = {
     3.0: 'Different',
