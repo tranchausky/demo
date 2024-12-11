@@ -768,10 +768,10 @@ function changeVideo(videoUrl, cat_id, key) {
     let domain = getDomain(videoUrl);
     var str = '';
     if (domain == 'facebook.com') {
-        str += '<p><a href="' + videoUrl + '">Link video</a></p>';
+        str += '<p><a href="' + videoUrl + '" target="_blank">Link video</a></p>';
         str += '<iframe src="https://www.facebook.com/plugins/video.php?height=476&href=' + videoUrl + '%2F&show_text=false&width=476&t=0" width="476" height="476" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" allowFullScreen="true"></iframe>'
     } else {
-        str = '<p><a href="' + videoUrl + '">Link video</a></p><iframe width="400" height="500" src="' + videoUrl + '" ></iframe>'
+        str = '<p><a href="' + videoUrl + '" target="_blank">Link video</a></p><iframe width="400" height="500" src="' + videoUrl + '" ></iframe>'
     }
     // return;
 
@@ -793,13 +793,13 @@ function changeLinkVideo(videId, videoUrl, key, cat_id) {
     $('#video-time').html(intToTime(timeShow));
     $('#id_video_now').attr('key-id', key);
 
-    var str = '<p><a href="' + videoUrl + '">Link video</a></p><iframe src="https://www.youtube.com/embed/' + videId + '" width="100%" height="400px" allowfullscreen></iframe>';
+    var str = '<p><a href="' + videoUrl + '" target="_blank">Link video</a></p><iframe src="https://www.youtube.com/embed/' + videId + '" width="100%" height="400px" allowfullscreen></iframe>';
     $('#video-iframe').html(str);
 }
 function changeVideoBase64(videId, videoUrl, key) {
     var decodedString = atob(videId);
 
-    var str = '<p><a href="' + videoUrl + '">Link video</a></p>' + decodedString;
+    var str = '<p><a href="' + videoUrl + '" target="_blank">Link video</a></p>' + decodedString;
     $('#video-iframe').html(str);
 }
 
