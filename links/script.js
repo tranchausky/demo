@@ -1481,13 +1481,13 @@ $('#video-input').on("focusout", function (event) {
     event.preventDefault();
     var linkvideo = $('#video-input').val();
     let domain = getDomain(linkvideo);
-    if (domain == 'youtube.com') {
+    if (domain == 'youtube.com' || domain  == 'youtu.be') {
         var link = 'https://www.youtube.com/oembed?url=' + linkvideo + '&format=json';
         $.getJSON(link, function (data) {
             $('#video-input-title').val(data.title)
         });
     } else {
-        $('#video-input-title').val(data.title)
+        //$('#video-input-title').val('')
     }
 });
 $('.addVideo').on("click", function (event) {
