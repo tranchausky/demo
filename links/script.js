@@ -515,6 +515,7 @@ $(document).ready(function () {
         //getListContactFilter();
     //})
 	$(document.body).on('click', '#buttonListLink li button', function (event) {
+        console.log('action btn')
 		$('#buttonListLink li button').removeClass('active');
 		$(this).addClass('active');
 		var value= $(this).attr('value');
@@ -1323,13 +1324,14 @@ function getListContactFilter(id_show){
         return;
     }
 
-    var listSearch = [];
+    var listSearch = {};
     for (const property in allContacts) {
         var at = allContacts[property]
         
 
         if(at.location.city == id_show){
-            listSearch.push(at)
+            //listSearch.push(at)
+            listSearch[property] = at;
         }
     }
 	changeSortContacts(listSearch);
@@ -2077,6 +2079,7 @@ function changeSearch() {
     const searchTerm = input;
     const filteredData = searchObject(allContacts, searchTerm);
     console.log(filteredData);
+    console.log('atfile')
 
     var str = getContentContact(filteredData, true);
 	$('#contacts').html(str);
@@ -2097,6 +2100,10 @@ function edithome(key){
     console.log('edit at')
     console.log(key)
     var atNow = allContacts[key];
+    if(typeof atNow == "undefined"){
+        console.log('at is Undefined')
+        return;
+    }
     console.log(atNow)
     console.log(atNow.email)
 
@@ -2122,7 +2129,6 @@ function edithome(key){
 }
 //prepare conatct object's HTML
 function contactHtmlFromObject(contact, key) {
-    // console.log(contact);
     var html = '';
     html += '<li class="list-group-item contact">';
     html += '<div>';
@@ -2412,8 +2418,6 @@ function changeSortVideo(){
 	var newObjectSort = sortDescObj(allVideo, arrSort[0], arrSort[1]);
 
 	var listObjectNumberCat = countNumberCategory(newObjectSort, 'id_cat');
-	console.log('listObjectNumberCat')
-	console.log(listObjectNumberCat)
 	showNumberToList(listObjectNumberCat,'#buttonListVideo')
 	var str = buildListVideo(newObjectSort)
 	$('#video .list-image').html(str);
