@@ -401,6 +401,15 @@ $(document).ready(function () {
     })
     
 
+    $(document.body).on('click', '.list-todo-new div label', function (event) {
+		console.log('this clcik')
+		var isClick = $(this).attr('db-click');
+		if(isClick == 1){
+			$(this).attr('db-click', 0);
+		}else{
+			$(this).attr('db-click', 1);
+		}
+	})
     $(document.body).on('click', '.list-todo-new input[type="checkbox"]', function (event) {
         var isCheck = $(this).is(":checked");
         if (isCheck == true) {

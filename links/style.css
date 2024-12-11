@@ -185,6 +185,9 @@ sup{text-transform: capitalize;}
     
     display: inline;
 }
+.todo .list-todo-new label[db-click="1"]{
+	background: green; color: white;
+}
 .list-todo-completed .at-task{
 	border-bottom: 1px solid #80808024;
 }
