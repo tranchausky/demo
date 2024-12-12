@@ -3000,10 +3000,10 @@ function buildListTodo(dataIn,type_view) {
 
         str +=
             '<div class="at-task pb-2 d-flex '+dataAt.fors+'" data-key="' + key + '">' +
-            '<div class="col-sm-9">' +' <input type="checkbox" name="'+type_view+'-checkbox" title="click to Completed"/>'+' '+
-            '&nbsp; '+objPD.pri+' '+objPD.day+objPD.fors+' <label>' + dataAt.task + '</label>' +
+            '<div class="col-sm-10"><div class="gv-todo">' +' <input type="checkbox" name="'+type_view+'-checkbox" title="click to Completed"/>'+' '+
+            '&nbsp; '+objPD.pri+' '+objPD.day+objPD.fors+' <label>' + dataAt.task + '</label></div>' +
             '</div>' +
-            '<div class="col-sm-3 event todo text-right"><button class="btn btn-default edit '+type_view+' text-right">Edit</button></div>' +
+            '<div class="col-sm-2 event todo text-right"><button class="btn btn-default edit '+type_view+' text-right">Edit</button></div>' +
             '</div>';
 
     }
@@ -3209,15 +3209,15 @@ function buildListTodoCompleted(dataIn) {
 		toCalanDar = '';
 		console.log(dataAt.fors)
 		if(dataAt.fors !== typeNoToCalendar){
-			toCalanDar = '<button class="btn btn-default delete">To Calendar</button>';
+			toCalanDar = '<button class="btn btn-default delete">To Lich</button>';
 		}
 		
         str +=
             '<div class="at-task mb-2 d-flex" data-key="' + key + '">' +
-            '<div class="col-sm-9">' +'<input type="checkbox" name="todo-completed" title="click to Todo"/>'+
-            '  <b class="iconbs">&#10084;</b>'+objPD.pri+objPD.fors+' <label>' + dataAt.task + '</label>' +
+            '<div class="col-sm-10"><div class="gv-todo">' +'<input type="checkbox" name="todo-completed" title="click to Todo"/>'+
+            '  <b class="iconbs">&#10084;</b>'+objPD.pri+objPD.fors+' <label>' + dataAt.task + '</label></div>' +
             '</div>' +
-            '<div class="col-sm-3 event todo-completed text-right">' +toCalanDar+
+            '<div class="col-sm-2 event todo-completed text-right">' +toCalanDar+
             '</div></div>';
 
     }
