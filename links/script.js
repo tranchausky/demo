@@ -418,15 +418,19 @@ $(document).ready(function () {
 			updateTodo({status:'completed',task:allTaskNew[key]['task']}, key);
 			viewTypeTodoNew();
             //set remove select
-            $('#todo-group-sort button.asc').trigger('click');
+            triggerOldClick();
         }
     })
+    function triggerOldClick(){
+        $('#todo-group-sort button.asc').trigger('click').trigger('click');
+    }
     $(document.body).on('click', '.list-todo-completed input[type="checkbox"]', function (event) {
         var isCheck = $(this).is(":checked");
         if (isCheck == true) {
             var key = $(this).closest('.at-task').attr('data-key')
             //updateTodo(allTaskComplete[key]['task'], 'new', key)
 			updateTodo({status:'new',task:allTaskComplete[key]['task']}, key)
+            triggerOldClick();
         }
     })
 	
