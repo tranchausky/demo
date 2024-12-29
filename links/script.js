@@ -402,13 +402,23 @@ $(document).ready(function () {
     
 
     $(document.body).on('click', '.list-todo-new div label', function (event) {
-		console.log('this clcik')
+		// console.log('this clcik')
 		var isClick = $(this).attr('db-click');
-		if(isClick == 1){
-			$(this).attr('db-click', 0);
+        // console.log(isClick);
+		if(isClick == 'false'){
+			$(this).attr('db-click', true);
+            isClick = 'true';
 		}else{
-			$(this).attr('db-click', 1);
+			$(this).attr('db-click', false);
+            isClick = 'false';
 		}
+        var key = $(this).closest('.at-task').attr('data-key')
+        // console.log(key);
+        // console.log(allTaskNew[key]);
+        var obj = allTaskNew[key];
+        obj.isClick= isClick;
+        
+        updateTodo(obj, key);
 	})
     $(document.body).on('click', '.list-todo-new input[type="checkbox"]', function (event) {
         var isCheck = $(this).is(":checked");
@@ -421,9 +431,7 @@ $(document).ready(function () {
             triggerOldClick();
         }
     })
-    function triggerOldClick(){
-        $('#todo-group-sort button.asc').trigger('click').trigger('click');
-    }
+    
     $(document.body).on('click', '.list-todo-completed input[type="checkbox"]', function (event) {
         var isCheck = $(this).is(":checked");
         if (isCheck == true) {
@@ -559,6 +567,10 @@ $(document).ready(function () {
 
 	changeTodoToTextArea();
 });
+
+function triggerOldClick(){
+    $('#todo-group-sort button.asc').trigger('click').trigger('click');
+}
 
 function changeTodoToTextArea(){
 	if(window.innerWidth < 768){
@@ -2697,6 +2709,7 @@ function pushTodo() {
         fors: todo_for,
         priority: todo_priority,
         status: 'new',
+        isClick:'false',
         time: new Date().getTime(),
         userId: user_ID
     })
@@ -2764,7 +2777,7 @@ function pushHabit() {
 
 function updateTodo(objUpdate, key) {
     todoRef = dbRef.ref('todos/' + user_ID + '/' + key)
-	objUpdate.time = new Date().getTime();
+	// objUpdate.time = new Date().getTime();
     todoRef.update(objUpdate);
 	/*
 	todoRef.update({
@@ -2776,6 +2789,7 @@ function updateTodo(objUpdate, key) {
 	*/
 	
 	//move to caladar if todo delete
+    triggerOldClick();
 }
 function updateMaxim(objUpdate, key) {
     maximRef = dbRef.ref('maxims/' + user_ID + '/' + key)
@@ -3133,10 +3147,15 @@ function buildListTodo(dataIn,type_view) {
         var dataAt = dataIn[key]
 		var objPD = buildPriority_Day(dataAt);
 
+        var temp = '';
+        if(dataAt.isClick !== undefined){
+            temp = 'db-click="'+dataAt.isClick+'" ';
+        }
+
         str +=
             '<div class="at-task pb-2 d-flex '+dataAt.fors+'" data-key="' + key + '">' +
             '<div class="col-sm-10"><div class="gv-todo">' +' <input type="checkbox" name="'+type_view+'-checkbox" title="click to Completed"/>'+' '+
-            '&nbsp; '+objPD.pri+' '+objPD.day+objPD.fors+' <label>' + dataAt.task + '</label></div>' +
+            '&nbsp; '+objPD.pri+' '+objPD.day+objPD.fors+' <label '+temp+'>' + dataAt.task + '</label></div>' +
             '</div>' +
             '<div class="col-sm-2 event todo text-right"><button class="btn btn-default edit '+type_view+' text-right">Edit</button></div>' +
             '</div>';

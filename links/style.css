@@ -203,7 +203,8 @@ sup{text-transform: capitalize;}
 .at-task sup {
     top: 0.5em;
 }
-.todo .list-todo-new label[db-click="1"]{
+.todo .list-todo-new label[db-click="1"],
+.todo .list-todo-new label[db-click="true"]{
 	background: green; color: white;
 }
 .list-todo-completed .at-task{
