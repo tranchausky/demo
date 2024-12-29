@@ -58,6 +58,7 @@ hr{margin: 0;margin-bottom: 10px;}
 }
 .view-center-mobile{display: none;}
 .gv-todo{display: flex;align-items: flex-start;}
+.clearbtn,
 #clearButton{
     display: none;
     position: absolute;
@@ -250,7 +251,7 @@ sup{text-transform: capitalize;}
 #scrum .drag-list .title{
     font-size: 14px;
 }
-#tx .list-action button,
+#tx .list-action button:not(.clearbtn),
 #scrum .list-action button{
     margin-top: 0px;
 }

@@ -39,7 +39,7 @@ $(function () {
             var keynew = $(this).closest('.list-drap-drop').find('h3').attr('data-key');
             //var idType = 
             $('#keyTx').val(keynew);
-            $('#text-tx').val(text);
+            $('#text-tx').val(text).trigger('change');
             $('#keyAtIdTx').val(keyid);
             editTx();
         },
@@ -120,7 +120,7 @@ $(function () {
         $('#keyAtIdTx').val($(this).attr('keyid'));
 
         var textAt = $(this).find('.title').html();
-        $('#text-tx').val(textAt);
+        $('#text-tx').val(textAt).trigger('change');
         $('#tx .drag-area').removeClass('selected')
         $(this).find('.drag-area').addClass('selected')
     })

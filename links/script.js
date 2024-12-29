@@ -2136,6 +2136,18 @@ clearButton.addEventListener("click", function() {
     $('#clearButton').hide();
     loadData();
 });
+function clearInput(at){
+    $(at).hide();
+    $(at).closest('div').find('input').val('');
+}
+function onChangeInput(at){
+    var input =at.value.toLowerCase();
+    if(input == ''){
+        $(at).closest('div').find('.clearbtn').hide();
+        return loadData();
+    }
+    $(at).closest('div').find('.clearbtn').show();
+}
 function changeSearch() {
     const input = document.getElementById("searchhome").value.toLowerCase();
     // const resultsDiv = document.getElementById("results");

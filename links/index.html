@@ -377,7 +377,8 @@
                                         <button type="submit" class="btn btn-primary" onclick="deleteTx()">Delete</button>
                                     </div>
                                     <div class="col-sm-9 inputtype">
-                                        <input type="text" class="form-control" id="text-tx" required="" placeholder="Enter mew">
+                                        <input type="search" class="form-control" id="text-tx" required="" placeholder="Enter mew" onchange="onChangeInput(this)">
+                                        <button class="clearbtn" onclick="clearInput(this)">x</button>
                                     </div>
 
                                 </div>
