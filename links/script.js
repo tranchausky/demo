@@ -417,6 +417,8 @@ $(document).ready(function () {
             //updateTodo(allTaskNew[key]['task'], 'completed', key)
 			updateTodo({status:'completed',task:allTaskNew[key]['task']}, key);
 			viewTypeTodoNew();
+            //set remove select
+            $('#todo-group-sort button.asc').trigger('click');
         }
     })
     $(document.body).on('click', '.list-todo-completed input[type="checkbox"]', function (event) {
@@ -572,6 +574,9 @@ function changeTodoToTextArea(){
 function setTodoToday(at){
 	$('#sortTodoPriority').attr('is_desc','false');
 	$('#sortTodoPriority').removeClass('asc');
+
+    $('#setTodoShowImportant').removeClass('asc');
+    $('#setTodoShowImportant').attr('is_desc','false');
 	
 	//var todaykey = 'dayli';
 	var isTrue = $(at).attr('is_today');
@@ -588,9 +593,40 @@ function setTodoToday(at){
 	}
 	viewTypeTodoNew();
 }
+function setTodoShowImportant(at){
+    // console.log('run')
+	$('#sortTodoPriority').attr('is_desc','false');
+	$('#sortTodoPriority').removeClass('asc');
+	$('#setTodoToday').removeClass('asc');
+    $('#setTodoToday').attr('is_desc','false');
+	
+	//var todaykey = 'dayli';
+	var isTrue = $(at).attr('is_today');
+	// console.log(isTrue)
+	if(isTrue!='false'){
+		// console.log('run 1')
+		$(at).attr('is_today','false');
+		$(at).removeClass('asc');
+	}else{
+		// console.log(at)
+		// console.log('run 2')
+		$(at).attr('is_today','true');
+		$(at).addClass('asc');
+	}
+	viewTodoShowImportant();
+}
+function viewTodoShowImportant(){
+    // console.log('run 2')
+	if($('#setTodoShowImportant').attr('is_today') == "true"){
+		viewToDoWithType('.list-todo-new .list-group','priority','urgent',allTaskNew);
+	}else{
+		//changeSortTodoWithType('.list-todo-new .list-group','priority_desc',allTaskNew);
+		changeSortTodo('.list-todo-new .list-group','#sort-todo',allTaskNew);
+	}
+}
 function viewTypeTodoNew(){
 	if($('#setTodoToday').attr('is_today') == "true"){
-		viewToDoWithType('.list-todo-new .list-group','dayli',allTaskNew);
+		viewToDoWithType('.list-todo-new .list-group','fors','dayli',allTaskNew);
 	}else{
 		//changeSortTodoWithType('.list-todo-new .list-group','priority_desc',allTaskNew);
 		changeSortTodo('.list-todo-new .list-group','#sort-todo',allTaskNew);
@@ -600,6 +636,10 @@ function viewTypeTodoNew(){
 function sortTodoPriority(at){
 	$('#setTodoToday').attr('is_today','false');
 	$('#setTodoToday').removeClass('asc');
+
+    $('#setTodoShowImportant').removeClass('asc');
+    $('#setTodoShowImportant').attr('is_desc','false');
+
 	var isTrue = $(this).attr('is_desc');
 	var typesort = 'priority_desc';
 	if(isTrue!=true){
@@ -2752,10 +2792,20 @@ function getListTodoNew() {
         //buildListTodoNew(newObjectSort)
         changeSortTodo('.list-todo-new .list-group','#sort-todo',newObjectSort);
         var listObjectNumberCat = countNumberCategory(newObjectSort, 'fors');
+        var listObjectNumberCatPriority = countNumberCategory(newObjectSort, 'priority');
         // console.log(listObjectNumberCat)
         // console.log(newObjectSort)
         $('#tt-todo-all').html(' ('+Object.keys(newObjectSort).length+')')
-        $('#tt-todo-moingay').html(' ('+listObjectNumberCat.dayli+')')
+
+        $('#tt-todo-moingay').html(' (0)')
+        if(listObjectNumberCat.dayli !== undefined){
+            $('#tt-todo-moingay').html(' ('+listObjectNumberCat.dayli+')')
+        }
+
+        $('#tt-todo-important').html(' (0)')
+        if(listObjectNumberCatPriority.urgent !== undefined){
+            $('#tt-todo-important').html(' ('+listObjectNumberCatPriority.urgent+')')
+        }
     })
 }
 
@@ -2789,10 +2839,10 @@ function changeSortTodoWithType(atShow, stypeSort, allObj){
 	$(atShow).html(str);
 }
 
-function viewToDoWithType(atShow, keyfilter, allObj){
+function viewToDoWithType(atShow,keycat, keyfilter, allObj){
 	//var arrSort = stypeSort.split("_");
 	// console.log(allObj)
-	var newObjectSort = onlyWithKeyObj(allObj,'fors', keyfilter);
+	var newObjectSort = onlyWithKeyObj(allObj,keycat, keyfilter);
 	// console.log(newObjectSort)
 	var str = buildListTodo(newObjectSort,'todo')
 	$(atShow).html(str);
