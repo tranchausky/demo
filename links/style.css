@@ -27,6 +27,16 @@
 .list-calendar {
     padding-left: 20px;
 }
+.loading-photo{
+    position: absolute;
+    background: #7975755c;
+    width: 100%;
+    height: 100%;
+    margin: auto;
+    text-align: center;
+    padding-top: 20%;
+    color: white;
+}
 
 .none {
     display: none;

@@ -1075,17 +1075,18 @@
                         <div class="col-sm-6">
                             <div class="row">
                                 <div class="col-sm-3">
-                                    <label for="">Edit category</label>
+                                    <label for="">Edit cat photo</label>
                                     <select name="list-cat-btn-edit" class="form-control list-cat-btn-edit" id="list-cat-btn-edit"></select>
                                 </div>
-                                <div class="col-sm-4"><span id="photo-time"></span>
+                                <div class="col-sm-9"><span id="photo-time"></span>
                                     <input id="edit-private-photo" type="checkbox">
                                     <label for="edit-private-photo">is private</label>
-
+                                    <input type="text" name="title-photo" id="title-photo" class="form-control">
                                 </div>
                             </div>
                             <br><br>
                             <div class="row">
+                                <div id="loading-photo" class="loading-photo" style="display: none;">Loading...</div>
                                 <img class="img-responsive" id="image-img-photo" src="https://i.imgur.com/mVJdgKk.png" alt="">
                             </div>
 
@@ -1531,7 +1532,7 @@
                 </div><!-- /.modal -->
 
                 <!-- This is the modal -->
-                <div class="modal fade" tabindex="-1" role="dialog" id="modal-Photo" data-backdrop="static">
+                <div class="modal fade" tabindex="-1" role="dialog" id="modal-Photo">
                     <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">

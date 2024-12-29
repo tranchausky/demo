@@ -537,7 +537,10 @@ $(document).ready(function () {
 	$(document.body).on('change', '#sort-maxim', function (event) {
         changeSortTodo('.list-maxim-new .list-group','#sort-maxim',allMaximNew);
     });
-    $(document.body).on('change', '#edit-private-photo', function (event) {
+    $(document.body).on('change', '#edit-private-photo, #list-cat-btn-edit', function (event) {
+        updatePhoto()
+    })
+    $(document.body).on('change', '#title-photo', function (event) {
         updatePhoto()
     })
 	//$(document.body).on('change', '#list-cat-btn-video', function (event) {
@@ -761,8 +764,9 @@ function addEventHabit(text, key) {
 
 function changeLinkImage(link, cat_id, key) {
     // var src = $(this).attr('str-big')
-    $('#image-img-photo').attr('src', link)
-    $('#image-img-photo').attr('key-id', key)
+    //$('#image-img-photo').attr('src', link);
+    loadImage(link)
+    $('#image-img-photo').attr('key-id', key);
     var d = new Date(allPhoto[key].time);
 
     $('#edit-private-photo').prop('checked', false);
@@ -772,7 +776,35 @@ function changeLinkImage(link, cat_id, key) {
     $('#photo-time').html(d.toLocaleString())
     $('.list-cat-btn-edit').html('<option value="">All</option>' + buildSelectPhotoCat(cat_id))
     // var select = filterSelect(key, listOptionPhoto)
+    var titlephoto = '';
+    if(typeof allPhoto[key].time != undefined){
+        titlephoto = allPhoto[key].title;
+    }
+    $('#title-photo').val(titlephoto);
 }
+function loadImage(link) {
+    // Show the loading indicator
+    $('#loading-photo').show();
+
+    // Hide the image until it fully loads
+    // $('#image-img-photo').hide();
+
+    // Set the new src and handle the onload event
+    $('#image-img-photo')
+      .attr('src', link)
+      .on('load', function () {
+        // Hide the loading indicator
+        $('#loading-photo').hide();
+
+        // Show the image
+        $(this).show();
+      })
+      .on('error', function () {
+        // Handle the error case (optional)
+        $('#loading-photo').hide();
+        alert('Failed to load the image.');
+      });
+  }
 
 function changeVideo(videoUrl, cat_id, key) {
     let domain = getDomain(videoUrl);
@@ -939,21 +971,26 @@ listOption.learning = {
 }
 
 var listOptionPhoto = {
-    1: 'Entertainment',
-    2: 'Defferent',
-    3: 'Health',
-    4: 'Companys',
-    5: 'Important',
-    6: 'Works',
-    7: 'Desktop',
-    8: 'Want',
-    9: 'People',
-    10: 'Month',
-    11: 'Year',
-    12: 'Art',
-    13: 'Learning',
-    14: 'Funny',
+    
+    '1': 'Entertainment',
+    '2': 'Defferent',
+    '3': 'Health',
+    '4': 'Companys',
+    '5': 'Important',
+    '6': 'Works',
+    '7': 'Desktop',
+    '8': 'Want',
+    '9': 'People',
+    '10': 'Month',
+    '11': 'Year',
+    '12': 'Art',
+    '13': 'Learning',
+    '14': 'Funny',
+    '15': 'Report',
+    '16': 'Screen Shoot',
+    '17': 'Only My',
 }
+var atOnlyMy = 17;
 
 var listOptionVideo = {
     0: 'Basic',
@@ -2481,6 +2518,7 @@ function getListPhotoNext() {
 
 function updatePhoto() {
     var id_cat_new = $(".list-cat-btn-edit option:selected").val();
+    var titlephoto = $("#title-photo").val();
     var is_show_new = $('#edit-private-photo').is(':checked');
     var key = $("#image-img-photo").attr('key-id');
     photoRef = dbRef.ref('photos/' + user_ID + '/' + key)
@@ -2488,8 +2526,9 @@ function updatePhoto() {
         is_show: is_show_new,
         pic: allPhoto[key]['pic'],
         id_cat: id_cat_new,
-        time: new Date().getTime(),
-        userId: user_ID
+        title: titlephoto,
+        // time: new Date().getTime(),
+        // userId: user_ID
     })
 }
 function updateVideo() {
@@ -2512,7 +2551,7 @@ function buildListPhoto(dataIn) {
     var str = '';
     for (var key in dataIn) {
         var dataAt = dataIn[key]
-        if (dataAt.is_show == false) {
+        if (dataAt.is_show == false && dataAt.id_cat !=atOnlyMy) {
             str += '<div class="col-sm-3 col-xs-4"><img class="img-thumbnail lazy" onclick="changeLinkImage(&apos;' + dataAt.pic + '&apos;,&apos;' + dataAt.id_cat + '&apos;,&apos;' + key + '&apos;)" str-big="' + dataAt.pic + '" data-src="' + getThump(dataAt.pic) + '" alt=""></div>'
         } else {
             str += '<div class="col-sm-3 col-xs-4"><img class="img-thumbnail hiden" onclick="changeLinkImage(&apos;' + dataAt.pic + '&apos;,&apos;' + dataAt.id_cat + '&apos;,&apos;' + key + '&apos;)" str-big="' + dataAt.pic + '" src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs%3D" alt=""></div>'
