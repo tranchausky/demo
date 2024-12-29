@@ -2395,8 +2395,12 @@ function getListPhoto() {
         var str = buildListPhoto(newObjectSort)
         $('#photo .list-image').html(str);
         lazyLoad();
-        if (snapshot.val() != null)
+        if (snapshot.val() != null){
             lastTimePhoto = newObjectSort[Object.keys(newObjectSort)[Object.keys(newObjectSort).length - 1]].time
+        }else{
+            lastTimePhoto ={};
+        }
+            
     })
 }
 /*
@@ -2545,6 +2549,11 @@ function updateVideo() {
 }
 
 function buildListPhoto(dataIn) {
+    
+    if(dataIn == null){
+        $('#total-photo').html(0);
+        return '';
+    }
     lengthSize = Object.keys(dataIn).length;
     $('#total-photo').html(lengthSize);
 
