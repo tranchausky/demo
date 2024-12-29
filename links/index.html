@@ -49,6 +49,7 @@
                         <span class="icon-bar"></span>
                     </button>
                     <a class="navbar-brand" href="#">03</a>
+                    <div class="view-center-mobile"><span class="minutes">00</span>:<span class="seconds">00</span></div>
                 </div>
                 <div class="collapse navbar-collapse" id="myNavbar">
                     <ul class="nav navbar-nav">
@@ -74,7 +75,7 @@
 						</li>
                         <!-- <li class=""><a href="../600">600</a></li> -->
                         <!-- <li class=""><a href="../timedown" target="_blank">Time</a></li> -->
-                        <li class=""><a href="#"><span id="minutes">00</span>:<span id="seconds">00</span></a></li>
+                        <li class="viewruntime"><li class="viewtimerun"><a href="#"><span class="minutes">00</span>:<span class="seconds">00</span></a></li></li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
                         <li class="show-signout">
@@ -423,7 +424,7 @@
                     </div>
                     <div class="row">
                         <div class="col-sm-6">
-                            <div class="row">
+                            <div class="row p-2">
                                 <div class="right">
                                     <i class="prev-month fa fa-chevron-left fa-3x">
                                         <</i>
@@ -453,7 +454,7 @@
 
                         </div>
                         <div class="col-sm-6">
-                            <div class="row">
+                            <div class="row p-2">
                                 <ul class="list-calendar" id="list-calendar">
                                     <li></li>
                                 </ul>
@@ -1578,8 +1579,8 @@
             $('.navbar-collapse').collapse('hide');
         });
 
-        var minutesLabel = document.getElementById("minutes");
-        var secondsLabel = document.getElementById("seconds");
+        var minutesLabel = document.querySelectorAll(".minutes");
+        var secondsLabel = document.querySelectorAll(".seconds");//document.getElementById("seconds");
         var totalSeconds = 0;
         if (localStorage.clickcount) {
             const d = new Date();
@@ -1598,8 +1599,14 @@
         function setTime() {
             if (document.hasFocus()) {
                 ++totalSeconds;
-                secondsLabel.innerHTML = pad(totalSeconds % 60);
-                minutesLabel.innerHTML = pad(parseInt(totalSeconds / 60));
+                //secondsLabel.innerHTML = pad(totalSeconds % 60);
+                //minutesLabel.innerHTML = pad(parseInt(totalSeconds / 60));
+                secondsLabel.forEach((el) => {
+                    el.innerHTML =pad(totalSeconds % 60);
+                });
+                minutesLabel.forEach((el) => {
+                    el.innerHTML = pad(parseInt(totalSeconds / 60));
+                });
             } else {
             }
             

@@ -25,7 +25,7 @@
 }
 
 .list-calendar {
-    margin-left: 30px;
+    padding-left: 20px;
 }
 
 .none {
@@ -44,6 +44,7 @@ hr{margin: 0;margin-bottom: 10px;}
 .right {
     float: right;
 }
+.view-center-mobile{display: none;}
 .gv-todo{display: flex;align-items: flex-start;}
 #clearButton{
     display: none;
@@ -551,7 +552,15 @@ ul.drag-list{
     .collapse.in {
         display: block !important;
     }
+    .view-center-mobile{
+        display: block;
+        color: white;
+        float: right;
+        padding-top: 15px;
+        padding-right: 10px;
+    }
 }
+/* end 1200 */
 
 @media only screen and (max-width: 600px) {
     .sceditor-toolbar div.sceditor-group {
