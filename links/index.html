@@ -75,7 +75,7 @@
 						</li>
                         <!-- <li class=""><a href="../600">600</a></li> -->
                         <!-- <li class=""><a href="../timedown" target="_blank">Time</a></li> -->
-                        <li class="viewruntime"><li class="viewtimerun"><a href="#"><span class="minutes">00</span>:<span class="seconds">00</span></a></li></li>
+                        <li class="viewruntime"><li class="viewtimerun"><a href="#" data-toggle="tooltip" title="Time Access Today" data-placement="bottom"><span class="minutes">00</span>:<span class="seconds">00</span></a></li></li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
                         <li class="show-signout">
@@ -1596,10 +1596,15 @@
         var totalSeconds = 0;
         if (localStorage.clickcount) {
             const d = new Date();
-            let time = d.getTime();
-            if (localStorage.timesave) {
+            // let time = d.getTime();
+            const month = d.getMonth() + 1;
+            const day = d.getDate();
+            const year = d.getFullYear();
+            var at_mdyToday = month+'_'+day+'_'+year
+            // if (localStorage.timesave) {
+            if (localStorage.mdyToday) {
                 //just 5 minus before
-                if(time-localStorage.timesave < 5*60*1000){
+                if(at_mdyToday == localStorage.mdyToday){
                     totalSeconds = localStorage.clickcount
                 }
             }
@@ -1626,7 +1631,13 @@
         function saveLocalTime(){
             const d = new Date();
             let time = d.getTime();
+
+            const month = d.getMonth() + 1;
+            const day = d.getDate();
+            const year = d.getFullYear();
+
             localStorage.timesave = time;
+            localStorage.mdyToday = month+'_'+day+'_'+year;
             localStorage.clickcount = totalSeconds;
         }
 
