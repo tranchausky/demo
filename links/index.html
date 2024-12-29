@@ -548,8 +548,8 @@
 							<div class="row">
 								<div class="col-sm-3"></div>
 								<div class="col-sm-4 pb-2">
-									<button onClick="sortTodoPriority(this)" id="sortTodoPriority" class="btn btn-default">Sort Priority</button>
-									<button onClick="setTodoToday(this)" id="setTodoToday" is_today="false" class="btn btn-default">Mỗi Ngày</button>
+									<button onClick="sortTodoPriority(this)" id="sortTodoPriority" class="btn btn-default">Sort Priority<span id="tt-todo-all"></span></button>
+									<button onClick="setTodoToday(this)" id="setTodoToday" is_today="false" class="btn btn-default">Mỗi Ngày<span id="tt-todo-moingay"></span></button>
 								</div>
 								<div class="col-sm-5 pb-2">
 									
@@ -1065,7 +1065,7 @@
 
                         <div class="col-sm-6 ">
                             <div class="row">
-                                <div class="list-image"></div>
+                                <div class="list-image photo-list"></div>
                             </div>
                             <!-- <div class="row">
                                 <button onclick="getListPhotoNext()">Next</button>

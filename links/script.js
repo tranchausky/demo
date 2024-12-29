@@ -575,14 +575,14 @@ function setTodoToday(at){
 	
 	//var todaykey = 'dayli';
 	var isTrue = $(at).attr('is_today');
-	console.log(isTrue)
+	// console.log(isTrue)
 	if(isTrue!='false'){
-		console.log('run 1')
+		// console.log('run 1')
 		$(at).attr('is_today','false');
 		$(at).removeClass('asc');
 	}else{
-		console.log(at)
-		console.log('run 2')
+		// console.log(at)
+		// console.log('run 2')
 		$(at).attr('is_today','true');
 		$(at).addClass('asc');
 	}
@@ -682,8 +682,8 @@ function buildLinkNote(key1,key2){
 }
 
 function addEventTodo(text, key) {
-	console.log(text, key)
-	console.log(allTaskNew[key])
+	// console.log(text, key)
+	// console.log(allTaskNew[key])
 	
 	var atTodo = allTaskNew[key];
 	
@@ -691,7 +691,7 @@ function addEventTodo(text, key) {
 	$('#save-task').show();
 	$('#add-task').hide();
 	$('#add-todo').val(text);
-	console.log(atTodo)
+	// console.log(atTodo)
 	if(atTodo && typeof atTodo.priority != "undefined"){
 		$('#select-todo-priority').val(atTodo.priority);	
 	}else{
@@ -762,9 +762,11 @@ function addEventHabit(text, key) {
     return str
 }
 
-function changeLinkImage(link, cat_id, key) {
+function changeLinkImage(atClick,link, cat_id, key) {
     // var src = $(this).attr('str-big')
     //$('#image-img-photo').attr('src', link);
+    $('.photo-list .img-thumbnail').removeClass('active');
+    $(atClick).addClass('active')
     loadImage(link)
     $('#image-img-photo').attr('key-id', key);
     var d = new Date(allPhoto[key].time);
@@ -2561,9 +2563,9 @@ function buildListPhoto(dataIn) {
     for (var key in dataIn) {
         var dataAt = dataIn[key]
         if (dataAt.is_show == false && dataAt.id_cat !=atOnlyMy) {
-            str += '<div class="col-sm-3 col-xs-4"><img class="img-thumbnail lazy" onclick="changeLinkImage(&apos;' + dataAt.pic + '&apos;,&apos;' + dataAt.id_cat + '&apos;,&apos;' + key + '&apos;)" str-big="' + dataAt.pic + '" data-src="' + getThump(dataAt.pic) + '" alt=""></div>'
+            str += '<div class="col-sm-3 col-xs-4"><img class="img-thumbnail lazy" onclick="changeLinkImage(this,&apos;' + dataAt.pic + '&apos;,&apos;' + dataAt.id_cat + '&apos;,&apos;' + key + '&apos;)" str-big="' + dataAt.pic + '" data-src="' + getThump(dataAt.pic) + '" alt=""></div>'
         } else {
-            str += '<div class="col-sm-3 col-xs-4"><img class="img-thumbnail hiden" onclick="changeLinkImage(&apos;' + dataAt.pic + '&apos;,&apos;' + dataAt.id_cat + '&apos;,&apos;' + key + '&apos;)" str-big="' + dataAt.pic + '" src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs%3D" alt=""></div>'
+            str += '<div class="col-sm-3 col-xs-4"><img class="img-thumbnail hiden" onclick="changeLinkImage(this,&apos;' + dataAt.pic + '&apos;,&apos;' + dataAt.id_cat + '&apos;,&apos;' + key + '&apos;)" str-big="' + dataAt.pic + '" src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs%3D" alt=""></div>'
         }
     }
     return str;
@@ -2748,7 +2750,12 @@ function getListTodoNew() {
         allTaskNew = snapshot.val()
         var newObjectSort = sortDescObj(allTaskNew, 'time')
         //buildListTodoNew(newObjectSort)
-        changeSortTodo('.list-todo-new .list-group','#sort-todo',newObjectSort)
+        changeSortTodo('.list-todo-new .list-group','#sort-todo',newObjectSort);
+        var listObjectNumberCat = countNumberCategory(newObjectSort, 'fors');
+        // console.log(listObjectNumberCat)
+        // console.log(newObjectSort)
+        $('#tt-todo-all').html(' ('+Object.keys(newObjectSort).length+')')
+        $('#tt-todo-moingay').html(' ('+listObjectNumberCat.dayli+')')
     })
 }
 
@@ -2779,9 +2786,9 @@ function changeSortTodoWithType(atShow, stypeSort, allObj){
 
 function viewToDoWithType(atShow, keyfilter, allObj){
 	//var arrSort = stypeSort.split("_");
-	console.log(allObj)
+	// console.log(allObj)
 	var newObjectSort = onlyWithKeyObj(allObj,'fors', keyfilter);
-	console.log(newObjectSort)
+	// console.log(newObjectSort)
 	var str = buildListTodo(newObjectSort,'todo')
 	$(atShow).html(str);
 }
@@ -3259,7 +3266,7 @@ function buildListTodoCompleted(dataIn) {
         var dataAt = dataIn[key]
 		var objPD = buildPriority_Day(dataAt);
 		toCalanDar = '';
-		console.log(dataAt.fors)
+		// console.log(dataAt.fors)
 		if(dataAt.fors !== typeNoToCalendar){
 			toCalanDar = '<button class="btn btn-default delete">To Lich</button>';
 		}

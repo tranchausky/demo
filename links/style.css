@@ -37,7 +37,9 @@
     padding-top: 20%;
     color: white;
 }
-
+.img-thumbnail.active{
+    border: 1px solid;
+}
 .none {
     display: none;
 }
