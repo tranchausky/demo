@@ -645,71 +645,81 @@
 										</select>
                                     </div>
                                     <div class="col-sm-1 pb-2">
-                                        <button class="btn btn-default" id="addbtn-maxim">Add</button>
+                                        <button class="btn btn-default" id="addbtn-maxim" data-toggle="tooltip" title="Add for WIN" data-placement="top">Add</button>
                                         <button class="btn btn-default" id="save-maxim" style="display: none;">Save</button>
                                     </div>
 
                                 </div>
                             </div>
                             <div class="row p-2">
-                                <h3>maxim</h3>
-                                <hr>
-								<div class="col-sm-6"></div>
-								<div class="col-sm-6 text-right">
-									<select id="sort-maxim" class="select-sort form-control">
-										<option value="time_desc">Sort by date update first</option>
-										<option value="time_asc">Sort by date update last</option>
-										<option value="task_asc">Sort by name first</option>
-										<option value="task_desc">Sort by name last</option>
-									</select>
-								</div>
-                            </div>
-							
-                            <div class="row list-maxim-new p-2">
-                                <div class="form-group">
-                                    <div class="list-group">
-                                        <div>
-                                            <div class="col-sm-9">
-                                                <label><input type="checkbox" name="remember"> temp-demo</label>
-                                            </div>
-                                            <div class="col-sm-3">
-                                                <button class="btn btn-default">Edit</button>
+                                <!-- Nav tabs -->
+                                <ul class="nav nav-tabs" role="tablist">
+                                  <li role="presentation" class="active"><a href="#maxin_index" aria-controls="maxin_index" role="tab" data-toggle="tab">Maxim<span id="maxin-total-index"></span></a></li>
+                                  <li role="presentation"><a href="#maxin_completed" aria-controls="profile" role="tab" data-toggle="tab">Completed<span id="maxin-total-complete"></span></a></li>
+                                </ul>
+                                <!-- Tab panes -->
+                                <div class="tab-content">
+                                  <div role="tabpanel" class="tab-pane active" id="maxin_index">
+                                    <div class="row p-2">
+                                        <!-- <h3>maxim</h3> -->
+                                        <!-- <hr> -->
+                                        <div class="col-sm-6"></div>
+                                        <div class="col-sm-6 text-right">
+                                            <select id="sort-maxim" class="select-sort form-control">
+                                                <option value="time_desc">Sort by date update first</option>
+                                                <option value="time_asc">Sort by date update last</option>
+                                                <option value="task_asc">Sort by name first</option>
+                                                <option value="task_desc">Sort by name last</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="row list-maxim-new p-2">
+                                        <div class="form-group">
+                                            <div class="list-group">
+                                                <div>
+                                                    <div class="col-sm-9">
+                                                        <label><input type="checkbox" name="remember"> temp-demo</label>
+                                                    </div>
+                                                    <div class="col-sm-3">
+                                                        <button class="btn btn-default">Edit</button>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                            </div>
-                            <div class="row p-2">
-                                <h3>COMPLETED</h3>
-                                <hr>
-                            </div>
-                            <div class="row p-2 list-maxim-completed">
-                                <div class="form-group">
-                                    <div class="list-group">
-                                        <div>
-                                            <div class="col-sm-9">
-                                                <label><input type="checkbox" name="remember"> asdf asdf asdf asdfas
-                                                    fasd asdf asdf</label>
+                                  </div>
+                                  <div role="tabpanel" class="tab-pane" id="maxin_completed">
+                                    <div class="row p-2 list-maxim-completed">
+                                        <div class="form-group">
+                                            <div class="list-group">
+                                                <div>
+                                                    <div class="col-sm-9">
+                                                        <label><input type="checkbox" name="remember"> asdf asdf asdf asdfas
+                                                            fasd asdf asdf</label>
+                                                    </div>
+                                                    <div class="col-sm-3 enent">
+                                                        <button class="btn btn-default">Edit</button>
+                                                        <button class="btn btn-default">Delete</button>
+                                                    </div>
+                                                </div>
+                                                <div class="form-event">
+                                                    <div class="col-sm-9 text">
+                                                        <input type="text" class="form-control">
+                                                    </div>
+                                                    <div class="col-sm-3">
+                                                        <button class="btn btn-default">Save</button>
+                                                    </div>
+                                                </div>
+        
                                             </div>
-                                            <div class="col-sm-3 enent">
-                                                <button class="btn btn-default">Edit</button>
-                                                <button class="btn btn-default">Delete</button>
-                                            </div>
+        
                                         </div>
-                                        <div class="form-event">
-                                            <div class="col-sm-9 text">
-                                                <input type="text" class="form-control">
-                                            </div>
-                                            <div class="col-sm-3">
-                                                <button class="btn btn-default">Save</button>
-                                            </div>
-                                        </div>
-
                                     </div>
-
+                                  </div>
                                 </div>
-                            </div>
-                        </div>
+                              </div>
+                                                    </div>
                         <div class="col-sm-3"></div>
                     </div>
                 </div>

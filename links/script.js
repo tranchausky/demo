@@ -2766,7 +2766,12 @@ function getListMaximNew() {
         allMaximNew = snapshot.val()
         var newObjectSort = sortDescObj(allMaximNew, 'time')
         //buildListTodoNew(newObjectSort)
-        changeSortTodo('.list-maxim-new .list-group','#sort-maxim',newObjectSort)
+        changeSortTodo('.list-maxim-new .list-group','#sort-maxim',newObjectSort);
+        if(newObjectSort ==null){
+            $('#maxin-total-index').html(' (0)');
+            return;
+        }
+        $('#maxin-total-index').html(' ('+Object.keys(newObjectSort).length+')');
     })
 }
 
@@ -2807,8 +2812,13 @@ function getListMaximCompleted() {
     maximRef.orderByChild('status').equalTo('completed').on("value", function (snapshot) {
         //console.log(snapshot.val());
         allMaximComplete = snapshot.val()
-        var newObjectSort = sortDescObj(allMaximComplete, 'time')
-        buildListMaximCompleted(newObjectSort)
+        var newObjectSort = sortDescObj(allMaximComplete, 'time');
+        buildListMaximCompleted(newObjectSort);
+        if(newObjectSort ==null){
+            $('#maxin-total-complete').html(' (0)');
+            return;
+        }
+        $('#maxin-total-complete').html(' ('+Object.keys(newObjectSort).length+')');
     })
 }
 
@@ -3292,7 +3302,7 @@ function buildListMaximCompleted(dataIn) {
         str +=
             '<div class="at-task pb-2 d-flex" data-key="' + key + '">' +
             '<div class="col-sm-9">' +
-            '  <b class="iconbs">&#10084;</b>'+objPD.pri+'<input type="checkbox" name="maxim-completed" title="click to maxim"/> <label>' + dataAt.task + '</label>' +
+            '  <b class="iconbs">&#10084;</b><input type="checkbox" name="maxim-completed" title="click to maxim"/>'+objPD.pri+'<label>' + dataAt.task + '</label>' +
             '</div>' +
             '<div class="col-sm-3 event maxim-completed text-right"><button class="btn btn-default delete">Delete</button></div>' +
             '</div>';
@@ -3703,6 +3713,9 @@ $(document).ready(function() {
                       notifyMe(message.text);
                 }
         })
+        // $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        //   })
 });
 
 function notifyMe(message) {
