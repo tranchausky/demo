@@ -990,8 +990,44 @@ function updateSettingUser(){
     });
 
 }
+function updateNumberTotalView(key, value){
+    if(user_ID == ''){
+        return;
+    }
+    // console.log('rrrr')
+    var dataIn={};
+    dataIn[key] = value;
+    var batch = db.batch();
+
+    // Define Firestore document reference
+    var atIdSetting = user_ID;
+    var linkGet = "user/" + user_ID + '/setting';
+    var sfRef = db.collection(linkGet).doc(atIdSetting);
+
+    // Add the updated data to the batch
+    batch.set(sfRef, dataIn, { merge: true }); // Use merge to update only specified fields
+
+    // Commit the batch
+    batch.commit().then(() => {
+        // alert('Save Done');
+        // console.log('Update done with key:', key, 'value:', value);
+    }).catch((error) => {
+        console.error('Error updating settings:', error);
+    });
+}
 function getSetDataUpdate(isSet,dataIn){
-    // console.log(dataIn)
+    // alert('ee')
+    // console.log(dataIn);
+    var strAtToday = dataIn.mdyToday!=undefined?dataIn.mdyToday:"";
+    var totalOld = dataIn.viewTotalToday!=undefined?dataIn.viewTotalToday:"";
+    var totalYesterday = dataIn.viewTotalYesterday!=undefined?dataIn.viewTotalYesterday:"0";
+    $('.viewtime').attr('data-yest',totalYesterday);
+    if(getmdyToday() == strAtToday){
+        totalSeconds = totalOld
+    }else{
+        updateNumberTotalView('viewTotalYesterday', totalOld)
+    }
+    setInterval(setTime, 1000);
     if(isSet == 1){
         $('#setting_gg_excel').val(dataIn.gg_excel!=undefined?dataIn.gg_excel:"");
         $('#setting_pw_hash').val(dataIn.pw_hash!=undefined?dataIn.pw_hash:"");
@@ -1015,6 +1051,7 @@ function getSetDataUpdate(isSet,dataIn){
 
         return data;
     }
+    
 }
 
 

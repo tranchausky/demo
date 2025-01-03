@@ -1236,6 +1236,11 @@ auth.onAuthStateChanged((firebaseUser) => {
         $('.show-signout a').attr('title', firebaseUser.email)
         getSettingUser();
         showHomepage();
+    }else{
+        if (localStorage.clickcount) {
+            totalSeconds = localStorage.clickcount
+        }
+        setInterval(setTime, 1000);
     }
 });
 
