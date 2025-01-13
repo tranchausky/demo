@@ -1000,6 +1000,7 @@ listOption.default = {
 	0.3: 'My Web',
 	0.4: 'My Demo',
 	0.5: 'They Web',
+0.6:'Company'
 }
 listOption.note = {
     3.0: 'Different',
