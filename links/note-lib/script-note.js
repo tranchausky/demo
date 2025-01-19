@@ -1000,6 +1000,7 @@ function getSetDataUpdate(isSet,dataIn){
         var rs = showHideSessionLogin();
         if(rs == true){
             loadMoreAfterLogin();
+            return;
         }
 
     }else{

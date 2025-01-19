@@ -707,10 +707,13 @@ function showNeedEnterAfter5Minus(){
 
 //try active last click
 function tabClick() {
+    console.log('tabClick check Link')
 	var listTag = getLinkHasUrl();
 	if(listTag[0]){
-		$('a[href="' + listTag[0] + '"]').click();	
+		return $('a[href="' + listTag[0] + '"]').click();	
 	}
+    $('a[href="#todo"]').click();
+    return;
 	//if(listTag[0] == "#note"){
 		//var key1 = listTag[1];
 		//var key2 = listTag[2];
@@ -1210,7 +1213,7 @@ const showHomepage = () => {
     document.querySelector("#registration-page").classList.add("hide");
     document.querySelector("#login-page").classList.add("hide");
     //document.querySelector("#todo").classList.remove("hide");
-	$('a[href="#todo"]').click();
+	// $('a[href="#todo"]').click();
     // document.querySelector(".show-signout").classList.remove("hide");
     $('.show-signout').show()
 };
@@ -1228,7 +1231,7 @@ const signOut = () => {
 };
 
 auth.onAuthStateChanged((firebaseUser) => {
-
+    console.log(firebaseUser)
     if (firebaseUser) {
         user_ID = firebaseUser.uid
         // $('#email_login').html(firebaseUser.email)
