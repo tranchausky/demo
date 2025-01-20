@@ -499,10 +499,35 @@
                             </div>
                             <div class="row bg-info pt-2">
                                 <div class="form-group">
-                                    <div class="col-sm-6 pb-2">
+                                    <div class="col-sm-6 p-1 pb-2">
                                         <input type="text" id="add-todo" class="form-control">
                                     </div>
-									<div class="col-sm-3 pb-2">
+									<div class="col-sm-2 p-1 pb-2">
+                                        <select class="form-control" id="select-todo-timer">
+											<option value="">Timer</option>
+											<option value="5">5</option>
+											<option value="10">10</option>
+											<option value="30">30</option>
+											<option value="60">60</option>
+											<option value="90">90</option>
+											<option value="120">120 (2h)</option>
+											<option value="180">180 (3h)</option>
+											<option value="240">240 (4h)</option>
+										</select>
+                                    </div>
+									<div class="col-sm-2 p-1 pb-2">
+                                        <select class="form-control" id="select-todo-position">
+											<option value="">Position</option>
+											<option value="rom">rom</option>
+											<option value="home">home</option>
+											<option value="cry">cry</option>
+											<option value="coffe">coffe</option>
+											<option value="macair">mac air</option>
+											<option value="macmini">mac mini</option>
+											<option value="friend">with friend</option>
+										</select>
+                                    </div>
+									<div class="col-sm-2 p-1 pb-2">
                                         <select class="form-control" id="select-todo-priority">
 											<option value="">Select Priority</option>
 											<option value="low">Low</option>
@@ -511,7 +536,7 @@
 											<option value="urgent">Urgent</option>
 										</select>
                                     </div>
-									<div class="col-sm-2 pb-2 d-none">
+									<div class="col-sm-2 p-1 pb-2 d-none">
                                         <select class="form-control" id="select-todo-day">
 											<option value="">Select day</option>
 											<option value="morning">Morning</option>
@@ -520,7 +545,7 @@
 											<option value="night">Night</option>
 										</select>
                                     </div>
-									<div class="col-sm-2 pb-2">
+									<div class="col-sm-2 p-1 pb-2">
                                         <select class="form-control" id="select-todo-for">
 											<option value="">Select todo</option>
 											<option value="dayli">Mỗi Ngày</option>
@@ -534,7 +559,7 @@
 											<option value="ranh">Rảnh</option>
 										</select>
                                     </div>
-                                    <div class="col-sm-1 pb-2">
+                                    <div class="col-sm-1 p-1 pb-2">
                                         <button class="btn btn-default" id="add-task">Add</button>
                                         <button class="btn btn-default" id="save-task" style="display: none;">Save</button>
                                     </div>

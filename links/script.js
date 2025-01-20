@@ -323,8 +323,12 @@ $(document).ready(function () {
         // updateTodo(text, 'new', key);
     // })
 	$(document.body).on('click', '#save-task', function (event) {
+		
+		//save task
         var key = $('#save-task').attr('idedit');
         var todo = $('#add-todo').val();
+		var todo_timer = $('#select-todo-timer').val();
+		var todo_position = $('#select-todo-position').val();
 		var todo_priority = $('#select-todo-priority').val();
 		var todo_day = $('#select-todo-day').val();
 		var todo_for = $('#select-todo-for').val();
@@ -332,7 +336,9 @@ $(document).ready(function () {
 			day:todo_day,
 			fors:todo_for,
 			priority:todo_priority,
-			task:todo
+			task:todo,
+			timer:todo_timer,
+			position:todo_position,
 		}
         updateTodo(obj, key);
 		
@@ -343,6 +349,9 @@ $(document).ready(function () {
 		$('#select-todo-priority').val('');
 		$('#select-todo-day').val('');
 		$('#select-todo-for').val('');
+		
+		$('#select-todo-position').val('');
+		$('#select-todo-timer').val('');
 		
     })
 	
@@ -752,6 +761,18 @@ function addEventTodo(text, key) {
 		$('#select-todo-priority').val(atTodo.priority);	
 	}else{
 		$('#select-todo-priority').val("");
+	}
+	
+	if(atTodo && typeof atTodo.timer != "undefined"){
+		$('#select-todo-timer').val(atTodo.timer);	
+	}else{
+		$('#select-todo-timer').val("");
+	}
+	
+	if(atTodo && typeof atTodo.position != "undefined"){
+		$('#select-todo-position').val(atTodo.position);	
+	}else{
+		$('#select-todo-position').val("");
 	}
 	
 
@@ -2704,6 +2725,10 @@ function pushTodo() {
     var todo_priority = $('#select-todo-priority').val();
     var todo_day = $('#select-todo-day').val();
     var todo_for = $('#select-todo-for').val();
+    
+	var todo_position = $('#select-todo-position').val();
+    var todo_timer = $('#select-todo-timer').val();
+	
     if (todo == '') {
         return
     }
@@ -2717,12 +2742,18 @@ function pushTodo() {
         status: 'new',
         isClick:'false',
         time: new Date().getTime(),
-        userId: user_ID
+        userId: user_ID,
+        timer: todo_timer,
+        position: todo_position,
     })
+	
     $('#add-todo').val('');
     $('#select-todo-priority').val('');
     $('#select-todo-day').val('');
     $('#select-todo-for').val('');
+	
+	$('#select-todo-position').val('');
+	$('#select-todo-timer').val('');
 }
 function pushMaxim() {
     
@@ -3157,11 +3188,18 @@ function buildListTodo(dataIn,type_view) {
         if(dataAt.isClick !== undefined){
             temp = 'db-click="'+dataAt.isClick+'" ';
         }
-
+		var todo_timer = '';
+		if(dataAt.timer !== undefined){
+            todo_timer = ' <i>&nbsp;'+dataAt.timer+' </i> ';
+        }
+		var todo_position = '';
+		if(dataAt.position !== undefined){
+            todo_position = ' <i>&nbsp;'+dataAt.position+' </i> ';
+        }
         str +=
-            '<div class="at-task pb-2 d-flex '+dataAt.fors+'" data-key="' + key + '">' +
+            '<div class="at-task view-task-list pb-2 d-flex '+dataAt.fors+'" data-key="' + key + '">' +
             '<div class="col-sm-10"><div class="gv-todo">' +' <input type="checkbox" name="'+type_view+'-checkbox" title="click to Completed"/>'+' '+
-            '&nbsp; '+objPD.pri+' '+objPD.day+objPD.fors+' <label '+temp+'>' + dataAt.task + '</label></div>' +
+            '&nbsp; '+objPD.pri+' '+objPD.day+objPD.fors+' <label '+temp+'>' + dataAt.task + '</label>'+todo_timer+todo_position+'</div>' +
             '</div>' +
             '<div class="col-sm-2 event todo text-right"><button class="btn btn-default edit '+type_view+' text-right">Edit</button></div>' +
             '</div>';
