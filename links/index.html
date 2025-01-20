@@ -71,6 +71,7 @@
 							<li><a href="#swot">SMART</a></li>
 							<li><a href="#tx">TX</a></li>
 							<li class=""><a href="#habit">Habit</a></li>
+							<li class=""><a href="#todologs">Todo Logs</a></li>
 						  </ul>
 						</li>
                         <!-- <li class=""><a href="../600">600</a></li> -->
@@ -494,8 +495,9 @@
                         <div class="col-sm-1"></div>
                         <div class="col-sm-10">
                             <div class="">
-                                <h3>Về Một Todo</h3>
+                                <h3>Về Một Todo <a href="#todologs" class="gotomain" style="float: right;">Todo Logs</a></h3>
                                 <hr>
+								
                             </div>
                             <div class="row bg-info pt-2">
                                 <div class="form-group">
@@ -634,6 +636,44 @@
                                     </div>
 
                                 </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-3"></div>
+                    </div>
+                </div>
+				 <div id="todologs" class="hide v-m-content todologs">
+                    
+                    <div class="row">
+                        <div class="col-sm-1"></div>
+                        <div class="col-sm-10">
+                            <div class="">
+                                <h3>Về Một Todos Old </h3>
+                                <hr>
+                            </div>
+
+                            <div class="row list-todologs p-2">
+<table class="table table-bordered table-hover" id="table-todologs">
+  <thead class="bg-primary">
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Name</th>
+      <th scope="col">Timer</th>
+      <th scope="col">Position</th>
+      
+	  <th scope="col">Priority</th>
+	  <th scope="col">Type</th>
+	  <th scope="col">Start (desc)</th>
+	  <th scope="col">End</th>
+    </tr>
+  </thead>
+  <tbody>
+  </tbody>
+</table>
+
+<p id="totaloldCurent">0</p>
+<div class="text-center" id="viewLoadMore">
+	<button onClick="getListTodoLogs(true)">LoadMore</button>
+</div>
                             </div>
                         </div>
                         <div class="col-sm-3"></div>

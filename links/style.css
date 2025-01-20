@@ -483,6 +483,15 @@ ul.drag-list{
 }
 
 
+#table-todologs thead{
+	position: sticky;
+    top: 51px;
+}
+#table-todologs tr th:nth-child(1),
+#table-todologs tr td:nth-child(1){
+	display:none;
+}
+#viewLoadMore{display:none;}
 
 .row:after {
   content: "";

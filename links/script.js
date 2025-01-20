@@ -134,7 +134,7 @@ $(document).ready(function () {
 
     var height = $('.navbar-header').height();
     $('#start-content').css('margin-top', height);
-    $('#myNavbar a').click(function () {
+    $('#myNavbar a, .gotomain').click(function () {
         var atrHref = $(this).attr('href')
 
         if (user_ID == '') {
@@ -176,6 +176,12 @@ $(document).ready(function () {
         if (atrHref == '#todo') {
             getListTodoCompleted()
             getListTodoNew()
+        }
+		if (atrHref == '#todologs') {
+			$('#table-todologs tbody').html("");
+			lastVisible = null;
+			$('#totaloldCurent').html('0');
+            getListTodoLogs();//same getlistNotes 
         }
 		if (atrHref == '#maxim') {
             getListMaximCompleted()
@@ -512,13 +518,14 @@ $(document).ready(function () {
         //updateTodo(allTaskComplete[key]['task'], 'delete', key)
         //updateTodo({status:'delete',task:allTaskComplete[key]['task']}, key);
 
-		var calendObj = {
-			day:getDateTimeToday('/'),
-			type:"Todo",
-			content:'Todo done: '+text,
-			
-		};
-		addOrUpdateContentForCalendar(calendObj);
+		// var calendObj = {
+			// day:getDateTimeToday('/'),
+			// type:"Todo",
+			// content:'Todo done: '+text,
+		// };
+		//addOrUpdateContentForCalendar(calendObj);
+		
+		addTodoLogTodoOld(allTaskComplete[key]);
 		
 		deleteTodoId(key);
     })
@@ -2672,7 +2679,7 @@ function buildListVideo(dataIn) {
         console.log('No have video')
         return '';
     }
-    console.log(dataIn);
+    //console.log(dataIn);
     lengthSize = Object.keys(dataIn).length;
     $('#total-video').html(lengthSize);
 
@@ -3407,7 +3414,7 @@ function buildListTodoCompleted(dataIn) {
 		toCalanDar = '';
 		// console.log(dataAt.fors)
 		if(dataAt.fors !== typeNoToCalendar){
-			toCalanDar = '<button class="btn btn-default delete">To Lich</button>';
+			toCalanDar = '<button class="btn btn-default delete">To Old</button>';
 		}
 		
         str +=
@@ -3417,7 +3424,6 @@ function buildListTodoCompleted(dataIn) {
             '</div>' +
             '<div class="col-sm-2 event todo-completed text-right">' +toCalanDar+
             '</div></div>';
-
     }
     $('.list-todo-completed .list-group').html(str);
 }

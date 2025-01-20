@@ -213,6 +213,135 @@ function getNoteListCategory() {
     });
 }
 
+let lastVisible = null; // Tracks the last visible document for pagination
+const pageSize = 10; // Number of documents per page
+
+function getListTodoLogs(nextPage = false) {
+	console.log(lastVisible)
+let is_null_first = true;
+  var keyconecet = 'todologs/' + user_ID + '/log_todo';
+
+  let query = db.collection(keyconecet).orderBy('time', 'desc').limit(pageSize);
+  if (lastVisible) {
+    if (nextPage) {
+      //query = query.startAfter(lastVisible);
+      query = query.startAfter(lastVisible);
+    } else {
+      query = query.endBefore(lastVisible);
+    }
+	is_null_first = false;
+  }
+
+  query.get().then((querySnapshot) => {
+    if (querySnapshot.empty) {
+      console.log('No more data available.');
+	  $('#viewLoadMore').hide();
+      return;
+    }
+
+    // Save the last visible document for the next query
+    //lastVisible = querySnapshot.docs[querySnapshot.docs.length - 1];
+
+    var list = {};
+	var indexCurrent = 0;
+    querySnapshot.forEach((doc) => {
+      var data = doc.data();
+
+      list[doc.id] = {};
+      list[doc.id]['time'] = data.time;
+      list[doc.id]['logTime'] = data.logTime;
+      list[doc.id]['task'] = data.task;
+      list[doc.id]['timer'] = getIsNotNullUnderfine(data, 'timer', '');
+      list[doc.id]['position'] = getIsNotNullUnderfine(data, 'position', '');
+      list[doc.id]['priority'] = getIsNotNullUnderfine(data, 'priority', '');
+      list[doc.id]['fors'] = getIsNotNullUnderfine(data, 'fors', '');
+      list[doc.id]['status'] = getIsNotNullUnderfine(data, 'status', '');
+      list[doc.id]['userId'] = data.userId;
+      list[doc.id]['isClick'] = getIsNotNullUnderfine(data, 'isClick', '');
+	  lastVisible = data.time;
+	  indexCurrent++;
+    });
+	
+	var total = indexCurrent+ parseInt($('#totaloldCurent').html());
+	$('#totaloldCurent').html(total);
+	
+	$('#viewLoadMore').show();
+	if(indexCurrent < pageSize){
+		$('#viewLoadMore').hide();
+	}
+
+    var strView = '';
+    for (var key in list) {
+      var tem = list[key];
+      strView += '<tr>';
+      strView += '<td>'+key+'</td>';
+      strView += '<td>' + tem.task + '</td>';
+      strView += '<td>' + tem.timer + '</td>';
+      strView += '<td>' + tem.position + '</td>';
+      strView += '<td>' + tem.priority + '</td>';
+      strView += '<td>' + tem.fors + '</td>';
+      strView += '<td>' + convertIntTodateTime(tem.time) + '</td>';
+      strView += '<td>' + convertIntTodateTime(tem.logTime) + '</td>';
+      strView += '</tr>';
+    }
+	
+	//fix load two time same first
+	if(is_null_first){
+		$('#table-todologs tbody').html(strView);
+		$('#totaloldCurent').html(indexCurrent);
+		return;
+	}
+    $('#table-todologs tbody').append(strView);
+	
+  }).catch((error) => {
+    console.error('Error fetching documents: ', error);
+  });
+
+}
+
+function convertIntTodateTime(timestamp){
+	//const timestamp = 1732529238375; // Example timestamp in milliseconds
+
+	// Convert the timestamp to a Date object
+	const date = new Date(timestamp);
+
+	const day = String(date.getDate()).padStart(2, "0");
+	const month = String(date.getMonth() + 1).padStart(2, "0"); // Months are zero-based
+	const year = date.getFullYear();
+	const hours = String(date.getHours()).padStart(2, "0");
+	const minutes = String(date.getMinutes()).padStart(2, "0");
+
+	const formattedDate = `${day}/${month}/${year} ${hours}:${minutes}`;
+
+	//console.log(formattedDate); // Example output: "20/11/2024, 18:47"
+	//return formattedDate;
+	return '<span title='+hours+':'+minutes+'>'+`${day}/${month}/${year}`+'</span>';
+}
+
+function getIsNotNullUnderfine(obj,key,defaultvl){
+	return (typeof obj[key] != 'undefined') ? obj[key] : defaultvl;
+}
+
+function addTodoLogTodoOld(ObjIn) {
+	if(ObjIn == 'undefined' || ObjIn == 'null'){
+		return;
+	}
+	console.log(ObjIn)
+    var idUserCategory = user_ID;
+	ObjIn.logTime = new Date().getTime();
+	var keyconecet = 'todologs/' + user_ID + '/log_todo';
+    db.collection(keyconecet).add(ObjIn)
+        .then(function(docRef) {
+            console.log("Document written with ID: ", docRef.id);
+            //getNoteListCategory();
+        })
+        .catch(function(error) {
+            console.error("Error adding document: ", error);
+            alert('error add cat');
+            //getNoteListCategory();
+        });
+}
+
 function deleteNoteCategory(idCategory) {
     var idUserCategory = user_ID;
     db.collection(glb_link_note_current + '/category/' + idCategory).delete().then(() => {
