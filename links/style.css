@@ -44,14 +44,7 @@
     display: none;
 }
 hr{margin: 0;margin-bottom: 10px;}
-.pt-1{padding-top: 4px;}
-.pb-1{padding-bottom: 4px;}
-.pt-2{padding-top: 8px;}
-.pb-2{padding-bottom: 8px;}
-.pl-2{padding-left: 8px;}
-.pr-2{padding-right: 8px;}
-.mt-1{margin-top: 4px;}
-.mb-2{margin-bottom: 8px;}
+
 
 .right {
     float: right;
@@ -424,7 +417,7 @@ ul.drag-list{
     padding-right: 7px;
 }
 .d-flex{display: flex;}
-.p-0{padding:9px;}
+.p-0{padding:0px;}
 .p-1{padding:5px;}
 .p-2{padding:10px;}
 .p-3{padding:15px;}
@@ -441,6 +434,14 @@ ul.drag-list{
 .pb-3{
     padding-bottom: 15px;
 }
+.pt-1{padding-top: 4px;}
+.pb-1{padding-bottom: 4px;}
+.pt-2{padding-top: 8px;}
+.pb-2{padding-bottom: 8px;}
+.pl-2{padding-left: 8px;}
+.pr-2{padding-right: 8px;}
+.mt-1{margin-top: 4px;}
+.mb-2{margin-bottom: 8px;}
 .d-none{display:none;}
 
 
@@ -482,6 +483,15 @@ ul.drag-list{
 }
 
 
+#table-todologs thead{
+	position: sticky;
+    top: 51px;
+}
+#table-todologs tr th:nth-child(1),
+#table-todologs tr td:nth-child(1){
+	display:none;
+}
+#viewLoadMore{display:none;}
 
 .row:after {
   content: "";

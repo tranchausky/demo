@@ -26,7 +26,7 @@ function getCalendarStart(dayOfWeek, currentDate) {
 function renderCalendar(startDay, totalDays, currentDate,year,month) {
   var currentRow = 1;
   var currentDay = startDay;
-  var $table = $('table');
+  var $table = $('table#tb-calendar');
   var $week = getCalendarRow();
   var $day;
   var i = 1;
@@ -61,7 +61,7 @@ function clearCalendar() {
 
 // Generates table row used when rendering Calendar
 function getCalendarRow() {
-  var $table = $('table');
+  var $table = $('table#tb-calendar');
   var $tr = $('<tr/>');
   for (var i = 0, len = 7; i < len; i++) {
     $tr.append($('<td/>'));
