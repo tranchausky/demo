@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+	<style>
+	body{max-width:800px;margin: auto;}
+	.link{width: 100%;}
+	.link{}
+	</style>
+</head>
+<body>
+    <h1>Download file from link</h1>
+	<p>Can save file same file image link, not change png->webp...</p>
+	<input type="text" id="link" class="link" name="lname" placeholder="link url file" onchange="changeurl(this)"><br><br>
+	<input type="text" id="filename" class="link" name="filename" placeholder="file name"><br><br>
+	<input type="button" class="button" onclick="downloadlink()" value="Download file">
+	
+<script>
+function getFilename(str){
+	var tokens= str.split('/');//split path
+	return cleanUrl(tokens[tokens.length-1]);//take file name
+}
+	function cleanUrl(url) {
+    return url.replace(/%20/g, '').split('?')[0];
+}
+function download(url) {
+
+	var filename = document.getElementById('filename').value;
+	if(filename == ''){
+		alert('filename is empty');
+		return;
+	}
+
+  fetch(url)
+    .then(response => response.blob())
+    .then(blob => {
+      const link = document.createElement("a");
+      link.href = URL.createObjectURL(blob);
+      link.download = filename;
+      link.click();
+  })
+  .catch(function(e){
+	console.error
+	alert('error download link');
+  });
+}
+
+function changeurl(at){
+	console.log(at.value);
+	var link = at.value;
+	var filename = getFilename(link);
+	document.getElementById('filename').value=filename;
+	
+}
+function downloadlink(){
+	var link = document.getElementById('link').value;
+	if(link !=''){
+		download(link);
+	}
+}
+
+</script>
+</body>
+</html>

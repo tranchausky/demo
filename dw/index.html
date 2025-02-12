@@ -10,6 +10,7 @@
 	.link{width: 100%;}
 	.link{}
 	</style>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
 </head>
 <body>
     <h1>Download file from link</h1>
@@ -17,6 +18,15 @@
 	<input type="text" id="link" class="link" name="lname" placeholder="link url file" onchange="changeurl(this)"><br><br>
 	<input type="text" id="filename" class="link" name="filename" placeholder="file name"><br><br>
 	<input type="button" class="button" onclick="downloadlink()" value="Download file">
+	
+	<br><br>
+	<br><br>
+<textarea id="imageLinks" rows="5" class="link">
+https://sirv.sirv.com/Examples/drill/drill-36.jpg?scale.option=fill&w=1000&h=0
+https://sirv.sirv.com/Examples/drill/drill-32.jpg?scale.option=fill&w=1000&h=0
+</textarea>
+		<br>
+		<button onclick="downloadAndZipImages()">Download & ZIP List</button>
 	
 <script>
 function getFilename(str){
@@ -63,5 +73,44 @@ function downloadlink(){
 }
 
 </script>
+
+
+
+<script>
+        async function downloadAndZipImages() {
+            const textArea = document.getElementById("imageLinks").value.trim();
+            const urls = textArea.split("\n").map(url => url.trim()).filter(url => url);
+            if (urls.length === 0) {
+                alert("No valid URLs found!");
+                return;
+            }
+
+            const zip = new JSZip();
+            const folder = zip.folder("images");
+
+            for (const [index, url] of urls.entries()) {
+                try {
+                    const response = await fetch(url);
+                    if (!response.ok) throw new Error(`Failed to download ${url}`);
+
+                    const blob = await response.blob();
+                    const extension = url.split('.').pop().split('?')[0]; // Lấy phần mở rộng file
+                    //folder.file(`image_${index + 1}.${extension}`, blob);
+                    folder.file(getFilename(url), blob);
+                } catch (error) {
+                    console.error("Error downloading:", url, error);
+                }
+            }
+
+            zip.generateAsync({ type: "blob" }).then(blob => {
+                const link = document.createElement("a");
+                link.href = URL.createObjectURL(blob);
+                link.download = "images.zip";
+                link.click();
+            });
+        }
+    </script>
+	
+	
 </body>
 </html>
