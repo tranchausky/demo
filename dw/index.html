@@ -21,7 +21,10 @@
 <script>
 function getFilename(str){
 	var tokens= str.split('/');//split path
-	return tokens[tokens.length-1];//take file name
+	return cleanUrl(tokens[tokens.length-1]);//take file name
+}
+	function cleanUrl(url) {
+    return url.replace(/%20/g, '').split('?')[0];
 }
 function download(url) {
 
