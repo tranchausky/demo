@@ -87,6 +87,7 @@ function changeDataAttribute(at, attribtue, value) {
 }
 
 let idleTime = 0;
+let minuNeedCheck = 1;
 console.log('runcheck 5minus')
 setInterval(timerIncrement, 1000);
 //function check after 5minus
@@ -99,8 +100,8 @@ function timerIncrement() {
 	if(user_ID !='' && !$('#my-ss-login-view').is(':visible')){
 		idleTime++;	
 	}
-   // console.log(idleTime)
-    if (idleTime > 300) { // 300 seconds = 5 minutes
+   //console.log(idleTime)
+    if (idleTime > minuNeedCheck*60) { // 300 seconds = 5 minutes
         // Call your function here
         //console.log('No activity for 5 minutes');
         idleTime = 0; // Reset idle time
