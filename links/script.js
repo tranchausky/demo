@@ -87,7 +87,7 @@ function changeDataAttribute(at, attribtue, value) {
 }
 
 let idleTime = 0;
-let minuNeedCheck = 1;
+let minuNeedCheck = 2;
 console.log('runcheck 5minus')
 setInterval(timerIncrement, 1000);
 //function check after 5minus
