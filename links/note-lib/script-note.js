@@ -1146,7 +1146,9 @@ function updateNumberTotalView(key, value){
 }
 function getSetDataUpdate(isSet,dataIn){
     // alert('ee')
-    // console.log(dataIn);
+    if(dataIn == null){
+        dataIn ={};
+    }
     var strAtToday = dataIn.mdyToday!=undefined?dataIn.mdyToday:"";
     var totalOld = dataIn.viewTotalToday!=undefined?dataIn.viewTotalToday:"";
     var totalYesterday = dataIn.viewTotalYesterday!=undefined?dataIn.viewTotalYesterday:"0";
