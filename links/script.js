@@ -256,11 +256,13 @@ $(document).ready(function () {
         var hash = '$2y$10$elFm3BzPfJKM0XUYnW58kOisbDcCOLmynndLHhwhCtLvjqw0AY97m';
         var hash = glb_password_hash;
         if(hash == ''){
+            $('#password_ss').val('');
             $('#my-ss-login-view').modal('hide');
             return;
         }
         compareTextPasswordSession(pp_ss, hash, function(ispassHash){
             if(ispassHash == true){
+                $('#password_ss').val('');
                 sessionStorage.setItem("sessionLogin", 'true');
                 tabClick();
                 // location.reload();
