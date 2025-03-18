@@ -269,6 +269,7 @@ $(document).ready(function () {
             if(ispassHash == true){
                 $('#password_ss').val('');
                 sessionStorage.setItem("sessionLogin", 'true');
+                localStorage.setItem('remember_last',Date.now());
                 tabClick();
                 // location.reload();
             }else{
