@@ -88,25 +88,30 @@ function changeDataAttribute(at, attribtue, value) {
 
 let idleTime = 0;
 let minuNeedCheck = 2;
-console.log('runcheck 5minus')
-setInterval(timerIncrement, 1000);
+console.log('runcheck '+minuNeedCheck+'minus');
+let numberRunCheck = 5;
+setInterval(timerIncrement, (numberRunCheck*1000));
 //function check after 5minus
 function timerIncrement() {
     var isremember = localStorage.getItem('isremember');
     if(isremember == 'true'){
         return;
     }
-
 	if(user_ID !='' && !$('#my-ss-login-view').is(':visible')){
 		idleTime++;	
-	}
-   //console.log(idleTime)
-    if (idleTime > minuNeedCheck*60) { // 300 seconds = 5 minutes
+	}else{
+        return;
+    }
+    var last =localStorage.getItem('remember_last')??0;
+    var now = Date.now();
+    var compareLast = Math.abs(now - last) > (120*1000);
+    if (idleTime > minuNeedCheck*60/numberRunCheck || compareLast) { // 300 seconds = 5 minutes
         // Call your function here
         //console.log('No activity for 5 minutes');
         idleTime = 0; // Reset idle time
 		showNeedEnterAfter5Minus();
     }
+    localStorage.setItem('remember_last',Date.now());
 }
 
 function lazyLoad() {
