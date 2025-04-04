@@ -2875,7 +2875,8 @@ function getListTodoNew() {
     todoRef.orderByChild('status').equalTo('new').on("value", function (snapshot) {
         //console.log(snapshot.val());
         allTaskNew = snapshot.val()
-        var newObjectSort = sortDescObj(allTaskNew, 'time')
+        var newObjectSort = sortDescObj(allTaskNew, 'time');
+        buildTBTodoNew(newObjectSort)
         //buildListTodoNew(newObjectSort)
         changeSortTodo('.list-todo-new .list-group','#sort-todo',newObjectSort);
         var listObjectNumberCat = countNumberCategory(newObjectSort, 'fors');
@@ -2894,6 +2895,36 @@ function getListTodoNew() {
             $('#tt-todo-important').html(' ('+listObjectNumberCatPriority.urgent+')')
         }
     })
+}
+function buildTBTodoNew(todos){
+    //list-todo-new-tbody
+    console.log(todos)
+    var str="";
+    var atstr="";
+    let index=1;
+    for (const v in todos) {
+       console.log(todos[v]);
+       let vlat =todos[v];
+        atstr="";
+
+        atstr+="<tr>";
+
+        atstr+="<td>"+index+"</td>";
+        atstr+="<td>"+vlat["task"]+"</td>";
+        atstr+="<td>"+vlat["timer"]+"</td>";
+        atstr+="<td>"+vlat["fors"]+"</td>";
+        atstr+="<td>"+vlat["priority"]+"</td>";
+        atstr+="<td>"+vlat["position"]+"</td>";
+        //atstr+="<td>"+vlat["position"]+"</td>";
+        atstr+="<td><input type='checkbox'></td>";
+
+        atstr+="</tr>";
+        console.log(atstr)
+        str+=atstr
+        index++;
+
+    }
+    $("#list-todo-new-tbody").html(str);
 }
 
 function getListMaximNew() {
