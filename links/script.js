@@ -138,6 +138,44 @@ function lazyLoad() {
 
 $(document).ready(function () {
 
+    var sortDirections = {};
+    $('#table-todo-new thead .for-sort td').on('click', function() {
+        console.log('sort change')
+        var index = $(this).index(); // Get the index of the clicked column
+        var rows = $('#table-todo-new tbody tr').get(); // Get all the rows in tbody
+
+        var direction = sortDirections[index] || 'asc'; // Default to 'asc' if not set
+        sortDirections[index] = direction === 'asc' ? 'desc' : 'asc'; // Toggle direction
+    
+    
+        // Sort the rows
+        // Sort the rows based on the content in the clicked column
+        rows.sort(function(a, b) {
+            var tdA = $(a).children('td').eq(index).text();
+            var tdB = $(b).children('td').eq(index).text();
+
+            // Compare numeric values if both are numbers
+            if ($.isNumeric(tdA) && $.isNumeric(tdB)) {
+            return direction === 'asc' 
+                ? parseFloat(tdA) - parseFloat(tdB) 
+                : parseFloat(tdB) - parseFloat(tdA);
+            }
+
+            // Compare strings (lexicographically)
+            return direction === 'asc' 
+            ? tdA.localeCompare(tdB) 
+            : tdB.localeCompare(tdA);
+        });
+    
+        // Reorder the rows in the table
+        $.each(rows, function(i, row) {
+          $('#table-todo-new tbody').append(row);
+        });
+
+        $('#table-todo-new thead .for-sort td').removeClass('asc desc'); // Remove any previous indicators
+        $(this).addClass(direction); // Add 'asc' or 'desc' class to the clicked header
+    })
+
     $("#searchName, #select-todo-timer-search"
         +", #select-todo-for-search"
          +", #select-todo-priority-search"
