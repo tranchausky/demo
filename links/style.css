@@ -510,6 +510,9 @@ ul.drag-list{
   padding-right: 15px;
   padding-left: 15px;
 }
+table .content{
+    word-break: break-word;
+}
 table .theader,table .theader:hover{background: gainsboro;}
 @media (min-width: 1024px) {
     .theader{
