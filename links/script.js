@@ -130,6 +130,12 @@ function lazyLoad() {
     });
   }
 
+  function viewTotalTbNew(){
+    let totalv = $('#table-todo-new tbody tr:visible').length;
+    $("#view-total-new").html($('#table-todo-new tbody tr').length);
+    $("#view-total-new-search").html(totalv);
+  }
+
 $(document).ready(function () {
 
     $("#searchName, #select-todo-timer-search"
@@ -183,6 +189,7 @@ $(document).ready(function () {
             $(this).hide();
           }
         });
+        viewTotalTbNew();
       }
 
     $('.list-image').on('scroll', lazyLoad);
@@ -2975,6 +2982,7 @@ function getListTodoNew() {
         if(listObjectNumberCatPriority.urgent !== undefined){
             $('#tt-todo-important').html(' ('+listObjectNumberCatPriority.urgent+')')
         }
+        viewTotalTbNew();
     })
 }
 function buildTBTodoNew(todos){
