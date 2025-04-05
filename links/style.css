@@ -513,6 +513,7 @@ ul.drag-list{
 table .content{
     word-break: break-word;
 }
+.panel-default{width: 100%;}
 table .theader,table .theader:hover{background: gainsboro;}
 @media (min-width: 1024px) {
     .theader{
@@ -601,6 +602,7 @@ table .theader,table .theader:hover{background: gainsboro;}
 /* end 1200 */
 
 @media only screen and (max-width: 600px) {
+    .panel-default{overflow: auto;}
     .sceditor-toolbar div.sceditor-group {
         display: contents;
     }
