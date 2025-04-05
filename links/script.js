@@ -132,6 +132,59 @@ function lazyLoad() {
 
 $(document).ready(function () {
 
+    $("#searchName, #select-todo-timer-search"
+        +", #select-todo-for-search"
+         +", #select-todo-priority-search"
+          +", #select-todo-position-search"        
+    ).on('input change', function() {
+        filterTable();
+      });
+      function filterTable() {
+        var nameFilter = $('#searchName').val().toLowerCase();
+        // var ageFilter = $('#searchAge').val().toLowerCase();
+        var filter3_vl= $('#select-todo-timer-search').val().toLowerCase();
+        var filter4_vl = $('#select-todo-for-search').val().toLowerCase();
+        var filter5_vl = $('#select-todo-priority-search').val().toLowerCase();
+        var filter6_vl = $('#select-todo-position-search').val().toLowerCase();
+
+        $('#table-todo-new tbody tr').each(function() {
+          var name = $(this).find('td').eq(2).text().toLowerCase(); // Name column
+          var filter3 = $(this).find('td').eq(3).text();
+          var filter4 = $(this).find('td').eq(4).text();
+          var filter5 = $(this).find('td').eq(5).text();
+          var filter6 = $(this).find('td').eq(6).text();
+
+
+          // Check if the row matches the filters
+          var match = true;
+
+          // Match Name filter
+          if (name.indexOf(nameFilter) === -1) {
+            match = false;
+          }
+
+          if (filter3_vl && filter3 !== filter3_vl) {
+            match = false;
+          }
+          if (filter4_vl && filter4 !== filter4_vl) {
+            match = false;
+          }
+          if (filter5_vl && filter5 !== filter5_vl) {
+            match = false;
+          }
+          if (filter6_vl && filter6 !== filter6_vl) {
+            match = false;
+          }
+
+          // Show or hide row based on match
+          if (match) {
+            $(this).show();
+          } else {
+            $(this).hide();
+          }
+        });
+      }
+
     $('.list-image').on('scroll', lazyLoad);
 
 	$(document).on('mousemove keydown', function() {
@@ -2892,6 +2945,13 @@ function updateHabit(todo, objupdate, key) {
 }
 
 function getListTodoNew() {
+    $('#select-todo-timer option').clone().appendTo('#select-todo-timer-search');
+
+    $('#select-todo-for option').clone().appendTo('#select-todo-for-search');
+    $('#select-todo-priority option').clone().appendTo('#select-todo-priority-search');
+    $('#select-todo-position option').clone().appendTo('#select-todo-position-search');
+
+
     todoRef = dbRef.ref('todos/' + user_ID)
     todoRef.orderByChild('status').equalTo('new').on("value", function (snapshot) {
         //console.log(snapshot.val());

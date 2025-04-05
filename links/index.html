@@ -579,7 +579,7 @@
                                         <div class="panel panel-default">
                                             <!-- Default panel contents -->
                                             <div class="panel-heading">List task wait for todo and check</div>
-                                        <table class="col-sm-12 table">
+                                        <table class="col-sm-12 table" id="table-todo-new">
                                             <thead>
                                                 <tr class="theader">
                                                     <td class="vtd-sm">Stt</td>
@@ -590,6 +590,24 @@
                                                     <td class="vtd-sm">Important</td>
                                                     <td class="vtd-sm">Position</td>
                                                     <td class="vtd-sm">Edit</td>
+                                                </tr>
+                                                <tr class="tr-search">
+                                                    <td class="vtd-sm"></td>
+                                                    <td class="vtd-sm"></td>
+                                                    <td><input type="text" id="searchName"></td>
+                                                    <td class="vtd-sm">
+                                                        <select name="" id="select-todo-timer-search"></select>
+                                                    </td>
+                                                    <td class="vtd-sm">
+                                                        <select name="" id="select-todo-for-search"></select>
+                                                    </td>
+                                                    <td class="vtd-sm">
+                                                        <select name="" id="select-todo-priority-search"></select>
+                                                    </td>
+                                                    <td class="vtd-sm">
+                                                        <select name="" id="select-todo-position-search"></select>
+                                                    </td>
+                                                    <td class="vtd-sm"></td>
                                                 </tr>
                                             </thead>
                                             <tbody id="list-todo-new-tbody" class="list-todo-new-tbody">
