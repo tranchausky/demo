@@ -10,6 +10,10 @@
 .list-group-item * {
     font-size: 12px;
 }
+.vtd-sm{width: 10px;}
+.table tr:hover{
+    background-color: #8080801f;
+}
 
 .nav .show-signout {
     display: none;
@@ -505,6 +509,13 @@ ul.drag-list{
   min-height: 1px;
   padding-right: 15px;
   padding-left: 15px;
+}
+table .theader,table .theader:hover{background: gainsboro;}
+@media (min-width: 1024px) {
+    .theader{
+        position: sticky;
+        top: 51px;
+    }
 }
 
 /* Medium devices (tablets, 768px and up) */

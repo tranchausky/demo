@@ -323,6 +323,15 @@ $(document).ready(function () {
         $(this).closest('.at-task').after(addEventTodo(text, key));
 		document.getElementById('todo').scrollIntoView();
     })
+
+    $(document.body).on('click', '.list-todo-new-tbody .edit', function (event) {
+		$('.list-todo-new-tbody .edit').removeClass('editnow');
+		$(this).addClass('editnow');
+        var text = $(this).closest('.at-task').find('.content').eq(0).text()
+        var key = $(this).closest('.at-task').attr('data-key');
+        $(this).closest('.at-task').after(addEventTodo(text, key));
+		document.getElementById('todo').scrollIntoView();
+    })
 	
 	$(document.body).on('click', '.list-maxim-new .edit', function (event) {
 		$('.list-maxim-new .edit').removeClass('editnow');
@@ -446,6 +455,18 @@ $(document).ready(function () {
         updateTodo(obj, key);
 	})
     $(document.body).on('click', '.list-todo-new input[type="checkbox"]', function (event) {
+        var isCheck = $(this).is(":checked");
+        if (isCheck == true) {
+            var key = $(this).closest('.at-task').attr('data-key')
+            //updateTodo(allTaskNew[key]['task'], 'completed', key)
+			updateTodo({status:'completed',task:allTaskNew[key]['task']}, key);
+			viewTypeTodoNew();
+            //set remove select
+            triggerOldClick();
+        }
+    })
+
+    $(document.body).on('click', '.list-todo-new-tbody input[type="checkbox"]', function (event) {
         var isCheck = $(this).is(":checked");
         if (isCheck == true) {
             var key = $(this).closest('.at-task').attr('data-key')
@@ -2907,16 +2928,17 @@ function buildTBTodoNew(todos){
        let vlat =todos[v];
         atstr="";
 
-        atstr+="<tr>";
+        atstr+="<tr class='at-task view-task-list' data-key='"+v+"'>";
 
         atstr+="<td>"+index+"</td>";
-        atstr+="<td>"+vlat["task"]+"</td>";
+        atstr+="<td><input type='checkbox'></td>";
+        atstr+="<td class='content'>"+vlat["task"]+"</td>";
         atstr+="<td>"+vlat["timer"]+"</td>";
         atstr+="<td>"+vlat["fors"]+"</td>";
         atstr+="<td>"+vlat["priority"]+"</td>";
         atstr+="<td>"+vlat["position"]+"</td>";
-        //atstr+="<td>"+vlat["position"]+"</td>";
-        atstr+="<td><input type='checkbox'></td>";
+        atstr+="<td><button class='edit'>Edit</button></td>";
+
 
         atstr+="</tr>";
         console.log(atstr)
