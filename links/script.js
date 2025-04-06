@@ -22,6 +22,15 @@ sceditor.instance(editor_note_show).bind('blur', function (e) {
 });
 
 
+function isMobile() {
+    const userAgent = navigator.userAgent.toLowerCase();
+    return /iphone|ipod|android|webos|blackberry|iemobile|opera mini/.test(userAgent);
+}
+if(isMobile()){
+    $('body').addClass('isMobile');
+    $('#title-todonew-edit').html('Ed');
+}
+
 function event3_loadmindmap() {
     if ($('#split-1').width()!=0) {
         // $('.sceditor-container').hide();
@@ -175,7 +184,7 @@ function filterTable_todonew() {
     if(nameFilter.length==0){
         $('#clearButton-todonew-search').hide();
     }else{
-        $('#clearButton-todonew-search').show();
+        $('#clearButton-todonew-search').css('display', 'block');
     }
     
 
@@ -3123,6 +3132,10 @@ function getListTodoNew() {
     $('#select-todo-priority option').clone().appendTo('#select-todo-priority-search');
     $('#select-todo-position option').clone().appendTo('#select-todo-position-search');
 
+    if(isMobile()){
+        $('#select-todo-timer-search .value-empty-todo-time').html('');
+    }
+
 
     todoRef = dbRef.ref('todos/' + user_ID)
     todoRef.orderByChild('status').equalTo('new').on("value", function (snapshot) {
@@ -3172,10 +3185,14 @@ function buildTBTodoNew(todos){
         atstr+="<td><input type='checkbox'></td>";
         atstr+="<td class='content'>"+wrapFirstWord(vlat["task"])+"</td>";
         atstr+="<td>"+vlat["timer"]+"</td>";
-        atstr+="<td>"+vlat["fors"]+"</td>";
-        atstr+="<td>"+vlat["priority"]+"</td>";
-        atstr+="<td>"+vlat["position"]+"</td>";
-        atstr+="<td><button class='edit'>Edit</button></td>";
+
+        if(!isMobile()){
+            atstr+="<td>"+vlat["fors"]+"</td>";
+            atstr+="<td>"+vlat["priority"]+"</td>";
+            atstr+="<td>"+vlat["position"]+"</td>";
+        }
+        let titleEdit = isMobile()?'Ed':'Edit';
+        atstr+="<td><button class='edit' title='Edit'>"+titleEdit+"</button></td>";
 
         atstr+="</tr>";
         str+=atstr

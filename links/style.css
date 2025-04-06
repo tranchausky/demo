@@ -549,6 +549,30 @@ table .content{
 }
 .panel-default{width: 100%;}
 table .theader,table .theader:hover{background: gainsboro;}
+
+.isMobile #searchName{
+    width: 100%;
+}
+.isMobile #clearButton-todonew-search{
+    position: absolute;
+    right: 94px;
+    margin-top: -25px;
+    margin-right: 17px;
+}
+.isMobile #table-todo-new{
+    font-size: small;
+}
+.isMobile .at-task .view-num{
+    padding: 1px 4px;
+}
+.isMobile .table>tbody>tr>td{
+    padding: 5px;
+    vertical-align: middle;
+}
+
+.isMobile .no-mb{
+    display: none;
+}
 @media (min-width: 1024px) {
     .theader{
         position: sticky;
