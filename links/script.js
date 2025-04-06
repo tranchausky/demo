@@ -226,6 +226,13 @@ $(document).ready(function () {
       });
       function filterTable() {
         var nameFilter = $('#searchName').val().toLowerCase();
+        if(nameFilter.length==0){
+            $('#clearButton-todonew-search').hide();
+        }else{
+            $('#clearButton-todonew-search').show();
+        }
+        
+
         // var ageFilter = $('#searchAge').val().toLowerCase();
         var filter3_vl= $('#select-todo-timer-search').val().toLowerCase();
         var filter4_vl = $('#select-todo-for-search').val().toLowerCase();
@@ -465,6 +472,11 @@ $(document).ready(function () {
     })
     */
 
+    $(document.body).on('click', '.list-todo-new-tbody .content span', function (event) {
+        let atvl = $(this).html();
+        // console.log(atvl)
+        $('#searchName').val(atvl).trigger('change');
+    })
     $(document.body).on('click', '.list-todo-new-tbody .edit', function (event) {
 		$('.list-todo-new-tbody .edit').removeClass('editnow');
 		$(this).addClass('editnow');
@@ -2415,6 +2427,14 @@ clearButton.addEventListener("click", function() {
     $('#clearButton').hide();
     loadData();
 });
+const searchName = document.getElementById("searchName");
+const clearButton_todonew_search = document.getElementById("clearButton-todonew-search");
+clearButton_todonew_search.addEventListener("click", function() {
+    // Clear the input field when the button is clicked
+    searchName.value = "";
+    $('#clearButton-todonew-search').hide();
+    getListTodoNew();
+});
 function clearInput(at){
     $(at).hide();
     $(at).closest('div').find('input').val('');
@@ -3146,7 +3166,7 @@ function buildTBTodoNew(todos){
 
         atstr+="<td ><span class='view-num' "+temp+" >"+index+"<span></td>";
         atstr+="<td><input type='checkbox'></td>";
-        atstr+="<td class='content'>"+vlat["task"]+"</td>";
+        atstr+="<td class='content'>"+wrapFirstWord(vlat["task"])+"</td>";
         atstr+="<td>"+vlat["timer"]+"</td>";
         atstr+="<td>"+vlat["fors"]+"</td>";
         atstr+="<td>"+vlat["priority"]+"</td>";
@@ -3159,6 +3179,9 @@ function buildTBTodoNew(todos){
 
     }
     $("#list-todo-new-tbody").html(str);
+}
+function wrapFirstWord(str) {
+    return str.replace(/^(\S+)/, '<span>$1</span>');
 }
 
 function getListMaximNew() {
