@@ -200,6 +200,27 @@ sup{text-transform: capitalize;}
 .at-task sup {
     top: 0.5em;
 }
+.table>thead>tr>td{
+    border: 0;
+}
+.table .tr-search{
+    background: #f0f0f0;
+}
+.lastEdit{
+    background: #c3e9c3;
+}
+.for-sort:hover,
+.at-task .view-num:hover{
+    cursor: pointer;
+}
+.at-task .view-num{
+    border: 1px solid;
+    border-radius: 10px;
+    padding: 4px 8px;
+}
+.at-task .view-num[db-click="true"]{
+    background-color: yellow!important;
+}
 .todo .list-todo-new label[db-click="1"],
 .todo .list-todo-new label[db-click="true"]{
 	background: green; color: white;

@@ -413,6 +413,7 @@ $(document).ready(function () {
         pushHabit()
     })
 
+    /*
     $(document.body).on('click', '.list-todo-new .edit', function (event) {
 		$('.list-todo-new .edit').removeClass('editnow');
 		$(this).addClass('editnow');
@@ -421,6 +422,7 @@ $(document).ready(function () {
         $(this).closest('.at-task').after(addEventTodo(text, key));
 		document.getElementById('todo').scrollIntoView();
     })
+    */
 
     $(document.body).on('click', '.list-todo-new-tbody .edit', function (event) {
 		$('.list-todo-new-tbody .edit').removeClass('editnow');
@@ -475,6 +477,19 @@ $(document).ready(function () {
 		
 		$('#select-todo-position').val('');
 		$('#select-todo-timer').val('');
+
+        const el = document.querySelector('[data-key="'+key+'"]');
+        $(el).addClass('lastEdit');
+        if (el) {
+            el.scrollIntoView({ behavior: "smooth", block: "center" });
+        } else {
+            console.log("Element not found");
+        }
+        setTimeout(() => {
+            $(el).removeClass('lastEdit');
+            $(el).find('.edit').addClass('editnow');
+        }, 5000);
+
 		
     })
 	
@@ -533,6 +548,7 @@ $(document).ready(function () {
     })
     
 
+    /*
     $(document.body).on('click', '.list-todo-new div label', function (event) {
 		// console.log('this clcik')
 		var isClick = $(this).attr('db-click');
@@ -552,6 +568,32 @@ $(document).ready(function () {
         
         updateTodo(obj, key);
 	})
+    */
+
+    $(document.body).on('click', '#table-todo-new tbody .view-num', function (event) {
+		// console.log('this clcik')
+		var isClick = $(this).attr('db-click');
+        // console.log(isClick);
+		if(isClick == 'false'){
+			$(this).attr('db-click', true);
+            isClick = 'true';
+		}else{
+			$(this).attr('db-click', false);
+            isClick = 'false';
+		}
+        var key = $(this).closest('.at-task').attr('data-key')
+        // console.log(key);
+        // console.log(allTaskNew[key]);
+        // console.log(key)
+        // console.log(allTaskNew)
+        if(allTaskNew==null)return;
+        var obj = allTaskNew[key];
+        // obj.isClick= isClick;
+        
+        updateTodo(obj, key);
+	})
+
+    /*
     $(document.body).on('click', '.list-todo-new input[type="checkbox"]', function (event) {
         var isCheck = $(this).is(":checked");
         if (isCheck == true) {
@@ -563,6 +605,7 @@ $(document).ready(function () {
             triggerOldClick();
         }
     })
+    */
 
     $(document.body).on('click', '.list-todo-new-tbody input[type="checkbox"]', function (event) {
         var isCheck = $(this).is(":checked");
@@ -570,7 +613,7 @@ $(document).ready(function () {
             var key = $(this).closest('.at-task').attr('data-key')
             //updateTodo(allTaskNew[key]['task'], 'completed', key)
 			updateTodo({status:'completed',task:allTaskNew[key]['task']}, key);
-			viewTypeTodoNew();
+			//viewTypeTodoNew();
             //set remove select
             triggerOldClick();
         }
@@ -690,9 +733,11 @@ $(document).ready(function () {
 	$(document.body).on('change', '#sort-contacts', function (event) {
         changeSortContacts(allContacts);
     });
+    /*
 	$(document.body).on('change', '#sort-todo', function (event) {
         changeSortTodo('.list-todo-new .list-group','#sort-todo',allTaskNew);
     });
+    */
 	$(document.body).on('change', '#sort-maxim', function (event) {
         changeSortTodo('.list-maxim-new .list-group','#sort-maxim',allMaximNew);
     });
@@ -714,7 +759,7 @@ $(document).ready(function () {
 });
 
 function triggerOldClick(){
-    $('#todo-group-sort button.asc').trigger('click').trigger('click');
+    // $('#todo-group-sort button.asc').trigger('click').trigger('click');
 }
 
 function changeTodoToTextArea(){
@@ -731,7 +776,7 @@ function changeTodoToTextArea(){
 		});
 	}
 }
-
+/*
 function setTodoToday(at){
 	$('#sortTodoPriority').attr('is_desc','false');
 	$('#sortTodoPriority').removeClass('asc');
@@ -752,8 +797,9 @@ function setTodoToday(at){
 		$(at).attr('is_today','true');
 		$(at).addClass('asc');
 	}
-	viewTypeTodoNew();
+	// viewTypeTodoNew();
 }
+*/
 function setTodoShowImportant(at){
     // console.log('run')
 	$('#sortTodoPriority').attr('is_desc','false');
@@ -776,6 +822,7 @@ function setTodoShowImportant(at){
 	}
 	viewTodoShowImportant();
 }
+/*
 function viewTodoShowImportant(){
     // console.log('run 2')
 	if($('#setTodoShowImportant').attr('is_today') == "true"){
@@ -785,6 +832,8 @@ function viewTodoShowImportant(){
 		changeSortTodo('.list-todo-new .list-group','#sort-todo',allTaskNew);
 	}
 }
+*/
+/*
 function viewTypeTodoNew(){
 	if($('#setTodoToday').attr('is_today') == "true"){
 		viewToDoWithType('.list-todo-new .list-group','fors','dayli',allTaskNew);
@@ -793,7 +842,9 @@ function viewTypeTodoNew(){
 		changeSortTodo('.list-todo-new .list-group','#sort-todo',allTaskNew);
 	}
 }
+*/
 
+/*
 function sortTodoPriority(at){
 	$('#setTodoToday').attr('is_today','false');
 	$('#setTodoToday').removeClass('asc');
@@ -814,6 +865,7 @@ function sortTodoPriority(at){
 	
 	changeSortTodoWithType('.list-todo-new .list-group',typesort,allTaskNew);
 }
+*/
 
 function showHideSessionLogin() {
 
@@ -1389,14 +1441,18 @@ const signOut = () => {
 };
 
 auth.onAuthStateChanged((firebaseUser) => {
-    console.log(firebaseUser)
+    console.log('firebase-login')
+    // console.log(firebaseUser)
     if (firebaseUser) {
         user_ID = firebaseUser.uid
         // $('#email_login').html(firebaseUser.email)
         $('#iduser').html(firebaseUser.email)
         $('.show-signout a').attr('title', firebaseUser.email)
-        getSettingUser();
-        showHomepage();
+        setTimeout(() => {
+            getSettingUser();
+            showHomepage();    
+        }, 1000);
+        
     }else{
         if (localStorage.clickcount) {
             totalSeconds = localStorage.clickcount
@@ -2952,6 +3008,9 @@ function pushHabit() {
 }
 
 function updateTodo(objUpdate, key) {
+    if(typeof objUpdate =='undefined')return;
+    // console.log(objUpdate);
+    console.log(key);
     todoRef = dbRef.ref('todos/' + user_ID + '/' + key)
 	// objUpdate.time = new Date().getTime();
     todoRef.update(objUpdate);
@@ -3004,39 +3063,44 @@ function getListTodoNew() {
         var newObjectSort = sortDescObj(allTaskNew, 'time');
         buildTBTodoNew(newObjectSort)
         //buildListTodoNew(newObjectSort)
-        changeSortTodo('.list-todo-new .list-group','#sort-todo',newObjectSort);
-        var listObjectNumberCat = countNumberCategory(newObjectSort, 'fors');
-        var listObjectNumberCatPriority = countNumberCategory(newObjectSort, 'priority');
-        // console.log(listObjectNumberCat)
-        // console.log(newObjectSort)
-        $('#tt-todo-all').html(' ('+Object.keys(newObjectSort).length+')')
+        // changeSortTodo('.list-todo-new .list-group','#sort-todo',newObjectSort);
+        // var listObjectNumberCat = countNumberCategory(newObjectSort, 'fors');
+        // var listObjectNumberCatPriority = countNumberCategory(newObjectSort, 'priority');
+        // // console.log(listObjectNumberCat)
+        // // console.log(newObjectSort)
+        // $('#tt-todo-all').html(' ('+Object.keys(newObjectSort).length+')')
 
-        $('#tt-todo-moingay').html(' (0)')
-        if(listObjectNumberCat.dayli !== undefined){
-            $('#tt-todo-moingay').html(' ('+listObjectNumberCat.dayli+')')
-        }
+        // $('#tt-todo-moingay').html(' (0)')
+        // if(listObjectNumberCat.dayli !== undefined){
+        //     $('#tt-todo-moingay').html(' ('+listObjectNumberCat.dayli+')')
+        // }
 
-        $('#tt-todo-important').html(' (0)')
-        if(listObjectNumberCatPriority.urgent !== undefined){
-            $('#tt-todo-important').html(' ('+listObjectNumberCatPriority.urgent+')')
-        }
+        // $('#tt-todo-important').html(' (0)')
+        // if(listObjectNumberCatPriority.urgent !== undefined){
+        //     $('#tt-todo-important').html(' ('+listObjectNumberCatPriority.urgent+')')
+        // }
         viewTotalTbNew();
     })
 }
 function buildTBTodoNew(todos){
     //list-todo-new-tbody
-    console.log(todos)
+    // console.log(todos)
     var str="";
     var atstr="";
     let index=1;
     for (const v in todos) {
-       console.log(todos[v]);
+    //    console.log(todos[v]);
        let vlat =todos[v];
         atstr="";
 
+        var temp = '';
+        if(vlat.isClick !== undefined){
+            temp = 'db-click="'+vlat.isClick+'" ';
+        }
+
         atstr+="<tr class='at-task view-task-list' data-key='"+v+"'>";
 
-        atstr+="<td>"+index+"</td>";
+        atstr+="<td ><span class='view-num' "+temp+" >"+index+"<span></td>";
         atstr+="<td><input type='checkbox'></td>";
         atstr+="<td class='content'>"+vlat["task"]+"</td>";
         atstr+="<td>"+vlat["timer"]+"</td>";
@@ -3045,9 +3109,7 @@ function buildTBTodoNew(todos){
         atstr+="<td>"+vlat["position"]+"</td>";
         atstr+="<td><button class='edit'>Edit</button></td>";
 
-
         atstr+="</tr>";
-        console.log(atstr)
         str+=atstr
         index++;
 

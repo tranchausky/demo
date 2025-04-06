@@ -501,8 +501,8 @@
                             </div>
                             <div class="row bg-info pt-2">
                                 <div class="form-group">
-                                    <div class="col-sm-6 p-1 pb-2">
-                                        <input type="text" id="add-todo" class="form-control">
+                                    <div class="col-sm-12 p-1 pb-2">
+                                        <input type="text" placeholder="group - task" id="add-todo" class="form-control">
                                     </div>
 									<div class="col-sm-2 p-1 pb-2">
                                         <select class="form-control" id="select-todo-timer">
@@ -596,7 +596,7 @@
                                                             <span id="view-total-new-search"></span>/<span id="view-total-new"></span>
                                                     </td>
                                                     <td class="vtd-sm"></td>
-                                                    <td><input type="text" id="searchName"></td>
+                                                    <td><input type="text" placeholder="search name" id="searchName"></td>
                                                     <td class="vtd-sm">
                                                         <select name="" id="select-todo-timer-search"></select>
                                                     </td>
@@ -621,8 +621,7 @@
                                 </div>
                             </div>
 
-							<div class="row">
-								<!-- <div class="col-sm-0"></div> -->
+							<!-- <div class="row">
 								<div class="col-sm-7 pb-2" id="todo-group-sort">
 									<button onClick="sortTodoPriority(this)" id="sortTodoPriority" class="btn btn-default">Sort Priority<span id="tt-todo-all"></span></button>
 									<button onClick="setTodoShowImportant(this)" id="setTodoShowImportant" is_today="false" class="btn btn-default">Show Urgent<span id="tt-todo-important"></span></button>
@@ -641,9 +640,9 @@
 										<option value="day_asc">Sort by day first</option>
 									</select>
 								</div>
-							</div>
+							</div> -->
                             
-                            <div class="row list-todo-new p-2">
+                            <!-- <div class="row list-todo-new p-2">
                                 <div class="form-group">
                                     <div class="list-group">
                                         <div>
@@ -656,7 +655,8 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </div> -->
+
                             <div class="row p-2">
                                 <h4>COMPLETED</h4>
                                 <hr>
@@ -1770,9 +1770,11 @@
         }
 
         window.addEventListener("blur", () => {
-            // console.log("User left the browser window.");
-            updateNumberTotalView('viewTotalToday',totalSeconds);
-            updateNumberTotalView('mdyToday',getmdyToday());
+            setTimeout(() => {
+                // console.log("User left the browser window.");
+                updateNumberTotalView('viewTotalToday',totalSeconds);
+                updateNumberTotalView('mdyToday',getmdyToday());
+            }, 1000);
         });
 
         window.addEventListener("focus", () => {
