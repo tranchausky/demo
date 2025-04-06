@@ -136,7 +136,7 @@ function lazyLoad() {
     $("#view-total-new-search").html(totalv);
   }
 
-  var lastSortNumberTodoNew = 0;
+  var lastSortNumberTodoNew = null;
   var sortDirections = {};
   function handleSortClick(index) {
     
@@ -3066,7 +3066,7 @@ function updateTodo(objUpdate, key) {
 	
 	//move to caladar if todo delete
     // triggerOldClick();
-
+    if(lastSortNumberTodoNew ==null)return;
     handleSortClick(lastSortNumberTodoNew)
     handleSortClick(lastSortNumberTodoNew)
 }
