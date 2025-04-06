@@ -2435,7 +2435,8 @@ clearButton_todonew_search.addEventListener("click", function() {
     // Clear the input field when the button is clicked
     searchName.value = "";
     $('#clearButton-todonew-search').hide();
-    getListTodoNew();
+    // getListTodoNew();
+    filterTable_todonew();
 });
 function clearInput(at){
     $(at).hide();
