@@ -3089,6 +3089,7 @@ function updateTodo(objUpdate, key) {
 	
 	//move to caladar if todo delete
     // triggerOldClick();
+    filterTable_todonew();
     if(lastSortNumberTodoNew ==null)return;
     handleSortClick(lastSortNumberTodoNew)
     handleSortClick(lastSortNumberTodoNew)
