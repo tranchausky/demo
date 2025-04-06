@@ -136,11 +136,51 @@ function lazyLoad() {
     $("#view-total-new-search").html(totalv);
   }
 
+  var lastSortNumberTodoNew = 0;
+  var sortDirections = {};
+  function handleSortClick(index) {
+    
+    var $td = $('#table-todo-new thead .for-sort td').eq(index);
+    // var $td = $(this); // 'this' refers to the clicked <td>
+    // var index = $td.index();
+    var rows = $('#table-todo-new tbody tr').get();
+
+    var direction = sortDirections[index] || 'asc';
+    sortDirections[index] = direction === 'asc' ? 'desc' : 'asc';
+
+    rows.sort(function (a, b) {
+        var tdA = $(a).children('td').eq(index).text();
+        var tdB = $(b).children('td').eq(index).text();
+
+        if ($.isNumeric(tdA) && $.isNumeric(tdB)) {
+            return direction === 'asc'
+                ? parseFloat(tdA) - parseFloat(tdB)
+                : parseFloat(tdB) - parseFloat(tdA);
+        }
+
+        return direction === 'asc'
+            ? tdA.localeCompare(tdB)
+            : tdB.localeCompare(tdA);
+    });
+
+    $.each(rows, function (i, row) {
+        $('#table-todo-new tbody').append(row);
+    });
+
+    $('#table-todo-new thead .for-sort td').removeClass('asc desc');
+    $td.addClass(direction);
+}
+
 $(document).ready(function () {
 
-    var sortDirections = {};
+    // var sortDirections = {};
     $('#table-todo-new thead .for-sort td').on('click', function() {
         console.log('sort change')
+        var $td = $(this); // 'this' refers to the clicked <td>
+        var index = $td.index();
+        lastSortNumberTodoNew = index;
+        handleSortClick(index)
+        /*
         var index = $(this).index(); // Get the index of the clicked column
         var rows = $('#table-todo-new tbody tr').get(); // Get all the rows in tbody
 
@@ -174,6 +214,7 @@ $(document).ready(function () {
 
         $('#table-todo-new thead .for-sort td').removeClass('asc desc'); // Remove any previous indicators
         $(this).addClass(direction); // Add 'asc' or 'desc' class to the clicked header
+        */
     })
 
     $("#searchName, #select-todo-timer-search"
@@ -588,7 +629,7 @@ $(document).ready(function () {
         // console.log(allTaskNew)
         if(allTaskNew==null)return;
         var obj = allTaskNew[key];
-        // obj.isClick= isClick;
+        obj.isClick= isClick;
         
         updateTodo(obj, key);
 	})
@@ -3024,7 +3065,10 @@ function updateTodo(objUpdate, key) {
 	*/
 	
 	//move to caladar if todo delete
-    triggerOldClick();
+    // triggerOldClick();
+
+    handleSortClick(lastSortNumberTodoNew)
+    handleSortClick(lastSortNumberTodoNew)
 }
 function updateMaxim(objUpdate, key) {
     maximRef = dbRef.ref('maxims/' + user_ID + '/' + key)
