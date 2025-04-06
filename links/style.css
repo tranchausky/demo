@@ -569,6 +569,12 @@ table .theader,table .theader:hover{background: gainsboro;}
     padding: 5px;
     vertical-align: middle;
 }
+.isMobile #select-todo-timer-search{
+    height: 24px;
+}
+.isMobile #view-total-new-search{
+    display: block;
+}
 
 .isMobile .no-mb{
     display: none;
