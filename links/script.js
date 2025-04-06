@@ -170,6 +170,59 @@ function lazyLoad() {
     $('#table-todo-new thead .for-sort td').removeClass('asc desc');
     $td.addClass(direction);
 }
+function filterTable_todonew() {
+    var nameFilter = $('#searchName').val().toLowerCase();
+    if(nameFilter.length==0){
+        $('#clearButton-todonew-search').hide();
+    }else{
+        $('#clearButton-todonew-search').show();
+    }
+    
+
+    // var ageFilter = $('#searchAge').val().toLowerCase();
+    var filter3_vl= $('#select-todo-timer-search').val().toLowerCase();
+    var filter4_vl = $('#select-todo-for-search').val().toLowerCase();
+    var filter5_vl = $('#select-todo-priority-search').val().toLowerCase();
+    var filter6_vl = $('#select-todo-position-search').val().toLowerCase();
+
+    $('#table-todo-new tbody tr').each(function() {
+      var name = $(this).find('td').eq(2).text().toLowerCase(); // Name column
+      var filter3 = $(this).find('td').eq(3).text();
+      var filter4 = $(this).find('td').eq(4).text();
+      var filter5 = $(this).find('td').eq(5).text();
+      var filter6 = $(this).find('td').eq(6).text();
+
+
+      // Check if the row matches the filters
+      var match = true;
+
+      // Match Name filter
+      if (name.indexOf(nameFilter) === -1) {
+        match = false;
+      }
+
+      if (filter3_vl && filter3 !== filter3_vl) {
+        match = false;
+      }
+      if (filter4_vl && filter4 !== filter4_vl) {
+        match = false;
+      }
+      if (filter5_vl && filter5 !== filter5_vl) {
+        match = false;
+      }
+      if (filter6_vl && filter6 !== filter6_vl) {
+        match = false;
+      }
+
+      // Show or hide row based on match
+      if (match) {
+        $(this).show();
+      } else {
+        $(this).hide();
+      }
+    });
+    viewTotalTbNew();
+  }
 
 $(document).ready(function () {
 
@@ -222,61 +275,9 @@ $(document).ready(function () {
          +", #select-todo-priority-search"
           +", #select-todo-position-search"        
     ).on('input change', function() {
-        filterTable();
+        filterTable_todonew();
       });
-      function filterTable() {
-        var nameFilter = $('#searchName').val().toLowerCase();
-        if(nameFilter.length==0){
-            $('#clearButton-todonew-search').hide();
-        }else{
-            $('#clearButton-todonew-search').show();
-        }
-        
-
-        // var ageFilter = $('#searchAge').val().toLowerCase();
-        var filter3_vl= $('#select-todo-timer-search').val().toLowerCase();
-        var filter4_vl = $('#select-todo-for-search').val().toLowerCase();
-        var filter5_vl = $('#select-todo-priority-search').val().toLowerCase();
-        var filter6_vl = $('#select-todo-position-search').val().toLowerCase();
-
-        $('#table-todo-new tbody tr').each(function() {
-          var name = $(this).find('td').eq(2).text().toLowerCase(); // Name column
-          var filter3 = $(this).find('td').eq(3).text();
-          var filter4 = $(this).find('td').eq(4).text();
-          var filter5 = $(this).find('td').eq(5).text();
-          var filter6 = $(this).find('td').eq(6).text();
-
-
-          // Check if the row matches the filters
-          var match = true;
-
-          // Match Name filter
-          if (name.indexOf(nameFilter) === -1) {
-            match = false;
-          }
-
-          if (filter3_vl && filter3 !== filter3_vl) {
-            match = false;
-          }
-          if (filter4_vl && filter4 !== filter4_vl) {
-            match = false;
-          }
-          if (filter5_vl && filter5 !== filter5_vl) {
-            match = false;
-          }
-          if (filter6_vl && filter6 !== filter6_vl) {
-            match = false;
-          }
-
-          // Show or hide row based on match
-          if (match) {
-            $(this).show();
-          } else {
-            $(this).hide();
-          }
-        });
-        viewTotalTbNew();
-      }
+      
 
     $('.list-image').on('scroll', lazyLoad);
 
@@ -542,6 +543,7 @@ $(document).ready(function () {
             $(el).removeClass('lastEdit');
             $(el).find('.edit').addClass('editnow');
         }, 5000);
+        filterTable_todonew();
 
 		
     })
