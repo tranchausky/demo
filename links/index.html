@@ -52,7 +52,7 @@
                     <div class="view-center-mobile viewtime"><span class="minutes">00</span>:<span class="seconds">00</span></div>
                 </div>
                 <div class="collapse navbar-collapse" id="myNavbar">
-                    <ul class="nav navbar-nav">
+                    <ul class="nav navbar-nav d-none">
                         <li class=""><a href="#homepage">Home</a></li>
                         <li class=""><a href="#calendar">Calendar</a></li>
                         <li class=""><a href="#photo">Photo</a></li>
@@ -1589,9 +1589,16 @@
                             <div class="text-right">
                                 <input class="form-control" type="password" id="password_ss" onkeypress="checkIsEnter(event, 'login_session')" >
                                 <br>
-                                <button class="form-control btn-primary" id="login_session">Login Session</button>
                             </div>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <button class="form-control btn-primary" id="login_session">Login Session</button>
                             
+                                </div>
+                                <div class="col-sm-6">
+                                    <button class="form-control btn-primary" onclick="signOut()" id="">Logout</button>
+                                </div>
+                            </div>
 
                             </div>
                         </div>

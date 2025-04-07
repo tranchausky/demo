@@ -1490,6 +1490,7 @@ const showHomepage = () => {
 	// $('a[href="#todo"]').click();
     // document.querySelector(".show-signout").classList.remove("hide");
     $('.show-signout').show()
+    $('#myNavbar .navbar-nav').removeClass('d-none');
 };
 
 const signOut = () => {
