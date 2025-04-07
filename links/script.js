@@ -936,6 +936,7 @@ function showHideSessionLogin() {
     var isremember = localStorage.getItem('isremember');
     if(isremember == 'true'){
         $('#my-ss-login-view').modal('hide');
+        $('#myNavbar .navbar-nav').removeClass('d-none');
         return true;
     }
 
@@ -943,6 +944,7 @@ function showHideSessionLogin() {
     var hash = glb_password_hash;
     if(hash == ''){
         $('#my-ss-login-view').modal('hide');
+        $('#myNavbar .navbar-nav').removeClass('d-none');
         return true;
     }
 
@@ -951,6 +953,7 @@ function showHideSessionLogin() {
         return false;
     }else{
         $('#my-ss-login-view').modal('hide');
+        $('#myNavbar .navbar-nav').removeClass('d-none');
         return true;
     }
 }
@@ -1490,7 +1493,6 @@ const showHomepage = () => {
 	// $('a[href="#todo"]').click();
     // document.querySelector(".show-signout").classList.remove("hide");
     $('.show-signout').show()
-    $('#myNavbar .navbar-nav').removeClass('d-none');
 };
 
 const signOut = () => {
