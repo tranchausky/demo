@@ -370,6 +370,9 @@ $(document).ready(function () {
         if (atrHref == '#note') {
             getListNotes()
         }
+        if (atrHref == '#checklist') {
+            getCheckList();
+        }
     })
 	
 
@@ -1509,7 +1512,7 @@ const signOut = () => {
 
 auth.onAuthStateChanged((firebaseUser) => {
     console.log('firebase-login')
-    // console.log(firebaseUser)
+    console.log(firebaseUser)
     if (firebaseUser) {
         user_ID = firebaseUser.uid
         // $('#email_login').html(firebaseUser.email)
