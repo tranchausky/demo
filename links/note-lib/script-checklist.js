@@ -41,6 +41,7 @@ function getCheckListCategory(){
             list[doc.id]['titleCat'] = data.titleCat;
             list[doc.id]['atTop'] = (typeof data.atTop != 'undefined') ? data.atTop : "";
             list[doc.id]['isHightLight'] = data.isHightLight;
+            list[doc.id]['isDone'] = data.isDone;
             // console.log(data)
 
             // var data = doc.data();
@@ -57,7 +58,12 @@ function getCheckListCategory(){
             var tem = newObjectSort[key];
             var at_index = index;
             var isHightLight = tem.isHightLight == undefined ? "" : tem.isHightLight;
-            var str = '<li data-id="' + key + '" onClick="event1_checklist(this)" at-index="' + at_index + '" at-order="' + tem.order + '"  isHL="' + isHightLight + '">' + tem.titleCat + '</li>';
+            var isDone = tem.isDone == undefined ? false : tem.isDone;
+            let isDoneStr = '';
+            if(isDone == true){
+                isDoneStr = 'checked';
+            }
+            var str = '<li data-id="' + key + '" at-index="' + at_index + '" at-order="' + tem.order + '"  isHL="' + isHightLight + '"><span class="flag" onClick="event1_checklist(this)">⚐</span> <input onclick="return false;" class="checkbox-cl-cat" type="checkbox" '+isDoneStr+'><span class="content" onClick="event1_detail(this)">' + tem.titleCat + '</li>';
             //$('#split-0 .list').append(str);
             strvl+= str;
             index++;
@@ -71,49 +77,132 @@ function getCheckListCategory(){
     });
 }
 var idCheckListCatAt = '';
-function event1_checklist(at){
+function event1_checklist(atin){
+    let at = $(atin).closest('li');
     console.log(at)
 
-    // $('.list-history li').removeClass('active');
-
-    var idCategory = at.getAttribute('data-id');
+    var idCategory = at.attr('data-id');
     idCheckListCatAt = idCategory;
-    // idCategory_selected = id;
-	//console.log(id)
-	// buildLinkNote(id,"")
-    getCheckListPost(idCategory);
 
-    // hideShowLoadingEditor(1);
+    var isHL = at.attr('isHL');
 
-    // $('#split-0 .list li').removeClass('active');
-    $(at).addClass('active');
+    if(isHL == 'false' || isHL == ''){
+        isHL = 'true'
+    }else{
+        isHL = 'false';
+    }
+
+    let dataIn  = {
+        isHightLight:isHL,
+        // titlePost:'111111111111'
+    };
+    updateCheckListCategory(dataIn,idCategory)
+    // getCheckListPost(idCategory);
 }
-function event2_checklist(at){
+function event1_detail(atin){
+    
+    $(atin).closest('ul').find('.content').removeClass('active');
+    $(atin).addClass('active')
+
+    let at = $(atin).closest('li');
+    // console.log(at)
+
+    var idCategory = at.attr('data-id');
+
+    idCheckListCatAt = idCategory;
+
+
+    $('#in-cat-checkbox').val($(atin).html());
+    $('#in-cat-checkbox').attr('data-id',idCategory);
+
+    // idCheckListCatAt = idCategory;
+
+    // var isHL = at.attr('isHL');
+
+    // if(isHL == 'false'){
+    //     isHL = 'true'
+    // }else{
+    //     isHL = 'false';
+    // }
+
+    // let dataIn  = {
+    //     isHightLight:isHL,
+    //     // titlePost:'111111111111'
+    // };
+    // updateCheckListCategory(dataIn,idCategory)
+    getCheckListPost(idCategory);
+    $('#in-post-checkbox').val('').trigger('change');
+}
+
+function event2_checklist(atin){
+    let at = $(atin).closest('li')
     console.log(at)
+    var idPost = at.attr('data-id');
+    var isHL = at.attr('isHL');
 
-    // $('.list-history li').removeClass('active');
-
-    var idPost = at.getAttribute('data-id');
+    if(isHL == 'false'){
+        isHL = 'true'
+    }else{
+        isHL = 'false';
+    }
 
     let idCategory = idCheckListCatAt;
     let dataIn  = {
-        isDone:true,
+        isHightLight:isHL,
         // titlePost:'111111111111'
     };
     updateOneCheckList(dataIn, idPost, idCategory)
-
-
-    // idCategory_selected = id;
-	//console.log(id)
-	// buildLinkNote(id,"")
     getCheckListPost(idCategory);
 
-    // hideShowLoadingEditor(1);
+    var text= $(at).find('.content').html();
+    $('#in-post-checkbox').val(text).trigger('change');
+    $('#in-post-checkbox').attr('data-id',idPost);
 
-    // $('#split-0 .list li').removeClass('active');
-    // $(at).addClass('active');
+}
+function deletePostCheck(atin){
+    let at = $(atin).closest('li')
+    console.log(at)
+    var idPost = at.attr('data-id');
+    let text = "Do You Want Delete It!\nEither OK or Cancel.";
+    if (confirm(text) == true) {
+        //text = "You pressed OK!";
+        let idCategory = idCheckListCatAt;
+        toDeletePostCheckList(idPost,idCategory);
+    } else {
+       // text = "You canceled!";
+    }
+
+}
+function event2_checklist_view(atin){
+
+    $(atin).closest('ul').find('.content').removeClass('active');
+    $(atin).addClass('active')
+
+    let at = $(atin).closest('li')
+    console.log(at)
+    var idPost = at.attr('data-id');
+    var text= $(at).find('.content').html();
+    $('#in-post-checkbox').val(text).trigger('change');
+    $('#in-post-checkbox').attr('data-id',idPost);
 }
 
+function toDeletePostCheckList(idKey,idCategory){
+
+    // db.collection(glb_link_checklist_current + "/category/" + idCategory + '/post').add(dataSave)
+
+    let atDelete = glb_link_checklist_current + "/category/" + idCategory + '/post/' + idKey;
+    console.log(atDelete);
+    var atRef = dbRef.ref(atDelete)
+    atRef.remove()
+        .then(() => {
+            console.log("Data removed successfully.");
+            getCheckListPost(idCategory) 
+        })
+    .catch((error) => {
+        console.error("Remove failed: ", error.message);
+        getCheckListPost(idCategory) 
+    });
+}
 function getCheckListPost(idCategory) {
     // console.log('note-list-post')
 
@@ -155,7 +244,7 @@ function getCheckListPost(idCategory) {
             if(isDone == true){
                 isDoneStr = 'checked';
             }
-            var str = '<li data-id="' + key + '" onClick="event2_checklist(this)" at-index="' + at_index + '" at-order="' + orderV + '"  isHL="' + isHightLight + '"><input type="checkbox" name="" id="" '+isDoneStr+'/><span>' + tem.titlePost + '</span><button>delete</button></li>';
+            var str = '<li data-id="' + key + '" at-index="' + at_index + '" at-order="' + orderV + '"  isHL="' + isHightLight + '"><span class="flag" onclick="event2_checklist(this)">⚐</span><input class="checkbox-checklist" type="checkbox" name="" id="" '+isDoneStr+'/><span class="content" onClick="event2_checklist_view(this)">' + tem.titlePost + '</span><button onClick="deletePostCheck(this)" class="dlt-checklist-post">delete</button></li>';
             //<li> <input type="checkbox" name="" id=""><span>Title</span><button>delete</button> </li>
             //$('#split-0 .list').append(str);
             strvl+= str;
@@ -170,7 +259,7 @@ function getCheckListPost(idCategory) {
 
 function testAddCatChecklist(){
     let dataIn={
-        'title':'title new 2',
+        'titleCat':'title new 2',
         'order':2,
     }
     addCheckListCategory(dataIn)
@@ -189,7 +278,7 @@ function testAddaddOneCheckList(){
 
     let dataIn={
         'catId' : 'YFkDShrscCAxD2hPktfV',
-        'title':'content new 2',
+        'titlePost':'content new 2',
         'order':2,
     }
     
@@ -199,7 +288,7 @@ function testAddaddOneCheckList(){
 function addCheckListCategory(dataIn) {
     // var idUserCategory = user_ID;
     db.collection(glb_link_checklist_current + "/category").add({
-            titleCat: dataIn.title,
+            titleCat: dataIn.titleCat,
             order: dataIn.order,
             aliasCat: "",
             contentCat: "",
@@ -215,13 +304,14 @@ function addCheckListCategory(dataIn) {
             getCheckListCategory();
         });
 }
-function updateCheckListCategory(dataIn) {
+function updateCheckListCategory(dataIn,idCategory) {
     // var idUserCategory = user_ID;
     var batch = db.batch();
-    var idCat = idCategory_selected;
-    if (typeof dataIn.id != 'undefined') {
-        idCat = dataIn.id;
-    }
+    var idCat = idCategory;
+    console.log(dataIn,idCategory);
+    // if (typeof dataIn.id != 'undefined') {
+    //     idCat = dataIn.id;
+    // }
     var sfRef = db.collection(glb_link_checklist_current + "/category").doc(idCat);
     dataSet = dataIn;
     batch.update(sfRef, dataSet);
@@ -247,7 +337,7 @@ function addOneCheckList(data) {
     var idCategory = data.catId;
 
     var dataSave = {
-        titlePost: data.title,
+        titlePost: data.titlePost,
         // aliasPost: data.aliasPost!=undefined?data.aliasPost:"",
         // contentPost: data.contentPost!=undefined?data.contentPost:"",
         isHightLight: data.isHightLight!=undefined?data.isHightLight:"",
@@ -299,6 +389,9 @@ function updateOneCheckList(dataIn, idPost, idCategory) {
         dataUpdate.titlePost = dataIn.titlePost;
     }
     if (typeof dataIn.isHightLight != 'undefined') {
+        if(dataIn.isHightLight == ''){
+            dataIn.isHightLight = false;
+        }
         dataUpdate.isHightLight = dataIn.isHightLight;
     }
     console.log(dataIn)
@@ -319,3 +412,116 @@ function updateOneCheckList(dataIn, idPost, idCategory) {
         getCheckListPost(idCategory)
     });
 }
+
+$(document).ready(function(){
+    //cb-cl
+    $(document.body).on('click', '.checkbox-cl-cat[type="checkbox"]', function (event) {
+        // var isCheck = $(this).is(":checked");
+        // let at = $(this).closest('li');
+        // console.log(at)    
+        // var idCategory = at.attr('data-id');
+    
+        // // let idCategory = idCheckListCatAt;
+        // let dataIn  = {
+        //     isDone:isCheck,
+        // };
+        // updateCheckListCategory(dataIn, idCategory);
+        // getCheckListPost(idCategory);
+        // getCheckListPost(idCategory);
+    });
+    $(document.body).on('click', '.checkbox-checklist[type="checkbox"]', function (event) {
+        var isCheck = $(this).is(":checked");
+        let at = $(this).closest('li');
+        console.log(at)    
+        var idPost = at.attr('data-id');
+    
+        let idCategory = idCheckListCatAt;
+        let dataIn  = {
+            isDone:isCheck,
+        };
+        updateOneCheckList(dataIn, idPost, idCategory)
+        getCheckListPost(idCategory);
+        //
+        let isCatCheckDone = false;
+        if(isCheck == false){
+            //
+        }else{
+            //true
+            //leng check and size
+            let ttchecked = $('#list-detail-checklist .checkbox-checklist:checked').length;
+            let size = $('#list-detail-checklist li').length;
+            if(ttchecked == size){
+                isCatCheckDone = true;
+            }
+        }
+        // let datacatDone = {
+        //     isDone: isCatCheckDone
+        // }
+        // let idCategory = idCheckListCatAt;
+        let datacatDone  = {
+            isDone:isCatCheckDone,
+        };
+        updateCheckListCategory(datacatDone, idCategory);
+
+    })
+    $('#ckl-cat-update').click(function(){
+        let text = $('#in-cat-checkbox').val()
+        let idCategory = $('#in-cat-checkbox').attr('data-id')
+        let dataIn  = {
+            titleCat:text,
+        };
+        updateCheckListCategory(dataIn, idCategory);
+    });
+    $('#ckl-cat-add').click(function(){
+        let text = $('#in-cat-checkbox').val()
+        // let idCategory = $('#in-cat-checkbox').attr('data-id')
+        let dataIn  = {
+            titleCat:text,
+            order:1,
+        };
+        // updateCheckListCategory(dataIn, idCategory);
+        addCheckListCategory(dataIn);
+    });
+
+    $('#ckl-post-add').click(function(){
+        let text = $('#in-post-checkbox').val();
+        // let idCategory = $('#in-cat-checkbox').attr('data-id')
+        
+        let dataIn={
+            'catId' : idCheckListCatAt,
+            'titlePost':text,
+            'order':2,
+            isHightLight:false
+        }
+        
+        addOneCheckList(dataIn)
+
+    });
+    $('#ckl-post-update').click(function(){
+        var idPost = $('#in-post-checkbox').attr('data-id');
+        var text = $('#in-post-checkbox').val();
+    
+        let idCategory = idCheckListCatAt;
+        let dataIn  = {
+            'titlePost':text,
+        };
+        updateOneCheckList(dataIn, idPost, idCategory)
+    });
+    $(document.body).on('change', '#in-post-checkbox', function (event) {
+        let vl = $(this).val();
+        console.log(vl)
+        if(vl == ''){
+            $('#ckl-post-update').hide()
+            // $('#ckl-post-add').hide();
+        }else{
+            let atid = $(this).attr('data-id');
+            if(atid == ''){
+                $('#ckl-post-update').hide();
+                // $('#ckl-post-add').show()
+            }else{
+                $('#ckl-post-update').show()
+                // $('#ckl-post-add').show()
+            }
+        }
+    })
+})
