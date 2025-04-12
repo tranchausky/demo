@@ -71,8 +71,14 @@ function getCheckListCategory(){
 
         $('#list-checklist-cat').html(strvl)
         console.log(newObjectSort)
+        let atIdCat =$('#in-cat-checkbox').attr('data-id')
+
+        if(atIdCat !=''){
+            $('#list-checklist-cat li[data-id="'+atIdCat+'"]').find('.content').trigger('click');
+            return;
+        }
         if(index>0){
-            $('#list-checklist-cat li').eq(0).trigger('click');
+            $('#list-checklist-cat li').eq(0).find('.content').trigger('click');
         }
     });
 }
@@ -251,7 +257,13 @@ function getCheckListPost(idCategory) {
             index++;
         }
 
-        $('#list-detail-checklist').html(strvl)
+        $('#list-detail-checklist').html(strvl);
+
+        let atId =$('#in-post-checkbox').attr('data-id')
+        if(atId !=''){
+            $('#list-detail-checklist li[data-id="'+atId+'"]').find('.content').trigger('click');
+            return;
+        }
 
     });
 }
@@ -409,7 +421,8 @@ function updateOneCheckList(dataIn, idPost, idCategory) {
         // hideShowLoadingEditor(0);
         // hideShowLoadingEditor(4);
         // reload_list_post()
-        getCheckListPost(idCategory)
+        getCheckListPost(idCategory);
+        
     });
 }
 
@@ -465,7 +478,10 @@ $(document).ready(function(){
 
     })
     $('#ckl-cat-update').click(function(){
-        let text = $('#in-cat-checkbox').val()
+        let text = $('#in-cat-checkbox').val().trim();
+        if(text.length==0){
+            return;
+        }
         let idCategory = $('#in-cat-checkbox').attr('data-id')
         let dataIn  = {
             titleCat:text,
@@ -473,7 +489,10 @@ $(document).ready(function(){
         updateCheckListCategory(dataIn, idCategory);
     });
     $('#ckl-cat-add').click(function(){
-        let text = $('#in-cat-checkbox').val()
+        let text = $('#in-cat-checkbox').val().trim();
+        if(text.length==0){
+            return;
+        }
         // let idCategory = $('#in-cat-checkbox').attr('data-id')
         let dataIn  = {
             titleCat:text,
@@ -484,7 +503,10 @@ $(document).ready(function(){
     });
 
     $('#ckl-post-add').click(function(){
-        let text = $('#in-post-checkbox').val();
+        let text = $('#in-post-checkbox').val().trim();
+        if(text.length==0){
+            return;
+        }
         // let idCategory = $('#in-cat-checkbox').attr('data-id')
         
         let dataIn={
@@ -495,6 +517,8 @@ $(document).ready(function(){
         }
         
         addOneCheckList(dataIn)
+        $('#in-post-checkbox').val('').attr('data-id','');
+        $('#ckl-post-update').hide();
 
     });
     $('#ckl-post-update').click(function(){
@@ -505,7 +529,9 @@ $(document).ready(function(){
         let dataIn  = {
             'titlePost':text,
         };
-        updateOneCheckList(dataIn, idPost, idCategory)
+        updateOneCheckList(dataIn, idPost, idCategory);
+        $('#in-post-checkbox').val('');
+
     });
     $(document.body).on('change', '#in-post-checkbox', function (event) {
         let vl = $(this).val();

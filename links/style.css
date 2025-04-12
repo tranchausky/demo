@@ -234,6 +234,12 @@ sup{text-transform: capitalize;}
 .at-task .view-num[db-click="true"]{
     background-color: yellow!important;
 }
+.at-task[db-click="true"]{
+    /* text-decoration: underline; */
+    /* font-style: italic; */
+    background-color: burlywood!important;
+}
+.dlt-checklist-post{display: none;}
 .todo .list-todo-new label[db-click="1"],
 .todo .list-todo-new label[db-click="true"]{
 	background: green; color: white;
