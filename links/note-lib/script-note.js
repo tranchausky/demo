@@ -88,7 +88,14 @@ const editorText = KothingEditor.create("editor", {
 
 function getListNotes() {
     //getNoteListCategory()
-    change_note_cat(false);
+    console.log('get list note')
+    var infoLink = getLinkHasUrl();
+    // console.log(infoLink);
+    let first = false;
+    if(infoLink[3] == 'true'){
+        first = true;
+    }
+    change_note_cat(first);
 }
 
 function hideShowLoadingEditor(is_show) {
@@ -202,7 +209,7 @@ function getNoteListCategory() {
 				if(infoLink[2]){
 					idLastClickDetail= infoLink[2]
 				}
-				isFirstSetCatNote = false;
+				isFirstSetCatNote = true;
 			}
             
             

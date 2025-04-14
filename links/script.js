@@ -1002,7 +1002,7 @@ function buildLinkNote(key1,key2){
 	if(key2){
 		atHas += '/'+key2;
 	}
-	var linkResult = domainAndAt+atHas;
+	var linkResult = domainAndAt+atHas+'/'+glb_is_note_category;
 	//console.log(linkResult);
 	history.pushState(null, null, linkResult);
 }
