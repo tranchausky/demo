@@ -1,3 +1,20 @@
+
+window.addEventListener('beforeunload', function (e) {
+//     // Optional: Show a confirmation dialog (modern browsers may ignore this)
+    // e.preventDefault();
+    // idleTime = 111111;
+    console.log('Need login after back first')
+    sessionStorage.setItem("sessionLogin", 'false');
+    // console.log("User is leaving the page or closing the browser");
+});
+
+// window.addEventListener('unload', function () {
+    // idleTime = 111111;
+    // Your logic here, like sending data to the server
+    //navigator.sendBeacon('/log-activity', JSON.stringify({ message: 'User left the page' }));
+// });
+
+
 //https://www.sceditor.com/documentation/options/
 var editor_note_show = document.getElementById('editor_note_show');
 var instance_sceditor = sceditor.create(editor_note_show, {
@@ -962,11 +979,11 @@ function showHideSessionLogin() {
 }
 function showNeedEnterAfter5Minus(){
 	var hash = glb_password_hash;
-    if(hash == ''){
+    // if(hash == ''){
         //logout
-		signOut();
-        return true;
-    }
+		// signOut();
+        // return true;
+    // }
 	sessionStorage.setItem("sessionLogin", 'false');
 	$('#my-ss-login-view').modal('show');
 	
