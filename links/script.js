@@ -3185,7 +3185,7 @@ function buildTBTodoNew(todos){
             temp = 'db-click="'+vlat.isClick+'" ';
         }
 
-        atstr+="<tr class='at-task view-task-list' data-key='"+v+"'>";
+        atstr+="<tr class='at-task view-task-list' data-key='"+v+"' "+temp+">";
 
         atstr+="<td ><span class='view-num' "+temp+" >"+index+"<span></td>";
         atstr+="<td><input type='checkbox'></td>";

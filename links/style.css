@@ -234,6 +234,12 @@ sup{text-transform: capitalize;}
 .at-task .view-num[db-click="true"]{
     background-color: yellow!important;
 }
+.at-task[db-click="true"]{
+    /* text-decoration: underline; */
+    /* font-style: italic; */
+    background-color: burlywood!important;
+}
+.dlt-checklist-post{display: none;}
 .todo .list-todo-new label[db-click="1"],
 .todo .list-todo-new label[db-click="true"]{
 	background: green; color: white;
@@ -475,6 +481,8 @@ ul.drag-list{
 .pt-1{padding-top: 4px;}
 .pb-1{padding-bottom: 4px;}
 .pt-2{padding-top: 8px;}
+.pt-3{padding-top: 12px;}
+.pt-4{padding-top: 16px;}
 .pb-2{padding-bottom: 8px;}
 .pl-2{padding-left: 8px;}
 .pr-2{padding-right: 8px;}
@@ -574,6 +582,33 @@ table .theader,table .theader:hover{background: gainsboro;}
 }
 .isMobile #view-total-new-search{
     display: block;
+}
+
+#checklist #list-checklist-cat li{
+    list-style: ethiopic-halehame-ti-et;
+}
+#checklist li{
+    padding: 5px 7px;
+}
+#checklist [ishl="true"]{
+    background: orange;
+}
+#checklist .content:hover,
+#checklist .flag:hover{
+    cursor: pointer;
+}
+#checklist input[type="checkbox"]{
+    margin-left: 3px;
+    margin-right: 7px;
+}
+#checklist .active{
+    /* background: orange; */
+}
+#ckl-post-update{
+    display: none;
+}
+.content.active{
+    font-weight: bold;
 }
 
 .isMobile .no-mb{
