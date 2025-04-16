@@ -536,6 +536,7 @@ $(document).ready(function () {
         var key = $('#save-task').attr('idedit');
         var todo = $('#add-todo').val();
 		var todo_timer = $('#select-todo-timer').val();
+		var todo_morelink = $('#add-todo-morelink').val();
 		var todo_position = $('#select-todo-position').val();
 		var todo_priority = $('#select-todo-priority').val();
 		var todo_day = $('#select-todo-day').val();
@@ -546,6 +547,7 @@ $(document).ready(function () {
 			priority:todo_priority,
 			task:todo,
 			timer:todo_timer,
+			morelink:todo_morelink,
 			position:todo_position,
 		}
         updateTodo(obj, key);
@@ -560,6 +562,7 @@ $(document).ready(function () {
 		
 		$('#select-todo-position').val('');
 		$('#select-todo-timer').val('');
+		$('#add-todo-morelink').val('');
 
         const el = document.querySelector('[data-key="'+key+'"]');
         $(el).addClass('lastEdit');
@@ -1045,6 +1048,11 @@ function addEventTodo(text, key) {
 		$('#select-todo-timer').val(atTodo.timer);	
 	}else{
 		$('#select-todo-timer').val("");
+	}
+	if(atTodo && typeof atTodo.morelink != "undefined"){
+		$('#add-todo-morelink').val(atTodo.morelink);	
+	}else{
+		$('#add-todo-morelink').val("");
 	}
 	
 	if(atTodo && typeof atTodo.position != "undefined"){
@@ -3019,6 +3027,8 @@ function pushTodo() {
     
 	var todo_position = $('#select-todo-position').val();
     var todo_timer = $('#select-todo-timer').val();
+
+    var todo_morelink = $('#add-todo-morelink').val();
 	
     if (todo == '') {
         return
@@ -3035,6 +3045,7 @@ function pushTodo() {
         time: new Date().getTime(),
         userId: user_ID,
         timer: todo_timer,
+        morelink: todo_morelink,
         position: todo_position,
     })
 	
@@ -3045,6 +3056,7 @@ function pushTodo() {
 	
 	$('#select-todo-position').val('');
 	$('#select-todo-timer').val('');
+	$('#add-todo-morelink').val('');
 }
 function pushMaxim() {
     
@@ -3201,12 +3213,25 @@ function buildTBTodoNew(todos){
         if(vlat.isClick !== undefined){
             temp = 'db-click="'+vlat.isClick+'" ';
         }
+        var temp_morelink = '';
+        if (vlat.morelink !== undefined && vlat.morelink.trim() !== '') {
+            var links = vlat.morelink.trim().split('\n');
+            temp_morelink +='<br/><span>';
+            temp_morelink += links.map((link, index) => {
+                link = link.trim();
+                if (link !== '') {
+                    return '<a href="' + link + '" target="_blank">' + (index + 1) + ' </a>';
+                }
+                return '';
+            })
+            temp_morelink +='</span>';
+        }
 
         atstr+="<tr class='at-task view-task-list' data-key='"+v+"' "+temp+">";
 
         atstr+="<td ><span class='view-num' "+temp+" >"+index+"<span></td>";
         atstr+="<td><input type='checkbox'></td>";
-        atstr+="<td class='content'>"+wrapFirstWord(vlat["task"])+"</td>";
+        atstr+="<td><span class='content'>"+wrapFirstWord(vlat["task"])+"</span>"+temp_morelink+"</td>";
         atstr+="<td>"+vlat["timer"]+"</td>";
 
         if(!isMobile()){
