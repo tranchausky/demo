@@ -334,6 +334,9 @@ $(document).ready(function () {
 		if (atrHref == '#homepage') {
             loadData();
         }
+		if (atrHref == '#project') {
+            getProjects();
+        }
         if (atrHref == '#calendar') {
             getAllCalendar()
         }
@@ -1602,6 +1605,7 @@ const forgotPassword = (email) => {
 //create firebase database reference
 var dbRef = firebase.database();
 var contactsRef = null;
+var projectsRef = null;
 //var calendarsRef = dbRef.ref('calendars/useriD');
 var calendarsRef = null;
 var fivetaskRef = null;
@@ -1724,6 +1728,68 @@ function loadData() {
         // console.log(data)
         // showContent(data)
         */
+}
+function getProjects() {
+    var previousLastKey = ''
+    console.log('Load projects')
+    projectsRef = dbRef.ref('projects/' + user_ID)
+    var maxSize = 20;
+    projectsRef.orderByChild('time').on("value", function (snapshot) {
+
+        allProjects = snapshot.val();
+
+        // console.log(allProjects)
+
+        var str = "<div >";
+        let atindex = 1;
+        for (var key in allProjects) {
+            let atvl = allProjects[key];
+            // str += dataProjectView(allProjects[key], key);
+            str +='<div class="row">';
+            str +='<span class="col-sm-1">'+atindex+'</span>';
+            str +='<div class="col-sm-9">';
+
+            str +='<p class="p-name">'+atvl.name+'</p>';
+            str +='<p class="p-desc">'+atvl.desc+'</p>';
+            str +='</div>';
+            str +='<span class="col-sm-1">'+getValue(atvl, 'status')+'</span>';
+            
+            str +='<span class="col-sm-1"><button onclick="editproject(&#39;'+key+'&#39;)">Edit</button></span>';
+            
+            str +='</div>';
+
+            atindex++;
+        }
+        str +='</div>';
+        $('#projects_list').html(str);
+
+    }, function (errorObject) {
+        console.log("The read failed: " + errorObject.code);
+    });
+
+}
+function editproject(key){
+    console.log('edit at proj')
+    var atNow = allProjects[key];
+    if(typeof atNow == "undefined"){
+        console.log('at is Undefined')
+        return;
+    }
+   
+    $('#project_name').val(atNow.name);
+    $('#project_description').val(atNow.desc);
+    $('#project_select_status').val(atNow.status);
+    
+    $('.projectEdit').attr('data-key',key);
+
+    $('.projectAdd').hide();
+    $('.projectEdit').show();
+}
+function getValue(atObject, atkey){
+    if(typeof atObject[atkey] == 'undefined'){
+        return '';
+    }
+    return atObject[atkey];
 }
 
 function getListContactFilter(id_show){
@@ -1855,6 +1921,30 @@ $('.editValue').on("click", function (event) {
     $('.editValue').hide();
 
 });
+
+//save projects
+$('.projectEdit').on("click", function (event) {
+    event.preventDefault();
+    
+    var key = $('.projectEdit').attr('data-key');
+    projectsRef = dbRef.ref('projects/' + user_ID + '/' + key)
+
+    projectsRef.update({
+        name: $('#project_name').val().replace(/<[^>]*>/ig, ""),
+        desc: $('#project_description').val().replace(/<[^>]*>/ig, ""),
+        status: $('#project_select_status').val(),
+        time: new Date().getTime(),
+    }).then(() => {
+        $('#project_name').val('');
+        $('#project_description').val('');
+        $('#project_select_status').val('');
+    });
+
+    $('.projectAdd').show();
+    $('.projectEdit').hide();
+
+});
+
 $('.addValue').on("click", function (event) {
     event.preventDefault();
     if ($('#name').val() != '' && $('#email').val() != '') {
@@ -1879,6 +1969,30 @@ $('.addValue').on("click", function (event) {
         //contactForm.reset();
         
 
+    } else {
+        alert('Please fill atlease name or email!');
+    }
+});
+
+$('.projectAdd').on("click", function (event) {
+    event.preventDefault();
+    if ($('#project_name').val() != '') {
+        projectsRef = dbRef.ref('projects/' + user_ID)
+        projectsRef.push({
+            name: $('#project_name').val().replace(/<[^>]*>/ig, ""),
+            desc: $('#project_description').val().replace(/<[^>]*>/ig, ""),
+            status: $('#project_select_status').val(),
+            time: new Date().getTime(),
+            userId: user_ID
+        }).then(() => {
+            $('#project_name').val('');
+            $('#project_description').val('');
+            $('#project_select_status').val('');
+            // loadData();
+            console.log('ad dome')
+        });
+        //contactForm.reset();
+        getProjects();
     } else {
         alert('Please fill atlease name or email!');
     }

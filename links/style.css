@@ -611,6 +611,16 @@ table .theader,table .theader:hover{background: gainsboro;}
     font-weight: bold;
 }
 
+.p-name{
+    margin: 0;
+}
+
+.projects-list td, .projects-list .row {
+    border: 1px solid #ddd;
+    padding: 8px;
+    margin: 0;
+  }
+
 .isMobile .no-mb{
     display: none;
 }

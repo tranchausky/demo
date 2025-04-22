@@ -59,6 +59,7 @@
                         <li class=""><a href="#video">Video</a></li>
 						<li class=""><a href="#maxim">Maxim</a></li>
 						<li class="active"><a href="#todo">Todo</a></li>
+						<li class="active"><a href="#project">Project</a></li>
 						<li class=""><a href="#checklist">Check</a></li>
 						<li class=""><a href="#goal">Goal</a></li>
 						<li class="dropdown">
@@ -200,6 +201,64 @@
 							<ul id="contacts" class="contact list-group">
 								<!-- Contact Object li.list-group-item.contact will be added here by js -->
 							</ul>
+
+							
+                        </div>
+                    </div>
+                </div>
+                <div id="project" class="hide v-m-content">
+
+
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <h3>Projects Name</h3>
+                        </div>
+                        <div class="col-sm-12 bg-info pt-2 pb-2">
+                            <form method="post" name="projectForm">
+                                <div class="col-sm-1">
+                                    <label for="name">Name</label>
+                                </div>
+                                <div class="col-sm-9">
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" id="project_name" required placeholder="Enter name">
+                                    </div>
+                                </div>
+                                <div class="col-sm-2">
+                                    <div class="form-group">
+                                        <select name="city" id="project_select_status" class="form-control project-select-status">
+                                            <optgroup label="Working">
+                                                <option value="">Select status</option>
+                                                <option value="10">10</option>
+                                                <option value="20">20</option>
+                                                <option value="30">30</option>
+                                                <option value="40">40</option>
+                                                <option value="50">50</option>
+                                                <option value="60">60</option>
+                                                <option value="70">70</option>
+                                                <option value="80">80</option>
+                                                <option value="90">90</option>
+                                                <option value="100">100</option>
+                                            </optgroup>
+                                        </select>
+                                    </div>
+                                </div>
+                                
+                                <div class="col-sm-1">Description</div>
+                                <div class="col-sm-9">
+                                    <div class="form-group">
+                                        <textarea rows="1" class="form-control" id="project_description" required placeholder="Enter Link"></textarea>
+                                    </div>
+                                </div>
+                                <div class="col-sm-2">
+                                    <button type="submit" class="form-control btn btn-primary projectAdd">Add</button>
+                                    <button type="submit" class="form-control btn btn-primary projectEdit none" data-key="">Edit</button>
+                                </div>
+                            </form>
+
+                        </div>
+                        <div class="col-sm-12 ">
+							<div id="projects_list" class="contact list-group projects-list">
+							</div>
 
 							
                         </div>
@@ -509,7 +568,7 @@
                                         <label for="">List link</label>
                                         <div class="row group-list">
                                             <div class="col-sm-12">
-                                                <textarea name="" id="add-todo-morelink" class="form-control"></textarea>
+                                                <textarea rows="1" name="" id="add-todo-morelink" class="form-control"></textarea>
                                             </div>
                                         </div>
                                     </div>
