@@ -1,0 +1,63 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image to base64</title>
+    
+<body>
+    <h3>Image to base64</h3>
+   
+
+   <input type="file" id="fileInput" accept="image/*" />
+<br><br>
+
+<!-- Thumbnail preview -->
+<img id="thumbPreview" style="max-width: 200px; display: none; border: 1px solid #ccc;" />
+<br>
+<!-- Size info -->
+<div id="info" style="margin-top: 10px;"></div>
+
+<br>
+<!-- Base64 output -->
+<textarea id="output" rows="10" cols="60" placeholder="Base64 will appear here..."></textarea>
+
+<script>
+document.getElementById('fileInput').addEventListener('change', function () {
+    const file = this.files[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onload = function () {
+        const base64String = reader.result;
+
+        // Show base64 in textarea
+        document.getElementById('output').value = base64String;
+
+        // Create image to get dimensions
+        const img = new Image();
+        img.onload = function () {
+            // Display thumbnail
+            const thumb = document.getElementById('thumbPreview');
+            thumb.src = base64String;
+            thumb.style.display = 'block';
+
+            // Calculate base64 size
+            const base64SizeKB = Math.round((base64String.length * 3 / 4) / 1024);
+
+            // Display image size and base64 size
+            document.getElementById('info').innerText = 
+                `Image Size: ${img.width} x ${img.height}px\nBase64 Size: ${base64SizeKB} KB`;
+        };
+        img.src = base64String;
+    };
+
+    reader.readAsDataURL(file);
+});
+</script>
+</body>
+</html><style>body{
+    max-width: 600px;
+    margin: auto;
+}</style>
